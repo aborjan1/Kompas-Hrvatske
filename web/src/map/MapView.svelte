@@ -17,7 +17,8 @@
       const geojson = await (await fetch(COUNTY_BOUNDARIES_URL)).json();
       const counties = createCountyLayer(map, geojson);
 
-      // TODO: take the selected indicator from shared app state once it exists.
+      // TODO(Rafael): waiting on shared app state. Take the selected indicator
+      // (tema, mjera) from the store and call setValues() whenever it changes.
       const { title, unit, values } = mockIndicator;
       legend.update({ title, unit, ...counties.setValues(values) });
     });
