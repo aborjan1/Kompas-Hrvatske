@@ -3,9 +3,10 @@
 // Values arrive separately as { [sifra]: number } so the map doesn't care which
 // indicator is selected or where it came from; that's decided by app state.
 
-const SOURCE = 'zupanije';
-const FILL_LAYER = 'zupanije-fill';
+export const SOURCE = 'zupanije';
+export const FILL_LAYER = 'zupanije-fill';
 const LINE_LAYER = 'zupanije-line';
+const HOVER_LAYER = 'zupanije-hover';
 
 // Sequential blue, light → dark, one hue so order reads without relying on hue.
 export const CLASS_COLORS = ['#cde2fb', '#86b6ef', '#3987e5', '#1c5cab', '#0d366b'];
@@ -40,6 +41,20 @@ export function createCountyLayer(map, geojson) {
     },
     beforeId,
   );
+  // Separate layer so the hovered outline is drawn above every neighbour's white border.
+  map.addLayer(
+    {
+      id: HOVER_LAYER,
+      type: 'line',
+      source: SOURCE,
+      paint: {
+        'line-color': '#1f1f1d',
+        'line-width': 2.5,
+        'line-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 1, 0],
+      },
+    },
+    beforeId,
+  );
 
   return {
     /**
@@ -48,8 +63,9 @@ export function createCountyLayer(map, geojson) {
      * @returns {{ classes: { color: string, min: number, max: number }[], hasMissing: boolean }}
      */
     setValues(values) {
-      map.removeFeatureState({ source: SOURCE });
       for (const code of codes) {
+        // Clear only `value`; `hover` state belongs to the hover handler.
+        map.removeFeatureState({ source: SOURCE, id: code }, 'value');
         const value = values[code];
         if (Number.isFinite(value)) map.setFeatureState({ source: SOURCE, id: code }, { value });
       }
