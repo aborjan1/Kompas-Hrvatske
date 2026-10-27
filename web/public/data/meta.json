@@ -1,0 +1,410 @@
+{
+  "verzija_formata": 1,
+  "generirano": "2026-10-27T20:31:22+00:00",
+  "probni_podaci": false,
+  "probne_granice": true,
+  "napomene": [
+    "Granice županija su probne (Natural Earth) dok ne obradimo DGU granice.",
+    "Šifre gradova i općina su privremene (vidi data/areas.csv)."
+  ],
+  "teme": {
+    "ljudi": "Ljudi",
+    "novac": "Novac",
+    "porezi": "Porezi",
+    "imovina": "Imovina"
+  },
+  "pokazatelji": {
+    "stanovnistvo": {
+      "naziv": "Stanovništvo",
+      "tema": "ljudi",
+      "jedinica": "osoba",
+      "decimale": 0,
+      "po_stanovniku": null,
+      "razine": [
+        "drzava",
+        "zupanija",
+        "jls"
+      ],
+      "izvor": "dzs-popis2021",
+      "godina": "2021"
+    },
+    "gustoca_naseljenosti": {
+      "naziv": "Gustoća naseljenosti",
+      "tema": "ljudi",
+      "jedinica": "st./km²",
+      "decimale": 1,
+      "po_stanovniku": null,
+      "razine": [
+        "drzava",
+        "zupanija"
+      ],
+      "izvor": "dzs-popis2021",
+      "godina": "2021"
+    },
+    "prosjecna_starost": {
+      "naziv": "Prosječna starost",
+      "tema": "ljudi",
+      "jedinica": "godina",
+      "decimale": 1,
+      "po_stanovniku": null,
+      "razine": [
+        "drzava",
+        "zupanija",
+        "jls"
+      ],
+      "izvor": "dzs-popis2021",
+      "godina": "2021"
+    },
+    "prosjecna_neto_placa": {
+      "naziv": "Prosječna neto plaća",
+      "tema": "ljudi",
+      "jedinica": "EUR",
+      "decimale": 0,
+      "po_stanovniku": null,
+      "razine": [
+        "drzava",
+        "zupanija"
+      ],
+      "izvor": "dzs-place",
+      "napomena": "Mjesečni prosjek u pravnim osobama, prema JOPPD obrascu.",
+      "godina": "2025"
+    },
+    "zaposleni": {
+      "naziv": "Zaposleni",
+      "tema": "ljudi",
+      "jedinica": "osoba",
+      "decimale": 0,
+      "po_stanovniku": {
+        "mnozitelj": 1000,
+        "jedinica": "na 1.000 stanovnika"
+      },
+      "razine": [
+        "drzava",
+        "zupanija"
+      ],
+      "izvor": "dzs-place",
+      "napomena": "Stanje 31. ožujka, administrativni izvori.",
+      "godina": "2024"
+    },
+    "stopa_nezaposlenosti": {
+      "naziv": "Stopa registrirane nezaposlenosti",
+      "tema": "ljudi",
+      "jedinica": "%",
+      "decimale": 1,
+      "po_stanovniku": null,
+      "razine": [
+        "drzava",
+        "zupanija"
+      ],
+      "izvor": "dzs-place",
+      "godina": "VI. 2026."
+    },
+    "neto_dohodak": {
+      "naziv": "Neto dohodak stanovništva",
+      "tema": "ljudi",
+      "jedinica": "EUR",
+      "decimale": 0,
+      "po_stanovniku": {
+        "mnozitelj": 1,
+        "jedinica": "EUR po stanovniku"
+      },
+      "razine": [
+        "drzava",
+        "zupanija",
+        "jls"
+      ],
+      "izvor": "pu-porez-dohodak",
+      "napomena": "Plaće, mirovine i ostali dohodak nakon poreza i doprinosa, za cijelu godinu.",
+      "godina": "2025"
+    },
+    "bdp": {
+      "naziv": "Bruto domaći proizvod",
+      "tema": "novac",
+      "jedinica": "EUR",
+      "decimale": 0,
+      "po_stanovniku": {
+        "mnozitelj": 1,
+        "jedinica": "EUR po stanovniku"
+      },
+      "razine": [
+        "drzava"
+      ],
+      "izvor": "dzs-bdp-regije",
+      "godina": "2023"
+    },
+    "bruto_dodana_vrijednost": {
+      "naziv": "Bruto dodana vrijednost",
+      "tema": "novac",
+      "jedinica": "EUR",
+      "decimale": 0,
+      "po_stanovniku": {
+        "mnozitelj": 1,
+        "jedinica": "EUR po stanovniku"
+      },
+      "razine": [
+        "drzava",
+        "zupanija"
+      ],
+      "izvor": "dzs-bdp-regije",
+      "napomena": "Vrijednost proizvodnje u županiji; BDP bez poreza na proizvode. Po županijama DZS ne objavljuje BDP.",
+      "godina": "2023"
+    },
+    "eu_ugovoreno": {
+      "naziv": "Ugovorena EU sredstva (OPKK 2014.–2020.)",
+      "tema": "novac",
+      "jedinica": "EUR",
+      "decimale": 0,
+      "po_stanovniku": {
+        "mnozitelj": 1,
+        "jedinica": "EUR po stanovniku"
+      },
+      "razine": [
+        "drzava",
+        "zupanija"
+      ],
+      "izvor": "eu-opkk-2014-2020",
+      "napomena": "ESIF dio ugovorenih projekata, po županiji provedbe.",
+      "godina": "stanje 31.05.2023"
+    },
+    "eu_projekti": {
+      "naziv": "Broj EU projekata (OPKK 2014.–2020.)",
+      "tema": "novac",
+      "jedinica": "broj",
+      "decimale": 0,
+      "po_stanovniku": {
+        "mnozitelj": 1000,
+        "jedinica": "na 1.000 stanovnika"
+      },
+      "razine": [
+        "drzava",
+        "zupanija"
+      ],
+      "izvor": "eu-opkk-2014-2020",
+      "godina": "stanje 31.05.2023"
+    },
+    "hbor_krediti": {
+      "naziv": "HBOR krediti iz EU fondova",
+      "tema": "novac",
+      "jedinica": "EUR",
+      "decimale": 0,
+      "po_stanovniku": {
+        "mnozitelj": 1,
+        "jedinica": "EUR po stanovniku"
+      },
+      "razine": [
+        "drzava",
+        "zupanija"
+      ],
+      "izvor": "hbor-esif",
+      "napomena": "Pet ESIF programa HBOR-a, po županiji ulaganja.",
+      "godina": "2018.–2023."
+    },
+    "inflacija": {
+      "naziv": "Inflacija (godišnja, HIPC)",
+      "tema": "novac",
+      "jedinica": "%",
+      "decimale": 1,
+      "po_stanovniku": null,
+      "razine": [
+        "drzava"
+      ],
+      "izvor": "hnb-bilten",
+      "godina": "2026-09"
+    },
+    "saldo_proracuna": {
+      "naziv": "Saldo opće države",
+      "tema": "novac",
+      "jedinica": "EUR",
+      "decimale": 0,
+      "po_stanovniku": {
+        "mnozitelj": 1,
+        "jedinica": "EUR po stanovniku"
+      },
+      "razine": [
+        "drzava"
+      ],
+      "izvor": "hnb-opca-drzava",
+      "napomena": "Negativno = deficit (neto zaduživanje), ESA 2010.",
+      "godina": "2025"
+    },
+    "javni_dug": {
+      "naziv": "Dug opće države",
+      "tema": "novac",
+      "jedinica": "EUR",
+      "decimale": 0,
+      "po_stanovniku": {
+        "mnozitelj": 1,
+        "jedinica": "EUR po stanovniku"
+      },
+      "razine": [
+        "drzava"
+      ],
+      "izvor": "hnb-opca-drzava",
+      "godina": "2026-06"
+    },
+    "porez_na_dohodak": {
+      "naziv": "Uplaćeni porez na dohodak",
+      "tema": "porezi",
+      "jedinica": "EUR",
+      "decimale": 0,
+      "po_stanovniku": {
+        "mnozitelj": 1,
+        "jedinica": "EUR po stanovniku"
+      },
+      "razine": [
+        "drzava",
+        "zupanija",
+        "jls"
+      ],
+      "izvor": "pu-porez-dohodak",
+      "napomena": "Pripada gradovima i općinama; po prebivalištu obveznika.",
+      "godina": "2025"
+    },
+    "kupoprodaje_nekretnina": {
+      "naziv": "Kupoprodaje nekretnina",
+      "tema": "imovina",
+      "jedinica": "broj",
+      "decimale": 0,
+      "po_stanovniku": {
+        "mnozitelj": 1000,
+        "jedinica": "na 1.000 stanovnika"
+      },
+      "razine": [
+        "drzava",
+        "zupanija"
+      ],
+      "izvor": "pu-kupoprodaje",
+      "godina": "2025"
+    },
+    "pravne_osobe_aktivne": {
+      "naziv": "Aktivne pravne osobe",
+      "tema": "imovina",
+      "jedinica": "broj",
+      "decimale": 0,
+      "po_stanovniku": {
+        "mnozitelj": 1000,
+        "jedinica": "na 1.000 stanovnika"
+      },
+      "razine": [
+        "drzava"
+      ],
+      "izvor": "dzs-rps",
+      "godina": "31. siječnja 2022"
+    }
+  },
+  "izvori": {
+    "dzs-bdp-regije": {
+      "naziv": "Bruto domaći proizvod za Republiku Hrvatsku, HR_NUTS 2021. – HR NUTS 2 i županije u 2023. (priopćenje NR-2026-2-1)",
+      "izdavatelj": "Državni zavod za statistiku",
+      "poveznica": "https://podaci.dzs.hr/media/mmwmg1dv/nr-2026-2-1-bruto-domaći-proizvod-za-republiku-hrvatsku-hr_nuts-2021-hr-nuts-2-i-županije-u-2023.pdf",
+      "licenca": null,
+      "preuzeto": "2026-10-27"
+    },
+    "dzs-place": {
+      "naziv": "Statistika u nizu: Zaposlenost i plaće",
+      "izdavatelj": "Državni zavod za statistiku",
+      "poveznica": "https://data.gov.hr/ckan/dataset/statistika-u-nizu-zaposlenost-i-pla-e",
+      "licenca": null,
+      "preuzeto": "2026-10-27"
+    },
+    "dzs-popis2021": {
+      "naziv": "Statistika u nizu: Popis stanovništva, kućanstava i stanova 2021.  - stanovništvo",
+      "izdavatelj": "Državni zavod za statistiku",
+      "poveznica": "https://data.gov.hr/ckan/dataset/statistika-u-nizu-popis-stanovnistva-kucanstava-i-stanova-2021",
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-27"
+    },
+    "dzs-rps": {
+      "naziv": "Statistika u nizu:  Registar poslovnih subjekata",
+      "izdavatelj": "Državni zavod za statistiku",
+      "poveznica": "https://data.gov.hr/ckan/dataset/statistika-u-nizu-registar-poslovnih-subjekata",
+      "licenca": null,
+      "preuzeto": "2026-10-27"
+    },
+    "eu-opkk-2014-2020": {
+      "naziv": "Popis operacija financiranih u okviru Programa „Konkurentnost i kohezija 2014.-2020.“",
+      "izdavatelj": "Ministarstvo regionalnoga razvoja i fondova Europske unije ",
+      "poveznica": "https://data.gov.hr/ckan/dataset/popis-operacija-financiranih-u-okviru-programa-konkurentnost-i-kohezija-2014-2020",
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-27"
+    },
+    "hbor-esif": {
+      "naziv": "HBOR – korisnici ESIF kredita (5 skupova)",
+      "izdavatelj": "HBOR",
+      "poveznica": "https://data.gov.hr/ckan/dataset/financijski-instrument-esif-krediti-za-rast-i-razvoj",
+      "licenca": "Otvorena dozvola (OD)",
+      "dijelovi": [
+        {
+          "naziv": "Financijski instrument \"ESIF krediti za rast i razvoj\"",
+          "izdavatelj": "Hrvatska banka za obnovu i razvitak",
+          "poveznica": "https://data.gov.hr/ckan/dataset/financijski-instrument-esif-krediti-za-rast-i-razvoj",
+          "licenca": "Otvorena dozvola (OD)",
+          "preuzeto": "2026-10-27"
+        },
+        {
+          "naziv": "Financijski instrument \"ESIF krediti za energetsku učinkovitost\"",
+          "izdavatelj": "Hrvatska banka za obnovu i razvitak",
+          "poveznica": "https://data.gov.hr/ckan/dataset/financijski-instrument-esif-krediti-za-energetsku-ucinkovitost",
+          "licenca": "Otvorena dozvola (OD)",
+          "preuzeto": "2026-10-27"
+        },
+        {
+          "naziv": "Financijski instrument \"ESIF krediti za javnu rasvjetu\"",
+          "izdavatelj": "Hrvatska banka za obnovu i razvitak",
+          "poveznica": "https://data.gov.hr/ckan/dataset/financijski-instrument-esif-krediti-za-javnu-rasvjetu",
+          "licenca": "Otvorena dozvola (OD)",
+          "preuzeto": "2026-10-27"
+        },
+        {
+          "naziv": "Financijski instrument \"Investicijski krediti za ruralni razvoj\"",
+          "izdavatelj": "Hrvatska banka za obnovu i razvitak",
+          "poveznica": "https://data.gov.hr/ckan/dataset/financijski-instrument-investicijski-krediti-za-ruralni-razvoj",
+          "licenca": "Otvorena dozvola (OD)",
+          "preuzeto": "2026-10-27"
+        },
+        {
+          "naziv": "Financijski instrument \"Obrtna sredstva za ruralni razvoj\"",
+          "izdavatelj": "Hrvatska banka za obnovu i razvitak",
+          "poveznica": "https://data.gov.hr/ckan/dataset/financijski-instrument-obrtna-sredstva-za-ruralni-razvoj",
+          "licenca": "Otvorena dozvola (OD)",
+          "preuzeto": "2026-10-27"
+        }
+      ]
+    },
+    "hnb-bilten": {
+      "naziv": "Bilten HNB-a – dodatni gospodarski, financijski i monetarni pokazatelji",
+      "izdavatelj": "Hrvatska narodna banka",
+      "poveznica": "https://data.gov.hr/ckan/dataset/bilten-hnb-a",
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-27"
+    },
+    "hnb-opca-drzava": {
+      "naziv": "Sektor opće države",
+      "izdavatelj": "Hrvatska narodna banka",
+      "poveznica": "https://data.gov.hr/ckan/dataset/op-a-dr-ava",
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-27"
+    },
+    "pu-kupoprodaje": {
+      "naziv": "Pregled broja kupoprodaja nekretnina po stjecateljima po županijama i ukupno za RH od 2016.-2026.",
+      "izdavatelj": "Porezna uprava",
+      "poveznica": "https://data.gov.hr/ckan/dataset/pregled-broja-kupoprodaja-nekretnina-po-stjecateljima-po-zupanijama-i-ukupno-za-rh-od-2016-2026",
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-27"
+    },
+    "pu-porez-dohodak": {
+      "naziv": "Porez na dohodak",
+      "izdavatelj": "Porezna uprava",
+      "poveznica": "https://data.gov.hr/ckan/dataset/https-porezna-uprava-gov-hr-hr-porez-na-dohodak-4763-4763",
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-27"
+    },
+    "natural-earth-admin1": {
+      "naziv": "Natural Earth – Admin 1 States and Provinces (1:10m)",
+      "izdavatelj": "Natural Earth",
+      "poveznica": "https://www.naturalearthdata.com/",
+      "licenca": "Javna domena",
+      "preuzeto": null
+    }
+  }
+}
