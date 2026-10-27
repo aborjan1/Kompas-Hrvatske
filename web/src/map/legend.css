@@ -1,0 +1,26 @@
+.kh-legend {
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  font: 12px/1.4 system-ui, sans-serif;
+  color: #3d3d3a;
+}
+
+.kh-legend__title {
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: #1f1f1d;
+}
+
+.kh-legend__row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.kh-legend__swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
