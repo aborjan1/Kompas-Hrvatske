@@ -2,9 +2,8 @@
 // without the UI framework having to place it.
 
 import { NO_DATA_COLOR } from './countyLayer.js';
+import { formatNumber } from './format.js';
 import './legend.css';
-
-const numberFormat = new Intl.NumberFormat('hr-HR', { maximumFractionDigits: 1 });
 
 export class LegendControl {
   onAdd() {
@@ -35,7 +34,7 @@ export class LegendControl {
 }
 
 function range(min, max) {
-  return min === max ? numberFormat.format(min) : `${numberFormat.format(min)} – ${numberFormat.format(max)}`;
+  return min === max ? formatNumber(min) : `${formatNumber(min)} – ${formatNumber(max)}`;
 }
 
 function row(color, label) {
