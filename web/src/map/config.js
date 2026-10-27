@@ -16,3 +16,7 @@ export const MAX_BOUNDS = [
 ];
 
 export const LABEL_LANGUAGE = 'hr';
+
+// Dev fixture: geoBoundaries HRV ADM1 (ODbL, © OpenStreetMap contributors) with
+// `sifra`/`naziv` added. Swap for David's export in web/public/data/ when it lands.
+export { default as COUNTY_BOUNDARIES_URL } from './dev/zupanije.mock.geojson?url';
