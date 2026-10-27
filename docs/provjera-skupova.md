@@ -1,0 +1,85 @@
+# Provjera preuzetih skupova (faze 1–3)
+
+Stanje: 27. 10. 2026., nakon `python pipeline/download.py --faza 1,2,3`.
+
+Od 24 skupa preuzeta su 23. Za prvi demo koristimo **14**, dva su **neispravna na izvoru**,
+a ostali su preuzeti, ali se zasad ne koriste (stari, samo na razini države ili bez veze
+s područjem). BDP je naknadno uzet iz PDF priopćenja DZS-a (vidi dolje).
+
+## Što koristimo
+
+| Skup (mapa) | Datoteka i list | Razina | Razdoblje | Pokazatelj |
+| --- | --- | --- | --- | --- |
+| `sifrarnik-jls` | `…opcine_gradovi_RH.xls` | JLS | – | šifrarnik: 556 JLS i njihove županije |
+| `dzs-popis2021` | `…po_gradovima_opcinama.xlsx`, tab. 6. | država, županija, JLS | 2021. | stanovništvo, prosječna starost |
+| `dzs-popis2021` | `…zbirni_pregledi.xlsx`, tab. 1. | država, županija | 2021. | površina → gustoća naseljenosti |
+| `dzs-place` | `…pregled-po-zupanijama.xlsx`, 9.4.9. NKD 2025. | država, županija | 2025. | prosječna neto plaća |
+| `dzs-place` | isto, 9.4.8. | država, županija | 2024. | zaposleni |
+| `dzs-place` | isto, 9.4.14. | država, županija | lipanj 2026. | stopa registrirane nezaposlenosti |
+| `pu-porez-dohodak` | `pk_neto-dohodak…2022_2025….xlsx`, list „2025 EUR” | država, županija, **JLS** | 2025. | neto dohodak, uplaćeni porez na dohodak |
+| `pu-kupoprodaje` | `pk_ppn_pregled…po-upanijama….xlsx` | država, županija | 2025. | kupoprodaje nekretnina |
+| `eu-opkk-2014-2020` | `popis-operacija-opkk-31.5.2023.xlsx`, „CUT OFF 31.05.2023” | država, županija, **točke** | presjek 31. 5. 2023. | ugovorena EU sredstva, broj projekata, karta projekata |
+| `hbor-*` (5 skupova) | po jedna tablica korisnika | država, županija | 2018.–2023. | HBOR krediti iz EU fondova |
+| `dzs-bdp-regije` | priopćenje NR-2026-2-1 (PDF), tablice 1. i 2. | država; županija | 2023. | BDP (država), bruto dodana vrijednost (županije) |
+| `hnb-bilten` | list „Slika 5.4.” | država | rujan 2026. | inflacija (HIPC) |
+| `hnb-opca-drzava` | tablica I2 | država | 2025. | saldo opće države |
+| `hnb-opca-drzava` | tablica I3 | država | lipanj 2026. | dug opće države |
+| `dzs-rps` | `MSI_REGISTAR.xlsx`, 11.1.1. | država | siječanj 2022. | aktivne pravne osobe |
+
+Najvrjedniji je skup Porezne uprave o neto dohotku: jedini daje novčani podatak za **svih
+556 gradova i općina**, pa razina Grad nije prazna.
+
+## Neispravni izvori
+
+| Skup | Problem | Prijedlog |
+| --- | --- | --- |
+| `aik-poslovne-zone` | Domena aik-invest.hr je istekla; poveznica vraća oglasnu stranicu, ne JSON | Tražiti zamjenski izvor poslovnih zona (npr. registar poduzetničke infrastrukture) |
+| `pu-fiskalizacija` | Poveznica vodi na web aplikaciju, ne na tablicu | Ne koristiti |
+| `dzs-bdp` | Skup premješten na portalu, a preuzeta tablica je prazna: od 27. 2. 2026. DZS BDP objavljuje samo u PC-Axis bazi; tablica BDP-a po županijama vraća 404 | Zamijenjeno ručno preuzetim priopćenjem DZS-a (`dzs-bdp-regije`) |
+
+Sva tri skupa su u `sources.csv` označena s `aktivno = ne`.
+
+## Preuzeto, ali se zasad ne koristi
+
+| Skup | Zašto |
+| --- | --- |
+| `dzs-cijene` | Indeksi potrošačkih cijena premješteni su u drugu publikaciju; inflaciju uzimamo iz Biltena HNB-a |
+| `dzs-poduzeca`, `dzs-rps` (ostali listovi) | Samo razina države, po djelatnostima |
+| `dzs-turizam` | Noćenja po županijama postoje samo do 2021. (godina pandemije) |
+| `hzz-slobodna-mjesta` | RSS s oglasima (npr. 173 za Zagrebačku); nije ukupan broj slobodnih mjesta |
+| `udruge-financiranje` | Podaci samo za 2013.–2016. |
+| `registar-udruga` | Isti podaci u tri formata (oko 550 MB); trebat će tek za sjedišta udruga |
+| `dzs-nkd` | Šifrarnik djelatnosti; trebat će uz Sudski registar |
+| `hnb-opca-drzava` (G8a, G8b) | Kamatne stope; nisu u planu |
+
+## Greške u izvorima koje obrada ispravlja
+
+Sve su ispravljene u kodu, a ne ručno u datotekama, pa se popravak ponavlja pri svakom pokretanju.
+
+- **Popis 2021., tab. 6.:** redak Varaždinske županije ima pogrešno upisano „Općina” u stupcu vrste.
+- **Natural Earth (probne granice):** Požeško-slavonska ima šifru Brodsko-posavske (HR-12).
+- **Nazivi županija:** „Varažinska”, „BJELOVARSKO-BILOGORSKA ŽUAPNIJA”, „DUBROVAČKO NERETVANSKA” (bez crtice).
+- **Nazivi općina:** Porezna uprava piše „KAŠTELIR LABINCI CASTELLIERE S D”; šifrarnik „Kaštelir-Labinci – Castelliere-S. Domenica”.
+
+## Odluke i pretpostavke
+
+- **BDP:** po županijama DZS objavljuje samo bruto dodanu vrijednost (BDP bez poreza na proizvode minus subvencije). Na razini države prikazujemo BDP, a na razini županija bruto dodanu vrijednost.
+
+- **Plaće:** do 2023. DZS ih objavljuje iz istraživanja RAD-1G, a od 2024. iz JOPPD-a (list 9.4.9.). Serije nisu usporedive, pa koristimo samo 2025.
+- **Zaposleni:** koristimo 2024., a ne 2025. U 2025. serija ima lom: Grad Zagreb pada s 472.598 na 377.586, a Zagrebačka raste za 32 %.
+- **HBOR krediti:** tablice ne navode valutu. Pretpostavljamo da su tablice objavljene prije 2023. u kunama (preračun 7,53450) i da su one iz 2023. u eurima. **Treba provjeriti na stranicama HBOR-a.**
+- **EU projekti:** 10 projekata (726 mil. EUR) nema županiju; ulaze samo u zbroj države. Ukupna ugovorena ESIF sredstva (9,34 mlrd. EUR) premašuju alokaciju programa jer se ugovaralo više od 100 %.
+- **Po stanovniku:** svi pokazatelji dijele se sa stanovništvom iz Popisa 2021., jer novijih podataka po JLS nema.
+- **Licence:** portal za dio skupova ne navodi licencu (npr. `dzs-place`). Prije predaje treba ih provjeriti na stranici skupa.
+
+## Provjere u `build.py`
+
+| Provjera | Rezultat |
+| --- | --- |
+| 21 županija, 556 JLS, 128 gradova | ✔ |
+| Zbroj stanovnika JLS = županija = država (3.871.833) | ✔ |
+| Zbroj županija = država: zaposleni, kupoprodaje, neto dohodak, porez, HBOR | ✔ (razlika 0,00 %) |
+| Zbroj županija = država: bruto dodana vrijednost | ✔ (66.252 ↔ 66.251 mil. EUR, zaokruživanje) |
+| Zbroj JLS = županija: neto dohodak, porez | ✔ (razlika 0,00 %) |
+| Svih 556 JLS spojeno s podacima Porezne uprave | ✔ |
+| EU projekti s ispravnim koordinatama | 8.355 od 8.365 |
