@@ -244,6 +244,7 @@ gradovi/
   zagreb/kapitalna-ulaganja.geojson točke: planirana gradska ulaganja 2023. i 2024.
   zagreb/brownfield.geojson         poligoni: 43 napuštene površine
   zagreb/gospodarske-zone.geojson   poligoni: 553 gospodarske zone iz prostornih planova
+  zagreb/zgrade-3d/<šifra>.geojson  3D zgrade (ZG3D) za Donji grad, Gornji grad–Medveščak i Trnje
   zagreb/smjestaj.geojson           točke: 2.702 smještajna objekta (hotel, hostel, domaćinstvo)
   zagreb/trznice.geojson            točke: 31 gradska tržnica
   zagreb/gradska-drustva.geojson    točke: 33 gradska trgovačka društva
@@ -282,6 +283,26 @@ gospodarska (općenito)), `namjena` (izvorni naziv iz plana), `izgradjenost`
 (`"neizgrađeno"`, `"izgrađeno"` ili `null` kad plan to ne navodi), `plan`, `godina_plana`,
 `povrsina_ha` i `cetvrt`. Za kartu: boja prema `vrsta`, a neizgrađene zone istaknuti
 (npr. iscrtkani rub) jer su to površine spremne za nova ulaganja.
+
+**3D zgrade** (`zgrade-3d/00116.geojson`, `00159`, `00680`; 2–4 MB svaka) su tlocrti
+dijelova zgrada iz modela ZG3D (LoD 2.2) sa svojstvima `visina` (m) i `godina` (godina
+snimanja: 2008., 2019. ili 2022.). Popis datoteka i sažetak (broj dijelova, prosječna i
+najveća visina) su u `gradovi/meta.json` → `gradovi.zagreb.zgrade_3d`. Za kartu:
+
+```js
+map.addLayer({
+  id: "zgrade-3d", type: "fill-extrusion", source: "zgrade-00116", minzoom: 14,
+  paint: {
+    "fill-extrusion-height": ["get", "visina"],
+    "fill-extrusion-base": 0,
+    "fill-extrusion-color": ["interpolate", ["linear"], ["get", "visina"],
+      0, "#d9d9d9", 20, "#8c8c8c", 60, "#3b3b3b"]
+  }
+});
+```
+
+Datoteke učitati tek kad korisnik u prikazu Zagreba približi kartu (zoom 14 ili više),
+jer su zajedno oko 8,5 MB.
 
 **Točke** imaju svojstvo `cetvrt` (šifra četvrti u kojoj leže; `null` izvan grada).
 Kapitalna ulaganja imaju `godina` (2023 ili 2024) i `iznos` (EUR), pa sloj treba

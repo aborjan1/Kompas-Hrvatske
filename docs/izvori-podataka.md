@@ -2,7 +2,7 @@
 
 Ova datoteka nastaje automatski iz `data/sources.csv` (`python pipeline/popis_izvora.py`). Ne uređuj je ručno.
 
-Broj skupova: **66**. Skripta `pipeline/download.py` preuzima njih **47**, a ostali se preuzimaju ručno, koriste kao servis izravno na karti ili traže API registraciju.
+Broj skupova: **69**. Skripta `pipeline/download.py` preuzima njih **50**, a ostali se preuzimaju ručno, koriste kao servis izravno na karti ili traže API registraciju.
 
 Mapa u koju se skup sprema je `data/raw/<id>/`.
 
@@ -71,7 +71,10 @@ Mapa u koju se skup sprema je `data/raw/<id>/`.
 | id (mapa) | Skup | Izdavatelj | Formati | Način | Issue | Napomena |
 | --- | --- | --- | --- | --- | --- | --- |
 | `dgu-ortofoto-2024` | [Digitalni ortofoto 1:5000 2024. (+ 2011.–2023., LIDAR 2022./23., 1:500 i 1:1000 – zasebni skupovi)](https://data.gov.hr/ckan/dataset/digitalni-ortofoto-u-mjerilu-1-5000-2024-godina) | Državna geodetska uprava | WMS, WMTS | servis (WMS/WFS) | #16 | WMTS: karta ga učitava uživo, ne preuzima se |
-| `zg3d` | [ZG3D 2022 – 3D model Grada Zagreba (+ 17 gradskih četvrti)](https://data.gov.hr/ckan/dataset/zg3d-2022-3d-model-gz) | Grad Zagreb | CSV, GeoJSON, XLSX, FGDB | ručno | #17 | Velik model: ručno, samo središte grada |
+| `zg3d` | [ZG3D 2022 – 3D model Grada Zagreba (+ 17 gradskih četvrti)](https://data.gov.hr/ckan/dataset/zg3d-2022-3d-model-gz) | Grad Zagreb | CSV, GeoJSON, XLSX, FGDB | ručno | #17 | Zamijenjeno skupovima po četvrtima (zg3d-donji-grad, zg3d-gornji-grad, zg3d-trnje). |
+| `zg3d-donji-grad` | [ZG3D Gradska četvrt Donji Grad 2022](https://data.gov.hr/ckan/dataset/zg3d-gradska-cetvrt-donji-grad-2022) | Grad Zagreb | GeoJSON | skripta | #17 | 3D zgrade (LoD 2.2) za 3D prikaz središta Zagreba; koristi se GeoJSON (visina = Z_Delta). |
+| `zg3d-gornji-grad` | [ZG3D Gradska četvrt Gornji Grad 2022](https://data.gov.hr/ckan/dataset/zg3d-gradska-cetvrt-gornji-grad-2022) | Grad Zagreb | GeoJSON | skripta | #17 | 3D zgrade (LoD 2.2) za 3D prikaz središta Zagreba; koristi se GeoJSON (visina = Z_Delta). |
+| `zg3d-trnje` | [ZG3D Gradska četvrt Trnje 2022](https://data.gov.hr/ckan/dataset/zg3d-gradska-cetvrt-trnje-2022) | Grad Zagreb | GeoJSON | skripta | #17 | 3D zgrade (LoD 2.2) za 3D prikaz središta Zagreba; koristi se GeoJSON (visina = Z_Delta). |
 | `zg-cetvrti` | [Gradske četvrti - prostorna jedinica mjesne samouprave za područje Grada Zagreba](https://data.gov.hr/ckan/dataset/gradske-cetvrti-prostorna-jedinica-mjesne-samouprave-za-podrucje-grada-zagreba) | Grad Zagreb | SHP | skripta | #16 | 17 četvrti sa šiframa RPJ (EPSG:3765). Osnova za prikaz Zagreba. |
 | `zg-planirana-namjena` | [Geoportal planirana namjena 2023](https://data.gov.hr/ckan/dataset/geoportal-planirana-namjena-2023) | Grad Zagreb | CSV, SHP, GeoJSON, KML | skripta | #14 | Gospodarske zone (553 površine, 2.384 ha) i neizgrađene gospodarske zone po četvrtima. GeoJSON 35 MB. |
 | `zg-stvarno-koristenje` | [Stvarno korištenje površina 2020.](https://data.gov.hr/ckan/dataset/stvarno-koristenje-povrsina-2020) | Grad Zagreb | CSV, XLSX | skripta | #16 | Hektari po četvrti (IME_GC): brownfield, udio gospodarskih, stambenih i zelenih površina. |

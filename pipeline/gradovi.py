@@ -25,6 +25,7 @@ from datetime import UTC, datetime
 
 import geopandas as gpd
 import pandas as pd
+import shapely
 from citaci import RAW, TECAJ_HRK, broj, excel, nadji
 from izvoz import IZLAZ, KORIJEN, dodaj_rang
 from nazivi import kljuc
@@ -185,6 +186,9 @@ IZVORI_GRADOVA = [
     "zg-trznice",
     "zg-trgovacka-drustva",
     "zg-planirana-namjena",
+    "zg3d-donji-grad",
+    "zg3d-gornji-grad",
+    "zg3d-trnje",
     "zg-eu-projekti",
     "zg-proracun-2026",
     "ri-proracun",
@@ -536,6 +540,55 @@ def _skupina_programa(v: str) -> str:
     return "Ostali programi"
 
 
+# ZG3D se objavljuje po četvrtima; uzimamo središte grada (mapa u data/raw → šifra četvrti)
+ZG3D = {
+    "zg3d-donji-grad": "00116",
+    "zg3d-gornji-grad": "00159",
+    "zg3d-trnje": "00680",
+}
+MIN_ZGRADA_M2 = 10  # manji dijelovi (nadstrešnice, šupe) samo povećavaju datoteku
+MIN_VISINA_M = 2
+
+
+def zgrade_3d(sada: str) -> dict:
+    """ZG3D (LoD 2.2) → tlocrti s visinom za 3D prikaz (MapLibre fill-extrusion).
+
+    Svaki zapis je dio zgrade s najnižom i najvišom kotom (Z_Min, Z_Max); visina dijela je
+    Z_Delta. Z-koordinate se odbacuju, a tlocrt se pojednostavljuje na 0,3 m.
+    """
+    out = {}
+    for mapa, cetvrt in ZG3D.items():
+        if not (RAW / mapa).exists():
+            print(f"  {mapa}: nije preuzet – python pipeline/download.py --samo {mapa}")
+            continue
+        g = _geojson(nadji(mapa, ".geojson"))
+        n0 = len(g)
+        g["geometry"] = shapely.force_2d(g.geometry.values)
+        m = g.to_crs(HTRS)
+        g = g[(m.area >= MIN_ZGRADA_M2) & (g["Z_Delta"] >= MIN_VISINA_M)]
+        m = m.loc[g.index]
+        z = gpd.GeoDataFrame(
+            {
+                "visina": g["Z_Delta"].round(1),
+                "godina": pd.to_numeric(g["Godina_izv"], errors="coerce").astype("Int64"),
+            },
+            geometry=m.geometry.simplify(0.3),
+            crs=HTRS,
+        ).to_crs(4326)
+        z["geometry"] = z.geometry.set_precision(1e-6)
+        ime = f"zagreb/zgrade-3d/{cetvrt}.geojson"
+        _spremi(ime, json.loads(z.to_json(drop_id=True)))
+        out[cetvrt] = {
+            "datoteka": ime.removeprefix("zagreb/"),
+            "dijelova_zgrada": int(len(z)),
+            "izostavljeno_malih": int(n0 - len(z)),
+            "prosjecna_visina": round(float(z["visina"].mean()), 1),
+            "najvisa": float(z["visina"].max()),
+            "volumen_m3": round(float(g["Volume"].sum())),
+        }
+    return out
+
+
 # --------------------------------------------------------------------------- proračun
 
 
@@ -813,6 +866,7 @@ def main(sada: str | None = None) -> None:
     gz_izvoz = gz.drop(columns=["kljuc_namjene"]).copy()
     gz_izvoz["geometry"] = gz_izvoz.geometry.set_precision(1e-5)
     _spremi("zagreb/gospodarske-zone.geojson", json.loads(gz_izvoz.to_json(drop_id=True)))
+    zgrade = zgrade_3d(sada)
     _spremi(
         "zagreb/eu-projekti.json", {"izvor": "zg-eu-projekti", "projekti": eu_projekti_zagreb()}
     )
@@ -842,6 +896,7 @@ def main(sada: str | None = None) -> None:
                     "gospodarske-zone": "gospodarske-zone.geojson",
                 },
                 "tablice": ["cetvrti.json", "proracun.json", "eu-projekti.json"],
+                "zgrade_3d": zgrade,
             },
             "rijeka": {
                 "sifra": RIJEKA,

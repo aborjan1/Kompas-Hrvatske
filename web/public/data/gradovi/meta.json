@@ -1,5 +1,5 @@
 {
-  "generirano": "2026-10-28T22:45:18+00:00",
+  "generirano": "2026-10-28T23:00:46+00:00",
   "gradovi": {
     "zagreb": {
       "sifra": "01333",
@@ -18,7 +18,33 @@
         "cetvrti.json",
         "proracun.json",
         "eu-projekti.json"
-      ]
+      ],
+      "zgrade_3d": {
+        "00116": {
+          "datoteka": "zgrade-3d/00116.geojson",
+          "dijelova_zgrada": 6311,
+          "izostavljeno_malih": 810,
+          "prosjecna_visina": 13.5,
+          "najvisa": 67.2,
+          "volumen_m3": 19053727
+        },
+        "00159": {
+          "datoteka": "zgrade-3d/00159.geojson",
+          "dijelova_zgrada": 12555,
+          "izostavljeno_malih": 2474,
+          "prosjecna_visina": 9.2,
+          "najvisa": 103.5,
+          "volumen_m3": 17000399
+        },
+        "00680": {
+          "datoteka": "zgrade-3d/00680.geojson",
+          "dijelova_zgrada": 8979,
+          "izostavljeno_malih": 2454,
+          "prosjecna_visina": 7.2,
+          "najvisa": 96.5,
+          "volumen_m3": 18459551
+        }
+      }
     },
     "rijeka": {
       "sifra": "03735",
@@ -227,6 +253,24 @@
       "naziv": "Geoportal planirana namjena 2023",
       "izdavatelj": "Grad Zagreb",
       "poveznica": "https://data.gov.hr/ckan/dataset/geoportal-planirana-namjena-2023",
+      "licenca": "Otvorena dozvola (OD)"
+    },
+    "zg3d-donji-grad": {
+      "naziv": "ZG3D Gradska četvrt Donji Grad 2022",
+      "izdavatelj": "Grad Zagreb",
+      "poveznica": "https://data.gov.hr/ckan/dataset/zg3d-gradska-cetvrt-donji-grad-2022",
+      "licenca": "Otvorena dozvola (OD)"
+    },
+    "zg3d-gornji-grad": {
+      "naziv": "ZG3D Gradska četvrt Gornji Grad 2022",
+      "izdavatelj": "Grad Zagreb",
+      "poveznica": "https://data.gov.hr/ckan/dataset/zg3d-gradska-cetvrt-gornji-grad-2022",
+      "licenca": "Otvorena dozvola (OD)"
+    },
+    "zg3d-trnje": {
+      "naziv": "ZG3D Gradska četvrt Trnje 2022",
+      "izdavatelj": "Grad Zagreb",
+      "poveznica": "https://data.gov.hr/ckan/dataset/zg3d-gradska-cetvrt-trnje-2022",
       "licenca": "Otvorena dozvola (OD)"
     },
     "zg-eu-projekti": {
