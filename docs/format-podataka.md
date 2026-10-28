@@ -243,6 +243,7 @@ gradovi/
   zagreb/cetvrti.json               brojke i rangovi po četvrtima (isti oblik kao zupanije.json)
   zagreb/kapitalna-ulaganja.geojson točke: planirana gradska ulaganja 2023. i 2024.
   zagreb/brownfield.geojson         poligoni: 43 napuštene površine
+  zagreb/gospodarske-zone.geojson   poligoni: 553 gospodarske zone iz prostornih planova
   zagreb/smjestaj.geojson           točke: 2.702 smještajna objekta (hotel, hostel, domaćinstvo)
   zagreb/trznice.geojson            točke: 31 gradska tržnica
   zagreb/gradska-drustva.geojson    točke: 33 gradska trgovačka društva
@@ -272,6 +273,15 @@ ni vrijednosti po stanovniku (`po_stanovniku` je prazan).
 | `udio_gospodarske_povrsine` | imovina | % | 2020. |
 | `udio_stambene_povrsine` | imovina | % | 2020. |
 | `udio_zelene_povrsine` | imovina | % | 2020. |
+| `gospodarske_zone` | imovina | ha | 2023. |
+| `gospodarske_zone_neizgradjene` | imovina | ha | 2023. |
+
+**Gospodarske zone** (`gospodarske-zone.geojson`, oko 300 KB) imaju svojstva `vrsta`
+(poslovna, proizvodna, poslovna i proizvodna, trgovačka, ugostiteljsko-turistička,
+gospodarska (općenito)), `namjena` (izvorni naziv iz plana), `izgradjenost`
+(`"neizgrađeno"`, `"izgrađeno"` ili `null` kad plan to ne navodi), `plan`, `godina_plana`,
+`povrsina_ha` i `cetvrt`. Za kartu: boja prema `vrsta`, a neizgrađene zone istaknuti
+(npr. iscrtkani rub) jer su to površine spremne za nova ulaganja.
 
 **Točke** imaju svojstvo `cetvrt` (šifra četvrti u kojoj leže; `null` izvan grada).
 Kapitalna ulaganja imaju `godina` (2023 ili 2024) i `iznos` (EUR), pa sloj treba
