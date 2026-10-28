@@ -19,6 +19,17 @@ npm run build    # izlaz u web/dist/
 - `src/data/indicator.js` – pretvara temu i mjeru u brojke po šifri (stub, čeka format podataka)
 - `src/panels/`, `src/stories/` – sučelje (u izradi)
 - `public/data/` – gotove GeoJSON/JSON datoteke iz `pipeline/` (u izradi)
+- `public/mock/` – privremeni podaci za razvoj panela dok `public/data/` nije na `main` (vidi dolje)
+
+## Mock podaci (`public/mock/`)
+
+Isti format kao `docs/format-podataka.md` (`meta.json`, `drzava.json`, `zupanije.json`, `jls.json`). To je skraćena kopija Davidovog izvoza s grane `feature/podaci-pipeline` od 27. 10. 2026., uz ove razlike:
+
+- `meta.json` ima `"probni_podaci": true` i napomene o mocku.
+- `jls.json` ima samo gradove i općine županija 05 (Varaždinska), 11 (Požeško-slavonska) i 21 (Grad Zagreb). Popisi `slicni` mogu upućivati na JLS kojih nema u mocku.
+- Namjerno `null`, za prikaz „nema podatka”: Ličko-senjska (`09`) `hbor_krediti` i Varaždin (`05023`) `neto_dohodak`.
+
+Kad `public/data/` stigne na `main`, kod prebaciti s `mock/` na `data/` i obrisati ovu mapu.
 
 ## Zajedničko stanje (`src/state.js`)
 

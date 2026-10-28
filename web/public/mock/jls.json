@@ -1,0 +1,1214 @@
+{
+  "generirano": "2026-10-27T20:31:22+00:00",
+  "podrucja": {
+    "05001": {
+      "sifra": "05001",
+      "naziv": "Bednja",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 3389,
+        "prosjecna_starost": 45.7,
+        "neto_dohodak": 23761560.42,
+        "porez_na_dohodak": 2105670.93
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 7011.38,
+        "porez_na_dohodak": 621.33
+      },
+      "rang": {
+        "stanovnistvo": 213,
+        "prosjecna_starost": 210,
+        "neto_dohodak": 234,
+        "porez_na_dohodak": 226,
+        "neto_dohodak_po_stanovniku": 372,
+        "porez_na_dohodak_po_stanovniku": 315
+      },
+      "slicni": [
+        "12014",
+        "11002",
+        "14001",
+        "18041",
+        "04007"
+      ]
+    },
+    "05002": {
+      "sifra": "05002",
+      "naziv": "Beretinec",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 2049,
+        "prosjecna_starost": 42.8,
+        "neto_dohodak": 16623135.01,
+        "porez_na_dohodak": 1391632.58
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 8112.8,
+        "porez_na_dohodak": 679.18
+      },
+      "rang": {
+        "stanovnistvo": 340,
+        "prosjecna_starost": 481,
+        "neto_dohodak": 311,
+        "porez_na_dohodak": 321,
+        "neto_dohodak_po_stanovniku": 243,
+        "porez_na_dohodak_po_stanovniku": 273
+      },
+      "slicni": [
+        "03004",
+        "19016",
+        "13031",
+        "02026",
+        "16024"
+      ]
+    },
+    "05003": {
+      "sifra": "05003",
+      "naziv": "Breznica",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 1970,
+        "prosjecna_starost": 42.1,
+        "neto_dohodak": 14015850,
+        "porez_na_dohodak": 1235120.01
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 7114.64,
+        "porez_na_dohodak": 626.96
+      },
+      "rang": {
+        "stanovnistvo": 355,
+        "prosjecna_starost": 508,
+        "neto_dohodak": 369,
+        "porez_na_dohodak": 342,
+        "neto_dohodak_po_stanovniku": 359,
+        "porez_na_dohodak_po_stanovniku": 307
+      },
+      "slicni": [
+        "06010",
+        "12016",
+        "17035",
+        "09008",
+        "17055"
+      ]
+    },
+    "05004": {
+      "sifra": "05004",
+      "naziv": "Breznički Hum",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 1132,
+        "prosjecna_starost": 44.5,
+        "neto_dohodak": 9495714.93,
+        "porez_na_dohodak": 882718.58
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 8388.44,
+        "porez_na_dohodak": 779.79
+      },
+      "rang": {
+        "stanovnistvo": 487,
+        "prosjecna_starost": 316,
+        "neto_dohodak": 456,
+        "porez_na_dohodak": 416,
+        "neto_dohodak_po_stanovniku": 211,
+        "porez_na_dohodak_po_stanovniku": 210
+      },
+      "slicni": [
+        "01023",
+        "01025",
+        "18038",
+        "10001",
+        "16022"
+      ]
+    },
+    "05005": {
+      "sifra": "05005",
+      "naziv": "Cestica",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 5425,
+        "prosjecna_starost": 43,
+        "neto_dohodak": 30213143,
+        "porez_na_dohodak": 2788705.68
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 5569.24,
+        "porez_na_dohodak": 514.05
+      },
+      "rang": {
+        "stanovnistvo": 124,
+        "prosjecna_starost": 462,
+        "neto_dohodak": 187,
+        "porez_na_dohodak": 182,
+        "neto_dohodak_po_stanovniku": 521,
+        "porez_na_dohodak_po_stanovniku": 401
+      },
+      "slicni": [
+        "14006",
+        "19006",
+        "14011",
+        "07006",
+        "03009"
+      ]
+    },
+    "05006": {
+      "sifra": "05006",
+      "naziv": "Donja Voća",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 2030,
+        "prosjecna_starost": 43.2,
+        "neto_dohodak": 10786507.78,
+        "porez_na_dohodak": 980601.71
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 5313.55,
+        "porez_na_dohodak": 483.06
+      },
+      "rang": {
+        "stanovnistvo": 345,
+        "prosjecna_starost": 440,
+        "neto_dohodak": 431,
+        "porez_na_dohodak": 403,
+        "neto_dohodak_po_stanovniku": 540,
+        "porez_na_dohodak_po_stanovniku": 423
+      },
+      "slicni": [
+        "08028",
+        "12021",
+        "14031",
+        "12012",
+        "02026"
+      ]
+    },
+    "05007": {
+      "sifra": "05007",
+      "naziv": "Gornji Kneginec",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 4900,
+        "prosjecna_starost": 44.1,
+        "neto_dohodak": 43555725.66,
+        "porez_na_dohodak": 3974905.69
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 8888.92,
+        "porez_na_dohodak": 811.21
+      },
+      "rang": {
+        "stanovnistvo": 140,
+        "prosjecna_starost": 366,
+        "neto_dohodak": 134,
+        "porez_na_dohodak": 140,
+        "neto_dohodak_po_stanovniku": 158,
+        "porez_na_dohodak_po_stanovniku": 190
+      },
+      "slicni": [
+        "16018",
+        "05026",
+        "20020",
+        "11004",
+        "16017"
+      ]
+    },
+    "05008": {
+      "sifra": "05008",
+      "naziv": "Ivanec",
+      "vrsta": "grad",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 12723,
+        "prosjecna_starost": 43.6,
+        "neto_dohodak": 117554507.04,
+        "porez_na_dohodak": 12014673.46
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 9239.53,
+        "porez_na_dohodak": 944.33
+      },
+      "rang": {
+        "stanovnistvo": 43,
+        "prosjecna_starost": 412,
+        "neto_dohodak": 42,
+        "porez_na_dohodak": 43,
+        "neto_dohodak_po_stanovniku": 132,
+        "porez_na_dohodak_po_stanovniku": 114
+      },
+      "slicni": [
+        "18036",
+        "18029",
+        "01032",
+        "01010",
+        "17046"
+      ]
+    },
+    "05009": {
+      "sifra": "05009",
+      "naziv": "Jalžabet",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 3183,
+        "prosjecna_starost": 45.3,
+        "neto_dohodak": 25313735.87,
+        "porez_na_dohodak": 2437647.21
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 7952.79,
+        "porez_na_dohodak": 765.83
+      },
+      "rang": {
+        "stanovnistvo": 228,
+        "prosjecna_starost": 235,
+        "neto_dohodak": 217,
+        "porez_na_dohodak": 207,
+        "neto_dohodak_po_stanovniku": 260,
+        "porez_na_dohodak_po_stanovniku": 218
+      },
+      "slicni": [
+        "01009",
+        "13014",
+        "14017",
+        "08019",
+        "17009"
+      ]
+    },
+    "05010": {
+      "sifra": "05010",
+      "naziv": "Klenovnik",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 1793,
+        "prosjecna_starost": 43.1,
+        "neto_dohodak": 14246902.91,
+        "porez_na_dohodak": 1335146.11
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 7945.85,
+        "porez_na_dohodak": 744.64
+      },
+      "rang": {
+        "stanovnistvo": 384,
+        "prosjecna_starost": 453,
+        "neto_dohodak": 366,
+        "porez_na_dohodak": 329,
+        "neto_dohodak_po_stanovniku": 263,
+        "porez_na_dohodak_po_stanovniku": 233
+      },
+      "slicni": [
+        "07014",
+        "06011",
+        "17004",
+        "07010",
+        "05014"
+      ]
+    },
+    "05011": {
+      "sifra": "05011",
+      "naziv": "Lepoglava",
+      "vrsta": "grad",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 6945,
+        "prosjecna_starost": 43.8,
+        "neto_dohodak": 51385938.18,
+        "porez_na_dohodak": 5206599.1
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 7398.98,
+        "porez_na_dohodak": 749.69
+      },
+      "rang": {
+        "stanovnistvo": 95,
+        "prosjecna_starost": 390,
+        "neto_dohodak": 108,
+        "porez_na_dohodak": 103,
+        "neto_dohodak_po_stanovniku": 323,
+        "porez_na_dohodak_po_stanovniku": 226
+      },
+      "slicni": [
+        "07020",
+        "17006",
+        "20015",
+        "08036",
+        "08014"
+      ]
+    },
+    "05012": {
+      "sifra": "05012",
+      "naziv": "Ljubešćica",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 1689,
+        "prosjecna_starost": 42.9,
+        "neto_dohodak": 14179130.26,
+        "porez_na_dohodak": 1401515.87
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 8394.99,
+        "porez_na_dohodak": 829.79
+      },
+      "rang": {
+        "stanovnistvo": 398,
+        "prosjecna_starost": 471,
+        "neto_dohodak": 367,
+        "porez_na_dohodak": 319,
+        "neto_dohodak_po_stanovniku": 210,
+        "porez_na_dohodak_po_stanovniku": 177
+      },
+      "slicni": [
+        "07023",
+        "12027",
+        "13026",
+        "17002",
+        "02018"
+      ]
+    },
+    "05013": {
+      "sifra": "05013",
+      "naziv": "Ludbreg",
+      "vrsta": "grad",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 8477,
+        "prosjecna_starost": 43.5,
+        "neto_dohodak": 76976345.61,
+        "porez_na_dohodak": 7800217.1
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 9080.61,
+        "porez_na_dohodak": 920.16
+      },
+      "rang": {
+        "stanovnistvo": 77,
+        "prosjecna_starost": 425,
+        "neto_dohodak": 72,
+        "porez_na_dohodak": 70,
+        "neto_dohodak_po_stanovniku": 143,
+        "porez_na_dohodak_po_stanovniku": 134
+      },
+      "slicni": [
+        "10007",
+        "19005",
+        "09007",
+        "07005",
+        "15019"
+      ]
+    },
+    "05014": {
+      "sifra": "05014",
+      "naziv": "Mali Bukovec",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 1809,
+        "prosjecna_starost": 43.8,
+        "neto_dohodak": 12757986.36,
+        "porez_na_dohodak": 1079763.73
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 7052.51,
+        "porez_na_dohodak": 596.88
+      },
+      "rang": {
+        "stanovnistvo": 379,
+        "prosjecna_starost": 391,
+        "neto_dohodak": 388,
+        "porez_na_dohodak": 375,
+        "neto_dohodak_po_stanovniku": 366,
+        "porez_na_dohodak_po_stanovniku": 330
+      },
+      "slicni": [
+        "07010",
+        "17004",
+        "17047",
+        "06011",
+        "07014"
+      ]
+    },
+    "05015": {
+      "sifra": "05015",
+      "naziv": "Martijanec",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 2638,
+        "prosjecna_starost": 44.6,
+        "neto_dohodak": 18902322.26,
+        "porez_na_dohodak": 1647252.57
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 7165.4,
+        "porez_na_dohodak": 624.43
+      },
+      "rang": {
+        "stanovnistvo": 276,
+        "prosjecna_starost": 309,
+        "neto_dohodak": 285,
+        "porez_na_dohodak": 285,
+        "neto_dohodak_po_stanovniku": 350,
+        "porez_na_dohodak_po_stanovniku": 311
+      },
+      "slicni": [
+        "20017",
+        "06019",
+        "15011",
+        "15007",
+        "12026"
+      ]
+    },
+    "05016": {
+      "sifra": "05016",
+      "naziv": "Maruševec",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 5682,
+        "prosjecna_starost": 43.8,
+        "neto_dohodak": 43293991.09,
+        "porez_na_dohodak": 3620241.27
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 7619.5,
+        "porez_na_dohodak": 637.14
+      },
+      "rang": {
+        "stanovnistvo": 115,
+        "prosjecna_starost": 392,
+        "neto_dohodak": 135,
+        "porez_na_dohodak": 147,
+        "neto_dohodak_po_stanovniku": 297,
+        "porez_na_dohodak_po_stanovniku": 300
+      },
+      "slicni": [
+        "17049",
+        "02025",
+        "12020",
+        "13003",
+        "02030"
+      ]
+    },
+    "05017": {
+      "sifra": "05017",
+      "naziv": "Novi Marof",
+      "vrsta": "grad",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 11795,
+        "prosjecna_starost": 43.1,
+        "neto_dohodak": 98753865.83,
+        "porez_na_dohodak": 9325217.67
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 8372.52,
+        "porez_na_dohodak": 790.61
+      },
+      "rang": {
+        "stanovnistvo": 47,
+        "prosjecna_starost": 454,
+        "neto_dohodak": 55,
+        "porez_na_dohodak": 60,
+        "neto_dohodak_po_stanovniku": 213,
+        "porez_na_dohodak_po_stanovniku": 203
+      },
+      "slicni": [
+        "12013",
+        "15008",
+        "02012",
+        "10008",
+        "09003"
+      ]
+    },
+    "05018": {
+      "sifra": "05018",
+      "naziv": "Petrijanec",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 4553,
+        "prosjecna_starost": 39.7,
+        "neto_dohodak": 30586645.17,
+        "porez_na_dohodak": 2624105.42
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 6717.91,
+        "porez_na_dohodak": 576.35
+      },
+      "rang": {
+        "stanovnistvo": 152,
+        "prosjecna_starost": 547,
+        "neto_dohodak": 182,
+        "porez_na_dohodak": 196,
+        "neto_dohodak_po_stanovniku": 399,
+        "porez_na_dohodak_po_stanovniku": 347
+      },
+      "slicni": [
+        "10006",
+        "01005",
+        "02007",
+        "17036",
+        "11009"
+      ]
+    },
+    "05019": {
+      "sifra": "05019",
+      "naziv": "Sračinec",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 4678,
+        "prosjecna_starost": 41.6,
+        "neto_dohodak": 37222742.29,
+        "porez_na_dohodak": 3230491.4
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 7956.98,
+        "porez_na_dohodak": 690.57
+      },
+      "rang": {
+        "stanovnistvo": 147,
+        "prosjecna_starost": 520,
+        "neto_dohodak": 153,
+        "porez_na_dohodak": 159,
+        "neto_dohodak_po_stanovniku": 259,
+        "porez_na_dohodak_po_stanovniku": 263
+      },
+      "slicni": [
+        "13018",
+        "13027",
+        "02005",
+        "02007",
+        "12017"
+      ]
+    },
+    "05020": {
+      "sifra": "05020",
+      "naziv": "Sveti Ilija",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 3242,
+        "prosjecna_starost": 43.3,
+        "neto_dohodak": 31789811.62,
+        "porez_na_dohodak": 3229979
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 9805.62,
+        "porez_na_dohodak": 996.29
+      },
+      "rang": {
+        "stanovnistvo": 223,
+        "prosjecna_starost": 436,
+        "neto_dohodak": 177,
+        "porez_na_dohodak": 160,
+        "neto_dohodak_po_stanovniku": 85,
+        "porez_na_dohodak_po_stanovniku": 96
+      },
+      "slicni": [
+        "08031",
+        "08035",
+        "16020",
+        "08019",
+        "01009"
+      ]
+    },
+    "05021": {
+      "sifra": "05021",
+      "naziv": "Sveti Đurđ",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 3326,
+        "prosjecna_starost": 43.5,
+        "neto_dohodak": 23445890.69,
+        "porez_na_dohodak": 1999223.56
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 7049.28,
+        "porez_na_dohodak": 601.09
+      },
+      "rang": {
+        "stanovnistvo": 219,
+        "prosjecna_starost": 426,
+        "neto_dohodak": 239,
+        "porez_na_dohodak": 238,
+        "neto_dohodak_po_stanovniku": 367,
+        "porez_na_dohodak_po_stanovniku": 329
+      },
+      "slicni": [
+        "19001",
+        "02010",
+        "10016",
+        "15015",
+        "14016"
+      ]
+    },
+    "05022": {
+      "sifra": "05022",
+      "naziv": "Trnovec Bartolovečki",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 6145,
+        "prosjecna_starost": 43.6,
+        "neto_dohodak": 54105273.24,
+        "porez_na_dohodak": 4498578.44
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 8804.76,
+        "porez_na_dohodak": 732.07
+      },
+      "rang": {
+        "stanovnistvo": 103,
+        "prosjecna_starost": 413,
+        "neto_dohodak": 103,
+        "porez_na_dohodak": 123,
+        "neto_dohodak_po_stanovniku": 164,
+        "porez_na_dohodak_po_stanovniku": 237
+      },
+      "slicni": [
+        "01017",
+        "15004",
+        "18005",
+        "09010",
+        "02022"
+      ]
+    },
+    "05023": {
+      "sifra": "05023",
+      "naziv": "Varaždin",
+      "vrsta": "grad",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 43782,
+        "prosjecna_starost": 45.1,
+        "neto_dohodak": null,
+        "porez_na_dohodak": 56344638.77
+      },
+      "po_stanovniku": {
+        "neto_dohodak": null,
+        "porez_na_dohodak": 1286.94
+      },
+      "rang": {
+        "stanovnistvo": 10,
+        "prosjecna_starost": 256,
+        "neto_dohodak": 9,
+        "porez_na_dohodak": 8,
+        "neto_dohodak_po_stanovniku": 31,
+        "porez_na_dohodak_po_stanovniku": 27
+      },
+      "slicni": [
+        "15020",
+        "19003",
+        "03016",
+        "04009",
+        "17013"
+      ]
+    },
+    "05024": {
+      "sifra": "05024",
+      "naziv": "Varaždinske Toplice",
+      "vrsta": "grad",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 5537,
+        "prosjecna_starost": 44.4,
+        "neto_dohodak": 47853606.72,
+        "porez_na_dohodak": 4666477
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 8642.52,
+        "porez_na_dohodak": 842.78
+      },
+      "rang": {
+        "stanovnistvo": 120,
+        "prosjecna_starost": 327,
+        "neto_dohodak": 119,
+        "porez_na_dohodak": 116,
+        "neto_dohodak_po_stanovniku": 179,
+        "porez_na_dohodak_po_stanovniku": 171
+      },
+      "slicni": [
+        "01014",
+        "02016",
+        "02030",
+        "13003",
+        "14011"
+      ]
+    },
+    "05025": {
+      "sifra": "05025",
+      "naziv": "Veliki Bukovec",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 1325,
+        "prosjecna_starost": 44.1,
+        "neto_dohodak": 10946387.16,
+        "porez_na_dohodak": 1009658.54
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 8261.42,
+        "porez_na_dohodak": 762.01
+      },
+      "rang": {
+        "stanovnistvo": 461,
+        "prosjecna_starost": 367,
+        "neto_dohodak": 426,
+        "porez_na_dohodak": 393,
+        "neto_dohodak_po_stanovniku": 226,
+        "porez_na_dohodak_po_stanovniku": 220
+      },
+      "slicni": [
+        "04011",
+        "04010",
+        "09011",
+        "14007",
+        "05028"
+      ]
+    },
+    "05026": {
+      "sifra": "05026",
+      "naziv": "Vidovec",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 4915,
+        "prosjecna_starost": 43.1,
+        "neto_dohodak": 38785680.32,
+        "porez_na_dohodak": 3476508.67
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 7891.29,
+        "porez_na_dohodak": 707.33
+      },
+      "rang": {
+        "stanovnistvo": 139,
+        "prosjecna_starost": 455,
+        "neto_dohodak": 146,
+        "porez_na_dohodak": 152,
+        "neto_dohodak_po_stanovniku": 267,
+        "porez_na_dohodak_po_stanovniku": 251
+      },
+      "slicni": [
+        "20020",
+        "05007",
+        "16018",
+        "11004",
+        "16017"
+      ]
+    },
+    "05027": {
+      "sifra": "05027",
+      "naziv": "Vinica",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 3020,
+        "prosjecna_starost": 42.8,
+        "neto_dohodak": 24078059.52,
+        "porez_na_dohodak": 2192939.91
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 7972.87,
+        "porez_na_dohodak": 726.14
+      },
+      "rang": {
+        "stanovnistvo": 236,
+        "prosjecna_starost": 482,
+        "neto_dohodak": 232,
+        "porez_na_dohodak": 219,
+        "neto_dohodak_po_stanovniku": 256,
+        "porez_na_dohodak_po_stanovniku": 241
+      },
+      "slicni": [
+        "03002",
+        "13030",
+        "17024",
+        "08024",
+        "02023"
+      ]
+    },
+    "05028": {
+      "sifra": "05028",
+      "naziv": "Visoko",
+      "vrsta": "opcina",
+      "nadredeno": "05",
+      "pokazatelji": {
+        "stanovnistvo": 1335,
+        "prosjecna_starost": 42.9,
+        "neto_dohodak": 8466745.62,
+        "porez_na_dohodak": 740506.76
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 6342.13,
+        "porez_na_dohodak": 554.69
+      },
+      "rang": {
+        "stanovnistvo": 457,
+        "prosjecna_starost": 472,
+        "neto_dohodak": 474,
+        "porez_na_dohodak": 444,
+        "neto_dohodak_po_stanovniku": 450,
+        "porez_na_dohodak_po_stanovniku": 367
+      },
+      "slicni": [
+        "09011",
+        "14007",
+        "04010",
+        "05025",
+        "04011"
+      ]
+    },
+    "11001": {
+      "sifra": "11001",
+      "naziv": "Brestovac",
+      "vrsta": "opcina",
+      "nadredeno": "11",
+      "pokazatelji": {
+        "stanovnistvo": 2980,
+        "prosjecna_starost": 45.2,
+        "neto_dohodak": 19029970.06,
+        "porez_na_dohodak": 1347584.46
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 6385.9,
+        "porez_na_dohodak": 452.21
+      },
+      "rang": {
+        "stanovnistvo": 241,
+        "prosjecna_starost": 251,
+        "neto_dohodak": 283,
+        "porez_na_dohodak": 325,
+        "neto_dohodak_po_stanovniku": 441,
+        "porez_na_dohodak_po_stanovniku": 448
+      },
+      "slicni": [
+        "02023",
+        "08024",
+        "17024",
+        "03002",
+        "12004"
+      ]
+    },
+    "11002": {
+      "sifra": "11002",
+      "naziv": "Jakšić",
+      "vrsta": "opcina",
+      "nadredeno": "11",
+      "pokazatelji": {
+        "stanovnistvo": 3371,
+        "prosjecna_starost": 42.4,
+        "neto_dohodak": 23490052.41,
+        "porez_na_dohodak": 1885701.13
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 6968.27,
+        "porez_na_dohodak": 559.39
+      },
+      "rang": {
+        "stanovnistvo": 214,
+        "prosjecna_starost": 499,
+        "neto_dohodak": 237,
+        "porez_na_dohodak": 254,
+        "neto_dohodak_po_stanovniku": 375,
+        "porez_na_dohodak_po_stanovniku": 364
+      },
+      "slicni": [
+        "18041",
+        "14016",
+        "05001",
+        "12014",
+        "15015"
+      ]
+    },
+    "11003": {
+      "sifra": "11003",
+      "naziv": "Kaptol",
+      "vrsta": "opcina",
+      "nadredeno": "11",
+      "pokazatelji": {
+        "stanovnistvo": 2605,
+        "prosjecna_starost": 42.9,
+        "neto_dohodak": 16292632.15,
+        "porez_na_dohodak": 1184968.53
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 6254.37,
+        "porez_na_dohodak": 454.88
+      },
+      "rang": {
+        "stanovnistvo": 281,
+        "prosjecna_starost": 474,
+        "neto_dohodak": 320,
+        "porez_na_dohodak": 350,
+        "neto_dohodak_po_stanovniku": 459,
+        "porez_na_dohodak_po_stanovniku": 445
+      },
+      "slicni": [
+        "16009",
+        "20018",
+        "17001",
+        "12026",
+        "15011"
+      ]
+    },
+    "11004": {
+      "sifra": "11004",
+      "naziv": "Kutjevo",
+      "vrsta": "grad",
+      "nadredeno": "11",
+      "pokazatelji": {
+        "stanovnistvo": 4870,
+        "prosjecna_starost": 44.5,
+        "neto_dohodak": 30942664,
+        "porez_na_dohodak": 2163832.16
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 6353.73,
+        "porez_na_dohodak": 444.32
+      },
+      "rang": {
+        "stanovnistvo": 142,
+        "prosjecna_starost": 321,
+        "neto_dohodak": 179,
+        "porez_na_dohodak": 221,
+        "neto_dohodak_po_stanovniku": 448,
+        "porez_na_dohodak_po_stanovniku": 453
+      },
+      "slicni": [
+        "16017",
+        "16018",
+        "05007",
+        "02013",
+        "05026"
+      ]
+    },
+    "11005": {
+      "sifra": "11005",
+      "naziv": "Lipik",
+      "vrsta": "grad",
+      "nadredeno": "11",
+      "pokazatelji": {
+        "stanovnistvo": 5127,
+        "prosjecna_starost": 45.2,
+        "neto_dohodak": 37568591.13,
+        "porez_na_dohodak": 2763400.7
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 7327.6,
+        "porez_na_dohodak": 538.99
+      },
+      "rang": {
+        "stanovnistvo": 133,
+        "prosjecna_starost": 252,
+        "neto_dohodak": 152,
+        "porez_na_dohodak": 184,
+        "neto_dohodak_po_stanovniku": 333,
+        "porez_na_dohodak_po_stanovniku": 376
+      },
+      "slicni": [
+        "08006",
+        "08009",
+        "16010",
+        "01013",
+        "17014"
+      ]
+    },
+    "11006": {
+      "sifra": "11006",
+      "naziv": "Pakrac",
+      "vrsta": "grad",
+      "nadredeno": "11",
+      "pokazatelji": {
+        "stanovnistvo": 7086,
+        "prosjecna_starost": 45.3,
+        "neto_dohodak": 56928722.44,
+        "porez_na_dohodak": 4441071.5
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 8033.97,
+        "porez_na_dohodak": 626.74
+      },
+      "rang": {
+        "stanovnistvo": 92,
+        "prosjecna_starost": 239,
+        "neto_dohodak": 99,
+        "porez_na_dohodak": 125,
+        "neto_dohodak_po_stanovniku": 249,
+        "porez_na_dohodak_po_stanovniku": 308
+      },
+      "slicni": [
+        "08036",
+        "03003",
+        "01026",
+        "20015",
+        "08027"
+      ]
+    },
+    "11007": {
+      "sifra": "11007",
+      "naziv": "Pleternica",
+      "vrsta": "grad",
+      "nadredeno": "11",
+      "pokazatelji": {
+        "stanovnistvo": 9138,
+        "prosjecna_starost": 43.6,
+        "neto_dohodak": 58404284.68,
+        "porez_na_dohodak": 4222779.16
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 6391.36,
+        "porez_na_dohodak": 462.11
+      },
+      "rang": {
+        "stanovnistvo": 70,
+        "prosjecna_starost": 415,
+        "neto_dohodak": 96,
+        "porez_na_dohodak": 132,
+        "neto_dohodak_po_stanovniku": 440,
+        "porez_na_dohodak_po_stanovniku": 435
+      },
+      "slicni": [
+        "16031",
+        "17011",
+        "14003",
+        "19022",
+        "02028"
+      ]
+    },
+    "11008": {
+      "sifra": "11008",
+      "naziv": "Požega",
+      "vrsta": "grad",
+      "nadredeno": "11",
+      "pokazatelji": {
+        "stanovnistvo": 22294,
+        "prosjecna_starost": 44.7,
+        "neto_dohodak": 190524625.59,
+        "porez_na_dohodak": 17576898.4
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 8546.0,
+        "porez_na_dohodak": 788.41
+      },
+      "rang": {
+        "stanovnistvo": 25,
+        "prosjecna_starost": 297,
+        "neto_dohodak": 26,
+        "porez_na_dohodak": 27,
+        "neto_dohodak_po_stanovniku": 190,
+        "porez_na_dohodak_po_stanovniku": 205
+      },
+      "slicni": [
+        "16029",
+        "17038",
+        "14040",
+        "01033",
+        "03014"
+      ]
+    },
+    "11009": {
+      "sifra": "11009",
+      "naziv": "Velika",
+      "vrsta": "opcina",
+      "nadredeno": "11",
+      "pokazatelji": {
+        "stanovnistvo": 4502,
+        "prosjecna_starost": 43.8,
+        "neto_dohodak": 31891449.15,
+        "porez_na_dohodak": 2582399.72
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 7083.84,
+        "porez_na_dohodak": 573.61
+      },
+      "rang": {
+        "stanovnistvo": 156,
+        "prosjecna_starost": 396,
+        "neto_dohodak": 176,
+        "porez_na_dohodak": 198,
+        "neto_dohodak_po_stanovniku": 362,
+        "porez_na_dohodak_po_stanovniku": 353
+      },
+      "slicni": [
+        "17036",
+        "01005",
+        "10006",
+        "13028",
+        "05018"
+      ]
+    },
+    "11010": {
+      "sifra": "11010",
+      "naziv": "Čaglin",
+      "vrsta": "opcina",
+      "nadredeno": "11",
+      "pokazatelji": {
+        "stanovnistvo": 2111,
+        "prosjecna_starost": 46.5,
+        "neto_dohodak": 10645964.36,
+        "porez_na_dohodak": 574105.7
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 5043.09,
+        "porez_na_dohodak": 271.96
+      },
+      "rang": {
+        "stanovnistvo": 334,
+        "prosjecna_starost": 157,
+        "neto_dohodak": 434,
+        "porez_na_dohodak": 482,
+        "neto_dohodak_po_stanovniku": 547,
+        "porez_na_dohodak_po_stanovniku": 539
+      },
+      "slicni": [
+        "15013",
+        "14010",
+        "18037",
+        "01019",
+        "13022"
+      ]
+    },
+    "21001": {
+      "sifra": "21001",
+      "naziv": "Zagreb",
+      "vrsta": "grad",
+      "nadredeno": "21",
+      "pokazatelji": {
+        "stanovnistvo": 767131,
+        "prosjecna_starost": 43,
+        "neto_dohodak": 9839432600.33,
+        "porez_na_dohodak": 1428504663.15
+      },
+      "po_stanovniku": {
+        "neto_dohodak": 12826.27,
+        "porez_na_dohodak": 1862.14
+      },
+      "rang": {
+        "stanovnistvo": 1,
+        "prosjecna_starost": 468,
+        "neto_dohodak": 1,
+        "porez_na_dohodak": 1,
+        "neto_dohodak_po_stanovniku": 7,
+        "porez_na_dohodak_po_stanovniku": 1
+      },
+      "slicni": [
+        "17040",
+        "08029",
+        "14022",
+        "13032",
+        "01031"
+      ]
+    }
+  }
+}
