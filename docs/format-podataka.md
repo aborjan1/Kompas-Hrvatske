@@ -101,6 +101,8 @@ može dugo čuvati, a brojke se mijenjaju pri svakom pokretanju obrade.
 | `bruto_dodana_vrijednost` | novac | EUR | EUR po st. | država, županija | 2023. |
 | `eu_ugovoreno` | novac | EUR | EUR po st. | država, županija, JLS | 31. 5. 2023. |
 | `eu_projekti` | novac | broj | na 1.000 st. | država, županija, JLS | 31. 5. 2023. |
+| `eu_2127_ugovoreno` | novac | EUR | EUR po st. | država, županija**, JLS** | 30. 9. 2026. |
+| `eu_2127_projekti` | novac | broj | na 1.000 st. | država, županija**, JLS** | 30. 9. 2026. |
 | `hbor_krediti` | novac | EUR | EUR po st. | država, županija | 2018.–2023. |
 | `inflacija` | novac | % | — | država | IX. 2026. |
 | `saldo_proracuna` | novac | EUR | EUR po st. | država | 2025. |
@@ -117,6 +119,14 @@ može dugo čuvati, a brojke se mijenjaju pri svakom pokretanju obrade.
 \* Stope određuju gradovi i općine; za županiju i državu to je prosjek ponderiran
 brojem stanovnika (Hrvatska: niža 20,6 %, viša 30,5 %). `promjena_stope_niza` je dobra
 „priča”: 13 gradova i općina promijenilo je nižu stopu za 2026., od −5 do +2,5 postotna boda.
+
+\*\* EU 2021.–2027. (programi Konkurentnost i kohezija, Integrirani teritorijalni
+program i Učinkoviti ljudski potencijali; 3.717 projekata, 7,13 mlrd. EUR EU sredstava).
+Županija = lokacija projekta (projekt u više županija dijeli se po udjelima), grad/općina =
+sjedište korisnika. Projekti ministarstava, HZZ-a i drugih državnih tijela (1,74 mlrd. EUR)
+ulaze samo u zbroj države, pa zbroj županija nije jednak državi. Dobra „priča” za kartu:
+u razdoblju 2014.–2020. Zagreb je dobio 3,8 mlrd. EUR, a sada po stanovniku vode Karlovačka i
+Ličko-senjska županija.
 
 Prijedlog za panel Država (najviše 4 broja): stanovništvo, BDP, prosječna neto plaća
 i inflacija.

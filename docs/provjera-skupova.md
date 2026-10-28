@@ -97,6 +97,29 @@ Stanje: 28. 10. 2026., nakon `python pipeline/download.py --faza 5,6` (20 od 22 
 uključuje bolnice, srednje škole i domove za starije. Zdravstvo po stanovniku je u Zagrebu
 455 EUR, a u Rijeci 35 EUR. Ta se napomena izvozi uz podatke.
 
+## EU 2021.–2027. (#15)
+
+Stanje: 28. 10. 2026. Popisi operacija nisu na data.gov.hr, nego na
+[eufondovi.gov.hr/popisi-projekata](https://eufondovi.gov.hr/popisi-projekata/)
+(Ministarstvo regionalnoga razvoja i fondova EU). `download.py` ih preuzima izravno
+(`nacin = url` u `sources.csv`). Kod nove tromjesečne objave treba zamijeniti poveznicu.
+
+| Skup | Operacija | EU sredstva | Napomena |
+| --- | --- | --- | --- |
+| `eu-pkk-2021-2027` | 1.861 | 4,36 mlrd. EUR | Datoteka ima list za svaki presjek; čita se najnoviji (30. 9. 2026.). Lokacija projekta po županijama s udjelima. |
+| `eu-itp-2021-2027` | 351 | 1,05 mlrd. EUR | Isti oblik kao PKK. |
+| `eu-uljp-2021-2027` | 1.505 | 1,72 mlrd. EUR | Drugačiji oblik: samo sjedište korisnika (grad, županija, koordinate). |
+
+- **Državni projekti:** 66 operacija (1,74 mlrd. EUR) nemaju lokaciju ili ih provode
+  ministarstva, HZZ i državne agencije (popis u `citaci.DRZAVNA_TIJELA`). Ulaze samo u zbroj
+  države; inače bi Grad Zagreb „dobio” npr. 566 mil. EUR HZZ-ovih mjera zapošljavanja.
+- **Udjeli lokacija:** kod 32 mala PKK projekta (ukupno 2,5 mil. EUR) navedeni udjeli ne daju
+  100 % (npr. samo „Grad Zagreb (50.00%)”); iznos se dijeli razmjerno navedenim udjelima.
+- **Gradovi i općine:** prema sjedištu korisnika, samo za projekte koji se provode u županiji
+  sjedišta. 5 projekata (8,5 mil. EUR) ima naselje umjesto grada ili općine („Rokovci
+  Andrijaševci”, „Sigetec Ludbreški”) ili grad koji ne pripada upisanoj županiji.
+- Provjera: zbroj županija + državni projekti = ukupno za državu (do 1 EUR).
+
 ## Greške u izvorima koje obrada ispravlja
 
 Sve su ispravljene u kodu, a ne ručno u datotekama, pa se popravak ponavlja pri svakom pokretanju.

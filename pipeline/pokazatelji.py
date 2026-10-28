@@ -136,6 +136,29 @@ POKAZATELJI: dict[str, dict] = {
         "razine": ["drzava", "zupanija", "jls"],
         "izvor": "eu-opkk-2014-2020",
     },
+    "eu_2127_ugovoreno": {
+        "naziv": "Ugovorena EU sredstva 2021.–2027.",
+        "tema": "novac",
+        "jedinica": "EUR",
+        "decimale": 0,
+        "po_stanovniku": _PO_ST_EUR,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "eu-2021-2027",
+        "napomena": "EU dio ugovorenih projekata iz programa Konkurentnost i kohezija, "
+        "Integrirani teritorijalni program i Učinkoviti ljudski potencijali. Županije prema "
+        "lokaciji projekta (ULJP prema sjedištu korisnika); gradovi i općine prema sjedištu "
+        "korisnika. Projekti državnih tijela i projekti bez lokacije ulaze samo u zbroj države.",
+    },
+    "eu_2127_projekti": {
+        "naziv": "Broj EU projekata 2021.–2027.",
+        "tema": "novac",
+        "jedinica": "broj",
+        "decimale": 0,
+        "po_stanovniku": _NA_1000,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "eu-2021-2027",
+        "napomena": "Projekt koji se provodi u više županija broji se u svakoj od njih.",
+    },
     "hbor_krediti": {
         "naziv": "HBOR krediti iz EU fondova",
         "tema": "novac",

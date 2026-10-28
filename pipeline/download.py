@@ -6,6 +6,9 @@ Popis skupova je u data/sources.csv (stupac `aktivno` = da). Za svaki skup skrip
   3. preuzima sve datoteke podržanih formata u data/raw/<id>/,
   4. u sources.csv upisuje izdavatelja, licencu i datum preuzimanja.
 
+Skupovi s `nacin` = url nisu na data.gov.hr: u stupcu `poveznica` je izravna poveznica na
+datoteku (npr. popisi EU operacija na eufondovi.gov.hr), pa se ona preuzima izravno.
+
 Svaki pokušaj zapisuje se u data/raw/_dnevnik.csv.
 
 Primjeri (iz korijena repozitorija, s uključenim .venv):
@@ -167,7 +170,37 @@ def je_html(put: Path) -> bool:
     return pocetak.startswith((b"<!doctype html", b"<html"))
 
 
+def obradi_url(sesija, red: dict, max_mb: float, ponovno: bool) -> bool:
+    """Skup izvan data.gov.hr: jedna datoteka s izravne poveznice (stupac `poveznica`)."""
+    sid, url = red["id"], red["poveznica"]
+    print(f"\n[{sid}]")
+    mapa = RAW / sid
+    mapa.mkdir(parents=True, exist_ok=True)
+    ime = re.sub(r'[<>:"/\\|?*]', "_", unquote(Path(urlparse(url).path).name)) or "datoteka"
+    cilj = mapa / ime
+    if cilj.exists() and not ponovno:
+        print(f"  postoji    {cilj.name}")
+        zapisi_dnevnik(id=sid, resurs=ime, status="postoji", url=url)
+        return True
+    try:
+        mb = preuzmi_datoteku(sesija, url, cilj, max_mb)
+        if je_html(cilj):
+            cilj.unlink()
+            raise ValueError("izvor je vratio web stranicu umjesto podataka")
+    except (requests.RequestException, ValueError, OSError) as e:
+        print(f"  GREŠKA     {ime}: {e}")
+        print("  Ako je objavljena novija verzija, ažuriraj poveznicu u sources.csv.")
+        zapisi_dnevnik(id=sid, resurs=ime, status="greska", poruka=str(e), url=url)
+        return False
+    print(f"  preuzeto   {ime} ({mb:.1f} MB)")
+    zapisi_dnevnik(id=sid, resurs=ime, status="preuzeto", velicina_mb=f"{mb:.2f}", url=url)
+    red["datum_preuzimanja"] = date.today().isoformat()
+    return True
+
+
 def obradi_skup(sesija, red: dict, api: str, max_mb: float, ponovno: bool) -> bool:
+    if red.get("nacin") == "url":
+        return obradi_url(sesija, red, max_mb, ponovno)
     sid, slug = red["id"], red["slug"]
     print(f"\n[{sid}]")
     try:
@@ -267,7 +300,11 @@ def main() -> int:
     a = p.parse_args()
 
     stupci, redovi = ucitaj_izvore()
-    odabrani = [r for r in redovi if r.get("slug") and r.get("aktivno", "da").lower() == "da"]
+
+    def preuzimljiv(r: dict) -> bool:
+        return bool(r.get("slug")) or r.get("nacin") == "url"
+
+    odabrani = [r for r in redovi if preuzimljiv(r) and r.get("aktivno", "da").lower() == "da"]
     if a.faza:
         faze = {f.strip() for f in a.faza.split(",")}
         odabrani = [r for r in odabrani if r.get("faza", "").split(" ")[0] in faze]
@@ -277,7 +314,7 @@ def main() -> int:
         if nepoznati:
             print(f"Nepoznati id u --samo: {', '.join(sorted(nepoznati))}")
             return 2
-        odabrani = [r for r in redovi if r["id"] in trazeni and r.get("slug")]
+        odabrani = [r for r in redovi if r["id"] in trazeni and preuzimljiv(r)]
 
     if a.popis:
         for r in odabrani:

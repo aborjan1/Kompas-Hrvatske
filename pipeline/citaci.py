@@ -601,3 +601,121 @@ def porezne_stope_jls() -> tuple[pd.DataFrame, str]:
         how="left",
     )
     return df, godina
+
+
+# --------------------------------------------------------------------------- EU 2021.–2027.
+
+# Korisnici čiji projekti pokrivaju cijelu državu (ministarstva, državne agencije, HZZ…):
+# sjedište im je u Zagrebu, ali novac nije "zagrebački", pa ulaze samo u zbroj države.
+DRZAVNA_TIJELA = re.compile(
+    r"^(Ministarstvo|Agencija|Hrvatsk[ai] (zavod|agencija|akademska)|HRVATSKI ZAVOD|"
+    r"Ured |Akademija socijalne|Nacionalni centar|Središnji državni)",
+    re.IGNORECASE,
+)
+
+
+def _presjek_lista(ime: str) -> tuple[int, int, int]:
+    m = re.search(r"(\d{1,2})\.(\d{1,2})\.(\d{4})", ime)
+    return (int(m[3]), int(m[2]), int(m[1])) if m else (0, 0, 0)
+
+
+def _lokacije(v: str) -> dict[str, float]:
+    """'Grad Zagreb (90.00%), Zadarska županija (10.00%)' → {'21': 0.9, '13': 0.1}."""
+    out: dict[str, float] = {}
+    for naziv, pct in re.findall(r"([^,(]+?)\s*\((\d+(?:[.,]\d+)?)\s*%\)", str(v)):
+        z = sifra_zupanije(naziv)
+        if z:
+            out[z] = out.get(z, 0) + float(pct.replace(",", ".")) / 100
+    # Kod ~30 malih projekata udjeli u izvoru ne daju 100 % (npr. samo "Grad Zagreb (50.00%)").
+    # Iznos se tada dijeli razmjerno navedenim udjelima.
+    ukupno = sum(out.values())
+    return {z: u / ukupno for z, u in out.items()} if ukupno else {}
+
+
+def _eu_pkk_itp(mapa: str, program: str) -> tuple[pd.DataFrame, str]:
+    put = nadji(mapa, ".xlsx")
+    listovi = pd.ExcelFile(put, engine="calamine").sheet_names
+    zadnji = max(listovi, key=_presjek_lista)
+    t = excel(put, zadnji)
+    zag = red_s(t, "No.")
+    t.columns = [" ".join(str(c).split()) for c in t.iloc[zag]]
+    t = t.iloc[zag + 2 :]  # preskoči englesko zaglavlje
+    t = t[t["MIS kod projekta"].str.strip() != ""]
+    potrebni = [
+        "Županija (lokacija projekta)",
+        "EU sredstva (EUR)",
+        "Općina/grad (sjedište korisnika)",
+    ]
+    if any(c not in t.columns for c in potrebni):
+        raise ValueError(f"{program}: nema očekivanih stupaca {potrebni}")
+    ukupno = next(c for c in t.columns if c.startswith("Ukupni prihvatljivi"))
+    df = pd.DataFrame(
+        {
+            "program": program,
+            "sifra_projekta": t["MIS kod projekta"].str.strip(),
+            "korisnik": t["Naziv korisnika"].str.strip(),
+            "naziv": t["Naziv operacije"].str.strip(),
+            "fond": t["Fond"].str.strip(),
+            "status": t.get("Status projekta", pd.Series("", index=t.index)).str.strip(),
+            "pocetak": t["Datum početka ugovora"].str[:10],
+            "kraj": t["Očekivani ili stvarni datum završetka operacije"].str[:10],
+            "ukupno_eur": t[ukupno].map(broj),
+            "eu_eur": t["EU sredstva (EUR)"].map(broj),
+            "mjesto": t["Općina/grad (sjedište korisnika)"].str.strip(),
+            "zupanija_sjedista": t["Županija (sjedište korisnika)"].map(sifra_zupanije),
+            "lokacija": t["Županija (lokacija projekta)"].map(_lokacije),
+        }
+    )
+    return df, re.search(r"\d{1,2}\.\d{1,2}\.\d{4}", zadnji).group(0)
+
+
+def _eu_uljp() -> tuple[pd.DataFrame, str]:
+    put = nadji("eu-uljp-2021-2027", ".xlsx")
+    t = excel(put)
+    t.columns = [" ".join(str(c).split()) for c in t.iloc[0]]
+    t = t.iloc[2:]  # preskoči englesko zaglavlje
+    t = t[t["ŠIFRA UGOVORA"].str.strip() != ""]
+    korisnik = next(c for c in t.columns if c.startswith("NAZIV KORISNIKA"))
+    zup = t["LOKACIJA KORISNIKA/ŽUPANIJA"].map(sifra_zupanije)
+    drzavno = t[korisnik].str.strip().str.match(DRZAVNA_TIJELA)
+    lokacija = [{} if (d or pd.isna(z)) else {z: 1.0} for d, z in zip(drzavno, zup, strict=True)]
+    df = pd.DataFrame(
+        {
+            "program": "ULJP",
+            "sifra_projekta": t["ŠIFRA UGOVORA"].str.strip(),
+            "korisnik": t[korisnik].str.strip(),
+            "naziv": t["NAZIV OPERACIJE"].str.strip(),
+            "fond": t["FOND"].str.strip(),
+            "status": t["STATUS PROVEDBE"].str.strip(),
+            "pocetak": t["DATUM POČETKA OPERACIJE"].str[:10],
+            "kraj": t[next(c for c in t.columns if c.startswith("OČEKIVANI DATUM"))].str[:10],
+            "ukupno_eur": t["UKUPNI TROŠAK OPERACIJE (EUR)"].map(broj),
+            "eu_eur": t["EU IZNOS SUFINANCIRANJA"].map(broj),
+            "mjesto": t["LOKACIJA KORISNIKA"].str.strip(),
+            "zupanija_sjedista": zup,
+            "lokacija": lokacija,
+        }
+    )
+    m = re.search(r"(\d{2})(\d{2})(\d{4})", put.name)
+    presjek = f"{int(m[1])}.{int(m[2])}.{m[3]}" if m else ""
+    return df, presjek
+
+
+def eu_2021_2027() -> tuple[pd.DataFrame, str]:
+    """Operacije PKK, ITP i ULJP 2021.–2027. u jednoj tablici.
+
+    `lokacija` je {šifra županije: udio}: za PKK i ITP prema lokaciji projekta (projekt
+    može biti u više županija), za ULJP prema sjedištu korisnika. Prazno = projekt na
+    razini države (npr. fondovi, ministarstva, HZZ) – ulazi samo u zbroj države.
+    """
+    dijelovi, presjeci = [], set()
+    for mapa, program in (("eu-pkk-2021-2027", "PKK"), ("eu-itp-2021-2027", "ITP")):
+        df, p = _eu_pkk_itp(mapa, program)
+        dijelovi.append(df)
+        presjeci.add(p)
+    df, p = _eu_uljp()
+    dijelovi.append(df)
+    presjeci.add(p)
+    sve = pd.concat(dijelovi, ignore_index=True)
+    presjek = " / ".join(sorted(presjeci))
+    return sve, presjek
