@@ -25,7 +25,13 @@ RAW = KORIJEN / "data" / "raw"
 
 
 def nadji(mapa: str, uzorak: str = "") -> Path:
-    """Prva (abecedno) datoteka u data/raw/<mapa>/ čije ime sadrži uzorak."""
+    """Datoteka u data/raw/<mapa>/: točno ime, inače prva (abecedno) čije ime sadrži uzorak.
+
+    Točno ime ima prednost jer uzorak može biti dio drugog imena, npr.
+    "prazni-poslovni-prostori-2024.xlsx" je dio "ne-uvjetni-prazni-poslovni-prostori-2024.xlsx".
+    """
+    if uzorak and (RAW / mapa / uzorak).is_file():
+        return RAW / mapa / uzorak
     # bez uzorka "**" bi bio rekurzivni glob koji vraća samo mape
     obrazac = f"*{uzorak}*" if uzorak else "*"
     pogodci = sorted(

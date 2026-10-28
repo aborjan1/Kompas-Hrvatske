@@ -19,7 +19,7 @@ Sve datoteke nalaze se u `web/public/data/` i nastaju naredbom `python pipeline/
 | `jls.json` | Brojke, rangovi i slična područja za svih 556 gradova i općina | Boro, Rafael |
 | `jls/<šifra županije>.geojson` | Granice gradova i općina jedne županije (21 datoteka, DGU) | Boro |
 | `tocke/eu-projekti.geojson` | 8.355 EU projekata (OPKK 2014.–2020.) kao točke | Boro |
-| `zagreb/`, `rijeka/` | Slojevi gradskog prikaza *(dolazi kasnije)* | Boro |
+| `gradovi/…` | Prikaz Zagreba (17 gradskih četvrti, slojevi točaka) i Rijeke (proračun, prostori) | Boro, Rafael |
 
 Granice i brojke su **namjerno odvojene**: granice se rijetko mijenjaju i preglednik ih
 može dugo čuvati, a brojke se mijenjaju pri svakom pokretanju obrade.
@@ -220,6 +220,78 @@ mijenja se samo stanje, a granice se ne učitavaju ponovno.
 `jls` je šifra grada ili općine u kojoj točka leži (prema granicama DGU-a); `null` za
 11 točaka izvan kopna (npr. na moru). Datoteka ima oko 3,6 MB, pa je treba učitati tek kad korisnik uključi sloj, a točke
 grupirati (`cluster: true`). Za 3D stupce teme Novac koristi se `esif_eur`.
+
+## Gradovi: `gradovi/`
+
+Prikaz grada otvara se kad korisnik na razini Grad odabere Zagreb (`01333`) ili Rijeku
+(`03735`). Sve datoteke nastaju u `pipeline/gradovi.py` (korak 4 u `build.py`).
+
+```text
+gradovi/
+  meta.json                         katalog slojeva i pokazatelja četvrti, nazivi funkcija, izvori
+  zagreb/cetvrti.geojson            17 gradskih četvrti (poligoni: sifra, naziv)
+  zagreb/cetvrti.json               brojke i rangovi po četvrtima (isti oblik kao zupanije.json)
+  zagreb/kapitalna-ulaganja.geojson točke: planirana gradska ulaganja 2023. i 2024.
+  zagreb/brownfield.geojson         poligoni: 43 napuštene površine
+  zagreb/smjestaj.geojson           točke: 2.702 smještajna objekta (hotel, hostel, domaćinstvo)
+  zagreb/trznice.geojson            točke: 31 gradska tržnica
+  zagreb/gradska-drustva.geojson    točke: 33 gradska trgovačka društva
+  zagreb/eu-projekti.json           popis 299 EU projekata Grada (bez lokacije)
+  zagreb/proracun.json              proračun 2026. po funkcijama i vrstama prihoda
+  rijeka/proracun.json              proračun 2025., isti oblik kao za Zagreb
+  rijeka/poslovni-prostori.json     1.296 gradskih prostora u zakupu po zonama i djelatnostima
+  rijeka/eu-projekti.json           popis 16 EU projekata Grada (2013.–2017.)
+```
+
+**Četvrti.** Šifra četvrti je službena 5-znamenkasta šifra iz Registra prostornih
+jedinica (npr. Donji grad `"00116"`), a `nadredeno` je `"01333"`. Pokazatelji su opisani
+u `gradovi/meta.json` → `pokazatelji_cetvrti` (naziv, tema, jedinica, decimale, godina,
+izvor), istim poljima kao u glavnom `meta.json`. Po četvrtima nema stanovništva, pa nema
+ni vrijednosti po stanovniku (`po_stanovniku` je prazan).
+
+| Ključ | Tema | Jedinica | Godina |
+| --- | --- | --- | --- |
+| `povrsina` | imovina | km² | 2025. |
+| `kapitalna_ulaganja` | novac | EUR | 2024. |
+| `kapitalni_projekti` | novac | broj | 2024. |
+| `smjestajni_objekti` | novac | broj | 2023. |
+| `prazni_poslovni_prostori` | imovina | broj | 2024. |
+| `prazni_poslovni_prostori_m2` | imovina | m² | 2024. |
+| `prazne_garaze` | imovina | broj | 2024. |
+| `brownfield` | imovina | ha | 2020. |
+| `udio_gospodarske_povrsine` | imovina | % | 2020. |
+| `udio_stambene_povrsine` | imovina | % | 2020. |
+| `udio_zelene_povrsine` | imovina | % | 2020. |
+
+**Točke** imaju svojstvo `cetvrt` (šifra četvrti u kojoj leže; `null` izvan grada).
+Kapitalna ulaganja imaju `godina` (2023 ili 2024) i `iznos` (EUR), pa sloj treba
+filtrirati po godini, npr. `["==", ["get", "godina"], 2024]`. Smještaj (oko 600 KB)
+učitati tek kad se sloj uključi i grupirati točke.
+
+**Proračun** (`proracun.json`) ima isti oblik za oba grada, pa se mogu staviti jedan
+uz drugi:
+
+```json
+{
+  "grad": "Zagreb", "sifra": "01333", "godina": 2026, "vrsta": "plan",
+  "stanovnistvo": 767131,
+  "rashodi_ukupno": 3077158730, "rashodi_po_stanovniku": 4011.26,
+  "prihodi_ukupno": 2931223940, "prihodi_po_stanovniku": 3821.02,
+  "rashodi_po_funkciji": [
+    {"sifra": "09", "naziv": "Obrazovanje", "iznos": 1023466120, "po_stanovniku": 1334.15, "udio": 33.26}
+  ],
+  "prihodi_po_vrsti": [
+    {"sifra": "61", "naziv": "Porezi", "iznos": 1633130000, "po_stanovniku": 2128.88, "udio": 55.71}
+  ],
+  "napomena": "Grad Zagreb je ujedno i županija …"
+}
+```
+
+`napomena` treba prikazati uz usporedbu: Zagreb kao grad i županija financira i bolnice
+i srednje škole, pa njegov proračun po stanovniku nije izravno usporediv s Rijekom.
+
+**Rijeka** nema otvorene granice mjesnih odbora ni koordinate prostora. Na karti se
+prikazuje granica grada iz `jls/08.geojson` (šifra `03735`), a podaci u panelu.
 
 ## Kako se mijenja ovaj format
 

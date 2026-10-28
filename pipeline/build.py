@@ -25,6 +25,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import citaci  # noqa: E402
+import gradovi  # noqa: E402
 import granice  # noqa: E402
 import sifrarnik  # noqa: E402
 from izvoz import IZLAZ, dodaj_rang, dodaj_slicne, spremi_json, zapis_podrucja  # noqa: E402
@@ -427,6 +428,9 @@ def main() -> None:
         "izvori": meta_izvori({d["izvor"] for d in POKAZATELJI.values()}, dgu),
     }
     spremi_json("meta.json", meta)
+
+    korak("4. Gradovi: Zagreb (četvrti) i Rijeka")
+    gradovi.main(sada)
 
     nedostaje = [p for p in POKAZATELJI if p not in godine]
     if nedostaje:

@@ -1,0 +1,143 @@
+{
+  "grad": "Rijeka",
+  "sifra": "03735",
+  "godina": 2025,
+  "vrsta": "plan",
+  "izvor": "ri-proracun",
+  "stanovnistvo": 107964,
+  "rashodi_ukupno": 220937168,
+  "rashodi_po_stanovniku": 2046.4,
+  "prihodi_ukupno": 204758799,
+  "prihodi_po_stanovniku": 1896.55,
+  "rashodi_po_funkciji": [
+    {
+      "sifra": "01",
+      "naziv": "Opće javne usluge",
+      "iznos": 29667555,
+      "po_stanovniku": 274.79,
+      "udio": 13.43
+    },
+    {
+      "sifra": "03",
+      "naziv": "Javni red i sigurnost",
+      "iznos": 9300742,
+      "po_stanovniku": 86.15,
+      "udio": 4.21
+    },
+    {
+      "sifra": "04",
+      "naziv": "Ekonomski poslovi",
+      "iznos": 21246550,
+      "po_stanovniku": 196.79,
+      "udio": 9.62
+    },
+    {
+      "sifra": "05",
+      "naziv": "Zaštita okoliša",
+      "iznos": 6315020,
+      "po_stanovniku": 58.49,
+      "udio": 2.86
+    },
+    {
+      "sifra": "06",
+      "naziv": "Stanovanje i komunalni razvoj",
+      "iznos": 21103676,
+      "po_stanovniku": 195.47,
+      "udio": 9.55
+    },
+    {
+      "sifra": "07",
+      "naziv": "Zdravstvo",
+      "iznos": 3797300,
+      "po_stanovniku": 35.17,
+      "udio": 1.72
+    },
+    {
+      "sifra": "08",
+      "naziv": "Rekreacija, kultura i religija",
+      "iznos": 41485473,
+      "po_stanovniku": 384.25,
+      "udio": 18.78
+    },
+    {
+      "sifra": "09",
+      "naziv": "Obrazovanje",
+      "iznos": 78879182,
+      "po_stanovniku": 730.61,
+      "udio": 35.7
+    },
+    {
+      "sifra": "10",
+      "naziv": "Socijalna zaštita",
+      "iznos": 9141670,
+      "po_stanovniku": 84.67,
+      "udio": 4.14
+    }
+  ],
+  "napomena": "Plan Grada Rijeke s proračunskim korisnicima (vrtići, osnovne škole, ustanove u kulturi). Bolnice i srednje škole financira Primorsko-goranska županija.",
+  "prihodi_po_vrsti": [
+    {
+      "sifra": "61",
+      "naziv": "Porezi",
+      "iznos": 96650200,
+      "po_stanovniku": 895.21,
+      "udio": 47.2
+    },
+    {
+      "sifra": "63",
+      "naziv": "Pomoći (EU, država, drugi proračuni)",
+      "iznos": 51927456,
+      "po_stanovniku": 480.97,
+      "udio": 25.36
+    },
+    {
+      "sifra": "64",
+      "naziv": "Prihodi od imovine",
+      "iznos": 15436001,
+      "po_stanovniku": 142.97,
+      "udio": 7.54
+    },
+    {
+      "sifra": "65",
+      "naziv": "Pristojbe i naknade (komunalna naknada, doprinos…)",
+      "iznos": 28889276,
+      "po_stanovniku": 267.58,
+      "udio": 14.11
+    },
+    {
+      "sifra": "66",
+      "naziv": "Prodaja usluga i donacije",
+      "iznos": 4709882,
+      "po_stanovniku": 43.62,
+      "udio": 2.3
+    },
+    {
+      "sifra": "67",
+      "naziv": "Iz nadležnog proračuna i HZZO-a",
+      "iznos": 560000,
+      "po_stanovniku": 5.19,
+      "udio": 0.27
+    },
+    {
+      "sifra": "68",
+      "naziv": "Kazne i ostali prihodi",
+      "iznos": 1405890,
+      "po_stanovniku": 13.02,
+      "udio": 0.69
+    },
+    {
+      "sifra": "71",
+      "naziv": "Prodaja zemljišta",
+      "iznos": 2633070,
+      "po_stanovniku": 24.39,
+      "udio": 1.29
+    },
+    {
+      "sifra": "72",
+      "naziv": "Prodaja zgrada i opreme",
+      "iznos": 2547024,
+      "po_stanovniku": 23.59,
+      "udio": 1.24
+    }
+  ]
+}
