@@ -1,4 +1,4 @@
-# Provjera preuzetih skupova (faze 1–3)
+# Provjera preuzetih skupova (faze 1–6)
 
 Stanje: 27. 10. 2026., nakon `python pipeline/download.py --faza 1,2,3`.
 
@@ -70,6 +70,32 @@ Sva tri skupa su u `sources.csv` označena s `aktivno = ne`.
 | `dzs-gradovi-opcine` | Preuzeto; samo 128 gradova (bez općina). Kandidat za procjenu stanovništva i prirodno kretanje. |
 | `turisticki-objekti` | Preuzeto; samo zbirni podaci iz 2019., bez adresa. Ne koristi se. |
 | `komunalni-projekti` | **Neispravan**: datoteke su na staroj domeni www.mgipu.hr, koja prekida vezu. |
+
+## Faze 5 i 6 (Zagreb i Rijeka)
+
+Stanje: 28. 10. 2026., nakon `python pipeline/download.py --faza 5,6` (20 od 22 skupa).
+
+| Skup | Stanje |
+| --- | --- |
+| `zg-cetvrti` | ✔ 17 četvrti sa službenim šiframa; EPSG:3765 → WGS84. Osnova prikaza Zagreba. |
+| `zg-stvarno-koristenje` | ✔ 33.497 površina s nazivom četvrti; zbroj po četvrti odgovara površini poligona (razlika najviše 0,5 %). |
+| `zg-kapitalna-2023`, `zg-kapitalna-2024` | ✔ Točke s planiranim iznosom. 2 i 4 projekta nemaju koordinate („Ostali školski objekti” i sl.), pa nisu na karti (0,9 % iznosa 2024.). |
+| `zg-smjestajni-objekti` | ✔ 2.702 točke, stanje 2023. |
+| `zg-prazni-prostori` | ✔ Tablice 2024. imaju naziv četvrti, pa se spajaju po nazivu (sve 17 prepoznato). Bez koordinata. |
+| `zg-brownfield`, `zg-trznice`, `zg-trgovacka-drustva` | ✔ Slojevi na karti. 2 gradska društva imaju sjedište izvan Zagreba. |
+| `zg-eu-projekti` | ✔ 299 projekata (437 mil. EUR bespovratno), bez lokacije. Nazivi programa pisani na više načina („Erasmus+”, „Erasmus +”), pa se grupiraju u skupine. |
+| `zg-proracun-2026` | ✔ Konsolidirani plan; rashodi (razredi 3 i 4) po funkcijskoj klasifikaciji = 3,08 mlrd. EUR. |
+| `ri-proracun` | ✔ Plan 2025.; zbroj funkcija = „UKUPNO RASHODI” (220,9 mil. EUR). |
+| `ri-prostori-zakup` | ✔ 1.296 prostora; zbrojeno po zoni zakupnine i području djelatnosti (NKD). Bez koordinata. |
+| `ri-eu-projekti` | ✔ 16 projekata u slobodnom tekstu (ne u tablici); dva iznosa u kunama preračunata u EUR. |
+| `zg-planirana-namjena` | Preuzeto (35 MB), zasad se ne obrađuje; kandidat za gospodarske zone (#14). |
+| `zg-prometnice`, `zg-zakup-prostora`, `zg-zakup-zemljista`, `zg-proracun-2022-2025`, `ri-prihodi-poduzetnika` | Preuzeto, ne koristi se (bez lokacije, stariji ili premali). |
+| `ri-slobodni-prostori` | **Neispravan**: poslužitelj e-usluge3.rijeka.hr ima nepotpun SSL certifikat. |
+| `ri-subvencije` | **Neispravan**: datoteke na data.rijeka.hr vraćaju 404. |
+
+**Usporedba proračuna:** Grad Zagreb je ujedno i županija, pa njegov proračun
+uključuje bolnice, srednje škole i domove za starije. Zdravstvo po stanovniku je u Zagrebu
+455 EUR, a u Rijeci 35 EUR. Ta se napomena izvozi uz podatke.
 
 ## Greške u izvorima koje obrada ispravlja
 

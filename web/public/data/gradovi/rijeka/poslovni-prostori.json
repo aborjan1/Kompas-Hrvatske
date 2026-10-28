@@ -1,0 +1,148 @@
+{
+  "grad": "Rijeka",
+  "sifra": "03735",
+  "izvor": "ri-prostori-zakup",
+  "ukupno": {
+    "broj": 1296,
+    "povrsina_m2": 154370,
+    "zakupnina_mjesecno_eur": 688106,
+    "prosjecna_cijena_eur_m2": 4.46
+  },
+  "po_zoni": {
+    "0": {
+      "broj": 141,
+      "povrsina_m2": 12872,
+      "zakupnina_mjesecno_eur": 233900,
+      "prosjecna_cijena_eur_m2": 18.17
+    },
+    "I": {
+      "broj": 408,
+      "povrsina_m2": 44905,
+      "zakupnina_mjesecno_eur": 250925,
+      "prosjecna_cijena_eur_m2": 5.59
+    },
+    "II": {
+      "broj": 183,
+      "povrsina_m2": 16683,
+      "zakupnina_mjesecno_eur": 56938,
+      "prosjecna_cijena_eur_m2": 3.41
+    },
+    "III": {
+      "broj": 564,
+      "povrsina_m2": 79910,
+      "zakupnina_mjesecno_eur": 146343,
+      "prosjecna_cijena_eur_m2": 1.83
+    }
+  },
+  "po_djelatnosti": {
+    "Trgovina": {
+      "broj": 274,
+      "povrsina_m2": 25911,
+      "zakupnina_mjesecno_eur": 344533,
+      "prosjecna_cijena_eur_m2": 13.3
+    },
+    "Popravci i osobne usluge": {
+      "broj": 211,
+      "povrsina_m2": 9527,
+      "zakupnina_mjesecno_eur": 40319,
+      "prosjecna_cijena_eur_m2": 4.23
+    },
+    "Udruge i organizacije": {
+      "broj": 157,
+      "povrsina_m2": 17459,
+      "zakupnina_mjesecno_eur": 30380,
+      "prosjecna_cijena_eur_m2": 1.74
+    },
+    "Smještaj i ugostiteljstvo": {
+      "broj": 90,
+      "povrsina_m2": 12665,
+      "zakupnina_mjesecno_eur": 98122,
+      "prosjecna_cijena_eur_m2": 7.75
+    },
+    "Umjetnost, zabava i rekreacija": {
+      "broj": 90,
+      "povrsina_m2": 9468,
+      "zakupnina_mjesecno_eur": 24129,
+      "prosjecna_cijena_eur_m2": 2.55
+    },
+    "Stručne i znanstvene djelatnosti": {
+      "broj": 87,
+      "povrsina_m2": 7037,
+      "zakupnina_mjesecno_eur": 18010,
+      "prosjecna_cijena_eur_m2": 2.56
+    },
+    "Zdravstvo i socijalna skrb": {
+      "broj": 81,
+      "povrsina_m2": 20746,
+      "zakupnina_mjesecno_eur": 21455,
+      "prosjecna_cijena_eur_m2": 1.03
+    },
+    "Prerađivačka industrija": {
+      "broj": 66,
+      "povrsina_m2": 6352,
+      "zakupnina_mjesecno_eur": 17694,
+      "prosjecna_cijena_eur_m2": 2.79
+    },
+    "Obrazovanje": {
+      "broj": 57,
+      "povrsina_m2": 21159,
+      "zakupnina_mjesecno_eur": 24919,
+      "prosjecna_cijena_eur_m2": 1.18
+    },
+    "Administrativne i pomoćne usluge": {
+      "broj": 42,
+      "povrsina_m2": 3672,
+      "zakupnina_mjesecno_eur": 8796,
+      "prosjecna_cijena_eur_m2": 2.4
+    },
+    "Prijevoz i skladištenje": {
+      "broj": 31,
+      "povrsina_m2": 5202,
+      "zakupnina_mjesecno_eur": 11161,
+      "prosjecna_cijena_eur_m2": 2.15
+    },
+    "Građevinarstvo": {
+      "broj": 26,
+      "povrsina_m2": 1214,
+      "zakupnina_mjesecno_eur": 3061,
+      "prosjecna_cijena_eur_m2": 2.52
+    },
+    "Nije navedeno": {
+      "broj": 26,
+      "povrsina_m2": 1869,
+      "zakupnina_mjesecno_eur": 3604,
+      "prosjecna_cijena_eur_m2": 1.93
+    },
+    "Javna uprava": {
+      "broj": 17,
+      "povrsina_m2": 7956,
+      "zakupnina_mjesecno_eur": 11952,
+      "prosjecna_cijena_eur_m2": 1.5
+    },
+    "Poslovanje nekretninama": {
+      "broj": 17,
+      "povrsina_m2": 1885,
+      "zakupnina_mjesecno_eur": 10574,
+      "prosjecna_cijena_eur_m2": 5.61
+    },
+    "Informacije i komunikacije": {
+      "broj": 15,
+      "povrsina_m2": 1624,
+      "zakupnina_mjesecno_eur": 3545,
+      "prosjecna_cijena_eur_m2": 2.18
+    },
+    "Financije i osiguranje": {
+      "broj": 7,
+      "povrsina_m2": 583,
+      "zakupnina_mjesecno_eur": 15458,
+      "prosjecna_cijena_eur_m2": 26.51
+    },
+    "Energija, voda i otpad": {
+      "broj": 2,
+      "povrsina_m2": 40,
+      "zakupnina_mjesecno_eur": 395,
+      "prosjecna_cijena_eur_m2": 9.95
+    }
+  },
+  "napomena": "Zakupnina je mjesečna (površina × jedinična cijena po m²). Zone su zone zakupnine Grada Rijeke; zona 0 ima najvišu cijenu (središte grada). Izvor nema koordinate, samo adrese."
+}

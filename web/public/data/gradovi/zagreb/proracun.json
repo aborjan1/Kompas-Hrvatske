@@ -1,0 +1,143 @@
+{
+  "grad": "Zagreb",
+  "sifra": "01333",
+  "godina": 2026,
+  "vrsta": "plan",
+  "izvor": "zg-proracun-2026",
+  "stanovnistvo": 767131,
+  "rashodi_ukupno": 3077158730,
+  "rashodi_po_stanovniku": 4011.26,
+  "prihodi_ukupno": 2931223940,
+  "prihodi_po_stanovniku": 3821.02,
+  "rashodi_po_funkciji": [
+    {
+      "sifra": "01",
+      "naziv": "Opće javne usluge",
+      "iznos": 216136260,
+      "po_stanovniku": 281.75,
+      "udio": 7.02
+    },
+    {
+      "sifra": "03",
+      "naziv": "Javni red i sigurnost",
+      "iznos": 27648260,
+      "po_stanovniku": 36.04,
+      "udio": 0.9
+    },
+    {
+      "sifra": "04",
+      "naziv": "Ekonomski poslovi",
+      "iznos": 354781100,
+      "po_stanovniku": 462.48,
+      "udio": 11.53
+    },
+    {
+      "sifra": "05",
+      "naziv": "Zaštita okoliša",
+      "iznos": 126392900,
+      "po_stanovniku": 164.76,
+      "udio": 4.11
+    },
+    {
+      "sifra": "06",
+      "naziv": "Stanovanje i komunalni razvoj",
+      "iznos": 434261300,
+      "po_stanovniku": 566.08,
+      "udio": 14.11
+    },
+    {
+      "sifra": "07",
+      "naziv": "Zdravstvo",
+      "iznos": 349108920,
+      "po_stanovniku": 455.08,
+      "udio": 11.35
+    },
+    {
+      "sifra": "08",
+      "naziv": "Rekreacija, kultura i religija",
+      "iznos": 363445100,
+      "po_stanovniku": 473.77,
+      "udio": 11.81
+    },
+    {
+      "sifra": "09",
+      "naziv": "Obrazovanje",
+      "iznos": 1023466120,
+      "po_stanovniku": 1334.15,
+      "udio": 33.26
+    },
+    {
+      "sifra": "10",
+      "naziv": "Socijalna zaštita",
+      "iznos": 181918770,
+      "po_stanovniku": 237.14,
+      "udio": 5.91
+    }
+  ],
+  "napomena": "Grad Zagreb je ujedno i županija, pa njegov proračun uključuje i županijske poslove (bolnice, srednje škole, domove za starije). Zato su zdravstvo i obrazovanje po stanovniku znatno veći nego u drugim gradovima.",
+  "prihodi_po_vrsti": [
+    {
+      "sifra": "61",
+      "naziv": "Porezi",
+      "iznos": 1633130000,
+      "po_stanovniku": 2128.88,
+      "udio": 55.71
+    },
+    {
+      "sifra": "63",
+      "naziv": "Pomoći (EU, država, drugi proračuni)",
+      "iznos": 683074590,
+      "po_stanovniku": 890.43,
+      "udio": 23.3
+    },
+    {
+      "sifra": "64",
+      "naziv": "Prihodi od imovine",
+      "iznos": 78709110,
+      "po_stanovniku": 102.6,
+      "udio": 2.69
+    },
+    {
+      "sifra": "65",
+      "naziv": "Pristojbe i naknade (komunalna naknada, doprinos…)",
+      "iznos": 229312540,
+      "po_stanovniku": 298.92,
+      "udio": 7.82
+    },
+    {
+      "sifra": "66",
+      "naziv": "Prodaja usluga i donacije",
+      "iznos": 46240870,
+      "po_stanovniku": 60.28,
+      "udio": 1.58
+    },
+    {
+      "sifra": "67",
+      "naziv": "Iz nadležnog proračuna i HZZO-a",
+      "iznos": 234428500,
+      "po_stanovniku": 305.59,
+      "udio": 8.0
+    },
+    {
+      "sifra": "68",
+      "naziv": "Kazne i ostali prihodi",
+      "iznos": 15073410,
+      "po_stanovniku": 19.65,
+      "udio": 0.51
+    },
+    {
+      "sifra": "71",
+      "naziv": "Prodaja zemljišta",
+      "iznos": 3550000,
+      "po_stanovniku": 4.63,
+      "udio": 0.12
+    },
+    {
+      "sifra": "72",
+      "naziv": "Prodaja zgrada i opreme",
+      "iznos": 7704920,
+      "po_stanovniku": 10.04,
+      "udio": 0.26
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 Ova datoteka nastaje automatski iz `data/sources.csv` (`python pipeline/popis_izvora.py`). Ne uređuj je ručno.
 
-Broj skupova: **63**. Skripta `pipeline/download.py` preuzima njih **46**, a ostali se preuzimaju ručno, koriste kao servis izravno na karti ili traže API registraciju.
+Broj skupova: **63**. Skripta `pipeline/download.py` preuzima njih **44**, a ostali se preuzimaju ručno, koriste kao servis izravno na karti ili traže API registraciju.
 
 Mapa u koju se skup sprema je `data/raw/<id>/`.
 
@@ -69,34 +69,34 @@ Mapa u koju se skup sprema je `data/raw/<id>/`.
 | --- | --- | --- | --- | --- | --- | --- |
 | `dgu-ortofoto-2024` | [Digitalni ortofoto 1:5000 2024. (+ 2011.–2023., LIDAR 2022./23., 1:500 i 1:1000 – zasebni skupovi)](https://data.gov.hr/ckan/dataset/digitalni-ortofoto-u-mjerilu-1-5000-2024-godina) | Državna geodetska uprava | WMS, WMTS | servis (WMS/WFS) | #16 | WMTS: karta ga učitava uživo, ne preuzima se |
 | `zg3d` | [ZG3D 2022 – 3D model Grada Zagreba (+ 17 gradskih četvrti)](https://data.gov.hr/ckan/dataset/zg3d-2022-3d-model-gz) | Grad Zagreb | CSV, GeoJSON, XLSX, FGDB | ručno | #17 | Velik model: ručno, samo središte grada |
-| `zg-cetvrti` | [Gradske četvrti – granice](https://data.gov.hr/ckan/dataset/gradske-cetvrti-prostorna-jedinica-mjesne-samouprave-za-podrucje-grada-zagreba) | Grad Zagreb | SHP | skripta | #16 |  |
-| `zg-planirana-namjena` | [Planirana namjena 2023](https://data.gov.hr/ckan/dataset/geoportal-planirana-namjena-2023) | Grad Zagreb | CSV, SHP, GeoJSON, KML | skripta | #16 | Gospodarske zone |
-| `zg-stvarno-koristenje` | [Stvarno korištenje površina 2020.](https://data.gov.hr/ckan/dataset/stvarno-koristenje-povrsina-2020) | Grad Zagreb | CSV, XLSX | skripta | #16 |  |
-| `zg-smjestajni-objekti` | [Smještajni objekti (prostorno)](https://data.gov.hr/ckan/dataset/geoportal-smjestajni-objekti) | Grad Zagreb | CSV, SHP, GeoJSON, KML | skripta | #16 |  |
-| `zg-trgovacka-drustva` | [Gradska trgovačka društva (prostorno)](https://data.gov.hr/ckan/dataset/geoportal-gradska-trgovacka-drustva) | Grad Zagreb | CSV, KML, SHP, GeoJSON | skripta | #16 |  |
-| `zg-trznice` | [Gradske tržnice](https://data.gov.hr/ckan/dataset/geoportal-gradske-trznice) | Grad Zagreb | CSV, KML, SHP, GeoJSON | skripta | #16 |  |
+| `zg-cetvrti` | [Gradske četvrti - prostorna jedinica mjesne samouprave za područje Grada Zagreba](https://data.gov.hr/ckan/dataset/gradske-cetvrti-prostorna-jedinica-mjesne-samouprave-za-podrucje-grada-zagreba) | Grad Zagreb | SHP | skripta | #16 | 17 četvrti sa šiframa RPJ (EPSG:3765). Osnova za prikaz Zagreba. |
+| `zg-planirana-namjena` | [Geoportal planirana namjena 2023](https://data.gov.hr/ckan/dataset/geoportal-planirana-namjena-2023) | Grad Zagreb | CSV, SHP, GeoJSON, KML | skripta | #16 | Preuzeto (GeoJSON 35 MB); zasad se ne obrađuje. Kandidat za gospodarske zone (#14). |
+| `zg-stvarno-koristenje` | [Stvarno korištenje površina 2020.](https://data.gov.hr/ckan/dataset/stvarno-koristenje-povrsina-2020) | Grad Zagreb | CSV, XLSX | skripta | #16 | Hektari po četvrti (IME_GC): brownfield, udio gospodarskih, stambenih i zelenih površina. |
+| `zg-smjestajni-objekti` | [Geoportal Smještajni objekti](https://data.gov.hr/ckan/dataset/geoportal-smjestajni-objekti) | Grad Zagreb | CSV, SHP, GeoJSON, KML | skripta | #16 | 2.702 točke (hoteli, hosteli, domaćinstva). |
+| `zg-trgovacka-drustva` | [Geoportal gradska trgovačka društva](https://data.gov.hr/ckan/dataset/geoportal-gradska-trgovacka-drustva) | Grad Zagreb | CSV, KML, SHP, GeoJSON | skripta | #16 |  |
+| `zg-trznice` | [Geoportal gradske tržnice](https://data.gov.hr/ckan/dataset/geoportal-gradske-trznice) | Grad Zagreb | CSV, KML, SHP, GeoJSON | skripta | #16 |  |
 | `zg-brownfield` | [Brownfield površine](https://data.gov.hr/ckan/dataset/brownfield-povrsine) | Grad Zagreb | CSV, KML, SHP, GeoJSON | skripta | #16 |  |
-| `zg-kapitalna-2023` | [Kapitalna ulaganja 2023. (s lokacijama)](https://data.gov.hr/ckan/dataset/kapitalna-ulaganja-2023) | Grad Zagreb | CSV, KML, SHP, GeoJSON | skripta | #16 | Javna ulaganja s lokacijama |
-| `zg-kapitalna-2024` | [Kapitalna ulaganja 2024. (s lokacijama)](https://data.gov.hr/ckan/dataset/kapitalna-ulaganja-2024) | Grad Zagreb | CSV, SHP, GeoJSON, KML | skripta | #16 | Javna ulaganja s lokacijama |
-| `zg-prometnice` | [Izgrađene prometnice](https://data.gov.hr/ckan/dataset/izgradene-ceste-u-gradu-zagrebu) | Grad Zagreb | XLSX, CSV | skripta | #16 |  |
-| `zg-eu-projekti` | [EU projekti u provedbi](https://data.gov.hr/ckan/dataset/projekti-europske-unije) | Grad Zagreb | CSV, XLSX | skripta | #16 |  |
+| `zg-kapitalna-2023` | [Kapitalna ulaganja 2023](https://data.gov.hr/ckan/dataset/kapitalna-ulaganja-2023) | Grad Zagreb | CSV, KML, SHP, GeoJSON | skripta | #16 | Točke s planiranim iznosom; 2 bez koordinata. |
+| `zg-kapitalna-2024` | [Kapitalna ulaganja 2024.](https://data.gov.hr/ckan/dataset/kapitalna-ulaganja-2024) | Grad Zagreb | CSV, SHP, GeoJSON, KML | skripta | #16 | Točke s planiranim iznosom; 4 bez koordinata. Pokazatelj po četvrtima. |
+| `zg-prometnice` | [Izgrađene prometnice u Gradu Zagrebu](https://data.gov.hr/ckan/dataset/izgradene-ceste-u-gradu-zagrebu) | Grad Zagreb | XLSX, CSV | skripta | #16 | Popis cesta bez koordinata; ne koristi se. |
+| `zg-eu-projekti` | [Projekti Europske Unije u provedbi](https://data.gov.hr/ckan/dataset/projekti-europske-unije) | Grad Zagreb | CSV, XLSX | skripta | #16 | 299 projekata Grada i ustanova; bez lokacije. |
 | `zg-vrtici-skole` | [Dječji vrtići, osnovne i srednje škole Grada Zagreba INSPIRE](https://data.gov.hr/ckan/dataset/djeji-vrtii-osnovne-i-srednje-kole-grada-zagreba-inspire) | Državna geodetska uprava | WFS, WMS | servis (WMS/WFS) | #16 | WFS: za priču o vrtićima |
-| `zg-prazni-prostori` | [Prazni poslovni prostori, garaže i parkirna mjesta 2022.–2024.](https://data.gov.hr/ckan/dataset/prazni-poslovni-prostori) | Grad Zagreb | XLSX, CSV | skripta | #16 | Adrese u točke preko dgu-adrese |
-| `zg-zakup-prostora` | [Registar ugovora o zakupu/korištenju poslovnih prostora](https://data.gov.hr/ckan/dataset/registar-ugovora-o-zakupu-koristenju-poslovnih-prostora) | Grad Zagreb | XLSX, CSV | skripta | #16 |  |
-| `zg-zakup-zemljista` | [Ugovori o zakupu zemljišta](https://data.gov.hr/ckan/dataset/ugovori-o-zakupu-zemljista-2022) | Grad Zagreb | XLSX, CSV | skripta | #16 |  |
-| `zg-proracun-2026` | [Proračun Grada Zagreba 2026.](https://data.gov.hr/ckan/dataset/proracun-grada-zagreba-2026) | Grad Zagreb | XLSX, CSV | skripta | #16 |  |
-| `zg-proracun-2022-2025` | [Proračun Grada Zagreba 2022.–2025.](https://data.gov.hr/ckan/dataset/proracun) | Grad Zagreb | XLSX, CSV | skripta | #16 |  |
+| `zg-prazni-prostori` | [Prazni poslovni prostori](https://data.gov.hr/ckan/dataset/prazni-poslovni-prostori) | Grad Zagreb | XLSX, CSV | skripta | #16 | Tablice 2024. imaju stupac GRADSKA ČETVRT; spaja se po nazivu. Adrese bez koordinata. |
+| `zg-zakup-prostora` | [Registar ugovora o zakupu / korištenju poslovnih prostora](https://data.gov.hr/ckan/dataset/registar-ugovora-o-zakupu-koristenju-poslovnih-prostora) | Grad Zagreb | XLSX, CSV | skripta | #16 | Adrese bez četvrti i koordinata; ne koristi se. |
+| `zg-zakup-zemljista` | [Ugovori o zakupu zemljišta](https://data.gov.hr/ckan/dataset/ugovori-o-zakupu-zemljista-2022) | Grad Zagreb | XLSX, CSV | skripta | #16 | Mali broj ugovora; ne koristi se. |
+| `zg-proracun-2026` | [Proračun Grada Zagreba 2026.](https://data.gov.hr/ckan/dataset/proracun-grada-zagreba-2026) | Grad Zagreb | XLSX, CSV | skripta | #16 | Konsolidirani plan; rashodi po funkcijskoj klasifikaciji (OznakaPodskupine). |
+| `zg-proracun-2022-2025` | [Proračun Grada Zagreba 2022. - 2025.](https://data.gov.hr/ckan/dataset/proracun) | Grad Zagreb | XLSX, CSV | skripta | #16 | Starije verzije proračuna; zasad se koristi samo zg-proracun-2026. |
 
 ## 6. Gradski prikaz: Rijeka
 
 | id (mapa) | Skup | Izdavatelj | Formati | Način | Issue | Napomena |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ri-proracun` | [Proračun Grada Rijeke (4. razina) i izvršenje (5. razina konta)](https://data.gov.hr/ckan/dataset/proracun-grada-rijeke-na-4-razini-konta) | Grad Rijeka | XLS, XLSX | skripta | #16 |  |
-| `ri-slobodni-prostori` | [Poslovni prostori – slobodni](https://data.gov.hr/ckan/dataset/https-e-usluge3-rijeka-hr-apex-f-p-150-7) | Grad Rijeka | HTML, JSON | skripta | #16 |  |
-| `ri-prostori-zakup` | [Poslovni prostori – u zakupu](https://data.gov.hr/ckan/dataset/poslovni-prostori-u-zakupu) | Grad Rijeka | JSON, CSV | skripta | #16 |  |
-| `ri-eu-projekti` | [EU projekti Grada Rijeke](https://data.gov.hr/ckan/dataset/eu-projekti-od-2013-godine) | Grad Rijeka | CSV | skripta | #16 |  |
-| `ri-subvencije` | [Subvencije poduzetnicima – lista korisnika](https://data.gov.hr/ckan/dataset/subvencije-poduzetnicima-grada-rijeke-lista-korisnika) | Grad Rijeka | XLS, CSV | skripta | #16 |  |
-| `ri-prihodi-poduzetnika` | [Prihodi poduzetnika prema djelatnostima](https://data.gov.hr/ckan/dataset/prihodi-poslovanja-poduzetnika-prema-djelatnostima) | Grad Rijeka | XLS | skripta | #16 |  |
+| `ri-proracun` | [Proračun Grada Rijeke na 4.razini i Izvršenja na 5.razini konta](https://data.gov.hr/ckan/dataset/proracun-grada-rijeke-na-4-razini-konta) | Grad Rijeka | XLS, XLSX | skripta | #16 | Plan 2025. (funkcijska i ekonomska klasifikacija); 35 datoteka od 2015. |
+| `ri-slobodni-prostori` | [Poslovni prostori Grada Rijeke - SLOBODNI](https://data.gov.hr/ckan/dataset/https-e-usluge3-rijeka-hr-apex-f-p-150-7) | Grad Rijeka | HTML, JSON | skripta | #16 | NEISPRAVAN: e-usluge3.rijeka.hr ima nepotpun SSL certifikat (preuzimanje odbijeno). |
+| `ri-prostori-zakup` | [Poslovni prostori Grada Rijeke - U ZAKUPU](https://data.gov.hr/ckan/dataset/poslovni-prostori-u-zakupu) | Grad Rijeka | JSON, CSV | skripta | #16 | 1.296 prostora s adresom, zonom, površinom i cijenom; bez koordinata. |
+| `ri-eu-projekti` | [EU projekti u kojima je nositelj ili partner Grad Rijeka](https://data.gov.hr/ckan/dataset/eu-projekti-od-2013-godine) | Grad Rijeka | CSV | skripta | #16 | 16 projekata u slobodnom tekstu; iznosi u kunama preračunati u EUR. |
+| `ri-subvencije` | [Subvencije poduzetnicima Grada Rijeke - Lista korisnika](https://data.gov.hr/ckan/dataset/subvencije-poduzetnicima-grada-rijeke-lista-korisnika) | Grad Rijeka | XLS, CSV | skripta | #16 | NEISPRAVAN: datoteke na data.rijeka.hr vraćaju 404. |
+| `ri-prihodi-poduzetnika` | [Prihodi poslovanja poduzetnika prema djelatnostima](https://data.gov.hr/ckan/dataset/prihodi-poslovanja-poduzetnika-prema-djelatnostima) | Grad Rijeka | XLS | skripta | #16 | Samo do 2018.; ne koristi se. |
 | `ri-gis` | [GIS Grada Rijeke](https://data.gov.hr/ckan/dataset/gis-grad-rijeka) | Grad Rijeka | WMS | servis (WMS/WFS) | #16 | WMS servis |
 
 ## Izvori izvan data.gov.hr
