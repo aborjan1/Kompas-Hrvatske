@@ -62,6 +62,15 @@ Sva tri skupa su u `sources.csv` označena s `aktivno = ne`.
 - ATOM usluga navodi „ograničenje javnog pristupa prema čl. 13. st. 1. t. (e) INSPIRE Direktive”, a data.gov.hr isti skup vodi pod Otvorenom dozvolom. **Prije predaje provjeriti uvjete korištenja s DGU-om.**
 - EU projekti raspoređeni po JLS prema koordinatama: 54 od 8.355 točaka leži u drugoj županiji od one upisane u izvoru, a 11 izvan kopna.
 
+## Faza 4 (razina Grad)
+
+| Skup | Stanje |
+| --- | --- |
+| `pu-porezne-stope-jls` | ✔ Koristi se. Tablice imaju **službenu šifru JLS**, pa se spajaju izravno (556/556). Niža stopa 15–23 %, viša 25–33 %. Porez na potrošnju i nekretnine: kod raspona („3,00 do 5,00”) uzima se najviši iznos. Paušalni porez je po naseljima, pa se zasad ne koristi. |
+| `dzs-gradovi-opcine` | Preuzeto; samo 128 gradova (bez općina). Kandidat za procjenu stanovništva i prirodno kretanje. |
+| `turisticki-objekti` | Preuzeto; samo zbirni podaci iz 2019., bez adresa. Ne koristi se. |
+| `komunalni-projekti` | **Neispravan**: datoteke su na staroj domeni www.mgipu.hr, koja prekida vezu. |
+
 ## Greške u izvorima koje obrada ispravlja
 
 Sve su ispravljene u kodu, a ne ručno u datotekama, pa se popravak ponavlja pri svakom pokretanju.

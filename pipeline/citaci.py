@@ -50,7 +50,11 @@ def broj(v) -> float | None:
     s = str(v).strip().replace(" ", "").replace(" ", "")
     if s in ("", "-", "–", "...", "…", "x", "z", "nan"):
         return None
-    if re.fullmatch(r"-?\d{1,3}(\.\d{3})+(,\d+)?", s):  # 1.234.567,89
+    # Hrvatski zapis s točkom za tisućice: "1.234.567" ili "1.234,5". Pazi: "0.216" i
+    # "1.333" su decimalni brojevi (tako ih zapisuje Excel), ne tisućice.
+    if re.fullmatch(r"-?[1-9]\d{0,2}(\.\d{3}){2,}(,\d+)?", s) or re.fullmatch(
+        r"-?[1-9]\d{0,2}(\.\d{3})+,\d+", s
+    ):
         s = s.replace(".", "").replace(",", ".")
     else:
         s = s.replace(",", ".")
@@ -521,3 +525,73 @@ def aktivne_pravne_osobe() -> tuple[float, str]:
         if t.iloc[k, 0].strip() == "aktivne":
             return broj(t.iloc[k, 2]), stanje
     raise ValueError("Registar: redak 'aktivne' nije pronađen")
+
+
+# --------------------------------------------------------------------------- porezne stope (JLS)
+
+
+def _najvise(v) -> float | None:
+    """'0,60 do 3,7' / '1,00-3,00%' / '2' → najviši broj u zapisu (ili None)."""
+    brojevi = [broj(x) for x in re.findall(r"\d+(?:[.,]\d+)?", str(v))]
+    brojevi = [b for b in brojevi if b is not None]
+    return max(brojevi) if brojevi else None
+
+
+def porezne_stope_jls() -> tuple[pd.DataFrame, str]:
+    """Porezne stope i iznosi po gradovima/općinama (Porezna uprava), spojeno po šifri.
+
+    Šifra u tablicama Porezne uprave je službena šifra JLS bez vodećih nula (19 = "00019").
+    Stupci: sifra, stopa_poreza_dohodak_niza, stopa_poreza_dohodak_visa (%),
+    promjena_stope_niza (postotni bodovi u odnosu na prošlu godinu),
+    porez_na_potrosnju (%), porez_na_nekretnine (EUR/m², najviši iznos ako je raspon).
+    """
+    mapa = "pu-porezne-stope-jls"
+    t = pd.read_excel(nadji(mapa, "tablica-poreznih-stopa"), dtype=str, engine="calamine")
+    stupci = [c.strip() for c in t.columns]
+    if not (stupci[1].startswith("Šifra") and stupci[5].startswith("Niža stopa")):
+        raise ValueError("Tablica poreznih stopa: stupci nisu na očekivanim mjestima")
+    godina = _godina(stupci[5])
+    df = pd.DataFrame(
+        {
+            "sifra": t.iloc[:, 1].str.strip().str.zfill(5),
+            "stopa_poreza_dohodak_niza": t.iloc[:, 5].map(broj) * 100,
+            "stopa_poreza_dohodak_visa": t.iloc[:, 6].map(broj) * 100,
+        }
+    )
+
+    # Usporedba s prošlom godinom: isti redoslijed redaka, ali bez šifre – provjeri nazive
+    u = pd.read_excel(nadji(mapa, "usporedba-2025"), dtype=str, engine="calamine")
+    if (u.iloc[:, 1].str.strip().values != t.iloc[:, 2].str.strip().values).any():
+        raise ValueError("Usporedba stopa: redoslijed gradova/općina se ne poklapa s tablicom")
+    df["promjena_stope_niza"] = ((u.iloc[:, 2].map(broj) - u.iloc[:, 4].map(broj)) * 100).round(2)
+
+    p = pd.read_excel(nadji(mapa, "potronju"), dtype=str, engine="calamine")
+    stupac = next(j for j, c in enumerate(p.columns) if str(c).strip() == godina)
+    df = df.merge(
+        pd.DataFrame(
+            {
+                "sifra": p.iloc[:, 1].str.strip().str.zfill(5),
+                "porez_na_potrosnju": p.iloc[:, stupac].map(_najvise),
+            }
+        ),
+        on="sifra",
+        how="left",
+    )
+    # Stope poreza na potrošnju su upisane kao udio (0.03), a rasponi kao postotak ("1,00-3,00%")
+    df["porez_na_potrosnju"] = df["porez_na_potrosnju"].map(
+        lambda v: v * 100 if v is not None and v < 1 else v
+    )
+
+    n = pd.read_excel(nadji(mapa, "nekretnine"), dtype=str, engine="calamine")
+    stupac = next(j for j, c in enumerate(n.columns) if godina in str(c))
+    df = df.merge(
+        pd.DataFrame(
+            {
+                "sifra": n.iloc[:, 1].str.strip().str.zfill(5),
+                "porez_na_nekretnine": n.iloc[:, stupac].map(_najvise),
+            }
+        ),
+        on="sifra",
+        how="left",
+    )
+    return df, godina

@@ -190,7 +190,17 @@ def gradovi_i_opcine(
     jls["neto_dohodak"] = dj["neto"]
     jls["porez_na_dohodak"] = dj["porez"]
     jls = jls.reset_index()
-    opis = "stanovništvo, dob, dohodak, porez"
+    stope, god = citaci.porezne_stope_jls()
+    jls = jls.merge(stope, on="sifra", how="left")
+    for p in (
+        "stopa_poreza_dohodak_niza",
+        "stopa_poreza_dohodak_visa",
+        "porez_na_potrosnju",
+        "porez_na_nekretnine",
+    ):
+        godine[p] = god
+    godine["promjena_stope_niza"] = f"{int(god) - 1}.→{god}."
+    opis = "stanovništvo, dob, dohodak, porez, porezne stope"
     if eu_jls is not None:
         po = eu_jls.groupby("jls")["esif_eur"].agg(["sum", "count"])
         jls["eu_ugovoreno"] = jls["sifra"].map(po["sum"]).fillna(0)
@@ -199,6 +209,15 @@ def gradovi_i_opcine(
         opis += f", EU projekti ({izvan} točaka izvan granica JLS, npr. na moru)"
     print(f"  {len(jls)} gradova i općina: {opis}")
     return jls
+
+
+def ponderirane_stope(t: pd.DataFrame, jls: pd.DataFrame) -> None:
+    """Stope poreza za županije i državu: prosjek JLS ponderiran stanovništvom."""
+    for p in ("stopa_poreza_dohodak_niza", "stopa_poreza_dohodak_visa"):
+        tez = jls["stanovnistvo"] * jls[p]
+        po_z = tez.groupby(jls["zupanija"]).sum() / jls.groupby("zupanija")["stanovnistvo"].sum()
+        t[p] = po_z.round(2)
+        t.loc["HR", p] = round(tez.sum() / jls["stanovnistvo"].sum(), 2)
 
 
 # --------------------------------------------------------------------------- točke
@@ -307,6 +326,9 @@ def provjere(t: pd.DataFrame, jls: pd.DataFrame) -> None:
         zz = jls.groupby("zupanija")[p].sum()
         r = ((zz - z[p]) / z[p] * 100).abs().max()
         print(f"  {p}: najveća razlika zbroj JLS ↔ županija {r:.2f} %")
+    for p in ("stopa_poreza_dohodak_niza", "stopa_poreza_dohodak_visa"):
+        if jls[p].isna().any() or not jls[p].between(10, 40).all():
+            greske.append(f"{p}: nedostaje ili je izvan raspona 10–40 %")
     if jls["neto_dohodak"].isna().any():
         print(f"  JLS bez podatka o dohotku: {jls['neto_dohodak'].isna().sum()}")
     if greske:
@@ -344,6 +366,7 @@ def main() -> None:
     t = zupanije_i_drzava(godine)
     korak("2. Čitanje izvora: gradovi i općine")
     jls = gradovi_i_opcine(areas, godine, eu_jls)
+    ponderirane_stope(t, jls)
 
     provjere(t, jls)
 

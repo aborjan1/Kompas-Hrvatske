@@ -106,8 +106,17 @@ može dugo čuvati, a brojke se mijenjaju pri svakom pokretanju obrade.
 | `saldo_proracuna` | novac | EUR | EUR po st. | država | 2025. |
 | `javni_dug` | novac | EUR | EUR po st. | država | VI. 2026. |
 | `porez_na_dohodak` | porezi | EUR | EUR po st. | država, županija, JLS | 2025. |
+| `stopa_poreza_dohodak_niza` | porezi | % | — | država*, županija*, JLS | 2026. |
+| `stopa_poreza_dohodak_visa` | porezi | % | — | država*, županija*, JLS | 2026. |
+| `promjena_stope_niza` | porezi | p.b. | — | JLS | 2025.→2026. |
+| `porez_na_potrosnju` | porezi | % | — | JLS | 2026. |
+| `porez_na_nekretnine` | porezi | EUR/m² | — | JLS | 2026. |
 | `kupoprodaje_nekretnina` | imovina | broj | na 1.000 st. | država, županija | 2025. |
 | `pravne_osobe_aktivne` | imovina | broj | na 1.000 st. | država | I. 2022. |
+
+\* Stope određuju gradovi i općine; za županiju i državu to je prosjek ponderiran
+brojem stanovnika (Hrvatska: niža 20,6 %, viša 30,5 %). `promjena_stope_niza` je dobra
+„priča”: 13 gradova i općina promijenilo je nižu stopu za 2026., od −5 do +2,5 postotna boda.
 
 Prijedlog za panel Država (najviše 4 broja): stanovništvo, BDP, prosječna neto plaća
 i inflacija.

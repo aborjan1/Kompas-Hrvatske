@@ -1,5 +1,5 @@
 {
-  "generirano": "2026-10-28T20:58:18+00:00",
+  "generirano": "2026-10-28T21:06:30+00:00",
   "sifra": "HR",
   "naziv": "Republika Hrvatska",
   "vrsta": "drzava",
@@ -21,6 +21,8 @@
     "saldo_proracuna": -2796227204.61,
     "javni_dug": 54729409110.55,
     "porez_na_dohodak": 4168272733.89,
+    "stopa_poreza_dohodak_niza": 20.63,
+    "stopa_poreza_dohodak_visa": 30.48,
     "kupoprodaje_nekretnina": 117795,
     "pravne_osobe_aktivne": 169209
   },

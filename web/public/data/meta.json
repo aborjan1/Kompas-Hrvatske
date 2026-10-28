@@ -1,6 +1,6 @@
 {
   "verzija_formata": 1,
-  "generirano": "2026-10-28T20:58:18+00:00",
+  "generirano": "2026-10-28T21:06:30+00:00",
   "probni_podaci": false,
   "probne_granice": false,
   "napomene": [
@@ -262,6 +262,75 @@
       "napomena": "Pripada gradovima i općinama; po prebivalištu obveznika.",
       "godina": "2025"
     },
+    "stopa_poreza_dohodak_niza": {
+      "naziv": "Niža stopa poreza na dohodak",
+      "tema": "porezi",
+      "jedinica": "%",
+      "decimale": 1,
+      "po_stanovniku": null,
+      "razine": [
+        "drzava",
+        "zupanija",
+        "jls"
+      ],
+      "izvor": "pu-porezne-stope-jls",
+      "napomena": "Stopu određuje grad ili općina. Za županiju i državu: prosjek gradova i općina ponderiran brojem stanovnika.",
+      "godina": "2026"
+    },
+    "stopa_poreza_dohodak_visa": {
+      "naziv": "Viša stopa poreza na dohodak",
+      "tema": "porezi",
+      "jedinica": "%",
+      "decimale": 1,
+      "po_stanovniku": null,
+      "razine": [
+        "drzava",
+        "zupanija",
+        "jls"
+      ],
+      "izvor": "pu-porezne-stope-jls",
+      "napomena": "Stopu određuje grad ili općina. Za županiju i državu: prosjek gradova i općina ponderiran brojem stanovnika.",
+      "godina": "2026"
+    },
+    "promjena_stope_niza": {
+      "naziv": "Promjena niže stope poreza na dohodak",
+      "tema": "porezi",
+      "jedinica": "p.b.",
+      "decimale": 1,
+      "po_stanovniku": null,
+      "razine": [
+        "jls"
+      ],
+      "izvor": "pu-porezne-stope-jls",
+      "napomena": "Razlika u odnosu na prošlu godinu, u postotnim bodovima.",
+      "godina": "2025.→2026."
+    },
+    "porez_na_potrosnju": {
+      "naziv": "Porez na potrošnju",
+      "tema": "porezi",
+      "jedinica": "%",
+      "decimale": 1,
+      "po_stanovniku": null,
+      "razine": [
+        "jls"
+      ],
+      "izvor": "pu-porezne-stope-jls",
+      "napomena": "Lokalni porez na pića u ugostiteljstvu; najviša stopa ako je propisan raspon.",
+      "godina": "2026"
+    },
+    "porez_na_nekretnine": {
+      "naziv": "Porez na nekretnine",
+      "tema": "porezi",
+      "jedinica": "EUR/m²",
+      "decimale": 2,
+      "po_stanovniku": null,
+      "razine": [
+        "jls"
+      ],
+      "izvor": "pu-porezne-stope-jls",
+      "napomena": "Godišnji iznos po m²; najviši iznos ako je propisan raspon.",
+      "godina": "2026"
+    },
     "kupoprodaje_nekretnina": {
       "naziv": "Kupoprodaje nekretnina",
       "tema": "imovina",
@@ -400,6 +469,13 @@
       "poveznica": "https://data.gov.hr/ckan/dataset/https-porezna-uprava-gov-hr-hr-porez-na-dohodak-4763-4763",
       "licenca": "Otvorena dozvola (OD)",
       "preuzeto": "2026-10-27"
+    },
+    "pu-porezne-stope-jls": {
+      "naziv": "Usporedba poreznih stopa prema odlukama jedinica lokalne samouprave u Republici Hrvatskoj",
+      "izdavatelj": "Porezna uprava",
+      "poveznica": "https://data.gov.hr/ckan/dataset/https-porezna-uprava-gov-hr-hr-odluke-jls-4009",
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-28"
     },
     "granice-upravne-jedinice": {
       "naziv": "Upravne jedinice INSPIRE (granice države, županija, općina, naselja)",
