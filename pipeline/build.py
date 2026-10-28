@@ -29,7 +29,7 @@ import gradovi  # noqa: E402
 import granice  # noqa: E402
 import sifrarnik  # noqa: E402
 from izvoz import IZLAZ, dodaj_rang, dodaj_slicne, spremi_json, zapis_podrucja  # noqa: E402
-from nazivi import uskladi  # noqa: E402
+from nazivi import kljuc, uskladi  # noqa: E402
 from pokazatelji import POKAZATELJI, TEME  # noqa: E402
 from zupanije import ZUPANIJE  # noqa: E402
 
@@ -39,13 +39,22 @@ SVE = list(ZUPANIJE) + ["HR"]
 
 # Izvori koji se sastoje od više skupova iz sources.csv
 ZBIRNI_IZVORI = {
-    "hbor-esif": [
-        "hbor-rast-razvoj",
-        "hbor-energetska",
-        "hbor-rasvjeta",
-        "hbor-ruralni-investicijski",
-        "hbor-ruralni-obrtna",
-    ],
+    "hbor-esif": {
+        "naziv": "HBOR – korisnici ESIF kredita (5 skupova)",
+        "izdavatelj": "HBOR",
+        "dijelovi": [
+            "hbor-rast-razvoj",
+            "hbor-energetska",
+            "hbor-rasvjeta",
+            "hbor-ruralni-investicijski",
+            "hbor-ruralni-obrtna",
+        ],
+    },
+    "eu-2021-2027": {
+        "naziv": "Popisi operacija EU programa 2021.–2027. (PKK, ITP, ULJP)",
+        "izdavatelj": "Ministarstvo regionalnoga razvoja i fondova Europske unije",
+        "dijelovi": ["eu-pkk-2021-2027", "eu-itp-2021-2027", "eu-uljp-2021-2027"],
+    },
 }
 
 # Granica Hrvatske (za odbacivanje očito pogrešnih koordinata)
@@ -104,6 +113,23 @@ def zupanije_i_drzava(godine: dict) -> pd.DataFrame:
     print(
         f"  EU projekti OPKK ({len(eu)} operacija, presjek {presjek}); "
         f"{len(bez)} bez županije ({bez.esif_eur.sum() / 1e6:,.0f} mil. EUR) "
+        "ulazi samo u zbroj države"
+    )
+
+    eu2, presjek2 = citaci.eu_2021_2027()
+    t["eu_2127_ugovoreno"] = 0.0
+    t["eu_2127_projekti"] = 0.0
+    for _, r in eu2.iterrows():
+        for z, udio in r["lokacija"].items():
+            t.loc[z, "eu_2127_ugovoreno"] += r["eu_eur"] * udio
+            t.loc[z, "eu_2127_projekti"] += 1
+    t.loc["HR", "eu_2127_ugovoreno"] = eu2["eu_eur"].sum()
+    t.loc["HR", "eu_2127_projekti"] = len(eu2)
+    godine["eu_2127_ugovoreno"] = godine["eu_2127_projekti"] = f"stanje {presjek2}"
+    drz = eu2[eu2["lokacija"].map(len) == 0]
+    print(
+        f"  EU projekti 2021.–2027. ({len(eu2)} operacija, stanje {presjek2}); "
+        f"{len(drz)} državnih ili bez lokacije ({drz.eu_eur.sum() / 1e6:,.0f} mil. EUR) "
         "ulazi samo u zbroj države"
     )
 
@@ -202,6 +228,10 @@ def gradovi_i_opcine(
         godine[p] = god
     godine["promjena_stope_niza"] = f"{int(god) - 1}.→{god}."
     opis = "stanovništvo, dob, dohodak, porez, porezne stope"
+    eu2 = eu_2127_po_jls(jls)
+    jls["eu_2127_ugovoreno"] = jls["sifra"].map(eu2["sum"]).fillna(0)
+    jls["eu_2127_projekti"] = jls["sifra"].map(eu2["count"]).fillna(0)
+    opis += ", EU 2021.–2027."
     if eu_jls is not None:
         po = eu_jls.groupby("jls")["esif_eur"].agg(["sum", "count"])
         jls["eu_ugovoreno"] = jls["sifra"].map(po["sum"]).fillna(0)
@@ -210,6 +240,26 @@ def gradovi_i_opcine(
         opis += f", EU projekti ({izvan} točaka izvan granica JLS, npr. na moru)"
     print(f"  {len(jls)} gradova i općina: {opis}")
     return jls
+
+
+def eu_2127_po_jls(jls: pd.DataFrame) -> pd.DataFrame:
+    """EU 2021.–2027. po sjedištu korisnika, samo za projekte provedene u županiji sjedišta."""
+    eu, _ = citaci.eu_2021_2027()
+    lokalni = eu[eu.apply(lambda r: r["lokacija"] == {r["zupanija_sjedista"]: 1.0}, axis=1)].copy()
+    lokalni["zupanija"] = lokalni["zupanija_sjedista"]
+    lokalni["kljuc"] = lokalni["mjesto"].str.replace(r"\s*\(.*\)", "", regex=True).map(kljuc)
+    lokalni["kljuc"] = uskladi_po_zupanijama(lokalni, jls)
+    sifre = jls.set_index(["zupanija", "kljuc"])["sifra"]
+    parovi = zip(lokalni["zupanija"], lokalni["kljuc"], strict=True)
+    lokalni["sifra"] = [sifre.get(par) for par in parovi]
+    nespojeno = lokalni[lokalni["sifra"].isna()]
+    if len(nespojeno):
+        print(
+            f"  EU 2021.–2027.: {len(nespojeno)} projekata bez prepoznatog grada/općine "
+            f"({nespojeno.eu_eur.sum() / 1e6:,.1f} mil. EUR): "
+            + ", ".join(sorted(set(nespojeno["mjesto"]))[:8])
+        )
+    return lokalni.groupby("sifra")["eu_eur"].agg(["sum", "count"])
 
 
 def ponderirane_stope(t: pd.DataFrame, jls: pd.DataFrame) -> None:
@@ -278,10 +328,11 @@ def meta_izvori(potrebni: set[str], dgu: bool) -> dict:
     out = {}
     for sid in sorted(potrebni):
         if sid in ZBIRNI_IZVORI:
-            dijelovi = [opis(d) for d in ZBIRNI_IZVORI[sid] if d in izvori]
+            zb = ZBIRNI_IZVORI[sid]
+            dijelovi = [opis(d) for d in zb["dijelovi"] if d in izvori]
             out[sid] = {
-                "naziv": "HBOR – korisnici ESIF kredita (5 skupova)",
-                "izdavatelj": "HBOR",
+                "naziv": zb["naziv"],
+                "izdavatelj": zb["izdavatelj"],
                 "poveznica": dijelovi[0]["poveznica"],
                 "licenca": dijelovi[0]["licenca"],
                 "dijelovi": dijelovi,
@@ -313,6 +364,7 @@ def provjere(t: pd.DataFrame, jls: pd.DataFrame) -> None:
         "porez_na_dohodak",
         "bruto_dodana_vrijednost",
         "eu_ugovoreno",
+        "eu_2127_ugovoreno",
         "hbor_krediti",
     ):
         if p not in t:
@@ -330,6 +382,20 @@ def provjere(t: pd.DataFrame, jls: pd.DataFrame) -> None:
     for p in ("stopa_poreza_dohodak_niza", "stopa_poreza_dohodak_visa"):
         if jls[p].isna().any() or not jls[p].between(10, 40).all():
             greske.append(f"{p}: nedostaje ili je izvan raspona 10–40 %")
+    if "eu_2127_ugovoreno" in t:
+        eu2, _ = citaci.eu_2021_2027()
+        drzavno = eu2.loc[eu2["lokacija"].map(len) == 0, "eu_eur"].sum()
+        r = abs(z["eu_2127_ugovoreno"].sum() + drzavno - t.loc["HR", "eu_2127_ugovoreno"])
+        if r > 1:
+            greske.append(f"EU 2021.–2027.: županije + državni projekti ≠ država ({r:,.0f} EUR)")
+        else:
+            print(
+                f"  eu_2127_ugovoreno: županije + državni projekti ({drzavno / 1e6:,.0f} mil. EUR)"
+                " = država ✔"
+            )
+        zz = jls.groupby("zupanija")["eu_2127_ugovoreno"].sum()
+        if (zz > z["eu_2127_ugovoreno"] + 1).any():
+            greske.append("EU 2021.–2027.: zbroj JLS veći od županije")
     if jls["neto_dohodak"].isna().any():
         print(f"  JLS bez podatka o dohotku: {jls['neto_dohodak'].isna().sum()}")
     if greske:

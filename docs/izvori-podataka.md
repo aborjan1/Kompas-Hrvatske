@@ -2,7 +2,7 @@
 
 Ova datoteka nastaje automatski iz `data/sources.csv` (`python pipeline/popis_izvora.py`). Ne uređuj je ručno.
 
-Broj skupova: **63**. Skripta `pipeline/download.py` preuzima njih **44**, a ostali se preuzimaju ručno, koriste kao servis izravno na karti ili traže API registraciju.
+Broj skupova: **66**. Skripta `pipeline/download.py` preuzima njih **47**, a ostali se preuzimaju ručno, koriste kao servis izravno na karti ili traže API registraciju.
 
 Mapa u koju se skup sprema je `data/raw/<id>/`.
 
@@ -32,6 +32,9 @@ Mapa u koju se skup sprema je `data/raw/<id>/`.
 | `pu-porez-dohodak` | [Porez na dohodak](https://data.gov.hr/ckan/dataset/https-porezna-uprava-gov-hr-hr-porez-na-dohodak-4763-4763) | Porezna uprava | XLSX | skripta | #7 |  |
 | `pu-fiskalizacija` | [Fiskalizacija](https://data.gov.hr/ckan/dataset/https-porezna-gov-hr-fiskalizacija-izvjestaji) | Porezna uprava | XLSX | skripta | #8 | NEISPRAVAN: poveznica vodi na web aplikaciju (HTML), ne na tablicu. |
 | `eu-opkk-2014-2020` | [Popis operacija financiranih u okviru Programa „Konkurentnost i kohezija 2014.-2020.“](https://data.gov.hr/ckan/dataset/popis-operacija-financiranih-u-okviru-programa-konkurentnost-i-kohezija-2014-2020) | Ministarstvo regionalnoga razvoja i fondova Europske unije  | XLSX | skripta | #7 | Zbrajanje po sjedištu korisnika |
+| `eu-pkk-2021-2027` | [Popis operacija – Program Konkurentnost i kohezija 2021.–2027.](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-PKK-30.9.2026.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | XLSX | url | #15 | Izvan data.gov.hr: službeni popis operacija (čl. 49. Uredbe (EU) 2021/1060) na eufondovi.gov.hr/popisi-projekata. Kod nove objave promijeniti poveznicu. |
+| `eu-itp-2021-2027` | [Popis operacija – Integrirani teritorijalni program 2021.–2027.](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-ITP-30.9.2026.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | XLSX | url | #15 | Izvan data.gov.hr: službeni popis operacija (čl. 49. Uredbe (EU) 2021/1060) na eufondovi.gov.hr/popisi-projekata. Kod nove objave promijeniti poveznicu. |
+| `eu-uljp-2021-2027` | [Popis operacija – Program Učinkoviti ljudski potencijali 2021.–2027.](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-u-okviru-PULJP-2021.-2027-final-table_30092026.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | XLSX | url | #15 | Izvan data.gov.hr: službeni popis operacija (čl. 49. Uredbe (EU) 2021/1060) na eufondovi.gov.hr/popisi-projekata. Kod nove objave promijeniti poveznicu. |
 | `srdi-financijska` | [Središnji registar državne imovine – financijska imovina](https://data.gov.hr/ckan/dataset/sredisnji-registar-drzavne-imovine-financijska-imovina) | Ministarstvo pravosuđa, uprave i digitalne transformacije | CSV, JSON, API | API (registracija) | #4 | Državni udjeli u tvrtkama |
 
 ## 3. Razina Županija
