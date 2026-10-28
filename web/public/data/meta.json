@@ -1,11 +1,11 @@
 {
   "verzija_formata": 1,
-  "generirano": "2026-10-27T20:31:22+00:00",
+  "generirano": "2026-10-28T20:58:18+00:00",
   "probni_podaci": false,
-  "probne_granice": true,
+  "probne_granice": false,
   "napomene": [
-    "Granice županija su probne (Natural Earth) dok ne obradimo DGU granice.",
-    "Šifre gradova i općina su privremene (vidi data/areas.csv)."
+    "Granice su pojednostavljene za prikaz (županije ~400 m, općine ~80 m).",
+    "EU projekti po gradovima i općinama raspoređeni su prema koordinatama projekta, a po županijama prema županiji navedenoj u izvoru."
   ],
   "teme": {
     "ljudi": "Ljudi",
@@ -160,10 +160,11 @@
       },
       "razine": [
         "drzava",
-        "zupanija"
+        "zupanija",
+        "jls"
       ],
       "izvor": "eu-opkk-2014-2020",
-      "napomena": "ESIF dio ugovorenih projekata, po županiji provedbe.",
+      "napomena": "ESIF dio ugovorenih projekata, prema mjestu provedbe projekta.",
       "godina": "stanje 31.05.2023"
     },
     "eu_projekti": {
@@ -177,7 +178,8 @@
       },
       "razine": [
         "drzava",
-        "zupanija"
+        "zupanija",
+        "jls"
       ],
       "izvor": "eu-opkk-2014-2020",
       "godina": "stanje 31.05.2023"
@@ -399,12 +401,12 @@
       "licenca": "Otvorena dozvola (OD)",
       "preuzeto": "2026-10-27"
     },
-    "natural-earth-admin1": {
-      "naziv": "Natural Earth – Admin 1 States and Provinces (1:10m)",
-      "izdavatelj": "Natural Earth",
-      "poveznica": "https://www.naturalearthdata.com/",
-      "licenca": "Javna domena",
-      "preuzeto": null
+    "granice-upravne-jedinice": {
+      "naziv": "Upravne jedinice INSPIRE (granice države, županija, općina, naselja)",
+      "izdavatelj": "Državna geodetska uprava",
+      "poveznica": "https://data.gov.hr/ckan/dataset/upravne-jedinice-inspire",
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-27"
     }
   }
 }

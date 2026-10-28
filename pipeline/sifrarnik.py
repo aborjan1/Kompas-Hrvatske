@@ -4,11 +4,13 @@ Izvori:
   - sifrarnik-jls: popis 556 gradova i općina s pripadajućom županijom (MPUDT)
   - dzs-popis2021: stanovništvo po gradovima/općinama, Popis 2021. (DZS, tablica 6.)
 
+  - granice-upravne-jedinice: DGU Upravne jedinice INSPIRE (službene šifre JLS)
+
 Šifre:
   - županija: službena šifra "01"–"21"
-  - grad/općina: PRIVREMENA šifra = šifra županije + redni broj po abecedi, npr. "05007".
-    Kad stignu DGU granice, šifre se zamijene službenim (DGU/LAU) šiframa; ova
-    datoteka je jedino mjesto gdje se to mijenja.
+  - grad/općina: službena 5-znamenkasta šifra iz Registra prostornih jedinica (DGU),
+    npr. Andrijaševci "00019", Grad Zagreb "01333".
+    Ako DGU datoteke nema, dodjeljuje se PRIVREMENA šifra (županija + redni broj).
 
 Pokretanje:  python pipeline/sifrarnik.py
 """
@@ -22,10 +24,36 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from citaci import KORIJEN, nadji, popis_kontingenti  # noqa: E402
-from nazivi import kljuc, sifra_zupanije  # noqa: E402
+from nazivi import kljuc, sifra_zupanije, uskladi  # noqa: E402
 from zupanije import ZUPANIJE  # noqa: E402
 
 IZLAZ = KORIJEN / "data" / "areas.csv"
+
+
+def dgu_sifre(sp: pd.DataFrame) -> pd.Series:
+    """Službene DGU šifre gradova i općina, spojene po županiji i nazivu.
+
+    DGU nazivi su ponekad duži ("Kaštelir-Labinci - Castelliere-S. Domenica"), pa se
+    spajaju istom funkcijom kao i podaci Porezne uprave (nazivi.uskladi).
+    """
+    from granice import dgu_zip, ucitaj_au
+
+    if dgu_zip() is None:
+        print("  UPOZORENJE: nema DGU granica – šifre gradova i općina su PRIVREMENE")
+        return sp["zupanija"] + (sp.groupby("zupanija").cumcount() + 1).map("{:03d}".format)
+
+    d = ucitaj_au(razine=("2ndOrder", "3rdOrder"), geometrija=False)
+    d = d[d.razina == "jls"].assign(kljuc=lambda x: x["naziv"].map(kljuc))
+    sifre = pd.Series(index=sp.index, dtype=object)
+    for z, grupa in sp.groupby("zupanija"):
+        dz = d[d.zupanija == z]
+        mapa = uskladi(list(dz["kljuc"]), list(grupa["kljuc"]))  # DGU ključ → naš ključ
+        po_nasem = {nas: dz.loc[dz.kljuc == dgu, "sifra"].iloc[0] for dgu, nas in mapa.items()}
+        sifre.loc[grupa.index] = grupa["kljuc"].map(po_nasem)
+    if sifre.isna().any():
+        bez = sp.loc[sifre.isna(), ["zupanija", "naziv"]]
+        raise SystemExit(f"Gradovi/općine bez DGU šifre:\n{bez.to_string()}")
+    return sifre
 
 
 def napravi() -> pd.DataFrame:
@@ -59,8 +87,8 @@ def napravi() -> pd.DataFrame:
             + nespojeno[["zupanija", "naziv", "kljuc", "_merge"]].to_string()
         )
 
-    sp = sp.sort_values(["zupanija", "kljuc"])
-    sp["sifra"] = sp["zupanija"] + (sp.groupby("zupanija").cumcount() + 1).map("{:03d}".format)
+    sp = sp.sort_values(["zupanija", "kljuc"]).reset_index(drop=True)
+    sp["sifra"] = dgu_sifre(sp)
     jls = sp[["sifra", "naziv", "vrsta", "zupanija", "kljuc"]].assign(
         stanovnistvo_2021=sp["stanovnistvo"].astype(int)
     )

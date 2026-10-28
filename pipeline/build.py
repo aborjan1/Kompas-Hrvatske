@@ -20,10 +20,12 @@ import sys
 from datetime import UTC, datetime
 from pathlib import Path
 
+import geopandas as gpd
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import citaci  # noqa: E402
+import granice  # noqa: E402
 import sifrarnik  # noqa: E402
 from izvoz import IZLAZ, dodaj_rang, dodaj_slicne, spremi_json, zapis_podrucja  # noqa: E402
 from nazivi import uskladi  # noqa: E402
@@ -148,7 +150,26 @@ def uskladi_po_zupanijama(izvor: pd.DataFrame, cilj: pd.DataFrame) -> pd.Series:
     return novi
 
 
-def gradovi_i_opcine(areas: pd.DataFrame, godine: dict) -> pd.DataFrame:
+def eu_po_jls(poligoni: gpd.GeoDataFrame | None) -> pd.DataFrame | None:
+    """EU projekti raspoređeni po gradovima/općinama prema koordinatama projekta."""
+    if poligoni is None:
+        return None
+    eu, _ = citaci.eu_opkk()
+    eu = eu.dropna(subset=["lon", "lat"])
+    tocke = gpd.GeoDataFrame(eu, geometry=gpd.points_from_xy(eu.lon, eu.lat), crs=4326)
+    sp = gpd.sjoin(
+        tocke,
+        poligoni[["sifra", "geometry"]].rename(columns={"sifra": "jls"}),
+        how="left",
+        predicate="within",
+    )
+    sp = sp[~sp.index.duplicated()]
+    return sp
+
+
+def gradovi_i_opcine(
+    areas: pd.DataFrame, godine: dict, eu_jls: pd.DataFrame | None = None
+) -> pd.DataFrame:
     jls = areas[areas.vrsta != "zupanija"].set_index(["zupanija", "kljuc"])
 
     pop = citaci.popis_kontingenti()
@@ -168,15 +189,27 @@ def gradovi_i_opcine(areas: pd.DataFrame, godine: dict) -> pd.DataFrame:
             print(f"    {z} {k}")
     jls["neto_dohodak"] = dj["neto"]
     jls["porez_na_dohodak"] = dj["porez"]
-    print(f"  {len(jls)} gradova i općina: stanovništvo, dob, dohodak, porez")
-    return jls.reset_index()
+    jls = jls.reset_index()
+    opis = "stanovništvo, dob, dohodak, porez"
+    if eu_jls is not None:
+        po = eu_jls.groupby("jls")["esif_eur"].agg(["sum", "count"])
+        jls["eu_ugovoreno"] = jls["sifra"].map(po["sum"]).fillna(0)
+        jls["eu_projekti"] = jls["sifra"].map(po["count"]).fillna(0)
+        izvan = eu_jls["jls"].isna().sum()
+        opis += f", EU projekti ({izvan} točaka izvan granica JLS, npr. na moru)"
+    print(f"  {len(jls)} gradova i općina: {opis}")
+    return jls
 
 
 # --------------------------------------------------------------------------- točke
 
 
-def eu_tocke() -> dict:
+def eu_tocke(eu_jls: pd.DataFrame | None = None) -> dict:
     eu, presjek = citaci.eu_opkk()
+    if eu_jls is not None:
+        eu["jls"] = eu_jls["jls"].reindex(eu.index)
+    else:
+        eu["jls"] = None
     x0, y0, x1, y1 = BBOX
     u_hr = eu["lon"].between(x0, x1) & eu["lat"].between(y0, y1)
     print(f"  {u_hr.sum()} od {len(eu)} EU projekata ima ispravne koordinate")
@@ -193,6 +226,7 @@ def eu_tocke() -> dict:
                     "esif_eur": round(r.esif_eur or 0),
                     "ukupno_eur": round(r.ukupno_eur or 0),
                     "zupanija": r.zupanija,
+                    "jls": r.jls if isinstance(r.jls, str) else None,
                     "mjesto": r.mjesto,
                     "fond": r.fond,
                     "pocetak": r.pocetak,
@@ -207,7 +241,7 @@ def eu_tocke() -> dict:
 # --------------------------------------------------------------------------- meta
 
 
-def meta_izvori(potrebni: set[str]) -> dict:
+def meta_izvori(potrebni: set[str], dgu: bool) -> dict:
     with (KORIJEN / "data" / "sources.csv").open(encoding="utf-8-sig", newline="") as f:
         izvori = {r["id"]: r for r in csv.DictReader(f)}
 
@@ -234,7 +268,8 @@ def meta_izvori(potrebni: set[str]) -> dict:
             }
         else:
             out[sid] = opis(sid)
-    out["natural-earth-admin1"] = opis("natural-earth-admin1")
+    granice_id = "granice-upravne-jedinice" if dgu else "natural-earth-admin1"
+    out[granice_id] = opis(granice_id)
     return out
 
 
@@ -290,10 +325,25 @@ def main() -> None:
     korak("1. Šifrarnik")
     areas = sifrarnik.main()
 
+    korak("1. Granice")
+    dgu = granice.dgu_zip() is not None
+    poligoni = None
+    if dgu:
+        granice.izvezi_dgu(areas)
+        poligoni = pd.concat(
+            [gpd.read_file(p) for p in sorted((IZLAZ / "jls").glob("*.geojson"))],
+            ignore_index=True,
+        )
+    else:
+        print("  Nema DGU granica – koristim postojeći (probni) zupanije.geojson")
+        if not (IZLAZ / "zupanije.geojson").exists():
+            granice.main()
+    eu_jls = eu_po_jls(poligoni)
+
     korak("2. Čitanje izvora: država i županije")
     t = zupanije_i_drzava(godine)
     korak("2. Čitanje izvora: gradovi i općine")
-    jls = gradovi_i_opcine(areas, godine)
+    jls = gradovi_i_opcine(areas, godine, eu_jls)
 
     provjere(t, jls)
 
@@ -329,25 +379,31 @@ def main() -> None:
     dodaj_slicne(pj)
     spremi_json("jls.json", {"generirano": sada, "podrucja": pj}, uvlaka=None)
 
-    spremi_json("tocke/eu-projekti.geojson", eu_tocke(), uvlaka=None)
+    spremi_json("tocke/eu-projekti.geojson", eu_tocke(eu_jls), uvlaka=None)
 
     pokazatelji = {p: {**d, "godina": godine.get(p)} for p, d in POKAZATELJI.items()}
     meta = {
         "verzija_formata": 1,
         "generirano": sada,
         "probni_podaci": False,
-        "probne_granice": True,
-        "napomene": [
-            "Granice županija su probne (Natural Earth) dok ne obradimo DGU granice.",
-            "Šifre gradova i općina su privremene (vidi data/areas.csv).",
-        ],
+        "probne_granice": not dgu,
+        "napomene": (
+            [
+                "Granice su pojednostavljene za prikaz (županije ~400 m, općine ~80 m).",
+                "EU projekti po gradovima i općinama raspoređeni su prema koordinatama "
+                "projekta, a po županijama prema županiji navedenoj u izvoru.",
+            ]
+            if dgu
+            else [
+                "Granice županija su probne (Natural Earth) dok ne obradimo DGU granice.",
+                "Šifre gradova i općina su privremene (vidi data/areas.csv).",
+            ]
+        ),
         "teme": TEME,
         "pokazatelji": pokazatelji,
-        "izvori": meta_izvori({d["izvor"] for d in POKAZATELJI.values()}),
+        "izvori": meta_izvori({d["izvor"] for d in POKAZATELJI.values()}, dgu),
     }
     spremi_json("meta.json", meta)
-    if not (IZLAZ / "zupanije.geojson").exists():
-        print("  UPOZORENJE: nema zupanije.geojson – pokreni `python pipeline/granice.py`")
 
     nedostaje = [p for p in POKAZATELJI if p not in godine]
     if nedostaje:

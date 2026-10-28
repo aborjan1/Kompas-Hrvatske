@@ -123,9 +123,9 @@ POKAZATELJI: dict[str, dict] = {
         "jedinica": "EUR",
         "decimale": 0,
         "po_stanovniku": _PO_ST_EUR,
-        "razine": ["drzava", "zupanija"],
+        "razine": ["drzava", "zupanija", "jls"],
         "izvor": "eu-opkk-2014-2020",
-        "napomena": "ESIF dio ugovorenih projekata, po županiji provedbe.",
+        "napomena": "ESIF dio ugovorenih projekata, prema mjestu provedbe projekta.",
     },
     "eu_projekti": {
         "naziv": "Broj EU projekata (OPKK 2014.–2020.)",
@@ -133,7 +133,7 @@ POKAZATELJI: dict[str, dict] = {
         "jedinica": "broj",
         "decimale": 0,
         "po_stanovniku": _NA_1000,
-        "razine": ["drzava", "zupanija"],
+        "razine": ["drzava", "zupanija", "jls"],
         "izvor": "eu-opkk-2014-2020",
     },
     "hbor_krediti": {

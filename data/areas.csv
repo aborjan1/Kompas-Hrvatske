@@ -20,559 +20,559 @@ sifra,naziv,vrsta,zupanija,kljuc,stanovnistvo_2021
 19,Dubrovačko-neretvanska županija,zupanija,19,DUBROVAČKO NERETVANSKA,115564
 20,Međimurska županija,zupanija,20,MEĐIMURSKA,105250
 21,Grad Zagreb,zupanija,21,ZAGREB,767131
-01001,Bedenica,opcina,01,BEDENICA,1266
-01002,Bistra,opcina,01,BISTRA,6444
-01003,Brckovljani,opcina,01,BRCKOVLJANI,5876
-01004,Brdovec,opcina,01,BRDOVEC,10737
-01005,Dubrava,opcina,01,DUBRAVA,4520
-01006,Dubravica,opcina,01,DUBRAVICA,1192
-01007,Dugo Selo,grad,01,DUGO SELO,17676
-01008,Farkaševac,opcina,01,FARKAŠEVAC,1562
-01009,Gradec,opcina,01,GRADEC,3189
-01010,Ivanić-Grad,grad,01,IVANIĆ GRAD,12982
-01011,Jakovlje,opcina,01,JAKOVLJE,3797
-01012,Jastrebarsko,grad,01,JASTREBARSKO,14562
-01013,Klinča Sela,opcina,01,KLINČA SELA,5044
-01014,Kloštar Ivanić,opcina,01,KLOŠTAR IVANIĆ,5523
-01015,Kravarsko,opcina,01,KRAVARSKO,1824
-01016,Krašić,opcina,01,KRAŠIĆ,2250
-01017,Križ,opcina,01,KRIŽ,6098
-01018,Luka,opcina,01,LUKA,1265
-01019,Marija Gorica,opcina,01,MARIJA GORICA,2094
-01020,Orle,opcina,01,ORLE,1765
-01021,Pisarovina,opcina,01,PISAROVINA,3484
-01022,Pokupsko,opcina,01,POKUPSKO,1926
-01023,Preseka,opcina,01,PRESEKA,1129
-01024,Pušća,opcina,01,PUŠĆA,2564
-01025,Rakovec,opcina,01,RAKOVEC,1141
-01026,Rugvica,opcina,01,RUGVICA,7133
-01027,Samobor,grad,01,SAMOBOR,37435
-01028,Stupnik,opcina,01,STUPNIK,3886
-01029,Sveta Nedelja,grad,01,SVETA NEDELJA,18221
-01030,Sveti Ivan Zelina,grad,01,SVETI IVAN ZELINA,14602
-01031,Velika Gorica,grad,01,VELIKA GORICA,61075
-01032,Vrbovec,grad,01,VRBOVEC,12981
-01033,Zaprešić,grad,01,ZAPREŠIĆ,24133
-01034,Žumberak,opcina,01,ŽUMBERAK,609
-02001,Bedekovčina,opcina,02,BEDEKOVČINA,7340
-02002,Budinščina,opcina,02,BUDINŠČINA,2182
-02003,Desinić,opcina,02,DESINIĆ,2530
-02004,Donja Stubica,grad,02,DONJA STUBICA,5326
-02005,Gornja Stubica,opcina,02,GORNJA STUBICA,4622
-02006,Hrašćina,opcina,02,HRAŠĆINA,1388
-02007,Hum na Sutli,opcina,02,HUM NA SUTLI,4592
-02008,Jesenje,opcina,02,JESENJE,1371
-02009,Klanjec,grad,02,KLANJEC,2548
-02010,Konjščina,opcina,02,KONJŠČINA,3308
-02011,Kraljevec na Sutli,opcina,02,KRALJEVEC NA SUTLI,1591
-02012,Krapina,grad,02,KRAPINA,11530
-02013,Krapinske Toplice,opcina,02,KRAPINSKE TOPLICE,4827
-02014,Kumrovec,opcina,02,KUMROVEC,1412
-02015,Lobor,opcina,02,LOBOR,2703
-02016,Marija Bistrica,opcina,02,MARIJA BISTRICA,5553
-02017,Mače,opcina,02,MAČE,2258
-02018,Mihovljan,opcina,02,MIHOVLJAN,1677
-02019,Novi Golubovec,opcina,02,NOVI GOLUBOVEC,824
-02020,Oroslavje,grad,02,OROSLAVJE,5834
-02021,Petrovsko,opcina,02,PETROVSKO,2270
-02022,Pregrada,grad,02,PREGRADA,5927
-02023,Radoboj,opcina,02,RADOBOJ,2981
-02024,Stubičke Toplice,opcina,02,STUBIČKE TOPLICE,2740
-02025,Sveti Križ Začretje,opcina,02,SVETI KRIŽ ZAČRETJE,5659
-02026,Tuhelj,opcina,02,TUHELJ,2043
-02027,Veliko Trgovišće,opcina,02,VELIKO TRGOVIŠĆE,4448
-02028,Zabok,grad,02,ZABOK,8656
-02029,Zagorska Sela,opcina,02,ZAGORSKA SELA,899
-02030,Zlatar,grad,02,ZLATAR,5574
-02031,Zlatar Bistrica,opcina,02,ZLATAR BISTRICA,2308
-02032,Đurmanec,opcina,02,ĐURMANEC,3781
-03001,Donji Kukuruzari,opcina,03,DONJI KUKURUZARI,1080
-03002,Dvor,opcina,03,DVOR,2996
-03003,Glina,grad,03,GLINA,7116
-03004,Gvozd,opcina,03,GVOZD,2047
-03005,Hrvatska Dubica,opcina,03,HRVATSKA DUBICA,1462
-03006,Hrvatska Kostajnica,grad,03,HRVATSKA KOSTAJNICA,1879
-03007,Jasenovac,opcina,03,JASENOVAC,1559
-03008,Kutina,grad,03,KUTINA,19601
-03009,Lekenik,opcina,03,LEKENIK,5343
-03010,Lipovljani,opcina,03,LIPOVLJANI,2807
-03011,Majur,opcina,03,MAJUR,760
-03012,Martinska Ves,opcina,03,MARTINSKA VES,2861
-03013,Novska,grad,03,NOVSKA,11137
-03014,Petrinja,grad,03,PETRINJA,19950
-03015,Popovača,grad,03,POPOVAČA,10255
-03016,Sisak,grad,03,SISAK,40121
-03017,Sunja,opcina,03,SUNJA,4124
-03018,Topusko,opcina,03,TOPUSKO,2222
-03019,Velika Ludina,opcina,03,VELIKA LUDINA,2283
-04001,Barilović,opcina,04,BARILOVIĆ,2673
-04002,Bosiljevo,opcina,04,BOSILJEVO,1040
-04003,Cetingrad,opcina,04,CETINGRAD,1491
-04004,Draganić,opcina,04,DRAGANIĆ,2541
-04005,Duga Resa,grad,04,DUGA RESA,10212
-04006,Generalski Stol,opcina,04,GENERALSKI STOL,2171
-04007,Josipdol,opcina,04,JOSIPDOL,3419
-04008,Kamanje,opcina,04,KAMANJE,827
-04009,Karlovac,grad,04,KARLOVAC,49377
-04010,Krnjak,opcina,04,KRNJAK,1332
-04011,Lasinja,opcina,04,LASINJA,1322
-04012,Netretić,opcina,04,NETRETIĆ,2439
-04013,Ogulin,grad,04,OGULIN,12246
-04014,Ozalj,grad,04,OZALJ,5837
-04015,Plaški,opcina,04,PLAŠKI,1650
-04016,Rakovica,opcina,04,RAKOVICA,2230
-04017,Ribnik,opcina,04,RIBNIK,362
-04018,Saborsko,opcina,04,SABORSKO,466
-04019,Slunj,grad,04,SLUNJ,4224
-04020,Tounj,opcina,04,TOUNJ,1002
-04021,Vojnić,opcina,04,VOJNIĆ,3602
-04022,Žakanje,opcina,04,ŽAKANJE,1732
-05001,Bednja,opcina,05,BEDNJA,3389
-05002,Beretinec,opcina,05,BERETINEC,2049
-05003,Breznica,opcina,05,BREZNICA,1970
-05004,Breznički Hum,opcina,05,BREZNIČKI HUM,1132
-05005,Cestica,opcina,05,CESTICA,5425
-05006,Donja Voća,opcina,05,DONJA VOĆA,2030
-05007,Gornji Kneginec,opcina,05,GORNJI KNEGINEC,4900
-05008,Ivanec,grad,05,IVANEC,12723
-05009,Jalžabet,opcina,05,JALŽABET,3183
-05010,Klenovnik,opcina,05,KLENOVNIK,1793
-05011,Lepoglava,grad,05,LEPOGLAVA,6945
-05012,Ljubešćica,opcina,05,LJUBEŠĆICA,1689
-05013,Ludbreg,grad,05,LUDBREG,8477
-05014,Mali Bukovec,opcina,05,MALI BUKOVEC,1809
-05015,Martijanec,opcina,05,MARTIJANEC,2638
-05016,Maruševec,opcina,05,MARUŠEVEC,5682
-05017,Novi Marof,grad,05,NOVI MAROF,11795
-05018,Petrijanec,opcina,05,PETRIJANEC,4553
-05019,Sračinec,opcina,05,SRAČINEC,4678
-05020,Sveti Ilija,opcina,05,SVETI ILIJA,3242
-05021,Sveti Đurđ,opcina,05,SVETI ĐURĐ,3326
-05022,Trnovec Bartolovečki,opcina,05,TRNOVEC BARTOLOVEČKI,6145
-05023,Varaždin,grad,05,VARAŽDIN,43782
-05024,Varaždinske Toplice,grad,05,VARAŽDINSKE TOPLICE,5537
-05025,Veliki Bukovec,opcina,05,VELIKI BUKOVEC,1325
-05026,Vidovec,opcina,05,VIDOVEC,4915
-05027,Vinica,opcina,05,VINICA,3020
-05028,Visoko,opcina,05,VISOKO,1335
-06001,Drnje,opcina,06,DRNJE,1533
-06002,Ferdinandovac,opcina,06,FERDINANDOVAC,1415
-06003,Gola,opcina,06,GOLA,2078
-06004,Gornja Rijeka,opcina,06,GORNJA RIJEKA,1559
-06005,Hlebine,opcina,06,HLEBINE,1180
-06006,Kalinovac,opcina,06,KALINOVAC,1297
-06007,Kalnik,opcina,06,KALNIK,1154
-06008,Kloštar Podravski,opcina,06,KLOŠTAR PODRAVSKI,2749
-06009,Koprivnica,grad,06,KOPRIVNICA,28580
-06010,Koprivnički Bregi,opcina,06,KOPRIVNIČKI BREGI,1968
-06011,Koprivnički Ivanec,opcina,06,KOPRIVNIČKI IVANEC,1798
-06012,Križevci,grad,06,KRIŽEVCI,18949
-06013,Legrad,opcina,06,LEGRAD,1916
-06014,Molve,opcina,06,MOLVE,1767
-06015,Novigrad Podravski,opcina,06,NOVIGRAD PODRAVSKI,2300
-06016,Novo Virje,opcina,06,NOVO VIRJE,1026
-06017,Peteranec,opcina,06,PETERANEC,2300
-06018,Podravske Sesvete,opcina,06,PODRAVSKE SESVETE,1446
-06019,Rasinja,opcina,06,RASINJA,2631
-06020,Sokolovac,opcina,06,SOKOLOVAC,2789
-06021,Sveti Ivan Žabno,opcina,06,SVETI IVAN ŽABNO,4343
-06022,Sveti Petar Orehovec,opcina,06,SVETI PETAR OREHOVEC,3942
-06023,Virje,opcina,06,VIRJE,3842
-06024,Đelekovec,opcina,06,ĐELEKOVEC,1281
-06025,Đurđevac,grad,06,ĐURĐEVAC,7378
-07001,Berek,opcina,07,BEREK,1106
-07002,Bjelovar,grad,07,BJELOVAR,36316
-07003,Daruvar,grad,07,DARUVAR,10105
-07004,Dežanovac,opcina,07,DEŽANOVAC,1978
-07005,Garešnica,grad,07,GAREŠNICA,8624
-07006,Grubišno Polje,grad,07,GRUBIŠNO POLJE,5367
-07007,Hercegovac,opcina,07,HERCEGOVAC,1910
-07008,Ivanska,opcina,07,IVANSKA,2256
-07009,Kapela,opcina,07,KAPELA,2367
-07010,Končanica,opcina,07,KONČANICA,1805
-07011,Nova Rača,opcina,07,NOVA RAČA,2756
-07012,Rovišće,opcina,07,ROVIŠĆE,4144
-07013,Severin,opcina,07,SEVERIN,702
-07014,Sirač,opcina,07,SIRAČ,1796
-07015,Velika Pisanica,opcina,07,VELIKA PISANICA,1313
-07016,Velika Trnovitica,opcina,07,VELIKA TRNOVITICA,1091
-07017,Veliki Grđevac,opcina,07,VELIKI GRĐEVAC,2316
-07018,Veliko Trojstvo,opcina,07,VELIKO TROJSTVO,2379
-07019,Zrinski Topolovac,opcina,07,ZRINSKI TOPOLOVAC,747
-07020,Čazma,grad,07,ČAZMA,6930
-07021,Đulovac,opcina,07,ĐULOVAC,2772
-07022,Šandrovac,opcina,07,ŠANDROVAC,1411
-07023,Štefanje,opcina,07,ŠTEFANJE,1688
-08001,Bakar,grad,08,BAKAR,7573
-08002,Baška,opcina,08,BAŠKA,1656
-08003,Brod Moravice,opcina,08,BROD MORAVICE,663
-08004,Cres,grad,08,CRES,2716
-08005,Crikvenica,grad,08,CRIKVENICA,9980
-08006,Delnice,grad,08,DELNICE,5135
-08007,Dobrinj,opcina,08,DOBRINJ,2150
-08008,Fužine,opcina,08,FUŽINE,1394
-08009,Jelenje,opcina,08,JELENJE,5096
-08010,Kastav,grad,08,KASTAV,10202
-08011,Klana,opcina,08,KLANA,1845
-08012,Kostrena,opcina,08,KOSTRENA,4398
-08013,Kraljevica,grad,08,KRALJEVICA,4066
-08014,Krk,grad,08,KRK,6816
-08015,Lokve,opcina,08,LOKVE,850
-08016,Lopar,opcina,08,LOPAR,1107
-08017,Lovran,opcina,08,LOVRAN,3527
-08018,Mali Lošinj,grad,08,MALI LOŠINJ,7537
-08019,Malinska-Dubašnica,opcina,08,MALINSKA DUBAŠNICA,3212
-08020,Matulji,opcina,08,MATULJI,10773
-08021,Mošćenička Draga,opcina,08,MOŠĆENIČKA DRAGA,1288
-08022,Mrkopalj,opcina,08,MRKOPALJ,924
-08023,Novi Vinodolski,grad,08,NOVI VINODOLSKI,4328
-08024,Omišalj,opcina,08,OMIŠALJ,2992
-08025,Opatija,grad,08,OPATIJA,10619
-08026,Punat,opcina,08,PUNAT,1900
-08027,Rab,grad,08,RAB,7161
-08028,Ravna Gora,opcina,08,RAVNA GORA,2028
-08029,Rijeka,grad,08,RIJEKA,107964
-08030,Skrad,opcina,08,SKRAD,858
-08031,Vinodolska općina,opcina,08,VINODOLSKA OPĆINA,3226
-08032,Viškovo,opcina,08,VIŠKOVO,16084
-08033,Vrbnik,opcina,08,VRBNIK,1190
-08034,Vrbovsko,grad,08,VRBOVSKO,3876
-08035,Čabar,grad,08,ČABAR,3226
-08036,Čavle,opcina,08,ČAVLE,7059
-09001,Brinje,opcina,09,BRINJE,2563
-09002,Donji Lapac,opcina,09,DONJI LAPAC,1366
-09003,Gospić,grad,09,GOSPIĆ,11502
-09004,Karlobag,opcina,09,KARLOBAG,780
-09005,Lovinac,opcina,09,LOVINAC,943
-09006,Novalja,grad,09,NOVALJA,3680
-09007,Otočac,grad,09,OTOČAC,8332
-09008,Perušić,opcina,09,PERUŠIĆ,1973
-09009,Plitvička Jezera,opcina,09,PLITVIČKA JEZERA,3649
-09010,Senj,grad,09,SENJ,5973
-09011,Udbina,opcina,09,UDBINA,1334
-09012,Vrhovine,opcina,09,VRHOVINE,653
-10001,Crnac,opcina,10,CRNAC,1116
-10002,Gradina,opcina,10,GRADINA,2874
-10003,Lukač,opcina,10,LUKAČ,2759
-10004,Mikleuš,opcina,10,MIKLEUŠ,1067
-10005,Nova Bukovica,opcina,10,NOVA BUKOVICA,1275
-10006,Orahovica,grad,10,ORAHOVICA,4537
-10007,Pitomača,opcina,10,PITOMAČA,8402
-10008,Slatina,grad,10,SLATINA,11503
-10009,Sopje,opcina,10,SOPJE,1897
-10010,Suhopolje,opcina,10,SUHOPOLJE,5267
-10011,Virovitica,grad,10,VIROVITICA,19302
-10012,Voćin,opcina,10,VOĆIN,1896
-10013,Zdenci,opcina,10,ZDENCI,1453
-10014,Čačinci,opcina,10,ČAČINCI,2162
-10015,Čađavica,opcina,10,ČAĐAVICA,1555
-10016,Špišić Bukovica,opcina,10,ŠPIŠIĆ BUKOVICA,3303
-11001,Brestovac,opcina,11,BRESTOVAC,2980
-11002,Jakšić,opcina,11,JAKŠIĆ,3371
-11003,Kaptol,opcina,11,KAPTOL,2605
-11004,Kutjevo,grad,11,KUTJEVO,4870
-11005,Lipik,grad,11,LIPIK,5127
-11006,Pakrac,grad,11,PAKRAC,7086
-11007,Pleternica,grad,11,PLETERNICA,9138
-11008,Požega,grad,11,POŽEGA,22294
-11009,Velika,opcina,11,VELIKA,4502
-11010,Čaglin,opcina,11,ČAGLIN,2111
-12001,Bebrina,opcina,12,BEBRINA,2817
-12002,Brodski Stupnik,opcina,12,BRODSKI STUPNIK,2357
-12003,Bukovlje,opcina,12,BUKOVLJE,2727
-12004,Cernik,opcina,12,CERNIK,2964
-12005,Davor,opcina,12,DAVOR,2529
-12006,Donji Andrijevci,opcina,12,DONJI ANDRIJEVCI,3059
-12007,Dragalić,opcina,12,DRAGALIĆ,1058
-12008,Garčin,opcina,12,GARČIN,3951
-12009,Gornja Vrba,opcina,12,GORNJA VRBA,2168
-12010,Gornji Bogićevci,opcina,12,GORNJI BOGIĆEVCI,1428
-12011,Gundinci,opcina,12,GUNDINCI,1610
-12012,Klakar,opcina,12,KLAKAR,2020
-12013,Nova Gradiška,grad,12,NOVA GRADIŠKA,11690
-12014,Nova Kapela,opcina,12,NOVA KAPELA,3393
-12015,Okučani,opcina,12,OKUČANI,2323
-12016,Oprisavci,opcina,12,OPRISAVCI,1968
-12017,Oriovac,opcina,12,ORIOVAC,4770
-12018,Podcrkavlje,opcina,12,PODCRKAVLJE,2207
-12019,Rešetari,opcina,12,REŠETARI,3852
-12020,Sibinj,opcina,12,SIBINJ,5730
-12021,Sikirevci,opcina,12,SIKIREVCI,2028
-12022,Slavonski Brod,grad,12,SLAVONSKI BROD,49891
-12023,Slavonski Šamac,opcina,12,SLAVONSKI ŠAMAC,1576
-12024,Stara Gradiška,opcina,12,STARA GRADIŠKA,911
-12025,Staro Petrovo Selo,opcina,12,STARO PETROVO SELO,4110
-12026,Velika Kopanica,opcina,12,VELIKA KOPANICA,2621
-12027,Vrbje,opcina,12,VRBJE,1691
-12028,Vrpolje,opcina,12,VRPOLJE,2818
-13001,Benkovac,grad,13,BENKOVAC,9680
-13002,Bibinje,opcina,13,BIBINJE,3962
-13003,Biograd na Moru,grad,13,BIOGRAD NA MORU,5601
-13004,Galovac,opcina,13,GALOVAC,1258
-13005,Gračac,opcina,13,GRAČAC,3136
-13006,Jasenice,opcina,13,JASENICE,1348
-13007,Kali,opcina,13,KALI,1585
-13008,Kolan,opcina,13,KOLAN,815
-13009,Kukljica,opcina,13,KUKLJICA,628
-13010,Lišane Ostrovičke,opcina,13,LIŠANE OSTROVIČKE,593
-13011,Nin,grad,13,NIN,2705
-13012,Novigrad,opcina,13,NOVIGRAD,2160
-13013,Obrovac,grad,13,OBROVAC,3453
-13014,Pag,grad,13,PAG,3175
-13015,Pakoštane,opcina,13,PAKOŠTANE,4100
-13016,Pašman,opcina,13,PAŠMAN,2136
-13017,Polača,opcina,13,POLAČA,1389
-13018,Poličnik,opcina,13,POLIČNIK,4676
-13019,Posedarje,opcina,13,POSEDARJE,3430
-13020,Povljana,opcina,13,POVLJANA,669
-13021,Preko,opcina,13,PREKO,3556
-13022,Privlaka,opcina,13,PRIVLAKA,2128
-13023,Ražanac,opcina,13,RAŽANAC,2746
-13024,Sali,opcina,13,SALI,1746
-13025,Stankovci,opcina,13,STANKOVCI,1831
-13026,Starigrad,opcina,13,STARIGRAD,1697
-13027,Sukošan,opcina,13,SUKOŠAN,4665
-13028,Sveti Filip i Jakov,opcina,13,SVETI FILIP I JAKOV,4461
-13029,Tkon,opcina,13,TKON,748
-13030,Vir,opcina,13,VIR,3045
-13031,Vrsi,opcina,13,VRSI,2045
-13032,Zadar,grad,13,ZADAR,70779
-13033,Zemunik Donji,opcina,13,ZEMUNIK DONJI,2159
-13034,Škabrnja,opcina,13,ŠKABRNJA,1661
-14001,Antunovac,opcina,14,ANTUNOVAC,3411
-14002,Beli Manastir,grad,14,BELI MANASTIR,7973
-14003,Belišće,grad,14,BELIŠĆE,8884
-14004,Bilje,opcina,14,BILJE,4772
-14005,Bizovac,opcina,14,BIZOVAC,3733
-14006,Darda,opcina,14,DARDA,5427
-14007,Donja Motičina,opcina,14,DONJA MOTIČINA,1334
-14008,Donji Miholjac,grad,14,DONJI MIHOLJAC,8031
-14009,Draž,opcina,14,DRAŽ,1949
-14010,Drenje,opcina,14,DRENJE,2126
-14011,Erdut,opcina,14,ERDUT,5436
-14012,Ernestinovo,opcina,14,ERNESTINOVO,1948
-14013,Feričanci,opcina,14,FERIČANCI,1725
-14014,Gorjani,opcina,14,GORJANI,1246
-14015,Jagodnjak,opcina,14,JAGODNJAK,1500
-14016,Kneževi Vinogradi,opcina,14,KNEŽEVI VINOGRADI,3357
-14017,Koška,opcina,14,KOŠKA,3169
-14018,Levanjska Varoš,opcina,14,LEVANJSKA VAROŠ,767
-14019,Magadenovac,opcina,14,MAGADENOVAC,1579
-14020,Marijanci,opcina,14,MARIJANCI,1951
-14021,Našice,grad,14,NAŠICE,14291
-14022,Osijek,grad,14,OSIJEK,96313
-14023,Petlovac,opcina,14,PETLOVAC,1874
-14024,Petrijevci,opcina,14,PETRIJEVCI,2485
-14025,Podgorač,opcina,14,PODGORAČ,2455
-14026,Podravska Moslavina,opcina,14,PODRAVSKA MOSLAVINA,954
-14027,Popovac,opcina,14,POPOVAC,1446
-14028,Punitovci,opcina,14,PUNITOVCI,1562
-14029,Satnica Đakovačka,opcina,14,SATNICA ĐAKOVAČKA,1775
-14030,Semeljci,opcina,14,SEMELJCI,3558
-14031,Strizivojna,opcina,14,STRIZIVOJNA,2027
-14032,Trnava,opcina,14,TRNAVA,1251
-14033,Valpovo,grad,14,VALPOVO,9784
-14034,Viljevo,opcina,14,VILJEVO,1626
-14035,Viškovci,opcina,14,VIŠKOVCI,1496
-14036,Vladislavci,opcina,14,VLADISLAVCI,1552
-14037,Vuka,opcina,14,VUKA,984
-14038,Čeminac,opcina,14,ČEMINAC,2484
-14039,Čepin,opcina,14,ČEPIN,9665
-14040,Đakovo,grad,14,ĐAKOVO,23577
-14041,Đurđenovac,opcina,14,ĐURĐENOVAC,5332
-14042,Šodolovci,opcina,14,ŠODOLOVCI,1217
-15001,Bilice,opcina,15,BILICE,2546
-15002,Biskupija,opcina,15,BISKUPIJA,1177
-15003,Civljane,opcina,15,CIVLJANE,171
-15004,Drniš,grad,15,DRNIŠ,6276
-15005,Ervenik,opcina,15,ERVENIK,789
-15006,Kijevo,opcina,15,KIJEVO,272
-15007,Kistanje,opcina,15,KISTANJE,2650
-15008,Knin,grad,15,KNIN,11633
-15009,Murter-Kornati,opcina,15,MURTER KORNATI,1934
-15010,Pirovac,opcina,15,PIROVAC,1606
-15011,Primošten,opcina,15,PRIMOŠTEN,2627
-15012,Promina,opcina,15,PROMINA,943
-15013,Rogoznica,opcina,15,ROGOZNICA,2106
-15014,Ružić,opcina,15,RUŽIĆ,1283
-15015,Skradin,grad,15,SKRADIN,3349
-15016,Tisno,opcina,15,TISNO,2908
-15017,Tribunj,opcina,15,TRIBUNJ,1594
-15018,Unešić,opcina,15,UNEŠIĆ,1269
-15019,Vodice,grad,15,VODICE,8649
-15020,Šibenik,grad,15,ŠIBENIK,42599
-16001,Andrijaševci,opcina,16,ANDRIJAŠEVCI,3441
-16002,Babina Greda,opcina,16,BABINA GREDA,2762
-16003,Bogdanovci,opcina,16,BOGDANOVCI,1545
-16004,Borovo,opcina,16,BOROVO,3555
-16005,Bošnjaci,opcina,16,BOŠNJACI,2868
-16006,Cerna,opcina,16,CERNA,3712
-16007,Drenovci,opcina,16,DRENOVCI,3662
-16008,Gradište,opcina,16,GRADIŠTE,2227
-16009,Gunja,opcina,16,GUNJA,2600
-16010,Ilok,grad,16,ILOK,5045
-16011,Ivankovo,opcina,16,IVANKOVO,6543
-16012,Jarmina,opcina,16,JARMINA,2016
-16013,Lovas,opcina,16,LOVAS,980
-16014,Markušica,opcina,16,MARKUŠICA,1773
-16015,Negoslavci,opcina,16,NEGOSLAVCI,983
-16016,Nijemci,opcina,16,NIJEMCI,3526
-16017,Nuštar,opcina,16,NUŠTAR,4861
-16018,Otok,grad,16,OTOK,4899
-16019,Privlaka,opcina,16,PRIVLAKA,2192
-16020,Stari Jankovci,opcina,16,STARI JANKOVCI,3271
-16021,Stari Mikanovci,opcina,16,STARI MIKANOVCI,2419
-16022,Tompojevci,opcina,16,TOMPOJEVCI,1116
-16023,Tordinci,opcina,16,TORDINCI,1657
-16024,Tovarnik,opcina,16,TOVARNIK,2067
-16025,Trpinja,opcina,16,TRPINJA,4167
-16026,Vinkovci,grad,16,VINKOVCI,30842
-16027,Vođinci,opcina,16,VOĐINCI,1634
-16028,Vrbanja,opcina,16,VRBANJA,2870
-16029,Vukovar,grad,16,VUKOVAR,23175
-16030,Štitar,opcina,16,ŠTITAR,1552
-16031,Županja,grad,16,ŽUPANJA,9153
-17001,Baška Voda,opcina,17,BAŠKA VODA,2590
-17002,Bol,opcina,17,BOL,1678
-17003,Brela,opcina,17,BRELA,1626
-17004,Cista Provo,opcina,17,CISTA PROVO,1799
-17005,Dicmo,opcina,17,DICMO,2805
-17006,Dugi Rat,opcina,17,DUGI RAT,6876
-17007,Dugopolje,opcina,17,DUGOPOLJE,3742
-17008,Gradac,opcina,17,GRADAC,2401
-17009,Hrvace,opcina,17,HRVACE,3144
-17010,Hvar,grad,17,HVAR,3979
-17011,Imotski,grad,17,IMOTSKI,9153
-17012,Jelsa,opcina,17,JELSA,3501
-17013,Kaštela,grad,17,KAŠTELA,37794
-17014,Klis,opcina,17,KLIS,5226
-17015,Komiža,grad,17,KOMIŽA,1394
-17016,Lećevica,opcina,17,LEĆEVICA,495
-17017,Lokvičići,opcina,17,LOKVIČIĆI,667
-17018,Lovreć,opcina,17,LOVREĆ,1402
-17019,Makarska,grad,17,MAKARSKA,13301
-17020,Marina,opcina,17,MARINA,4273
-17021,Milna,opcina,17,MILNA,931
-17022,Muć,opcina,17,MUĆ,3465
-17023,Nerežišća,opcina,17,NEREŽIŠĆA,878
-17024,Okrug,opcina,17,OKRUG,2995
-17025,Omiš,grad,17,OMIŠ,14139
-17026,Otok,opcina,17,OTOK,4998
-17027,Podbablje,opcina,17,PODBABLJE,4035
-17028,Podgora,opcina,17,PODGORA,2233
-17029,Podstrana,opcina,17,PODSTRANA,10403
-17030,Postira,opcina,17,POSTIRA,1538
-17031,Prgomet,opcina,17,PRGOMET,498
-17032,Primorski Dolac,opcina,17,PRIMORSKI DOLAC,686
-17033,Proložac,opcina,17,PROLOŽAC,3112
-17034,Pučišća,opcina,17,PUČIŠĆA,1926
-17035,Runovići,opcina,17,RUNOVIĆI,1968
-17036,Seget,opcina,17,SEGET,4511
-17037,Selca,opcina,17,SELCA,1613
-17038,Sinj,grad,17,SINJ,23452
-17039,Solin,grad,17,SOLIN,24862
-17040,Split,grad,17,SPLIT,160577
-17041,Stari Grad,grad,17,STARI GRAD,2772
-17042,Supetar,grad,17,SUPETAR,4325
-17043,Sutivan,opcina,17,SUTIVAN,936
-17044,Sućuraj,opcina,17,SUĆURAJ,426
-17045,Trilj,grad,17,TRILJ,8182
-17046,Trogir,grad,17,TROGIR,12393
-17047,Tučepi,opcina,17,TUČEPI,1819
-17048,Vis,grad,17,VIS,1918
-17049,Vrgorac,grad,17,VRGORAC,5698
-17050,Vrlika,grad,17,VRLIKA,1728
-17051,Zadvarje,opcina,17,ZADVARJE,289
-17052,Zagvozd,opcina,17,ZAGVOZD,957
-17053,Zmijavci,opcina,17,ZMIJAVCI,1654
-17054,Šestanovac,opcina,17,ŠESTANOVAC,1669
-17055,Šolta,opcina,17,ŠOLTA,1975
-18001,Bale-Valle,opcina,18,BALE VALLE,1170
-18002,Barban,opcina,18,BARBAN,2491
-18003,Brtonigla-Verteneglio,opcina,18,BRTONIGLA VERTENEGLIO,1523
-18004,Buje-Buie,grad,18,BUJE BUIE,4441
-18005,Buzet,grad,18,BUZET,5999
-18006,Cerovlje,opcina,18,CEROVLJE,1453
-18007,Fažana-Fasana,opcina,18,FAŽANA FASANA,3463
-18008,Funtana-Fontane,opcina,18,FUNTANA FONTANE,911
-18009,Gračišće,opcina,18,GRAČIŠĆE,1312
-18010,Grožnjan-Grisignana,opcina,18,GROŽNJAN GRISIGNANA,656
-18011,Kanfanar,opcina,18,KANFANAR,1498
-18012,Karojba,opcina,18,KAROJBA,1404
-18013,Kaštelir-Labinci-Castelliere-S. Domenica,opcina,18,KAŠTELIR LABINCI CASTELLIERE S DOMENICA,1493
-18014,Kršan,opcina,18,KRŠAN,2829
-18015,Labin,grad,18,LABIN,10424
-18016,Lanišće,opcina,18,LANIŠĆE,268
-18017,Ližnjan-Lisignano,opcina,18,LIŽNJAN LISIGNANO,4087
-18018,Lupoglav,opcina,18,LUPOGLAV,836
-18019,Marčana,opcina,18,MARČANA,4250
-18020,Medulin,opcina,18,MEDULIN,6552
-18021,Motovun-Montona,opcina,18,MOTOVUN MONTONA,912
-18022,Novigrad-Cittanova,grad,18,NOVIGRAD CITTANOVA,3889
-18023,Oprtalj-Portole,opcina,18,OPRTALJ PORTOLE,748
-18024,Pazin,grad,18,PAZIN,8279
-18025,Pićan,opcina,18,PIĆAN,1722
-18026,Poreč-Parenzo,grad,18,POREČ PARENZO,16607
-18027,Pula-Pola,grad,18,PULA POLA,52220
-18028,Raša,opcina,18,RAŠA,2809
-18029,Rovinj-Rovigno,grad,18,ROVINJ ROVIGNO,12968
-18030,Sveta Nedelja,opcina,18,SVETA NEDELJA,2898
-18031,Sveti Lovreč,opcina,18,SVETI LOVREČ,960
-18032,Sveti Petar u Šumi,opcina,18,SVETI PETAR U ŠUMI,1051
-18033,Svetvinčenat,opcina,18,SVETVINČENAT,2179
-18034,Tar-Vabriga-Torre Abrega,opcina,18,TAR VABRIGA TORRE ABREGA,2148
-18035,Tinjan,opcina,18,TINJAN,1729
-18036,Umag-Umago,grad,18,UMAG UMAGO,12699
-18037,Višnjan-Visignano,opcina,18,VIŠNJAN VISIGNANO,2096
-18038,Vižinada-Visinada,opcina,18,VIŽINADA VISINADA,1142
-18039,Vodnjan-Dignano,grad,18,VODNJAN DIGNANO,5838
-18040,Vrsar-Orsera,opcina,18,VRSAR ORSERA,1923
-18041,Žminj,opcina,18,ŽMINJ,3360
-19001,Blato,opcina,19,BLATO,3330
-19002,Dubrovačko primorje,opcina,19,DUBROVAČKO PRIMORJE,1636
-19003,Dubrovnik,grad,19,DUBROVNIK,41562
-19004,Janjina,opcina,19,JANJINA,522
-19005,Konavle,opcina,19,KONAVLE,8607
-19006,Korčula,grad,19,KORČULA,5415
-19007,Kula Norinska,opcina,19,KULA NORINSKA,1414
-19008,Lastovo,opcina,19,LASTOVO,748
-19009,Lumbarda,opcina,19,LUMBARDA,1209
-19010,Metković,grad,19,METKOVIĆ,15235
-19011,Mljet,opcina,19,MLJET,1062
-19012,Opuzen,grad,19,OPUZEN,2838
-19013,Orebić,opcina,19,OREBIĆ,3705
-19014,Ploče,grad,19,PLOČE,8220
-19015,Pojezerje,opcina,19,POJEZERJE,943
-19016,Slivno,opcina,19,SLIVNO,2046
-19017,Smokvica,opcina,19,SMOKVICA,868
-19018,Ston,opcina,19,STON,2491
-19019,Trpanj,opcina,19,TRPANJ,683
-19020,Vela Luka,opcina,19,VELA LUKA,3772
-19021,Zažablje,opcina,19,ZAŽABLJE,553
-19022,Župa dubrovačka,opcina,19,ŽUPA DUBROVAČKA,8705
-20001,Belica,opcina,20,BELICA,2822
-20002,Dekanovec,opcina,20,DEKANOVEC,739
-20003,Domašinec,opcina,20,DOMAŠINEC,1923
-20004,Donja Dubrava,opcina,20,DONJA DUBRAVA,1658
-20005,Donji Kraljevec,opcina,20,DONJI KRALJEVEC,4043
-20006,Donji Vidovec,opcina,20,DONJI VIDOVEC,1197
-20007,Goričan,opcina,20,GORIČAN,2343
-20008,Gornji Mihaljevec,opcina,20,GORNJI MIHALJEVEC,1740
-20009,Kotoriba,opcina,20,KOTORIBA,2938
-20010,Mala Subotica,opcina,20,MALA SUBOTICA,4344
-20011,Mursko Središće,grad,20,MURSKO SREDIŠĆE,5855
-20012,Nedelišće,opcina,20,NEDELIŠĆE,11017
-20013,Orehovica,opcina,20,OREHOVICA,2720
-20014,Podturen,opcina,20,PODTUREN,3517
-20015,Prelog,grad,20,PRELOG,7027
-20016,Pribislavec,opcina,20,PRIBISLAVEC,2963
-20017,Selnica,opcina,20,SELNICA,2636
-20018,Strahoninec,opcina,20,STRAHONINEC,2598
-20019,Sveta Marija,opcina,20,SVETA MARIJA,1990
-20020,Sveti Juraj na Bregu,opcina,20,SVETI JURAJ NA BREGU,4929
-20021,Sveti Martin na Muri,opcina,20,SVETI MARTIN NA MURI,2391
-20022,Vratišinec,opcina,20,VRATIŠINEC,1673
-20023,Čakovec,grad,20,ČAKOVEC,27122
-20024,Šenkovec,opcina,20,ŠENKOVEC,2708
-20025,Štrigova,opcina,20,ŠTRIGOVA,2357
-21001,Zagreb,grad,21,ZAGREB,767131
+05509,Bedenica,opcina,01,BEDENICA,1266
+05479,Bistra,opcina,01,BISTRA,6444
+00337,Brckovljani,opcina,01,BRCKOVLJANI,5876
+00345,Brdovec,opcina,01,BRDOVEC,10737
+00973,Dubrava,opcina,01,DUBRAVA,4520
+05495,Dubravica,opcina,01,DUBRAVICA,1192
+01015,Dugo Selo,grad,01,DUGO SELO,17676
+01147,Farkaševac,opcina,01,FARKAŠEVAC,1562
+01350,Gradec,opcina,01,GRADEC,3189
+01589,Ivanić-Grad,grad,01,IVANIĆ GRAD,12982
+01635,Jakovlje,opcina,01,JAKOVLJE,3797
+01694,Jastrebarsko,grad,01,JASTREBARSKO,14562
+01902,Klinča Sela,opcina,01,KLINČA SELA,5044
+01937,Kloštar Ivanić,opcina,01,KLOŠTAR IVANIĆ,5523
+05452,Kravarsko,opcina,01,KRAVARSKO,1824
+05339,Krašić,opcina,01,KRAŠIĆ,2250
+02135,Križ,opcina,01,KRIŽ,6098
+05487,Luka,opcina,01,LUKA,1265
+05398,Marija Gorica,opcina,01,MARIJA GORICA,2094
+05428,Orle,opcina,01,ORLE,1765
+03310,Pisarovina,opcina,01,PISAROVINA,3484
+05444,Pokupsko,opcina,01,POKUPSKO,1926
+03565,Preseka,opcina,01,PRESEKA,1129
+03620,Pušća,opcina,01,PUŠĆA,2564
+05363,Rakovec,opcina,01,RAKOVEC,1141
+03760,Rugvica,opcina,01,RUGVICA,7133
+03808,Samobor,grad,01,SAMOBOR,37435
+05517,Stupnik,opcina,01,STUPNIK,3886
+04367,Sveta Nedelja,grad,01,SVETA NEDELJA,18221
+04294,Sveti Ivan Zelina,grad,01,SVETI IVAN ZELINA,14602
+05410,Velika Gorica,grad,01,VELIKA GORICA,61075
+05088,Vrbovec,grad,01,VRBOVEC,12981
+05436,Zaprešić,grad,01,ZAPREŠIĆ,24133
+05401,Žumberak,opcina,01,ŽUMBERAK,609
+00116,Bedekovčina,opcina,02,BEDEKOVČINA,7340
+00418,Budinščina,opcina,02,BUDINŠČINA,2182
+00701,Desinić,opcina,02,DESINIĆ,2530
+00795,Donja Stubica,grad,02,DONJA STUBICA,5326
+01252,Gornja Stubica,opcina,02,GORNJA STUBICA,4622
+01465,Hrašćina,opcina,02,HRAŠĆINA,1388
+01520,Hum na Sutli,opcina,02,HUM NA SUTLI,4592
+05525,Jesenje,opcina,02,JESENJE,1371
+01872,Klanjec,grad,02,KLANJEC,2548
+02003,Konjščina,opcina,02,KONJŠČINA,3308
+02089,Kraljevec na Sutli,opcina,02,KRALJEVEC NA SUTLI,1591
+02119,Krapina,grad,02,KRAPINA,11530
+02127,Krapinske Toplice,opcina,02,KRAPINSKE TOPLICE,4827
+05533,Kumrovec,opcina,02,KUMROVEC,1412
+02364,Lobor,opcina,02,LOBOR,2703
+02569,Marija Bistrica,opcina,02,MARIJA BISTRICA,5553
+02488,Mače,opcina,02,MAČE,2258
+02658,Mihovljan,opcina,02,MIHOVLJAN,1677
+05541,Novi Golubovec,opcina,02,NOVI GOLUBOVEC,824
+03115,Oroslavje,grad,02,OROSLAVJE,5834
+03298,Petrovsko,opcina,02,PETROVSKO,2270
+03522,Pregrada,grad,02,PREGRADA,5927
+03646,Radoboj,opcina,02,RADOBOJ,2981
+04227,Stubičke Toplice,opcina,02,STUBIČKE TOPLICE,2740
+04308,Sveti Križ Začretje,opcina,02,SVETI KRIŽ ZAČRETJE,5659
+04669,Tuhelj,opcina,02,TUHELJ,2043
+04812,Veliko Trgovišće,opcina,02,VELIKO TRGOVIŠĆE,4448
+05193,Zabok,grad,02,ZABOK,8656
+05215,Zagorska Sela,opcina,02,ZAGORSKA SELA,899
+05266,Zlatar,grad,02,ZLATAR,5574
+05274,Zlatar Bistrica,opcina,02,ZLATAR BISTRICA,2308
+01082,Đurmanec,opcina,02,ĐURMANEC,3781
+00833,Donji Kukuruzari,opcina,03,DONJI KUKURUZARI,1080
+01023,Dvor,opcina,03,DVOR,2996
+01210,Glina,grad,03,GLINA,7116
+05100,Gvozd,opcina,03,GVOZD,2047
+01490,Hrvatska Dubica,opcina,03,HRVATSKA DUBICA,1462
+01503,Hrvatska Kostajnica,grad,03,HRVATSKA KOSTAJNICA,1879
+01686,Jasenovac,opcina,03,JASENOVAC,1559
+02208,Kutina,grad,03,KUTINA,19601
+02283,Lekenik,opcina,03,LEKENIK,5343
+02321,Lipovljani,opcina,03,LIPOVLJANI,2807
+05550,Majur,opcina,03,MAJUR,760
+02593,Martinska Ves,opcina,03,MARTINSKA VES,2861
+02933,Novska,grad,03,NOVSKA,11137
+03280,Petrinja,grad,03,PETRINJA,19950
+03476,Popovača,grad,03,POPOVAČA,10255
+03913,Sisak,grad,03,SISAK,40121
+04260,Sunja,opcina,03,SUNJA,4124
+04570,Topusko,opcina,03,TOPUSKO,2222
+04774,Velika Ludina,opcina,03,VELIKA LUDINA,2283
+00078,Barilović,opcina,04,BARILOVIĆ,2673
+00302,Bosiljevo,opcina,04,BOSILJEVO,1040
+00493,Cetingrad,opcina,04,CETINGRAD,1491
+00906,Draganić,opcina,04,DRAGANIĆ,2541
+00990,Duga Resa,grad,04,DUGA RESA,10212
+01201,Generalski Stol,opcina,04,GENERALSKI STOL,2171
+01724,Josipdol,opcina,04,JOSIPDOL,3419
+06238,Kamanje,opcina,04,KAMANJE,827
+01791,Karlovac,grad,04,KARLOVAC,49377
+02160,Krnjak,opcina,04,KRNJAK,1332
+02259,Lasinja,opcina,04,LASINJA,1322
+02810,Netretić,opcina,04,NETRETIĆ,2439
+02976,Ogulin,grad,04,OGULIN,12246
+03158,Ozalj,grad,04,OZALJ,5837
+03336,Plaški,opcina,04,PLAŠKI,1650
+03654,Rakovica,opcina,04,RAKOVICA,2230
+05568,Ribnik,opcina,04,RIBNIK,362
+03786,Saborsko,opcina,04,SABORSKO,466
+04006,Slunj,grad,04,SLUNJ,4224
+05576,Tounj,opcina,04,TOUNJ,1002
+05037,Vojnić,opcina,04,VOJNIĆ,3602
+05304,Žakanje,opcina,04,ŽAKANJE,1732
+00124,Bednja,opcina,05,BEDNJA,3389
+00191,Beretinec,opcina,05,BERETINEC,2049
+00361,Breznica,opcina,05,BREZNICA,1970
+01511,Breznički Hum,opcina,05,BREZNIČKI HUM,1132
+00485,Cestica,opcina,05,CESTICA,5425
+00809,Donja Voća,opcina,05,DONJA VOĆA,2030
+01295,Gornji Kneginec,opcina,05,GORNJI KNEGINEC,4900
+01562,Ivanec,grad,05,IVANEC,12723
+01651,Jalžabet,opcina,05,JALŽABET,3183
+01899,Klenovnik,opcina,05,KLENOVNIK,1793
+02291,Lepoglava,grad,05,LEPOGLAVA,6945
+02470,Ljubešćica,opcina,05,LJUBEŠĆICA,1689
+02445,Ludbreg,grad,05,LUDBREG,8477
+02518,Mali Bukovec,opcina,05,MALI BUKOVEC,1809
+00850,Martijanec,opcina,05,MARTIJANEC,2638
+02607,Maruševec,opcina,05,MARUŠEVEC,5682
+02895,Novi Marof,grad,05,NOVI MAROF,11795
+03263,Petrijanec,opcina,05,PETRIJANEC,4553
+04103,Sračinec,opcina,05,SRAČINEC,4678
+04383,Sveti Ilija,opcina,05,SVETI ILIJA,3242
+04375,Sveti Đurđ,opcina,05,SVETI ĐURĐ,3326
+04626,Trnovec Bartolovečki,opcina,05,TRNOVEC BARTOLOVEČKI,6145
+04723,Varaždin,grad,05,VARAŽDIN,43782
+04731,Varaždinske Toplice,grad,05,VARAŽDINSKE TOPLICE,5537
+05584,Veliki Bukovec,opcina,05,VELIKI BUKOVEC,1325
+04847,Vidovec,opcina,05,VIDOVEC,4915
+04863,Vinica,opcina,05,VINICA,3020
+04936,Visoko,opcina,05,VISOKO,1335
+00965,Drnje,opcina,06,DRNJE,1533
+01155,Ferdinandovac,opcina,06,FERDINANDOVAC,1415
+01228,Gola,opcina,06,GOLA,2078
+06181,Gornja Rijeka,opcina,06,GORNJA RIJEKA,1559
+01457,Hlebine,opcina,06,HLEBINE,1180
+05592,Kalinovac,opcina,06,KALINOVAC,1297
+05606,Kalnik,opcina,06,KALNIK,1154
+01945,Kloštar Podravski,opcina,06,KLOŠTAR PODRAVSKI,2749
+02011,Koprivnica,grad,06,KOPRIVNICA,28580
+02020,Koprivnički Bregi,opcina,06,KOPRIVNIČKI BREGI,1968
+02038,Koprivnički Ivanec,opcina,06,KOPRIVNIČKI IVANEC,1798
+02143,Križevci,grad,06,KRIŽEVCI,18949
+02275,Legrad,opcina,06,LEGRAD,1916
+02704,Molve,opcina,06,MOLVE,1767
+02925,Novigrad Podravski,opcina,06,NOVIGRAD PODRAVSKI,2300
+05614,Novo Virje,opcina,06,NOVO VIRJE,1026
+03247,Peteranec,opcina,06,PETERANEC,2300
+06165,Podravske Sesvete,opcina,06,PODRAVSKE SESVETE,1446
+03662,Rasinja,opcina,06,RASINJA,2631
+04057,Sokolovac,opcina,06,SOKOLOVAC,2789
+04391,Sveti Ivan Žabno,opcina,06,SVETI IVAN ŽABNO,4343
+04421,Sveti Petar Orehovec,opcina,06,SVETI PETAR OREHOVEC,3942
+04901,Virje,opcina,06,VIRJE,3842
+01040,Đelekovec,opcina,06,ĐELEKOVEC,1281
+01074,Đurđevac,grad,06,ĐURĐEVAC,7378
+00183,Berek,opcina,07,BEREK,1106
+00248,Bjelovar,grad,07,BJELOVAR,36316
+00671,Daruvar,grad,07,DARUVAR,10105
+00710,Dežanovac,opcina,07,DEŽANOVAC,1978
+01198,Garešnica,grad,07,GAREŠNICA,8624
+01392,Grubišno Polje,grad,07,GRUBIŠNO POLJE,5367
+01449,Hercegovac,opcina,07,HERCEGOVAC,1910
+01619,Ivanska,opcina,07,IVANSKA,2256
+01767,Kapela,opcina,07,KAPELA,2367
+01996,Končanica,opcina,07,KONČANICA,1805
+02879,Nova Rača,opcina,07,NOVA RAČA,2756
+03751,Rovišće,opcina,07,ROVIŠĆE,4144
+05622,Severin,opcina,07,SEVERIN,702
+03905,Sirač,opcina,07,SIRAČ,1796
+04782,Velika Pisanica,opcina,07,VELIKA PISANICA,1313
+05657,Velika Trnovitica,opcina,07,VELIKA TRNOVITICA,1091
+04804,Veliki Grđevac,opcina,07,VELIKI GRĐEVAC,2316
+04839,Veliko Trojstvo,opcina,07,VELIKO TROJSTVO,2379
+05665,Zrinski Topolovac,opcina,07,ZRINSKI TOPOLOVAC,747
+00639,Čazma,grad,07,ČAZMA,6930
+01058,Đulovac,opcina,07,ĐULOVAC,2772
+05649,Šandrovac,opcina,07,ŠANDROVAC,1411
+04502,Štefanje,opcina,07,ŠTEFANJE,1688
+00043,Bakar,grad,08,BAKAR,7573
+00086,Baška,opcina,08,BAŠKA,1656
+00388,Brod Moravice,opcina,08,BROD MORAVICE,663
+00523,Cres,grad,08,CRES,2716
+00531,Crikvenica,grad,08,CRIKVENICA,9980
+00698,Delnice,grad,08,DELNICE,5135
+00744,Dobrinj,opcina,08,DOBRINJ,2150
+01171,Fužine,opcina,08,FUŽINE,1394
+01708,Jelenje,opcina,08,JELENJE,5096
+01805,Kastav,grad,08,KASTAV,10202
+01864,Klana,opcina,08,KLANA,1845
+05380,Kostrena,opcina,08,KOSTRENA,4398
+02097,Kraljevica,grad,08,KRALJEVICA,4066
+02151,Krk,grad,08,KRK,6816
+02372,Lokve,opcina,08,LOKVE,850
+06246,Lopar,opcina,08,LOPAR,1107
+02429,Lovran,opcina,08,LOVRAN,3527
+02526,Mali Lošinj,grad,08,MALI LOŠINJ,7537
+02534,Malinska-Dubašnica,opcina,08,MALINSKA DUBAŠNICA,3212
+02615,Matulji,opcina,08,MATULJI,10773
+02739,Mošćenička Draga,opcina,08,MOŠĆENIČKA DRAGA,1288
+02755,Mrkopalj,opcina,08,MRKOPALJ,924
+02909,Novi Vinodolski,grad,08,NOVI VINODOLSKI,4328
+03018,Omišalj,opcina,08,OMIŠALJ,2992
+03026,Opatija,grad,08,OPATIJA,10619
+03603,Punat,opcina,08,PUNAT,1900
+03638,Rab,grad,08,RAB,7161
+03697,Ravna Gora,opcina,08,RAVNA GORA,2028
+03735,Rijeka,grad,08,RIJEKA,107964
+03930,Skrad,opcina,08,SKRAD,858
+04880,Vinodolska općina,opcina,08,VINODOLSKA OPĆINA,3226
+04952,Viškovo,opcina,08,VIŠKOVO,16084
+05070,Vrbnik,opcina,08,VRBNIK,1190
+05096,Vrbovsko,grad,08,VRBOVSKO,3876
+00558,Čabar,grad,08,ČABAR,3226
+00612,Čavle,opcina,08,ČAVLE,7059
+00370,Brinje,opcina,09,BRINJE,2563
+00841,Donji Lapac,opcina,09,DONJI LAPAC,1366
+01309,Gospić,grad,09,GOSPIĆ,11502
+01783,Karlobag,opcina,09,KARLOBAG,780
+02402,Lovinac,opcina,09,LOVINAC,943
+02887,Novalja,grad,09,NOVALJA,3680
+03131,Otočac,grad,09,OTOČAC,8332
+03239,Perušić,opcina,09,PERUŠIĆ,1973
+04553,Plitvička Jezera,opcina,09,PLITVIČKA JEZERA,3649
+03875,Senj,grad,09,SENJ,5973
+04677,Udbina,opcina,09,UDBINA,1334
+05126,Vrhovine,opcina,09,VRHOVINE,653
+00540,Crnac,opcina,10,CRNAC,1116
+01368,Gradina,opcina,10,GRADINA,2874
+02453,Lukač,opcina,10,LUKAČ,2759
+02666,Mikleuš,opcina,10,MIKLEUŠ,1067
+02836,Nova Bukovica,opcina,10,NOVA BUKOVICA,1275
+03077,Orahovica,grad,10,ORAHOVICA,4537
+03328,Pitomača,opcina,10,PITOMAČA,8402
+03956,Slatina,grad,10,SLATINA,11503
+04073,Sopje,opcina,10,SOPJE,1897
+04243,Suhopolje,opcina,10,SUHOPOLJE,5267
+04910,Virovitica,grad,10,VIROVITICA,19302
+04995,Voćin,opcina,10,VOĆIN,1896
+05240,Zdenci,opcina,10,ZDENCI,1453
+00566,Čačinci,opcina,10,ČAČINCI,2162
+00574,Čađavica,opcina,10,ČAĐAVICA,1555
+04499,Špišić Bukovica,opcina,10,ŠPIŠIĆ BUKOVICA,3303
+00353,Brestovac,opcina,11,BRESTOVAC,2980
+01643,Jakšić,opcina,11,JAKŠIĆ,3371
+01775,Kaptol,opcina,11,KAPTOL,2605
+02216,Kutjevo,grad,11,KUTJEVO,4870
+02313,Lipik,grad,11,LIPIK,5127
+03182,Pakrac,grad,11,PAKRAC,7086
+03344,Pleternica,grad,11,PLETERNICA,9138
+03514,Požega,grad,11,POŽEGA,22294
+04758,Velika,opcina,11,VELIKA,4502
+00582,Čaglin,opcina,11,ČAGLIN,2111
+00108,Bebrina,opcina,12,BEBRINA,2817
+00396,Brodski Stupnik,opcina,12,BRODSKI STUPNIK,2357
+05673,Bukovlje,opcina,12,BUKOVLJE,2727
+00469,Cernik,opcina,12,CERNIK,2964
+00680,Davor,opcina,12,DAVOR,2529
+00817,Donji Andrijevci,opcina,12,DONJI ANDRIJEVCI,3059
+05681,Dragalić,opcina,12,DRAGALIĆ,1058
+01180,Garčin,opcina,12,GARČIN,3951
+05690,Gornja Vrba,opcina,12,GORNJA VRBA,2168
+01279,Gornji Bogićevci,opcina,12,GORNJI BOGIĆEVCI,1428
+01406,Gundinci,opcina,12,GUNDINCI,1610
+01856,Klakar,opcina,12,KLAKAR,2020
+02844,Nova Gradiška,grad,12,NOVA GRADIŠKA,11690
+02852,Nova Kapela,opcina,12,NOVA KAPELA,3393
+02992,Okučani,opcina,12,OKUČANI,2323
+03034,Oprisavci,opcina,12,OPRISAVCI,1968
+03093,Oriovac,opcina,12,ORIOVAC,4770
+03387,Podcrkavlje,opcina,12,PODCRKAVLJE,2207
+03727,Rešetari,opcina,12,REŠETARI,3852
+03883,Sibinj,opcina,12,SIBINJ,5730
+05703,Sikirevci,opcina,12,SIKIREVCI,2028
+03964,Slavonski Brod,grad,12,SLAVONSKI BROD,49891
+03972,Slavonski Šamac,opcina,12,SLAVONSKI ŠAMAC,1576
+04120,Stara Gradiška,opcina,12,STARA GRADIŠKA,911
+04189,Staro Petrovo Selo,opcina,12,STARO PETROVO SELO,4110
+04766,Velika Kopanica,opcina,12,VELIKA KOPANICA,2621
+05061,Vrbje,opcina,12,VRBJE,1691
+05142,Vrpolje,opcina,12,VRPOLJE,2818
+00175,Benkovac,grad,13,BENKOVAC,9680
+00205,Bibinje,opcina,13,BIBINJE,3962
+00221,Biograd na Moru,grad,13,BIOGRAD NA MORU,5601
+05711,Galovac,opcina,13,GALOVAC,1258
+01317,Gračac,opcina,13,GRAČAC,3136
+01678,Jasenice,opcina,13,JASENICE,1348
+01732,Kali,opcina,13,KALI,1585
+06220,Kolan,opcina,13,KOLAN,815
+05720,Kukljica,opcina,13,KUKLJICA,628
+02348,Lišane Ostrovičke,opcina,13,LIŠANE OSTROVIČKE,593
+02828,Nin,grad,13,NIN,2705
+05371,Novigrad,opcina,13,NOVIGRAD,2160
+02968,Obrovac,grad,13,OBROVAC,3453
+03166,Pag,grad,13,PAG,3175
+03174,Pakoštane,opcina,13,PAKOŠTANE,4100
+03204,Pašman,opcina,13,PAŠMAN,2136
+03441,Polača,opcina,13,POLAČA,1389
+03450,Poličnik,opcina,13,POLIČNIK,4676
+03492,Posedarje,opcina,13,POSEDARJE,3430
+05738,Povljana,opcina,13,POVLJANA,669
+03549,Preko,opcina,13,PREKO,3556
+05746,Privlaka,opcina,13,PRIVLAKA,2128
+03719,Ražanac,opcina,13,RAŽANAC,2746
+03794,Sali,opcina,13,SALI,1746
+04111,Stankovci,opcina,13,STANKOVCI,1831
+04162,Starigrad,opcina,13,STARIGRAD,1697
+04251,Sukošan,opcina,13,SUKOŠAN,4665
+04286,Sveti Filip i Jakov,opcina,13,SVETI FILIP I JAKOV,4461
+05754,Tkon,opcina,13,TKON,748
+04898,Vir,opcina,13,VIR,3045
+06254,Vrsi,opcina,13,VRSI,2045
+05207,Zadar,grad,13,ZADAR,70779
+05258,Zemunik Donji,opcina,13,ZEMUNIK DONJI,2159
+04456,Škabrnja,opcina,13,ŠKABRNJA,1661
+00027,Antunovac,opcina,14,ANTUNOVAC,3411
+00132,Beli Manastir,grad,14,BELI MANASTIR,7973
+00167,Belišće,grad,14,BELIŠĆE,8884
+00213,Bilje,opcina,14,BILJE,4772
+00230,Bizovac,opcina,14,BIZOVAC,3733
+00663,Darda,opcina,14,DARDA,5427
+05762,Donja Motičina,opcina,14,DONJA MOTIČINA,1334
+00868,Donji Miholjac,grad,14,DONJI MIHOLJAC,8031
+00914,Draž,opcina,14,DRAŽ,1949
+00949,Drenje,opcina,14,DRENJE,2126
+01104,Erdut,opcina,14,ERDUT,5436
+01112,Ernestinovo,opcina,14,ERNESTINOVO,1948
+01163,Feričanci,opcina,14,FERIČANCI,1725
+01244,Gorjani,opcina,14,GORJANI,1246
+06092,Jagodnjak,opcina,14,JAGODNJAK,1500
+01953,Kneževi Vinogradi,opcina,14,KNEŽEVI VINOGRADI,3357
+02054,Koška,opcina,14,KOŠKA,3169
+02305,Levanjska Varoš,opcina,14,LEVANJSKA VAROŠ,767
+05789,Magadenovac,opcina,14,MAGADENOVAC,1579
+02577,Marijanci,opcina,14,MARIJANCI,1951
+02780,Našice,grad,14,NAŠICE,14291
+03123,Osijek,grad,14,OSIJEK,96313
+03255,Petlovac,opcina,14,PETLOVAC,1874
+03271,Petrijevci,opcina,14,PETRIJEVCI,2485
+03409,Podgorač,opcina,14,PODGORAČ,2455
+02712,Podravska Moslavina,opcina,14,PODRAVSKA MOSLAVINA,954
+03468,Popovac,opcina,14,POPOVAC,1446
+03611,Punitovci,opcina,14,PUNITOVCI,1562
+03816,Satnica Đakovačka,opcina,14,SATNICA ĐAKOVAČKA,1775
+03867,Semeljci,opcina,14,SEMELJCI,3558
+04219,Strizivojna,opcina,14,STRIZIVOJNA,2027
+04618,Trnava,opcina,14,TRNAVA,1251
+04715,Valpovo,grad,14,VALPOVO,9784
+04855,Viljevo,opcina,14,VILJEVO,1626
+04944,Viškovci,opcina,14,VIŠKOVCI,1496
+05797,Vladislavci,opcina,14,VLADISLAVCI,1552
+05177,Vuka,opcina,14,VUKA,984
+00647,Čeminac,opcina,14,ČEMINAC,2484
+00655,Čepin,opcina,14,ČEPIN,9665
+01031,Đakovo,grad,14,ĐAKOVO,23577
+01066,Đurđenovac,opcina,14,ĐURĐENOVAC,5332
+06149,Šodolovci,opcina,14,ŠODOLOVCI,1217
+06211,Bilice,opcina,15,BILICE,2546
+03107,Biskupija,opcina,15,BISKUPIJA,1177
+00515,Civljane,opcina,15,CIVLJANE,171
+00957,Drniš,grad,15,DRNIŠ,6276
+01139,Ervenik,opcina,15,ERVENIK,789
+01830,Kijevo,opcina,15,KIJEVO,272
+01848,Kistanje,opcina,15,KISTANJE,2650
+01961,Knin,grad,15,KNIN,11633
+06173,Murter-Kornati,opcina,15,MURTER KORNATI,1934
+05819,Pirovac,opcina,15,PIROVAC,1606
+03573,Primošten,opcina,15,PRIMOŠTEN,2627
+02984,Promina,opcina,15,PROMINA,943
+05827,Rogoznica,opcina,15,ROGOZNICA,2106
+03778,Ružić,opcina,15,RUŽIĆ,1283
+03948,Skradin,grad,15,SKRADIN,3349
+04545,Tisno,opcina,15,TISNO,2908
+06262,Tribunj,opcina,15,TRIBUNJ,1594
+04693,Unešić,opcina,15,UNEŠIĆ,1269
+05002,Vodice,grad,15,VODICE,8649
+04448,Šibenik,grad,15,ŠIBENIK,42599
+00019,Andrijaševci,opcina,16,ANDRIJAŠEVCI,3441
+00035,Babina Greda,opcina,16,BABINA GREDA,2762
+00264,Bogdanovci,opcina,16,BOGDANOVCI,1545
+00299,Borovo,opcina,16,BOROVO,3555
+00329,Bošnjaci,opcina,16,BOŠNJACI,2868
+00442,Cerna,opcina,16,CERNA,3712
+00922,Drenovci,opcina,16,DRENOVCI,3662
+01376,Gradište,opcina,16,GRADIŠTE,2227
+01414,Gunja,opcina,16,GUNJA,2600
+01546,Ilok,grad,16,ILOK,5045
+01597,Ivankovo,opcina,16,IVANKOVO,6543
+01660,Jarmina,opcina,16,JARMINA,2016
+02399,Lovas,opcina,16,LOVAS,980
+06106,Markušica,opcina,16,MARKUŠICA,1773
+06122,Negoslavci,opcina,16,NEGOSLAVCI,983
+02950,Nijemci,opcina,16,NIJEMCI,3526
+02941,Nuštar,opcina,16,NUŠTAR,4861
+05355,Otok,grad,16,OTOK,4899
+05835,Privlaka,opcina,16,PRIVLAKA,2192
+04146,Stari Jankovci,opcina,16,STARI JANKOVCI,3271
+04154,Stari Mikanovci,opcina,16,STARI MIKANOVCI,2419
+04561,Tompojevci,opcina,16,TOMPOJEVCI,1116
+04588,Tordinci,opcina,16,TORDINCI,1657
+04596,Tovarnik,opcina,16,TOVARNIK,2067
+04642,Trpinja,opcina,16,TRPINJA,4167
+04871,Vinkovci,grad,16,VINKOVCI,30842
+05843,Vođinci,opcina,16,VOĐINCI,1634
+05053,Vrbanja,opcina,16,VRBANJA,2870
+05185,Vukovar,grad,16,VUKOVAR,23175
+06289,Štitar,opcina,16,ŠTITAR,1552
+05347,Županja,grad,16,ŽUPANJA,9153
+00094,Baška Voda,opcina,17,BAŠKA VODA,2590
+00272,Bol,opcina,17,BOL,1678
+00779,Brela,opcina,17,BRELA,1626
+00507,Cista Provo,opcina,17,CISTA PROVO,1799
+00728,Dicmo,opcina,17,DICMO,2805
+01007,Dugi Rat,opcina,17,DUGI RAT,6876
+05851,Dugopolje,opcina,17,DUGOPOLJE,3742
+01341,Gradac,opcina,17,GRADAC,2401
+01481,Hrvace,opcina,17,HRVACE,3144
+01538,Hvar,grad,17,HVAR,3979
+01554,Imotski,grad,17,IMOTSKI,9153
+01716,Jelsa,opcina,17,JELSA,3501
+01813,Kaštela,grad,17,KAŠTELA,37794
+01929,Klis,opcina,17,KLIS,5226
+01970,Komiža,grad,17,KOMIŽA,1394
+05860,Lećevica,opcina,17,LEĆEVICA,495
+05878,Lokvičići,opcina,17,LOKVIČIĆI,667
+02437,Lovreć,opcina,17,LOVREĆ,1402
+02496,Makarska,grad,17,MAKARSKA,13301
+02585,Marina,opcina,17,MARINA,4273
+02674,Milna,opcina,17,MILNA,931
+00876,Muć,opcina,17,MUĆ,3465
+02801,Nerežišća,opcina,17,NEREŽIŠĆA,878
+05886,Okrug,opcina,17,OKRUG,2995
+03000,Omiš,grad,17,OMIŠ,14139
+03140,Otok,opcina,17,OTOK,4998
+03379,Podbablje,opcina,17,PODBABLJE,4035
+03395,Podgora,opcina,17,PODGORA,2233
+03417,Podstrana,opcina,17,PODSTRANA,10403
+03506,Postira,opcina,17,POSTIRA,1538
+05894,Prgomet,opcina,17,PRGOMET,498
+05908,Primorski Dolac,opcina,17,PRIMORSKI DOLAC,686
+00884,Proložac,opcina,17,PROLOŽAC,3112
+03581,Pučišća,opcina,17,PUČIŠĆA,1926
+05916,Runovići,opcina,17,RUNOVIĆI,1968
+03824,Seget,opcina,17,SEGET,4511
+03832,Selca,opcina,17,SELCA,1613
+03891,Sinj,grad,17,SINJ,23452
+04065,Solin,grad,17,SOLIN,24862
+04090,Split,grad,17,SPLIT,160577
+04138,Stari Grad,grad,17,STARI GRAD,2772
+04278,Supetar,grad,17,SUPETAR,4325
+05924,Sutivan,opcina,17,SUTIVAN,936
+04235,Sućuraj,opcina,17,SUĆURAJ,426
+04600,Trilj,grad,17,TRILJ,8182
+04634,Trogir,grad,17,TROGIR,12393
+05932,Tučepi,opcina,17,TUČEPI,1819
+04928,Vis,grad,17,VIS,1918
+05118,Vrgorac,grad,17,VRGORAC,5698
+05134,Vrlika,grad,17,VRLIKA,1728
+05959,Zadvarje,opcina,17,ZADVARJE,289
+05223,Zagvozd,opcina,17,ZAGVOZD,957
+05282,Zmijavci,opcina,17,ZMIJAVCI,1654
+04430,Šestanovac,opcina,17,ŠESTANOVAC,1669
+04472,Šolta,opcina,17,ŠOLTA,1975
+00051,Bale-Valle,opcina,18,BALE VALLE,1170
+00060,Barban,opcina,18,BARBAN,2491
+00400,Brtonigla-Verteneglio,opcina,18,BRTONIGLA VERTENEGLIO,1523
+00426,Buje-Buie,grad,18,BUJE BUIE,4441
+00434,Buzet,grad,18,BUZET,5999
+00477,Cerovlje,opcina,18,CEROVLJE,1453
+06190,Fažana-Fasana,opcina,18,FAŽANA FASANA,3463
+06297,Funtana-Fontane,opcina,18,FUNTANA FONTANE,911
+01325,Gračišće,opcina,18,GRAČIŠĆE,1312
+01384,Grožnjan-Grisignana,opcina,18,GROŽNJAN GRISIGNANA,656
+01759,Kanfanar,opcina,18,KANFANAR,1498
+05967,Karojba,opcina,18,KAROJBA,1404
+05975,Kaštelir-Labinci-Castelliere-S. Domenica,opcina,18,KAŠTELIR LABINCI CASTELLIERE S DOMENICA,1493
+02178,Kršan,opcina,18,KRŠAN,2829
+02224,Labin,grad,18,LABIN,10424
+02232,Lanišće,opcina,18,LANIŠĆE,268
+02356,Ližnjan-Lisignano,opcina,18,LIŽNJAN LISIGNANO,4087
+02461,Lupoglav,opcina,18,LUPOGLAV,836
+02542,Marčana,opcina,18,MARČANA,4250
+02631,Medulin,opcina,18,MEDULIN,6552
+02747,Motovun-Montona,opcina,18,MOTOVUN MONTONA,912
+02917,Novigrad-Cittanova,grad,18,NOVIGRAD CITTANOVA,3889
+03042,Oprtalj-Portole,opcina,18,OPRTALJ PORTOLE,748
+03212,Pazin,grad,18,PAZIN,8279
+03301,Pićan,opcina,18,PIĆAN,1722
+03484,Poreč-Parenzo,grad,18,POREČ PARENZO,16607
+03590,Pula-Pola,grad,18,PULA POLA,52220
+03689,Raša,opcina,18,RAŠA,2809
+03743,Rovinj-Rovigno,grad,18,ROVINJ ROVIGNO,12968
+04324,Sveta Nedelja,opcina,18,SVETA NEDELJA,2898
+04316,Sveti Lovreč,opcina,18,SVETI LOVREČ,960
+04332,Sveti Petar u Šumi,opcina,18,SVETI PETAR U ŠUMI,1051
+04359,Svetvinčenat,opcina,18,SVETVINČENAT,2179
+06319,Tar-Vabriga-Torre Abrega,opcina,18,TAR VABRIGA TORRE ABREGA,2148
+04537,Tinjan,opcina,18,TINJAN,1729
+04685,Umag-Umago,grad,18,UMAG UMAGO,12699
+04979,Višnjan-Visignano,opcina,18,VIŠNJAN VISIGNANO,2096
+04987,Vižinada-Visinada,opcina,18,VIŽINADA VISINADA,1142
+05029,Vodnjan-Dignano,grad,18,VODNJAN DIGNANO,5838
+05169,Vrsar-Orsera,opcina,18,VRSAR ORSERA,1923
+05312,Žminj,opcina,18,ŽMINJ,3360
+00256,Blato,opcina,19,BLATO,3330
+05983,Dubrovačko primorje,opcina,19,DUBROVAČKO PRIMORJE,1636
+00981,Dubrovnik,grad,19,DUBROVNIK,41562
+05991,Janjina,opcina,19,JANJINA,522
+01988,Konavle,opcina,19,KONAVLE,8607
+02046,Korčula,grad,19,KORČULA,5415
+02194,Kula Norinska,opcina,19,KULA NORINSKA,1414
+02267,Lastovo,opcina,19,LASTOVO,748
+06009,Lumbarda,opcina,19,LUMBARDA,1209
+02640,Metković,grad,19,METKOVIĆ,15235
+02682,Mljet,opcina,19,MLJET,1062
+03069,Opuzen,grad,19,OPUZEN,2838
+03085,Orebić,opcina,19,OREBIĆ,3705
+03352,Ploče,grad,19,PLOČE,8220
+03433,Pojezerje,opcina,19,POJEZERJE,943
+03999,Slivno,opcina,19,SLIVNO,2046
+04022,Smokvica,opcina,19,SMOKVICA,868
+04197,Ston,opcina,19,STON,2491
+06017,Trpanj,opcina,19,TRPANJ,683
+04740,Vela Luka,opcina,19,VELA LUKA,3772
+05231,Zažablje,opcina,19,ZAŽABLJE,553
+06025,Župa dubrovačka,opcina,19,ŽUPA DUBROVAČKA,8705
+00159,Belica,opcina,20,BELICA,2822
+06033,Dekanovec,opcina,20,DEKANOVEC,739
+00752,Domašinec,opcina,20,DOMAŠINEC,1923
+00787,Donja Dubrava,opcina,20,DONJA DUBRAVA,1658
+00825,Donji Kraljevec,opcina,20,DONJI KRALJEVEC,4043
+00892,Donji Vidovec,opcina,20,DONJI VIDOVEC,1197
+01236,Goričan,opcina,20,GORIČAN,2343
+06041,Gornji Mihaljevec,opcina,20,GORNJI MIHALJEVEC,1740
+02062,Kotoriba,opcina,20,KOTORIBA,2938
+02500,Mala Subotica,opcina,20,MALA SUBOTICA,4344
+02763,Mursko Središće,grad,20,MURSKO SREDIŠĆE,5855
+02798,Nedelišće,opcina,20,NEDELIŠĆE,11017
+06050,Orehovica,opcina,20,OREHOVICA,2720
+03425,Podturen,opcina,20,PODTUREN,3517
+03557,Prelog,grad,20,PRELOG,7027
+06203,Pribislavec,opcina,20,PRIBISLAVEC,2963
+03859,Selnica,opcina,20,SELNICA,2636
+06068,Strahoninec,opcina,20,STRAHONINEC,2598
+06076,Sveta Marija,opcina,20,SVETA MARIJA,1990
+04405,Sveti Juraj na Bregu,opcina,20,SVETI JURAJ NA BREGU,4929
+04413,Sveti Martin na Muri,opcina,20,SVETI MARTIN NA MURI,2391
+05045,Vratišinec,opcina,20,VRATIŠINEC,1673
+00604,Čakovec,grad,20,ČAKOVEC,27122
+06084,Šenkovec,opcina,20,ŠENKOVEC,2708
+04529,Štrigova,opcina,20,ŠTRIGOVA,2357
+01333,Zagreb,grad,21,ZAGREB,767131

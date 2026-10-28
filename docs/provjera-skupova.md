@@ -21,6 +21,7 @@ s područjem). BDP je naknadno uzet iz PDF priopćenja DZS-a (vidi dolje).
 | `eu-opkk-2014-2020` | `popis-operacija-opkk-31.5.2023.xlsx`, „CUT OFF 31.05.2023” | država, županija, **točke** | presjek 31. 5. 2023. | ugovorena EU sredstva, broj projekata, karta projekata |
 | `hbor-*` (5 skupova) | po jedna tablica korisnika | država, županija | 2018.–2023. | HBOR krediti iz EU fondova |
 | `dzs-bdp-regije` | priopćenje NR-2026-2-1 (PDF), tablice 1. i 2. | država; županija | 2023. | BDP (država), bruto dodana vrijednost (županije) |
+| `granice-upravne-jedinice` | `INSPIRE_Administrative_Units_(AU).zip` (GML, 600 MB) | županija, JLS | stanje 25. 10. 2026. | granice za kartu, službene šifre JLS, EU projekti po JLS |
 | `hnb-bilten` | list „Slika 5.4.” | država | rujan 2026. | inflacija (HIPC) |
 | `hnb-opca-drzava` | tablica I2 | država | 2025. | saldo opće države |
 | `hnb-opca-drzava` | tablica I3 | država | lipanj 2026. | dug opće države |
@@ -52,12 +53,21 @@ Sva tri skupa su u `sources.csv` označena s `aktivno = ne`.
 | `dzs-nkd` | Šifrarnik djelatnosti; trebat će uz Sudski registar |
 | `hnb-opca-drzava` (G8a, G8b) | Kamatne stope; nisu u planu |
 
+## Granice (DGU)
+
+- Poveznica na ATOM uslugu na data.gov.hr je **prazna**; ispravna adresa je https://geoportal.dgu.hr/services/atom/au/xml.
+- Zaglavlje GML-a tvrdi da sadrži 10.000 od 50.194 jedinica, ali stvarno sadrži svih 50.194 (21 županija, 556 JLS, 6.759 naselja, statistički i popisni krugovi).
+- Koordinate su u EPSG:3035 s redoslijedom osi sjever–istok; obrada ih okreće.
+- Svih 556 gradova i općina iz DGU-a spojeno je sa šifrarnikom po nazivu; time JLS imaju službene šifre.
+- ATOM usluga navodi „ograničenje javnog pristupa prema čl. 13. st. 1. t. (e) INSPIRE Direktive”, a data.gov.hr isti skup vodi pod Otvorenom dozvolom. **Prije predaje provjeriti uvjete korištenja s DGU-om.**
+- EU projekti raspoređeni po JLS prema koordinatama: 54 od 8.355 točaka leži u drugoj županiji od one upisane u izvoru, a 11 izvan kopna.
+
 ## Greške u izvorima koje obrada ispravlja
 
 Sve su ispravljene u kodu, a ne ručno u datotekama, pa se popravak ponavlja pri svakom pokretanju.
 
 - **Popis 2021., tab. 6.:** redak Varaždinske županije ima pogrešno upisano „Općina” u stupcu vrste.
-- **Natural Earth (probne granice):** Požeško-slavonska ima šifru Brodsko-posavske (HR-12).
+- **Natural Earth (rezervne probne granice):** Požeško-slavonska ima šifru Brodsko-posavske (HR-12).
 - **Nazivi županija:** „Varažinska”, „BJELOVARSKO-BILOGORSKA ŽUAPNIJA”, „DUBROVAČKO NERETVANSKA” (bez crtice).
 - **Nazivi općina:** Porezna uprava piše „KAŠTELIR LABINCI CASTELLIERE S D”; šifrarnik „Kaštelir-Labinci – Castelliere-S. Domenica”.
 

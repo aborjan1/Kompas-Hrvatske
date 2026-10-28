@@ -10,7 +10,7 @@ Mapa u koju se skup sprema je `data/raw/<id>/`.
 
 | id (mapa) | Skup | Izdavatelj | Formati | Način | Issue | Napomena |
 | --- | --- | --- | --- | --- | --- | --- |
-| `granice-upravne-jedinice` | [Upravne jedinice INSPIRE (granice države, županija, općina, naselja)](https://data.gov.hr/ckan/dataset/upravne-jedinice-inspire) | Državna geodetska uprava | ATOM, WMS | ručno | #12 | ATOM: ručno preuzeti GML/ZIP županija i JLS |
+| `granice-upravne-jedinice` | [Upravne jedinice INSPIRE (granice države, županija, općina, naselja)](https://data.gov.hr/ckan/dataset/upravne-jedinice-inspire) | Državna geodetska uprava | GML (ZIP) | ručno | #12 | Ručno: https://geoportal.dgu.hr/services/atom/INSPIRE_Administrative_Units_(AU).zip (ATOM https://geoportal.dgu.hr/services/atom/au/xml; poveznica na data.gov.hr je prazna). EPSG:3035. |
 | `sifrarnik-jls` | [Popis županija, gradova i općina](https://data.gov.hr/ckan/dataset/popis-zupanija-gradova-i-opcina) | Ministarstvo pravosuđa, uprave i digitalne transformacije | HTML, XLS | skripta | #9 | Osnova za areas.csv |
 | `dzs-nkd` | [Nacionalna klasifikacija djelatnosti 2007.](https://data.gov.hr/ckan/dataset/nacionalna-klasifikacija-djelatnosti-2007) | Državni zavod za statistiku | JSON, PDF | skripta | #10 | Grupiranje tvrtki po djelatnosti |
 | `dgu-adrese` | [Adrese INSPIRE](https://data.gov.hr/ckan/dataset/adrese-inspire) | Državna geodetska uprava | ATOM, WMS | servis (WMS/WFS) | #16 | Adrese u točke (prazni prostori Zagreba) |

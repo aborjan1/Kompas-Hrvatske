@@ -4,9 +4,9 @@ Ovaj dokument je dogovor između obrade podataka (David), karte (Boro) i sučelj
 Sve datoteke nalaze se u `web/public/data/` i nastaju naredbom `python pipeline/build.py`.
 **Te se datoteke nikad ne uređuju ručno.**
 
-> **Stanje:** brojke su **prave** (`"probni_podaci": false` u `meta.json`).
-> Granice županija su još **probne** (Natural Earth, `"probne_granice": true`), a granica
-> gradova i općina još nema. Šifre gradova i općina su privremene (vidi dolje).
+> **Stanje:** brojke su **prave** (`"probni_podaci": false`), a granice su **službene
+> DGU granice** (`"probne_granice": false`) za županije i za svih 556 gradova i općina.
+> Šifre gradova i općina su službene šifre iz Registra prostornih jedinica.
 
 ## Datoteke
 
@@ -14,11 +14,11 @@ Sve datoteke nalaze se u `web/public/data/` i nastaju naredbom `python pipeline/
 | --- | --- | --- |
 | `meta.json` | Teme, katalog pokazatelja (naziv, jedinica, godina, izvor), popis izvora, napomene | Rafael, Boro |
 | `drzava.json` | Brojke za cijelu Hrvatsku | Rafael |
-| `zupanije.geojson` | Granice 21 županije, samo šifra i naziv (probne) | Boro |
+| `zupanije.geojson` | Granice 21 županije (DGU), samo šifra i naziv | Boro |
 | `zupanije.json` | Brojke, rangovi i slična područja za svaku županiju | Boro, Rafael |
 | `jls.json` | Brojke, rangovi i slična područja za svih 556 gradova i općina | Boro, Rafael |
+| `jls/<šifra županije>.geojson` | Granice gradova i općina jedne županije (21 datoteka, DGU) | Boro |
 | `tocke/eu-projekti.geojson` | 8.355 EU projekata (OPKK 2014.–2020.) kao točke | Boro |
-| `jls/<šifra županije>.geojson` | Granice gradova i općina jedne županije *(dolazi s DGU granicama)* | Boro |
 | `zagreb/`, `rijeka/` | Slojevi gradskog prikaza *(dolazi kasnije)* | Boro |
 
 Granice i brojke su **namjerno odvojene**: granice se rijetko mijenjaju i preglednik ih
@@ -30,9 +30,9 @@ može dugo čuvati, a brojke se mijenjaju pri svakom pokretanju obrade.
 - **Šifre su uvijek tekst**: `"05"`, a ne `5`.
   - Država: `"HR"`.
   - Županije: `"01"`–`"21"` (službene DZS šifre, iste kao ISO 3166-2:HR).
-  - Gradovi i općine: 5 znakova, šifra županije + redni broj, npr. `"05007"`.
-    **Privremene su**: kad stignu DGU granice, zamijenit će se službenima. Zato ih ne
-    upisujte u kod, nego ih uvijek čitajte iz datoteka.
+  - Gradovi i općine: službena 5-znamenkasta šifra iz Registra prostornih jedinica
+    (DGU), npr. Andrijaševci `"00019"`, Grad Zagreb `"01333"`. Šifra **ne** sadrži
+    županiju; županiju gradu ili općini daje polje `nadredeno` (ili `zupanija` u GeoJSON-u).
 - **Brojevi su sirovi**, bez razmaka i oznaka valute: `2900000000`, a ne „2,9 mlrd €”.
   Formatiranje radi sučelje prema `jedinica` i `decimale` iz `meta.json`.
 - **Podatak koji nedostaje je `null`**. Ključ uvijek postoji, ali se prikazuje kao
@@ -99,8 +99,8 @@ može dugo čuvati, a brojke se mijenjaju pri svakom pokretanju obrade.
 | `neto_dohodak` | ljudi | EUR | EUR po st. | država, županija, JLS | 2025. |
 | `bdp` | novac | EUR | EUR po st. | država | 2023. |
 | `bruto_dodana_vrijednost` | novac | EUR | EUR po st. | država, županija | 2023. |
-| `eu_ugovoreno` | novac | EUR | EUR po st. | država, županija | 31. 5. 2023. |
-| `eu_projekti` | novac | broj | na 1.000 st. | država, županija | 31. 5. 2023. |
+| `eu_ugovoreno` | novac | EUR | EUR po st. | država, županija, JLS | 31. 5. 2023. |
+| `eu_projekti` | novac | broj | na 1.000 st. | država, županija, JLS | 31. 5. 2023. |
 | `hbor_krediti` | novac | EUR | EUR po st. | država, županija | 2018.–2023. |
 | `inflacija` | novac | % | — | država | IX. 2026. |
 | `saldo_proracuna` | novac | EUR | EUR po st. | država | 2025. |
@@ -166,6 +166,22 @@ Standardni GeoJSON (`FeatureCollection`) s 21 poligonom. Svojstva (`properties`)
 
 Brojke **nisu** u GeoJSON-u. Karta ih spaja sa `zupanije.json` preko šifre.
 
+Granice su službene DGU granice, pojednostavljene za prikaz (županije oko 400 m, općine
+oko 80 m) tako da susjedi i dalje dijele istu granicu: nema rupa ni preklapanja.
+
+## `jls/<šifra županije>.geojson`
+
+21 datoteka, po jedna za svaku županiju (`jls/05.geojson` = gradovi i općine
+Varaždinske županije), ukupno oko 2,4 MB. Učitava se samo datoteka županije u koju
+korisnik uđe. Svojstva:
+
+```json
+{ "sifra": "00019", "naziv": "Andrijaševci", "vrsta": "opcina", "zupanija": "16" }
+```
+
+Brojke su u `jls.json` pod istom šifrom. Za MapLibre vrijedi isti savjet kao za
+županije (`promoteId: "sifra"`).
+
 **Savjet za MapLibre (Boro):** kod dodavanja izvora koristi `promoteId: "sifra"`. Tada se
 za svaku županiju može postaviti `setFeatureState({ source, id: "05" }, { vrijednost })`
 i bojati izrazom `["feature-state", "vrijednost"]`. Kad se promijeni tema ili mjera,
@@ -183,6 +199,7 @@ mijenja se samo stanje, a granice se ne učitavaju ponovno.
   "esif_eur": 4285859,
   "ukupno_eur": 5042187,
   "zupanija": "21",
+  "jls": "01333",
   "mjesto": "Zagreb",
   "fond": "EFRR",
   "pocetak": "2017-11-01",
@@ -191,7 +208,8 @@ mijenja se samo stanje, a granice se ne učitavaju ponovno.
 }
 ```
 
-Datoteka ima oko 3,6 MB, pa je treba učitati tek kad korisnik uključi sloj, a točke
+`jls` je šifra grada ili općine u kojoj točka leži (prema granicama DGU-a); `null` za
+11 točaka izvan kopna (npr. na moru). Datoteka ima oko 3,6 MB, pa je treba učitati tek kad korisnik uključi sloj, a točke
 grupirati (`cluster: true`). Za 3D stupce teme Novac koristi se `esif_eur`.
 
 ## Kako se mijenja ovaj format
