@@ -88,7 +88,7 @@ Stanje: 28. 10. 2026., nakon `python pipeline/download.py --faza 5,6` (20 od 22 
 | `ri-proracun` | ✔ Plan 2025.; zbroj funkcija = „UKUPNO RASHODI” (220,9 mil. EUR). |
 | `ri-prostori-zakup` | ✔ 1.296 prostora; zbrojeno po zoni zakupnine i području djelatnosti (NKD). Bez koordinata. |
 | `ri-eu-projekti` | ✔ 16 projekata u slobodnom tekstu (ne u tablici); dva iznosa u kunama preračunata u EUR. |
-| `zg-planirana-namjena` | Preuzeto (35 MB), zasad se ne obrađuje; kandidat za gospodarske zone (#14). |
+| `zg-planirana-namjena` | ✔ 8.999 površina bez preklapanja pokriva cijeli Grad (64.124 ha). Uzete su 553 gospodarske površine (2.384 ha). Izgrađenost navode samo neki planovi: 237 ha izričito „neizgrađeno” ili „planirano” (PPGZ, Sesvetski Kraljevec), za ostale nije poznata. Zona se pripisuje četvrti prema točki unutar poligona. |
 | `zg-prometnice`, `zg-zakup-prostora`, `zg-zakup-zemljista`, `zg-proracun-2022-2025`, `ri-prihodi-poduzetnika` | Preuzeto, ne koristi se (bez lokacije, stariji ili premali). |
 | `ri-slobodni-prostori` | **Neispravan**: poslužitelj e-usluge3.rijeka.hr ima nepotpun SSL certifikat. |
 | `ri-subvencije` | **Neispravan**: datoteke na data.rijeka.hr vraćaju 404. |

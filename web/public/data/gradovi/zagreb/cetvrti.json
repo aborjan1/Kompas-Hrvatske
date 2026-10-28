@@ -1,5 +1,5 @@
 {
-  "generirano": "2026-10-28T22:09:17+00:00",
+  "generirano": "2026-10-28T22:45:18+00:00",
   "podrucja": {
     "00051": {
       "sifra": "00051",
@@ -17,6 +17,8 @@
         "brownfield": 19.91,
         "udio_gospodarske_povrsine": 0.17,
         "udio_stambene_povrsine": 4.62,
+        "gospodarske_zone": 1.43,
+        "gospodarske_zone_neizgradjene": 0,
         "udio_zelene_povrsine": 42.27
       },
       "po_stanovniku": {},
@@ -31,6 +33,8 @@
         "brownfield": 5,
         "udio_gospodarske_povrsine": 16,
         "udio_stambene_povrsine": 17,
+        "gospodarske_zone": 17,
+        "gospodarske_zone_neizgradjene": 4,
         "udio_zelene_povrsine": 4
       },
       "slicni": []
@@ -51,6 +55,8 @@
         "brownfield": 14.48,
         "udio_gospodarske_povrsine": 1.12,
         "udio_stambene_povrsine": 18.94,
+        "gospodarske_zone": 13.44,
+        "gospodarske_zone_neizgradjene": 0,
         "udio_zelene_povrsine": 54.9
       },
       "po_stanovniku": {},
@@ -65,6 +71,8 @@
         "brownfield": 7,
         "udio_gospodarske_povrsine": 13,
         "udio_stambene_povrsine": 9,
+        "gospodarske_zone": 11,
+        "gospodarske_zone_neizgradjene": 5,
         "udio_zelene_povrsine": 2
       },
       "slicni": []
@@ -85,6 +93,8 @@
         "brownfield": 5.39,
         "udio_gospodarske_povrsine": 11.44,
         "udio_stambene_povrsine": 27.86,
+        "gospodarske_zone": 175.22,
+        "gospodarske_zone_neizgradjene": 0,
         "udio_zelene_povrsine": 12.71
       },
       "po_stanovniku": {},
@@ -99,6 +109,8 @@
         "brownfield": 12,
         "udio_gospodarske_povrsine": 3,
         "udio_stambene_povrsine": 5,
+        "gospodarske_zone": 6,
+        "gospodarske_zone_neizgradjene": 6,
         "udio_zelene_povrsine": 10
       },
       "slicni": []
@@ -119,6 +131,8 @@
         "brownfield": 4.4,
         "udio_gospodarske_povrsine": 4.52,
         "udio_stambene_povrsine": 41,
+        "gospodarske_zone": 4,
+        "gospodarske_zone_neizgradjene": 0,
         "udio_zelene_povrsine": 7.41
       },
       "po_stanovniku": {},
@@ -133,6 +147,8 @@
         "brownfield": 13,
         "udio_gospodarske_povrsine": 8,
         "udio_stambene_povrsine": 2,
+        "gospodarske_zone": 14,
+        "gospodarske_zone_neizgradjene": 7,
         "udio_zelene_povrsine": 12
       },
       "slicni": []
@@ -153,6 +169,8 @@
         "brownfield": 11.34,
         "udio_gospodarske_povrsine": 0.7,
         "udio_stambene_povrsine": 18.49,
+        "gospodarske_zone": 39.03,
+        "gospodarske_zone_neizgradjene": 0,
         "udio_zelene_povrsine": 34.69
       },
       "po_stanovniku": {},
@@ -167,6 +185,8 @@
         "brownfield": 9,
         "udio_gospodarske_povrsine": 15,
         "udio_stambene_povrsine": 10,
+        "gospodarske_zone": 9,
+        "gospodarske_zone_neizgradjene": 8,
         "udio_zelene_povrsine": 6
       },
       "slicni": []
@@ -187,6 +207,8 @@
         "brownfield": 1.8,
         "udio_gospodarske_povrsine": 0.79,
         "udio_stambene_povrsine": 32.64,
+        "gospodarske_zone": 1.56,
+        "gospodarske_zone_neizgradjene": 0,
         "udio_zelene_povrsine": 30.06
       },
       "po_stanovniku": {},
@@ -201,6 +223,8 @@
         "brownfield": 15,
         "udio_gospodarske_povrsine": 14,
         "udio_stambene_povrsine": 3,
+        "gospodarske_zone": 16,
+        "gospodarske_zone_neizgradjene": 9,
         "udio_zelene_povrsine": 7
       },
       "slicni": []
@@ -221,6 +245,8 @@
         "brownfield": 4.09,
         "udio_gospodarske_povrsine": 3.57,
         "udio_stambene_povrsine": 31.69,
+        "gospodarske_zone": 3.35,
+        "gospodarske_zone_neizgradjene": 0,
         "udio_zelene_povrsine": 26.48
       },
       "po_stanovniku": {},
@@ -235,6 +261,8 @@
         "brownfield": 14,
         "udio_gospodarske_povrsine": 9,
         "udio_stambene_povrsine": 4,
+        "gospodarske_zone": 15,
+        "gospodarske_zone_neizgradjene": 10,
         "udio_zelene_povrsine": 8
       },
       "slicni": []
@@ -255,6 +283,8 @@
         "brownfield": 0,
         "udio_gospodarske_povrsine": 6.21,
         "udio_stambene_povrsine": 16.44,
+        "gospodarske_zone": 201.59,
+        "gospodarske_zone_neizgradjene": 24.88,
         "udio_zelene_povrsine": 6.23
       },
       "po_stanovniku": {},
@@ -269,6 +299,8 @@
         "brownfield": 17,
         "udio_gospodarske_povrsine": 6,
         "udio_stambene_povrsine": 11,
+        "gospodarske_zone": 5,
+        "gospodarske_zone_neizgradjene": 3,
         "udio_zelene_povrsine": 13
       },
       "slicni": []
@@ -289,6 +321,8 @@
         "brownfield": 25.14,
         "udio_gospodarske_povrsine": 4.82,
         "udio_stambene_povrsine": 11.9,
+        "gospodarske_zone": 372.72,
+        "gospodarske_zone_neizgradjene": 36.49,
         "udio_zelene_povrsine": 4.38
       },
       "po_stanovniku": {},
@@ -303,6 +337,8 @@
         "brownfield": 4,
         "udio_gospodarske_povrsine": 7,
         "udio_stambene_povrsine": 14,
+        "gospodarske_zone": 3,
+        "gospodarske_zone_neizgradjene": 2,
         "udio_zelene_povrsine": 15
       },
       "slicni": []
@@ -323,6 +359,8 @@
         "brownfield": 130.53,
         "udio_gospodarske_povrsine": 13.61,
         "udio_stambene_povrsine": 13.03,
+        "gospodarske_zone": 668.46,
+        "gospodarske_zone_neizgradjene": 0,
         "udio_zelene_povrsine": 5.08
       },
       "po_stanovniku": {},
@@ -337,6 +375,8 @@
         "brownfield": 1,
         "udio_gospodarske_povrsine": 2,
         "udio_stambene_povrsine": 13,
+        "gospodarske_zone": 1,
+        "gospodarske_zone_neizgradjene": 11,
         "udio_zelene_povrsine": 14
       },
       "slicni": []
@@ -357,6 +397,8 @@
         "brownfield": 11.83,
         "udio_gospodarske_povrsine": 0.14,
         "udio_stambene_povrsine": 7.14,
+        "gospodarske_zone": 5.73,
+        "gospodarske_zone_neizgradjene": 0,
         "udio_zelene_povrsine": 67.57
       },
       "po_stanovniku": {},
@@ -371,6 +413,8 @@
         "brownfield": 8,
         "udio_gospodarske_povrsine": 17,
         "udio_stambene_povrsine": 16,
+        "gospodarske_zone": 13,
+        "gospodarske_zone_neizgradjene": 12,
         "udio_zelene_povrsine": 1
       },
       "slicni": []
@@ -391,6 +435,8 @@
         "brownfield": 15.84,
         "udio_gospodarske_povrsine": 3.02,
         "udio_stambene_povrsine": 15.55,
+        "gospodarske_zone": 88.24,
+        "gospodarske_zone_neizgradjene": 0,
         "udio_zelene_povrsine": 47.14
       },
       "po_stanovniku": {},
@@ -405,6 +451,8 @@
         "brownfield": 6,
         "udio_gospodarske_povrsine": 10,
         "udio_stambene_povrsine": 12,
+        "gospodarske_zone": 7,
+        "gospodarske_zone_neizgradjene": 13,
         "udio_zelene_povrsine": 3
       },
       "slicni": []
@@ -425,6 +473,8 @@
         "brownfield": 35.18,
         "udio_gospodarske_povrsine": 1.48,
         "udio_stambene_povrsine": 9.29,
+        "gospodarske_zone": 448.81,
+        "gospodarske_zone_neizgradjene": 176.01,
         "udio_zelene_povrsine": 36
       },
       "po_stanovniku": {},
@@ -439,6 +489,8 @@
         "brownfield": 3,
         "udio_gospodarske_povrsine": 12,
         "udio_stambene_povrsine": 15,
+        "gospodarske_zone": 2,
+        "gospodarske_zone_neizgradjene": 1,
         "udio_zelene_povrsine": 5
       },
       "slicni": []
@@ -459,6 +511,8 @@
         "brownfield": 7.53,
         "udio_gospodarske_povrsine": 17.72,
         "udio_stambene_povrsine": 19.09,
+        "gospodarske_zone": 278.62,
+        "gospodarske_zone_neizgradjene": 0,
         "udio_zelene_povrsine": 9.56
       },
       "po_stanovniku": {},
@@ -473,6 +527,8 @@
         "brownfield": 11,
         "udio_gospodarske_povrsine": 1,
         "udio_stambene_povrsine": 8,
+        "gospodarske_zone": 4,
+        "gospodarske_zone_neizgradjene": 14,
         "udio_zelene_povrsine": 11
       },
       "slicni": []
@@ -493,6 +549,8 @@
         "brownfield": 1.21,
         "udio_gospodarske_povrsine": 2.29,
         "udio_stambene_povrsine": 25.95,
+        "gospodarske_zone": 6.84,
+        "gospodarske_zone_neizgradjene": 0,
         "udio_zelene_povrsine": 13.03
       },
       "po_stanovniku": {},
@@ -507,6 +565,8 @@
         "brownfield": 16,
         "udio_gospodarske_povrsine": 11,
         "udio_stambene_povrsine": 6,
+        "gospodarske_zone": 12,
+        "gospodarske_zone_neizgradjene": 15,
         "udio_zelene_povrsine": 9
       },
       "slicni": []
@@ -527,6 +587,8 @@
         "brownfield": 9.07,
         "udio_gospodarske_povrsine": 11.14,
         "udio_stambene_povrsine": 47.16,
+        "gospodarske_zone": 40.31,
+        "gospodarske_zone_neizgradjene": 0,
         "udio_zelene_povrsine": 2.01
       },
       "po_stanovniku": {},
@@ -541,6 +603,8 @@
         "brownfield": 10,
         "udio_gospodarske_povrsine": 4,
         "udio_stambene_povrsine": 1,
+        "gospodarske_zone": 8,
+        "gospodarske_zone_neizgradjene": 16,
         "udio_zelene_povrsine": 17
       },
       "slicni": []
@@ -561,6 +625,8 @@
         "brownfield": 40.82,
         "udio_gospodarske_povrsine": 10.09,
         "udio_stambene_povrsine": 25.45,
+        "gospodarske_zone": 35.07,
+        "gospodarske_zone_neizgradjene": 0,
         "udio_zelene_povrsine": 3.6
       },
       "po_stanovniku": {},
@@ -575,6 +641,8 @@
         "brownfield": 2,
         "udio_gospodarske_povrsine": 5,
         "udio_stambene_povrsine": 7,
+        "gospodarske_zone": 10,
+        "gospodarske_zone_neizgradjene": 17,
         "udio_zelene_povrsine": 16
       },
       "slicni": []

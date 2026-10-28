@@ -147,6 +147,24 @@ POKAZATELJI_CETVRTI: dict[str, dict] = {
         "decimale": 1,
         "izvor": "zg-stvarno-koristenje",
     },
+    "gospodarske_zone": {
+        "naziv": "Gospodarske zone (prostorni planovi)",
+        "tema": "imovina",
+        "jedinica": "ha",
+        "decimale": 1,
+        "izvor": "zg-planirana-namjena",
+        "napomena": "Površine koje prostorni planovi namjenjuju poslovnoj, proizvodnoj, "
+        "trgovačkoj i ugostiteljsko-turističkoj djelatnosti.",
+    },
+    "gospodarske_zone_neizgradjene": {
+        "naziv": "Neizgrađene gospodarske zone",
+        "tema": "imovina",
+        "jedinica": "ha",
+        "decimale": 1,
+        "izvor": "zg-planirana-namjena",
+        "napomena": "Samo površine koje plan izričito označava kao neizgrađene ili "
+        "planirane; za ostale planove izgrađenost nije poznata.",
+    },
     "udio_zelene_povrsine": {
         "naziv": "Udio parkova i šuma",
         "tema": "imovina",
@@ -166,6 +184,7 @@ IZVORI_GRADOVA = [
     "zg-brownfield",
     "zg-trznice",
     "zg-trgovacka-drustva",
+    "zg-planirana-namjena",
     "zg-eu-projekti",
     "zg-proracun-2026",
     "ri-proracun",
@@ -360,8 +379,69 @@ def brownfield_poligoni() -> dict:
     return json.loads(g.to_json(drop_id=True))
 
 
+def _vrsta_gospodarske(namjena: str) -> str:
+    n = kljuc(namjena)
+    proizvodna = any(r in n for r in ("PROIZVOD", "LOGISTI", "INDUSTRIJ", "ROBNI TERMINAL"))
+    poslovna = any(r in n for r in ("POSLOV", "USLUŽ", "PODUZETN", "URED"))
+    if any(r in n for r in ("UGOSTITELJ", "HOTEL", "LUGARNIC", "ŽELJEZNIČAR")):
+        return "ugostiteljsko-turistička"
+    if any(r in n for r in ("TRGOV", "TRŽNIC", "PRODAJE")) and not proizvodna:
+        return "trgovačka"
+    if proizvodna and poslovna:
+        return "poslovna i proizvodna"
+    if proizvodna:
+        return "proizvodna"
+    if poslovna:
+        return "poslovna"
+    return "gospodarska (općenito)"
+
+
+def gospodarske_zone(gc: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
+    """Gospodarske površine iz Planirane namjene 2023. (GUP, PPGZ i urbanistički planovi)."""
+    g = _geojson(nadji("zg-planirana-namjena", ".geojson"))
+    g = g[g["Analitika"].str.strip() == "Gospodarska"].copy()
+    if g.empty:
+        raise ValueError("Planirana namjena: nema površina s analitikom 'Gospodarska'")
+    m = g.to_crs(HTRS)
+    m["geometry"] = m.make_valid().simplify(2)
+    g = gpd.GeoDataFrame(
+        {
+            "vrsta": g["Namjena"].map(_vrsta_gospodarske),
+            "namjena": g["Namjena"].str.strip(),
+            "izgradjenost": g["Namjena"].map(
+                lambda v: (
+                    "neizgrađeno"
+                    if re.search(r"neizgra|planiran", str(v), re.IGNORECASE)
+                    else ("izgrađeno" if re.search(r"izgra", str(v), re.IGNORECASE) else None)
+                )
+            ),
+            "plan": g["Naziv_plana"].str.strip(),
+            "godina_plana": pd.to_numeric(g["Godina_zadnje_izmjene"], errors="coerce"),
+            "povrsina_ha": (m.area / 1e4).round(2),
+            "kljuc_namjene": g["Namjena"].map(kljuc),
+        },
+        geometry=m.geometry,
+        crs=HTRS,
+    )
+    # četvrt prema točki unutar poligona (zone na granici četvrti idu u jednu od njih)
+    tocke = g.copy()
+    tocke["geometry"] = g.representative_point()
+    s = gpd.sjoin(tocke, gc.to_crs(HTRS)[["sifra", "geometry"]], how="left", predicate="within")
+    g["cetvrt"] = s.loc[~s.index.duplicated(), "sifra"]
+    g = g.to_crs(4326)
+    print(
+        f"  gospodarske zone: {len(g)} površina, {g.povrsina_ha.sum():,.0f} ha; "
+        f"neizgrađeno {g.loc[g.izgradjenost == 'neizgrađeno', 'povrsina_ha'].sum():,.0f} ha"
+    )
+    return g
+
+
 def zagreb_cetvrti_pokazatelji(
-    gc: gpd.GeoDataFrame, kap: gpd.GeoDataFrame, smj: gpd.GeoDataFrame, pp: pd.DataFrame
+    gc: gpd.GeoDataFrame,
+    kap: gpd.GeoDataFrame,
+    smj: gpd.GeoDataFrame,
+    pp: pd.DataFrame,
+    gz: gpd.GeoDataFrame,
 ) -> pd.DataFrame:
     t = gc.set_index("sifra")[["naziv", "kljuc", "povrsina"]].copy()
 
@@ -392,6 +472,13 @@ def zagreb_cetvrti_pokazatelji(
     t["udio_stambene_povrsine"] = kp["Stambene i mješovite površine"] / ukupno * 100
     t["udio_zelene_povrsine"] = (kp["Javne zelene površine"] + kp["Šume"]) / ukupno * 100
     t["_povrsina_koristenje_km2"] = ukupno / 100
+
+    t["gospodarske_zone"] = gz.groupby("cetvrt")["povrsina_ha"].sum()
+    neizgr = gz[gz["izgradjenost"] == "neizgrađeno"]
+    t["gospodarske_zone_neizgradjene"] = neizgr.groupby("cetvrt")["povrsina_ha"].sum()
+    t[["gospodarske_zone", "gospodarske_zone_neizgradjene"]] = t[
+        ["gospodarske_zone", "gospodarske_zone_neizgradjene"]
+    ].fillna(0)
 
     brojevi = ["kapitalni_projekti", "smjestajni_objekti", "prazni_poslovni_prostori"]
     brojevi += ["prazne_garaze"]
@@ -689,7 +776,8 @@ def main(sada: str | None = None) -> None:
     kap, kap_ukupno = kapitalna_ulaganja(gc)
     smj = smjestaj(gc)
     pp = prazni_prostori()
-    t = zagreb_cetvrti_pokazatelji(gc, kap, smj, pp)
+    gz = gospodarske_zone(gc)
+    t = zagreb_cetvrti_pokazatelji(gc, kap, smj, pp, gz)
     provjere(t, kap, kap_ukupno)
 
     podrucja = {}
@@ -722,6 +810,9 @@ def main(sada: str | None = None) -> None:
         svojstva = [c for c in ("naziv", "adresa", "web", "vrsta", "udjeli") if c in tg.columns]
         _spremi(f"zagreb/{ime}.geojson", _tocke(tg, svojstva + ["cetvrt"]))
     _spremi("zagreb/brownfield.geojson", brownfield_poligoni())
+    gz_izvoz = gz.drop(columns=["kljuc_namjene"]).copy()
+    gz_izvoz["geometry"] = gz_izvoz.geometry.set_precision(1e-5)
+    _spremi("zagreb/gospodarske-zone.geojson", json.loads(gz_izvoz.to_json(drop_id=True)))
     _spremi(
         "zagreb/eu-projekti.json", {"izvor": "zg-eu-projekti", "projekti": eu_projekti_zagreb()}
     )
@@ -748,6 +839,7 @@ def main(sada: str | None = None) -> None:
                     "trznice": "trznice.geojson",
                     "gradska-drustva": "gradska-drustva.geojson",
                     "brownfield": "brownfield.geojson",
+                    "gospodarske-zone": "gospodarske-zone.geojson",
                 },
                 "tablice": ["cetvrti.json", "proracun.json", "eu-projekti.json"],
             },
@@ -783,6 +875,8 @@ _GODINE_CETVRTI = {
     "udio_gospodarske_povrsine": "2020",
     "udio_stambene_povrsine": "2020",
     "udio_zelene_povrsine": "2020",
+    "gospodarske_zone": "2023",
+    "gospodarske_zone_neizgradjene": "2023",
 }
 
 

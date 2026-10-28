@@ -1,5 +1,5 @@
 {
-  "generirano": "2026-10-28T22:09:17+00:00",
+  "generirano": "2026-10-28T22:45:18+00:00",
   "gradovi": {
     "zagreb": {
       "sifra": "01333",
@@ -11,7 +11,8 @@
         "smjestaj": "smjestaj.geojson",
         "trznice": "trznice.geojson",
         "gradska-drustva": "gradska-drustva.geojson",
-        "brownfield": "brownfield.geojson"
+        "brownfield": "brownfield.geojson",
+        "gospodarske-zone": "gospodarske-zone.geojson"
       },
       "tablice": [
         "cetvrti.json",
@@ -117,6 +118,24 @@
       "izvor": "zg-stvarno-koristenje",
       "godina": "2020"
     },
+    "gospodarske_zone": {
+      "naziv": "Gospodarske zone (prostorni planovi)",
+      "tema": "imovina",
+      "jedinica": "ha",
+      "decimale": 1,
+      "izvor": "zg-planirana-namjena",
+      "napomena": "Površine koje prostorni planovi namjenjuju poslovnoj, proizvodnoj, trgovačkoj i ugostiteljsko-turističkoj djelatnosti.",
+      "godina": "2023"
+    },
+    "gospodarske_zone_neizgradjene": {
+      "naziv": "Neizgrađene gospodarske zone",
+      "tema": "imovina",
+      "jedinica": "ha",
+      "decimale": 1,
+      "izvor": "zg-planirana-namjena",
+      "napomena": "Samo površine koje plan izričito označava kao neizgrađene ili planirane; za ostale planove izgrađenost nije poznata.",
+      "godina": "2023"
+    },
     "udio_zelene_povrsine": {
       "naziv": "Udio parkova i šuma",
       "tema": "imovina",
@@ -203,6 +222,12 @@
       "izdavatelj": "Grad Zagreb",
       "poveznica": "https://data.gov.hr/ckan/dataset/geoportal-gradska-trgovacka-drustva",
       "licenca": "Creative Commons Imenovanje 4.0 međunarodna"
+    },
+    "zg-planirana-namjena": {
+      "naziv": "Geoportal planirana namjena 2023",
+      "izdavatelj": "Grad Zagreb",
+      "poveznica": "https://data.gov.hr/ckan/dataset/geoportal-planirana-namjena-2023",
+      "licenca": "Otvorena dozvola (OD)"
     },
     "zg-eu-projekti": {
       "naziv": "Projekti Europske Unije u provedbi",
