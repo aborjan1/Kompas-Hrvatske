@@ -88,6 +88,7 @@ Stanje: 28. 10. 2026., nakon `python pipeline/download.py --faza 5,6` (20 od 22 
 | `ri-proracun` | ✔ Plan 2025.; zbroj funkcija = „UKUPNO RASHODI” (220,9 mil. EUR). |
 | `ri-prostori-zakup` | ✔ 1.296 prostora; zbrojeno po zoni zakupnine i području djelatnosti (NKD). Bez koordinata. |
 | `ri-eu-projekti` | ✔ 16 projekata u slobodnom tekstu (ne u tablici); dva iznosa u kunama preračunata u EUR. |
+| `zg3d-donji-grad`, `zg3d-gornji-grad`, `zg3d-trnje` | ✔ 3D model zgrada (LoD 2.2) središnjih četvrti; tlocrti s kotama Z_Min/Z_Max. Snimanja iz 2008., 2019. i 2022. Izostavljeni dijelovi manji od 10 m² ili niži od 2 m (5.738 od 33.583), a tlocrti su pojednostavljeni na 0,3 m. Najviše: 103,5 m (Gornji grad – katedrala), 96,5 m (Trnje). Ostale četvrti postoje kao zasebni skupovi i mogu se dodati u `gradovi.ZG3D`. |
 | `zg-planirana-namjena` | ✔ 8.999 površina bez preklapanja pokriva cijeli Grad (64.124 ha). Uzete su 553 gospodarske površine (2.384 ha). Izgrađenost navode samo neki planovi: 237 ha izričito „neizgrađeno” ili „planirano” (PPGZ, Sesvetski Kraljevec), za ostale nije poznata. Zona se pripisuje četvrti prema točki unutar poligona. |
 | `zg-prometnice`, `zg-zakup-prostora`, `zg-zakup-zemljista`, `zg-proracun-2022-2025`, `ri-prihodi-poduzetnika` | Preuzeto, ne koristi se (bez lokacije, stariji ili premali). |
 | `ri-slobodni-prostori` | **Neispravan**: poslužitelj e-usluge3.rijeka.hr ima nepotpun SSL certifikat. |
