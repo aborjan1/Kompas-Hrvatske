@@ -101,6 +101,25 @@
       });
       map.on('click', JLS_FILL_LAYER, (e) => selectArea('jls', e.features[0].properties.sifra));
 
+      // Scrolling out past a county's or city's framed view goes up a level (city →
+      // county → country), like the breadcrumb. A little extra scroll is needed first,
+      // so a trackpad's leftover momentum after landing doesn't trigger it.
+      const PULL_TO_LEAVE = 150;
+      let pull = 0;
+      map.on('wheel', ({ originalEvent }) => {
+        const atFurthest = map.getZoom() <= map.getMinZoom() + 0.01;
+        if (!map.scrollZoom.isEnabled() || !atFurthest || originalEvent.deltaY <= 0) {
+          pull = 0;
+          return;
+        }
+        pull += originalEvent.deltaY;
+        if (pull < PULL_TO_LEAVE) return;
+        pull = 0;
+        const { razina, zupanija } = get(odabir);
+        if (razina === 'jls' && zupanija) selectArea('zupanija', zupanija);
+        else if (razina !== 'drzava') selectArea('drzava');
+      });
+
       // Start the intro only once the globe is drawn, not over a blank sphere.
       await new Promise((resolve) => map.once('idle', resolve));
 
