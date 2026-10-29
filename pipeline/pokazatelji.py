@@ -1,0 +1,360 @@
+"""Katalog pokazatelja koje aplikacija prikazuje.
+
+Ovo je jedino mjesto gdje se pokazatelj definira. Iz njega nastaje dio
+`pokazatelji` u web/public/data/meta.json, pa karta i paneli iz meta.json
+znaju naziv, temu, jedinicu, godinu i izvor svakog broja.
+
+Polja:
+  naziv          tekst za korisnika
+  tema           ljudi | novac | porezi | imovina
+  jedinica       jedinica ukupne vrijednosti
+  decimale       koliko decimala prikazati
+  po_stanovniku  None ili {"mnozitelj": 1 | 1000, "jedinica": "..."}:
+                 vrijednost / stanovništvo * mnozitelj
+  razine         na kojim razinama postoji: drzava, zupanija, jls
+  izvor          id skupa iz data/sources.csv (ili zbirni id, vidi build.ZBIRNI_IZVORI)
+  napomena       kratko objašnjenje za korisnika (neobavezno)
+
+Godinu svakog pokazatelja upisuje build.py iz samog izvora (polje `godina` u meta.json).
+"""
+
+TEME = {
+    "ljudi": "Ljudi",
+    "novac": "Novac",
+    "porezi": "Porezi",
+    "imovina": "Imovina",
+}
+
+_PO_ST_EUR = {"mnozitelj": 1, "jedinica": "EUR po stanovniku"}
+_NA_1000 = {"mnozitelj": 1000, "jedinica": "na 1.000 stanovnika"}
+
+POKAZATELJI: dict[str, dict] = {
+    # --- Ljudi ---
+    "stanovnistvo": {
+        "naziv": "Stanovništvo",
+        "tema": "ljudi",
+        "jedinica": "osoba",
+        "decimale": 0,
+        "po_stanovniku": None,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "dzs-popis2021",
+    },
+    "stanovnistvo_procjena": {
+        "naziv": "Stanovništvo (procjena DZS-a)",
+        "tema": "ljudi",
+        "jedinica": "osoba",
+        "decimale": 0,
+        "po_stanovniku": None,
+        "razine": ["drzava", "zupanija"],
+        "izvor": "dzs-procjena-stanovnistva",
+        "napomena": "Procjena sredinom godine. Iznosi po stanovniku i dalje se računaju iz "
+        "Popisa 2021., jer za gradove i općine novije procjene nema.",
+    },
+    "promjena_stanovnistva": {
+        "naziv": "Promjena broja stanovnika",
+        "tema": "ljudi",
+        "jedinica": "%",
+        "decimale": 1,
+        "po_stanovniku": None,
+        "razine": ["drzava", "zupanija"],
+        "izvor": "dzs-procjena-stanovnistva",
+        "napomena": "Promjena procjene sredinom godine u odnosu na sredinu 2021. "
+        "(useljavanje i iseljavanje te rođeni i umrli).",
+    },
+    "gustoca_naseljenosti": {
+        "naziv": "Gustoća naseljenosti",
+        "tema": "ljudi",
+        "jedinica": "st./km²",
+        "decimale": 1,
+        "po_stanovniku": None,
+        "razine": ["drzava", "zupanija"],
+        "izvor": "dzs-popis2021",
+    },
+    "prosjecna_starost": {
+        "naziv": "Prosječna starost",
+        "tema": "ljudi",
+        "jedinica": "godina",
+        "decimale": 1,
+        "po_stanovniku": None,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "dzs-popis2021",
+    },
+    "prosjecna_neto_placa": {
+        "naziv": "Prosječna neto plaća",
+        "tema": "ljudi",
+        "jedinica": "EUR",
+        "decimale": 0,
+        "po_stanovniku": None,
+        "razine": ["drzava", "zupanija"],
+        "izvor": "dzs-place",
+        "napomena": "Mjesečni prosjek u pravnim osobama, prema JOPPD obrascu.",
+    },
+    "zaposleni": {
+        "naziv": "Zaposleni",
+        "tema": "ljudi",
+        "jedinica": "osoba",
+        "decimale": 0,
+        "po_stanovniku": _NA_1000,
+        "razine": ["drzava", "zupanija"],
+        "izvor": "dzs-place",
+        "napomena": "Stanje 31. ožujka, administrativni izvori.",
+    },
+    "stopa_nezaposlenosti": {
+        "naziv": "Stopa registrirane nezaposlenosti",
+        "tema": "ljudi",
+        "jedinica": "%",
+        "decimale": 1,
+        "po_stanovniku": None,
+        "razine": ["drzava", "zupanija"],
+        "izvor": "dzs-place",
+    },
+    "neto_dohodak": {
+        "naziv": "Neto dohodak stanovništva",
+        "tema": "ljudi",
+        "jedinica": "EUR",
+        "decimale": 0,
+        "po_stanovniku": _PO_ST_EUR,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "pu-porez-dohodak",
+        "napomena": "Plaće, mirovine i ostali dohodak nakon poreza i doprinosa, za cijelu godinu.",
+    },
+    # --- Novac ---
+    "bdp": {
+        "naziv": "Bruto domaći proizvod",
+        "tema": "novac",
+        "jedinica": "EUR",
+        "decimale": 0,
+        "po_stanovniku": _PO_ST_EUR,
+        "razine": ["drzava"],
+        "izvor": "dzs-bdp-regije",
+    },
+    "bruto_dodana_vrijednost": {
+        "naziv": "Bruto dodana vrijednost",
+        "tema": "novac",
+        "jedinica": "EUR",
+        "decimale": 0,
+        "po_stanovniku": _PO_ST_EUR,
+        "razine": ["drzava", "zupanija"],
+        "izvor": "dzs-bdp-regije",
+        "napomena": "Vrijednost proizvodnje u županiji; BDP bez poreza na proizvode. "
+        "Po županijama DZS ne objavljuje BDP.",
+    },
+    "eu_ugovoreno": {
+        "naziv": "Ugovorena EU sredstva (OPKK 2014.–2020.)",
+        "tema": "novac",
+        "jedinica": "EUR",
+        "decimale": 0,
+        "po_stanovniku": _PO_ST_EUR,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "eu-opkk-2014-2020",
+        "napomena": "ESIF dio ugovorenih projekata, prema mjestu provedbe projekta.",
+    },
+    "eu_projekti": {
+        "naziv": "Broj EU projekata (OPKK 2014.–2020.)",
+        "tema": "novac",
+        "jedinica": "broj",
+        "decimale": 0,
+        "po_stanovniku": _NA_1000,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "eu-opkk-2014-2020",
+    },
+    "eu_2127_ugovoreno": {
+        "naziv": "Ugovorena EU sredstva 2021.–2027.",
+        "tema": "novac",
+        "jedinica": "EUR",
+        "decimale": 0,
+        "po_stanovniku": _PO_ST_EUR,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "eu-2021-2027",
+        "napomena": "EU dio ugovorenih projekata iz programa Konkurentnost i kohezija, "
+        "Integrirani teritorijalni program i Učinkoviti ljudski potencijali. Županije prema "
+        "lokaciji projekta (ULJP prema sjedištu korisnika); gradovi i općine prema sjedištu "
+        "korisnika. Projekti državnih tijela i projekti bez lokacije ulaze samo u zbroj države.",
+    },
+    "eu_2127_projekti": {
+        "naziv": "Broj EU projekata 2021.–2027.",
+        "tema": "novac",
+        "jedinica": "broj",
+        "decimale": 0,
+        "po_stanovniku": _NA_1000,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "eu-2021-2027",
+        "napomena": "Projekt koji se provodi u više županija broji se u svakoj od njih.",
+    },
+    "hbor_krediti": {
+        "naziv": "HBOR krediti iz EU fondova",
+        "tema": "novac",
+        "jedinica": "EUR",
+        "decimale": 0,
+        "po_stanovniku": _PO_ST_EUR,
+        "razine": ["drzava", "zupanija"],
+        "izvor": "hbor-esif",
+        "napomena": "Pet ESIF programa HBOR-a, po županiji ulaganja.",
+    },
+    "inflacija": {
+        "naziv": "Inflacija (godišnja, HIPC)",
+        "tema": "novac",
+        "jedinica": "%",
+        "decimale": 1,
+        "po_stanovniku": None,
+        "razine": ["drzava"],
+        "izvor": "hnb-bilten",
+    },
+    "saldo_proracuna": {
+        "naziv": "Saldo opće države",
+        "tema": "novac",
+        "jedinica": "EUR",
+        "decimale": 0,
+        "po_stanovniku": _PO_ST_EUR,
+        "razine": ["drzava"],
+        "izvor": "hnb-opca-drzava",
+        "napomena": "Negativno = deficit (neto zaduživanje), ESA 2010.",
+    },
+    "javni_dug": {
+        "naziv": "Dug opće države",
+        "tema": "novac",
+        "jedinica": "EUR",
+        "decimale": 0,
+        "po_stanovniku": _PO_ST_EUR,
+        "razine": ["drzava"],
+        "izvor": "hnb-opca-drzava",
+    },
+    "lokalni_prihodi": {
+        "naziv": "Prihodi lokalnog proračuna",
+        "tema": "novac",
+        "jedinica": "EUR",
+        "decimale": 0,
+        "po_stanovniku": _PO_ST_EUR,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "mfin-lokalni-proracuni",
+        "napomena": "Ostvarenje proračuna (ne plan), zadnja godina. Za županiju: proračun "
+        "županije i svih njezinih gradova i općina; za državu: zbroj svih lokalnih proračuna.",
+    },
+    "lokalni_rashodi": {
+        "naziv": "Rashodi lokalnog proračuna",
+        "tema": "novac",
+        "jedinica": "EUR",
+        "decimale": 0,
+        "po_stanovniku": _PO_ST_EUR,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "mfin-lokalni-proracuni",
+        "napomena": "Ostvarenje proračuna (ne plan), zadnja godina. Za županiju: proračun "
+        "županije i svih njezinih gradova i općina; za državu: zbroj svih lokalnih proračuna.",
+    },
+    "lokalna_ulaganja": {
+        "naziv": "Ulaganja lokalnog proračuna",
+        "tema": "novac",
+        "jedinica": "EUR",
+        "decimale": 0,
+        "po_stanovniku": _PO_ST_EUR,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "mfin-lokalni-proracuni",
+        "napomena": "Rashodi za nabavu nefinancijske imovine (ceste, zgrade, oprema).",
+    },
+    "saldo_lokalnog_proracuna": {
+        "naziv": "Višak ili manjak lokalnog proračuna",
+        "tema": "novac",
+        "jedinica": "EUR",
+        "decimale": 0,
+        "po_stanovniku": _PO_ST_EUR,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "mfin-lokalni-proracuni",
+        "napomena": "Prihodi minus rashodi u godini (bez zaduživanja i prenesenog viška).",
+    },
+    "udio_pomoci_u_prihodima": {
+        "naziv": "Udio pomoći u prihodima proračuna",
+        "tema": "novac",
+        "jedinica": "%",
+        "decimale": 1,
+        "po_stanovniku": None,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "mfin-lokalni-proracuni",
+        "napomena": "Pomoći iz državnog proračuna, EU i drugih proračuna (skupina 63) u "
+        "ukupnim prihodima. Visok udio znači da općina ovisi o tuđem novcu.",
+    },
+    # --- Porezi ---
+    "porez_na_dohodak": {
+        "naziv": "Uplaćeni porez na dohodak",
+        "tema": "porezi",
+        "jedinica": "EUR",
+        "decimale": 0,
+        "po_stanovniku": _PO_ST_EUR,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "pu-porez-dohodak",
+        "napomena": "Pripada gradovima i općinama; po prebivalištu obveznika.",
+    },
+    "stopa_poreza_dohodak_niza": {
+        "naziv": "Niža stopa poreza na dohodak",
+        "tema": "porezi",
+        "jedinica": "%",
+        "decimale": 1,
+        "po_stanovniku": None,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "pu-porezne-stope-jls",
+        "napomena": "Stopu određuje grad ili općina. Za županiju i državu: prosjek "
+        "gradova i općina ponderiran brojem stanovnika.",
+    },
+    "stopa_poreza_dohodak_visa": {
+        "naziv": "Viša stopa poreza na dohodak",
+        "tema": "porezi",
+        "jedinica": "%",
+        "decimale": 1,
+        "po_stanovniku": None,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "pu-porezne-stope-jls",
+        "napomena": "Stopu određuje grad ili općina. Za županiju i državu: prosjek "
+        "gradova i općina ponderiran brojem stanovnika.",
+    },
+    "promjena_stope_niza": {
+        "naziv": "Promjena niže stope poreza na dohodak",
+        "tema": "porezi",
+        "jedinica": "p.b.",
+        "decimale": 1,
+        "po_stanovniku": None,
+        "razine": ["jls"],
+        "izvor": "pu-porezne-stope-jls",
+        "napomena": "Razlika u odnosu na prošlu godinu, u postotnim bodovima.",
+    },
+    "porez_na_potrosnju": {
+        "naziv": "Porez na potrošnju",
+        "tema": "porezi",
+        "jedinica": "%",
+        "decimale": 1,
+        "po_stanovniku": None,
+        "razine": ["jls"],
+        "izvor": "pu-porezne-stope-jls",
+        "napomena": "Lokalni porez na pića u ugostiteljstvu; najviša stopa ako je propisan raspon.",
+    },
+    "porez_na_nekretnine": {
+        "naziv": "Porez na nekretnine",
+        "tema": "porezi",
+        "jedinica": "EUR/m²",
+        "decimale": 2,
+        "po_stanovniku": None,
+        "razine": ["jls"],
+        "izvor": "pu-porezne-stope-jls",
+        "napomena": "Godišnji iznos po m²; najviši iznos ako je propisan raspon.",
+    },
+    # --- Imovina ---
+    "kupoprodaje_nekretnina": {
+        "naziv": "Kupoprodaje nekretnina",
+        "tema": "imovina",
+        "jedinica": "broj",
+        "decimale": 0,
+        "po_stanovniku": _NA_1000,
+        "razine": ["drzava", "zupanija"],
+        "izvor": "pu-kupoprodaje",
+    },
+    "pravne_osobe_aktivne": {
+        "naziv": "Aktivne pravne osobe",
+        "tema": "imovina",
+        "jedinica": "broj",
+        "decimale": 0,
+        "po_stanovniku": _NA_1000,
+        "razine": ["drzava"],
+        "izvor": "dzs-rps",
+    },
+}
+
+for _id, _p in POKAZATELJI.items():
+    assert _p["tema"] in TEME, _id

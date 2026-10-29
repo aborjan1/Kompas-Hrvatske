@@ -1,0 +1,21 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.ruff_cache/
+.pytest_cache/
+
+# Sirovi podaci (pipeline/download.py ih ponovno preuzima)
+data/raw/
+
+# Privremene datoteke skripti
+data/*.tmp
+data/sources.novi.csv
+
+# Tajni ključevi (API Sudreg, SRDI)
+.env
+
+# Editor i OS
+.idea/
+.DS_Store
+Thumbs.db

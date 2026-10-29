@@ -1,0 +1,14 @@
+# Kompas Hrvatske – obrada podataka (Python 3.12 ili noviji)
+# Instalacija:  pip install -r pipeline/requirements.txt
+
+pandas>=2.2          # tablice: čitanje, čišćenje, spajanje
+python-calamine>=0.2 # brzo čitanje .xlsx i .xls datoteka
+openpyxl>=3.1        # pisanje .xlsx (ako zatreba)
+geopandas>=1.0       # granice i točke (povlači shapely, pyproj, pyogrio)
+requests>=2.32       # preuzimanje s portala i API-ja
+python-dotenv>=1.0   # API ključevi iz datoteke .env
+pdfplumber>=0.11     # čitanje tablica iz PDF priopćenja DZS-a
+
+# Alati za razvoj
+ruff>=0.6            # provjera i formatiranje koda
+pytest>=8.0          # testovi (python -m pytest)
