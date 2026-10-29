@@ -18,13 +18,22 @@ npm install
 npm run dev      # http://localhost:5173
 ```
 
-Obrada podataka (potreban Python 3.12, u izradi):
+Obrada podataka (potreban Python 3.12):
 
 ```powershell
 py -m venv .venv
 .venv\Scripts\Activate.ps1
 pip install -r pipeline/requirements.txt
+
+python pipeline/download.py   # preuzima sve potrebne izvore u data/raw/ (oko 1 GB)
+python pipeline/build.py      # obrada → web/public/data/ (1–2 minute, s provjerama)
+python -m pytest              # testovi i provjera datoteka za kartu
 ```
+
+`download.py` preuzima skupove označene s `aktivno = da` u `data/sources.csv`, s portala
+data.gov.hr (CKAN API) ili izravno sa službenih stranica izdavatelja. Već preuzete
+datoteke preskače. Opis obrade je u [docs/provjera-skupova.md](docs/provjera-skupova.md),
+a oblik izlaznih datoteka u [docs/format-podataka.md](docs/format-podataka.md).
 
 ## Struktura
 
@@ -34,7 +43,8 @@ data/raw/            sirovi podaci (izvan Gita, skripta ih ponovno preuzima)
 data/sources.csv     popis izvora podataka
 web/                 Vite + Svelte aplikacija (vidi web/README.md)
 docs/                dokumentacija i snimke zaslona
-.github/workflows/   automatska objava na GitHub Pages
+tests/               testovi obrade i provjera podataka za kartu
+.github/workflows/   automatske provjere (podaci) i objava na GitHub Pages
 ```
 
 ## Izvori podataka
