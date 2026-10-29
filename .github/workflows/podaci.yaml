@@ -1,0 +1,37 @@
+# Provjera obrade podataka i datoteka za kartu (web/public/data) kod svakog pusha i PR-a.
+name: Podaci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - "pipeline/**"
+      - "tests/**"
+      - "data/sources.csv"
+      - "web/public/data/**"
+      - "ruff.toml"
+      - ".github/workflows/podaci.yml"
+
+jobs:
+  provjera:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pipeline/requirements.txt
+
+      - name: Instalacija
+        run: pip install -r pipeline/requirements.txt
+
+      - name: Stil koda (ruff)
+        run: |
+          ruff check pipeline tests
+          ruff format --check pipeline tests
+
+      - name: Testovi i provjera podataka za kartu (pytest)
+        run: pytest -v
