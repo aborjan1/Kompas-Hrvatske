@@ -5,8 +5,11 @@ gradski skupovi na njih spajaju:
   - po nazivu četvrti (prazni prostori, stvarno korištenje površina),
   - po koordinatama (kapitalna ulaganja, smještajni objekti).
 
-Rijeka nema otvorene granice mjesnih odbora ni koordinate prostora, pa za nju dajemo
-gradske zbrojeve: proračun, poslovni prostori u zakupu i EU projekte.
+Rijeka nema otvorene granice mjesnih odbora, pa za nju dajemo gradske zbrojeve
+(proračun, poslovni prostori u zakupu, EU projekti) i točke prostora u zakupu.
+
+Prazni prostori Zagreba i prostori u zakupu Rijeke imaju samo adresu; točke dobivaju
+spajanjem s registrom adresa DGU-a (pipeline/adrese.py).
 
 Proračun obaju gradova svodi se na istu funkcijsku (COFOG) i ekonomsku klasifikaciju,
 pa se može usporediti po stanovniku.
@@ -23,6 +26,7 @@ import sys
 import zipfile
 from datetime import UTC, datetime
 
+import adrese
 import geopandas as gpd
 import pandas as pd
 import shapely
@@ -189,6 +193,7 @@ IZVORI_GRADOVA = [
     "zg3d-donji-grad",
     "zg3d-gornji-grad",
     "zg3d-trnje",
+    "dgu-adrese",
     "zg-eu-projekti",
     "zg-proracun-2026",
     "ri-proracun",
@@ -589,6 +594,70 @@ def zgrade_3d(sada: str) -> dict:
     return out
 
 
+def _tocke_adresa(t: pd.DataFrame, svojstva: list[str]) -> dict:
+    t = t.dropna(subset=["lon", "lat"])
+    g = gpd.GeoDataFrame(t, geometry=gpd.points_from_xy(t.lon, t.lat), crs=4326)
+    return _tocke(g, svojstva)
+
+
+def adrese_u_tocke(gc: gpd.GeoDataFrame, pp: pd.DataFrame) -> dict:
+    """Prazni prostori Zagreba i prostori u zakupu Rijeke → točke preko adresa DGU-a."""
+    if adrese.dgu_zip() is None:
+        print("  Nema adresa DGU – python pipeline/download.py --samo dgu-adrese")
+        return {}
+    a = adrese.adrese_gradova((ZAGREB, RIJEKA))
+    out = {}
+
+    zg = pp.copy()
+    zg["cetvrt"] = zg["kljuc"].map(gc.set_index("kljuc")["sifra"])
+    zg[["ulica", "broj", "dodatak"]] = zg["adresa"].map(adrese.razdvoji_broj).tolist()
+    zg = adrese.geokodiraj(zg, a, ZAGREB, gc)
+    zg["povrsina"] = zg["povrsina"].round(2)
+    zg = zg.rename(columns={"nacin": "tocnost"})
+    _spremi(
+        "zagreb/prazni-prostori.geojson",
+        _tocke_adresa(zg, ["vrsta", "adresa", "povrsina", "cetvrt", "tocnost"]),
+    )
+    out["zagreb"] = _sazetak_adresa(zg, "Zagreb – prazni prostori")
+
+    ri = adrese.geokodiraj(_prostori_rijeka(), a, RIJEKA)
+    ri["cijena_eur_m2"] = ri["cijena"]
+    ri["zakupnina_mjesecno"] = ri["mjesecno"].round(2)
+    ri = ri.rename(columns={"nacin": "tocnost"})
+    _spremi(
+        "rijeka/poslovni-prostori.geojson",
+        _tocke_adresa(
+            ri,
+            [
+                "adresa",
+                "zona",
+                "povrsina",
+                "djelatnost",
+                "cijena_eur_m2",
+                "zakupnina_mjesecno",
+                "tocnost",
+            ],
+        ),
+    )
+    out["rijeka"] = _sazetak_adresa(ri, "Rijeka – prostori u zakupu")
+    return out
+
+
+def _sazetak_adresa(t: pd.DataFrame, opis: str) -> dict:
+    n = t["tocnost"].value_counts(dropna=False)
+    s = {
+        "ukupno": int(len(t)),
+        "tocno": int(n.get("tocno", 0) + n.get("bez dodatka", 0)),
+        "ulica": int(n.get("ulica", 0)),
+        "nije_spojeno": int(t["tocnost"].isna().sum()),
+    }
+    print(
+        f"  ✔ {opis}: {s['tocno']} na adresu, {s['ulica']} na sredinu ulice, "
+        f"{s['nije_spojeno']} nije spojeno (od {s['ukupno']})"
+    )
+    return s
+
+
 # --------------------------------------------------------------------------- proračun
 
 
@@ -706,7 +775,7 @@ def nkd_podrucje(sifra) -> str:
     return "Nije navedeno"
 
 
-def poslovni_prostori_rijeka() -> dict:
+def _prostori_rijeka() -> pd.DataFrame:
     d = json.loads(nadji("ri-prostori-zakup", ".json").read_text(encoding="utf-8"))
     t = pd.DataFrame(d)
     t["povrsina"] = t["POVRSINA_PROSTORA"].map(broj)
@@ -714,6 +783,15 @@ def poslovni_prostori_rijeka() -> dict:
     t["mjesecno"] = t["povrsina"] * t["cijena"]
     t["djelatnost"] = t["DJELATNOST_NKD"].map(nkd_podrucje)
     t["zona"] = t["ZONA"].fillna("").str.strip()
+    t["ulica"] = t["ULICA"].fillna("").str.strip()
+    t["broj"] = t["KUCNI_BROJ"].fillna("").str.strip()
+    t["dodatak"] = t["DODATAK"].fillna("").str.strip()
+    t["adresa"] = (t["ulica"] + " " + t["broj"] + t["dodatak"]).str.strip()
+    return t
+
+
+def poslovni_prostori_rijeka() -> dict:
+    t = _prostori_rijeka()
 
     def zbroj(g: pd.DataFrame) -> dict:
         return {
@@ -736,8 +814,8 @@ def poslovni_prostori_rijeka() -> dict:
             )
         ),
         "napomena": "Zakupnina je mjesečna (površina × jedinična cijena po m²). Zone su "
-        "zone zakupnine Grada Rijeke; zona 0 ima najvišu cijenu (središte grada). Izvor nema "
-        "koordinate, samo adrese.",
+        "zone zakupnine Grada Rijeke; zona 0 ima najvišu cijenu (središte grada). Točke na "
+        "karti su dobivene spajanjem adresa s registrom adresa DGU-a.",
     }
 
 
@@ -867,6 +945,7 @@ def main(sada: str | None = None) -> None:
     gz_izvoz["geometry"] = gz_izvoz.geometry.set_precision(1e-5)
     _spremi("zagreb/gospodarske-zone.geojson", json.loads(gz_izvoz.to_json(drop_id=True)))
     zgrade = zgrade_3d(sada)
+    adr = adrese_u_tocke(gc, pp)
     _spremi(
         "zagreb/eu-projekti.json", {"izvor": "zg-eu-projekti", "projekti": eu_projekti_zagreb()}
     )
@@ -894,16 +973,19 @@ def main(sada: str | None = None) -> None:
                     "gradska-drustva": "gradska-drustva.geojson",
                     "brownfield": "brownfield.geojson",
                     "gospodarske-zone": "gospodarske-zone.geojson",
+                    **({"prazni-prostori": "prazni-prostori.geojson"} if adr else {}),
                 },
                 "tablice": ["cetvrti.json", "proracun.json", "eu-projekti.json"],
                 "zgrade_3d": zgrade,
+                "adrese": adr.get("zagreb"),
             },
             "rijeka": {
                 "sifra": RIJEKA,
                 "naziv": "Rijeka",
                 "podrucja": None,
-                "slojevi": {},
+                "slojevi": ({"poslovni-prostori": "poslovni-prostori.geojson"} if adr else {}),
                 "tablice": ["proracun.json", "poslovni-prostori.json", "eu-projekti.json"],
+                "adrese": adr.get("rijeka"),
                 "napomena": "Rijeka nema otvorene granice mjesnih odbora; granica grada je "
                 "u jls/08.geojson (šifra 03735).",
             },
