@@ -1,9 +1,9 @@
 <script>
   // Floating panels over the map. The layer itself lets pointer events through so the
   // map stays draggable between panels; only the panels catch clicks.
-  import DevOdabir from './dev/DevOdabir.svelte';
   import InfoPanel from './InfoPanel.svelte';
   import IzvorPodatka from './IzvorPodatka.svelte';
+  import Pretraga from './Pretraga.svelte';
   import Putanja from './Putanja.svelte';
   import TemeBar from './TemeBar.svelte';
 </script>
@@ -11,7 +11,7 @@
 <div class="sloj">
   <div class="gore">
     <Putanja />
-    {#if import.meta.env.DEV}<DevOdabir />{/if}
+    <Pretraga />
   </div>
   <div class="desno"><InfoPanel /></div>
   <div class="dolje">
