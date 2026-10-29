@@ -9,6 +9,15 @@ export const CROATIA_BOUNDS = [
   [19.65, 46.75],
 ];
 
+// Camera padding that keeps the focused area clear of the floating panels
+// (src/panels/): the info panel is ~344 px wide on the right, and moves to the
+// bottom on screens up to 640 px.
+export function focusPadding(width) {
+  return width > 640
+    ? { top: 40, right: 370, bottom: 80, left: 40 }
+    : { top: 70, right: 20, bottom: 260, left: 20 };
+}
+
 // Panning limit: Croatia plus a margin so neighbours stay visible for context.
 export const MAX_BOUNDS = [
   [9.5, 39.5],

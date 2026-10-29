@@ -5,7 +5,7 @@
 import { MapLibreMap, NavigationControl, setWorkerUrl } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url';
-import { BASEMAP_STYLE, CROATIA_BOUNDS, LABEL_LANGUAGE, MAX_BOUNDS } from './config.js';
+import { BASEMAP_STYLE, CROATIA_BOUNDS, focusPadding, LABEL_LANGUAGE, MAX_BOUNDS } from './config.js';
 
 // MapLibre 6 looks for its worker next to its own module file, which no longer
 // exists once Vite bundles it. Ship the worker as a separate asset instead.
@@ -20,7 +20,7 @@ export function createMap(container) {
     container,
     style: BASEMAP_STYLE,
     bounds: CROATIA_BOUNDS,
-    fitBoundsOptions: { padding: 24 },
+    fitBoundsOptions: { padding: focusPadding(container.clientWidth) },
     maxBounds: MAX_BOUNDS,
     attributionControl: { compact: true },
   });
