@@ -3,26 +3,28 @@
 // OpenFreeMap (OpenStreetMap data), no API key. Positron is the muted light style.
 export const BASEMAP_STYLE = 'https://tiles.openfreemap.org/styles/positron';
 
-// Croatia's extent, used for the initial view and for "back to country" camera moves.
+// The map opens on the globe seen from space, then flies to the current area.
+export const INTRO_START = { center: [16.4, 44.5], zoom: 1.2 };
+export const INTRO_DURATION = 6000;
+
+// Elevation: Mapterhorn (Terrarium encoding, 512 px tiles up to z12), no API key.
+// Served from Cloudflare, so much faster from Europe than the AWS terrain tiles.
+export const TERRAIN_TILES = 'https://tiles.mapterhorn.com/{z}/{x}/{y}.webp';
+export const TERRAIN_ATTRIBUTION = '<a href="https://mapterhorn.com/attribution">© Mapterhorn</a>';
+export const TERRAIN_EXAGGERATION = 1.5;
+
+// Croatia's extent, used for the intro and for "back to country" camera moves.
 export const CROATIA_BOUNDS = [
   [13.2, 42.15],
   [19.65, 46.75],
 ];
 
-// Camera padding that keeps the focused area clear of the floating panels
-// (src/panels/): the info panel is ~344 px wide on the right, and moves to the
-// bottom on screens up to 640 px.
-export function focusPadding(width) {
-  return width > 640
-    ? { top: 40, right: 370, bottom: 80, left: 40 }
-    : { top: 70, right: 20, bottom: 260, left: 20 };
-}
+// Camera padding around a focused area, equal on all sides so it lands centred.
+export const FOCUS_PADDING = 40;
 
-// Panning limit: Croatia plus a margin so neighbours stay visible for context.
-export const MAX_BOUNDS = [
-  [9.5, 39.5],
-  [23.5, 49.0],
-];
+// Zoom limits after the intro: out to all of Europe, in to a whole city (Zagreb fills the screen).
+export const MIN_ZOOM = 3.5;
+export const MAX_ZOOM = 10.25;
 
 export const LABEL_LANGUAGE = 'hr';
 
