@@ -1,0 +1,16 @@
+/* Map buttons (zoom, compass, attribution) as light glass, so they don't hide the map. */
+.maplibregl-ctrl-group:not(:empty),
+.maplibregl-ctrl-attrib.maplibregl-compact {
+  background: rgb(255 255 255 / 0.55);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.06);
+}
+
+.maplibregl-ctrl-group button + button {
+  border-top-color: rgb(0 0 0 / 0.08);
+}
+
+.kh-maptiler-logo {
+  display: block;
+  line-height: 0;
+}
