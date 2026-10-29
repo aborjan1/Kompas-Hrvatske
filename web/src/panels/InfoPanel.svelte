@@ -52,7 +52,7 @@
   {:else if !podrucje}
     <p class="poruka">Učitavanje…</p>
   {:else}
-    <p class="tema">{temaNaziv}</p>
+    <p class="tema" style:color={TEME_POKAZATELJI[$view.tema].boje[3]}>{temaNaziv}</p>
     <h2>{podrucje.naziv}</h2>
 
     {#if brojevi.length}

@@ -8,7 +8,7 @@
 </script>
 
 <div class="sloj">
-  <div class="gore-lijevo">
+  <div class="gore">
     <Putanja />
     {#if import.meta.env.DEV}<DevOdabir />{/if}
   </div>
@@ -29,13 +29,15 @@
     pointer-events: auto;
   }
 
-  .gore-lijevo {
+  .gore {
     position: absolute;
     top: 12px;
-    left: 12px;
+    left: 50%;
+    transform: translateX(-50%);
     display: grid;
-    justify-items: start;
+    justify-items: center;
     gap: 8px;
+    width: max-content;
     max-width: calc(100% - 24px);
   }
 

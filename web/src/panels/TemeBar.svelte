@@ -3,6 +3,7 @@
   import { MJERE, TEME, setMjera, setTema, view } from '../state.js';
   import { podaci } from '../data/podaci.js';
   import { indicator } from '../data/indicator.js';
+  import { TEME_POKAZATELJI } from '../data/teme.js';
 
   const MJERE_NAZIVI = { ukupno: 'Ukupno', 'po-stanovniku': 'Po stanovniku' };
 
@@ -13,7 +14,12 @@
 <div class="kh-panel traka">
   <div class="grupa" role="group" aria-label="Tema">
     {#each TEME as tema}
-      <button type="button" aria-pressed={$view.tema === tema} onclick={() => setTema(tema)}>
+      <button
+        type="button"
+        style:--boja-teme={TEME_POKAZATELJI[tema].boje[3]}
+        aria-pressed={$view.tema === tema}
+        onclick={() => setTema(tema)}
+      >
         {$podaci.meta?.teme[tema] ?? tema}
       </button>
     {/each}
@@ -71,7 +77,7 @@
   }
 
   button[aria-pressed='true'] {
-    background: var(--kh-naglasak);
+    background: var(--boja-teme, var(--kh-naglasak));
     color: #fff;
   }
 
