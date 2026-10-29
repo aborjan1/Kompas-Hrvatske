@@ -1,5 +1,5 @@
 {
-  "generirano": "2026-10-29T12:14:07+00:00",
+  "generirano": "2026-10-29T13:42:56+00:00",
   "gradovi": {
     "zagreb": {
       "sifra": "01333",
@@ -214,115 +214,153 @@
       "naziv": "Gradske četvrti - prostorna jedinica mjesne samouprave za područje Grada Zagreba",
       "izdavatelj": "Grad Zagreb",
       "poveznica": "https://data.gov.hr/ckan/dataset/gradske-cetvrti-prostorna-jedinica-mjesne-samouprave-za-podrucje-grada-zagreba",
-      "licenca": "Otvorena dozvola (OD)"
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-28",
+      "dopunski": false
     },
     "zg-kapitalna-2023": {
       "naziv": "Kapitalna ulaganja 2023",
       "izdavatelj": "Grad Zagreb",
       "poveznica": "https://data.gov.hr/ckan/dataset/kapitalna-ulaganja-2023",
-      "licenca": "Creative Commons Imenovanje 4.0 međunarodna"
+      "licenca": "Creative Commons Imenovanje 4.0 međunarodna",
+      "preuzeto": "2026-10-28",
+      "dopunski": false
     },
     "zg-kapitalna-2024": {
       "naziv": "Kapitalna ulaganja 2024.",
       "izdavatelj": "Grad Zagreb",
       "poveznica": "https://data.gov.hr/ckan/dataset/kapitalna-ulaganja-2024",
-      "licenca": "Otvorena dozvola (OD)"
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-28",
+      "dopunski": false
     },
     "zg-smjestajni-objekti": {
       "naziv": "Geoportal Smještajni objekti",
       "izdavatelj": "Grad Zagreb",
       "poveznica": "https://data.gov.hr/ckan/dataset/geoportal-smjestajni-objekti",
-      "licenca": "Otvorena dozvola (OD)"
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-28",
+      "dopunski": false
     },
     "zg-prazni-prostori": {
       "naziv": "Prazni poslovni prostori",
       "izdavatelj": "Grad Zagreb",
       "poveznica": "https://data.gov.hr/ckan/dataset/prazni-poslovni-prostori",
-      "licenca": "Otvorena dozvola (OD)"
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-28",
+      "dopunski": false
     },
     "zg-stvarno-koristenje": {
       "naziv": "Stvarno korištenje površina 2020.",
       "izdavatelj": "Grad Zagreb",
       "poveznica": "https://data.gov.hr/ckan/dataset/stvarno-koristenje-povrsina-2020",
-      "licenca": "Otvorena dozvola (OD)"
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-28",
+      "dopunski": false
     },
     "zg-brownfield": {
       "naziv": "Brownfield površine",
       "izdavatelj": "Grad Zagreb",
       "poveznica": "https://data.gov.hr/ckan/dataset/brownfield-povrsine",
-      "licenca": "Otvorena dozvola (OD)"
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-28",
+      "dopunski": false
     },
     "zg-trznice": {
       "naziv": "Geoportal gradske tržnice",
       "izdavatelj": "Grad Zagreb",
       "poveznica": "https://data.gov.hr/ckan/dataset/geoportal-gradske-trznice",
-      "licenca": "Creative Commons Imenovanje 4.0 međunarodna"
+      "licenca": "Creative Commons Imenovanje 4.0 međunarodna",
+      "preuzeto": "2026-10-28",
+      "dopunski": false
     },
     "zg-trgovacka-drustva": {
       "naziv": "Geoportal gradska trgovačka društva",
       "izdavatelj": "Grad Zagreb",
       "poveznica": "https://data.gov.hr/ckan/dataset/geoportal-gradska-trgovacka-drustva",
-      "licenca": "Creative Commons Imenovanje 4.0 međunarodna"
+      "licenca": "Creative Commons Imenovanje 4.0 međunarodna",
+      "preuzeto": "2026-10-28",
+      "dopunski": false
     },
     "zg-planirana-namjena": {
       "naziv": "Geoportal planirana namjena 2023",
       "izdavatelj": "Grad Zagreb",
       "poveznica": "https://data.gov.hr/ckan/dataset/geoportal-planirana-namjena-2023",
-      "licenca": "Otvorena dozvola (OD)"
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-28",
+      "dopunski": false
     },
     "zg3d-donji-grad": {
       "naziv": "ZG3D Gradska četvrt Donji Grad 2022",
       "izdavatelj": "Grad Zagreb",
       "poveznica": "https://data.gov.hr/ckan/dataset/zg3d-gradska-cetvrt-donji-grad-2022",
-      "licenca": "Otvorena dozvola (OD)"
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-28",
+      "dopunski": false
     },
     "zg3d-gornji-grad": {
       "naziv": "ZG3D Gradska četvrt Gornji Grad 2022",
       "izdavatelj": "Grad Zagreb",
       "poveznica": "https://data.gov.hr/ckan/dataset/zg3d-gradska-cetvrt-gornji-grad-2022",
-      "licenca": "Otvorena dozvola (OD)"
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-28",
+      "dopunski": false
     },
     "zg3d-trnje": {
       "naziv": "ZG3D Gradska četvrt Trnje 2022",
       "izdavatelj": "Grad Zagreb",
       "poveznica": "https://data.gov.hr/ckan/dataset/zg3d-gradska-cetvrt-trnje-2022",
-      "licenca": "Otvorena dozvola (OD)"
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-28",
+      "dopunski": false
     },
     "dgu-adrese": {
       "naziv": "Adrese INSPIRE (kućni brojevi cijele Hrvatske)",
       "izdavatelj": "Državna geodetska uprava",
       "poveznica": "https://geoportal.dgu.hr/services/atom/INSPIRE_Addresses_(AD).zip",
-      "licenca": "Otvorena dozvola (OD)"
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-29",
+      "dopunski": false
     },
     "zg-eu-projekti": {
       "naziv": "Projekti Europske Unije u provedbi",
       "izdavatelj": "Grad Zagreb",
       "poveznica": "https://data.gov.hr/ckan/dataset/projekti-europske-unije",
-      "licenca": "Otvorena dozvola (OD)"
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-28",
+      "dopunski": false
     },
     "zg-proracun-2026": {
       "naziv": "Proračun Grada Zagreba 2026.",
       "izdavatelj": "Grad Zagreb",
       "poveznica": "https://data.gov.hr/ckan/dataset/proracun-grada-zagreba-2026",
-      "licenca": "Otvorena dozvola (OD)"
+      "licenca": "Otvorena dozvola (OD)",
+      "preuzeto": "2026-10-28",
+      "dopunski": false
     },
     "ri-proracun": {
       "naziv": "Proračun Grada Rijeke na 4.razini i Izvršenja na 5.razini konta",
       "izdavatelj": "Grad Rijeka",
       "poveznica": "https://data.gov.hr/ckan/dataset/proracun-grada-rijeke-na-4-razini-konta",
-      "licenca": "Creative Commons Imenovanje 4.0 međunarodna"
+      "licenca": "Creative Commons Imenovanje 4.0 međunarodna",
+      "preuzeto": "2026-10-28",
+      "dopunski": false
     },
     "ri-prostori-zakup": {
       "naziv": "Poslovni prostori Grada Rijeke - U ZAKUPU",
       "izdavatelj": "Grad Rijeka",
       "poveznica": "https://data.gov.hr/ckan/dataset/poslovni-prostori-u-zakupu",
-      "licenca": "Creative Commons Imenovanje 4.0 međunarodna"
+      "licenca": "Creative Commons Imenovanje 4.0 međunarodna",
+      "preuzeto": "2026-10-28",
+      "dopunski": false
     },
     "ri-eu-projekti": {
       "naziv": "EU projekti u kojima je nositelj ili partner Grad Rijeka",
       "izdavatelj": "Grad Rijeka",
       "poveznica": "https://data.gov.hr/ckan/dataset/eu-projekti-od-2013-godine",
-      "licenca": "Creative Commons Imenovanje 4.0 međunarodna"
+      "licenca": "Creative Commons Imenovanje 4.0 međunarodna",
+      "preuzeto": "2026-10-28",
+      "dopunski": false
     }
   }
 }

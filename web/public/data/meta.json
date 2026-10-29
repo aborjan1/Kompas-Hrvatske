@@ -1,6 +1,6 @@
 {
   "verzija_formata": 1,
-  "generirano": "2026-10-29T12:14:07+00:00",
+  "generirano": "2026-10-29T13:42:56+00:00",
   "probni_podaci": false,
   "probne_granice": false,
   "napomene": [
@@ -492,55 +492,63 @@
       "izdavatelj": "Državni zavod za statistiku",
       "poveznica": "https://podaci.dzs.hr/media/mmwmg1dv/nr-2026-2-1-bruto-domaći-proizvod-za-republiku-hrvatsku-hr_nuts-2021-hr-nuts-2-i-županije-u-2023.pdf",
       "licenca": "Nije navedena (podaci.dzs.hr)",
-      "preuzeto": "2026-10-27"
+      "preuzeto": "2026-10-27",
+      "dopunski": true
     },
     "dzs-place": {
       "naziv": "Statistika u nizu: Zaposlenost i plaće",
       "izdavatelj": "Državni zavod za statistiku",
       "poveznica": "https://data.gov.hr/ckan/dataset/statistika-u-nizu-zaposlenost-i-pla-e",
       "licenca": "Nije navedena (data.gov.hr)",
-      "preuzeto": "2026-10-27"
+      "preuzeto": "2026-10-27",
+      "dopunski": false
     },
     "dzs-popis2021": {
       "naziv": "Statistika u nizu: Popis stanovništva, kućanstava i stanova 2021.  - stanovništvo",
       "izdavatelj": "Državni zavod za statistiku",
       "poveznica": "https://data.gov.hr/ckan/dataset/statistika-u-nizu-popis-stanovnistva-kucanstava-i-stanova-2021",
       "licenca": "Otvorena dozvola (OD)",
-      "preuzeto": "2026-10-27"
+      "preuzeto": "2026-10-27",
+      "dopunski": false
     },
     "dzs-rps": {
       "naziv": "Statistika u nizu:  Registar poslovnih subjekata",
       "izdavatelj": "Državni zavod za statistiku",
       "poveznica": "https://data.gov.hr/ckan/dataset/statistika-u-nizu-registar-poslovnih-subjekata",
       "licenca": "Nije navedena (data.gov.hr)",
-      "preuzeto": "2026-10-27"
+      "preuzeto": "2026-10-27",
+      "dopunski": false
     },
     "eu-2021-2027": {
       "naziv": "Popisi operacija EU programa 2021.–2027. (PKK, ITP, ULJP)",
       "izdavatelj": "Ministarstvo regionalnoga razvoja i fondova Europske unije",
       "poveznica": "https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-PKK-30.9.2026.xlsx",
       "licenca": "Nije navedena (eufondovi.gov.hr)",
+      "dopunski": true,
       "dijelovi": [
         {
           "naziv": "Popis operacija – Program Konkurentnost i kohezija 2021.–2027.",
           "izdavatelj": "Ministarstvo regionalnoga razvoja i fondova Europske unije",
           "poveznica": "https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-PKK-30.9.2026.xlsx",
           "licenca": "Nije navedena (eufondovi.gov.hr)",
-          "preuzeto": "2026-10-28"
+          "preuzeto": "2026-10-28",
+          "dopunski": true
         },
         {
           "naziv": "Popis operacija – Integrirani teritorijalni program 2021.–2027.",
           "izdavatelj": "Ministarstvo regionalnoga razvoja i fondova Europske unije",
           "poveznica": "https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-ITP-30.9.2026.xlsx",
           "licenca": "Nije navedena (eufondovi.gov.hr)",
-          "preuzeto": "2026-10-28"
+          "preuzeto": "2026-10-28",
+          "dopunski": true
         },
         {
           "naziv": "Popis operacija – Program Učinkoviti ljudski potencijali 2021.–2027.",
           "izdavatelj": "Ministarstvo regionalnoga razvoja i fondova Europske unije",
           "poveznica": "https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-u-okviru-PULJP-2021.-2027-final-table_30092026.xlsx",
           "licenca": "Nije navedena (eufondovi.gov.hr)",
-          "preuzeto": "2026-10-28"
+          "preuzeto": "2026-10-28",
+          "dopunski": true
         }
       ]
     },
@@ -549,48 +557,55 @@
       "izdavatelj": "Ministarstvo regionalnoga razvoja i fondova Europske unije ",
       "poveznica": "https://data.gov.hr/ckan/dataset/popis-operacija-financiranih-u-okviru-programa-konkurentnost-i-kohezija-2014-2020",
       "licenca": "Otvorena dozvola (OD)",
-      "preuzeto": "2026-10-27"
+      "preuzeto": "2026-10-27",
+      "dopunski": false
     },
     "hbor-esif": {
       "naziv": "HBOR – korisnici ESIF kredita (5 skupova)",
       "izdavatelj": "HBOR",
       "poveznica": "https://data.gov.hr/ckan/dataset/financijski-instrument-esif-krediti-za-rast-i-razvoj",
       "licenca": "Otvorena dozvola (OD)",
+      "dopunski": false,
       "dijelovi": [
         {
           "naziv": "Financijski instrument \"ESIF krediti za rast i razvoj\"",
           "izdavatelj": "Hrvatska banka za obnovu i razvitak",
           "poveznica": "https://data.gov.hr/ckan/dataset/financijski-instrument-esif-krediti-za-rast-i-razvoj",
           "licenca": "Otvorena dozvola (OD)",
-          "preuzeto": "2026-10-27"
+          "preuzeto": "2026-10-27",
+          "dopunski": false
         },
         {
           "naziv": "Financijski instrument \"ESIF krediti za energetsku učinkovitost\"",
           "izdavatelj": "Hrvatska banka za obnovu i razvitak",
           "poveznica": "https://data.gov.hr/ckan/dataset/financijski-instrument-esif-krediti-za-energetsku-ucinkovitost",
           "licenca": "Otvorena dozvola (OD)",
-          "preuzeto": "2026-10-27"
+          "preuzeto": "2026-10-27",
+          "dopunski": false
         },
         {
           "naziv": "Financijski instrument \"ESIF krediti za javnu rasvjetu\"",
           "izdavatelj": "Hrvatska banka za obnovu i razvitak",
           "poveznica": "https://data.gov.hr/ckan/dataset/financijski-instrument-esif-krediti-za-javnu-rasvjetu",
           "licenca": "Otvorena dozvola (OD)",
-          "preuzeto": "2026-10-27"
+          "preuzeto": "2026-10-27",
+          "dopunski": false
         },
         {
           "naziv": "Financijski instrument \"Investicijski krediti za ruralni razvoj\"",
           "izdavatelj": "Hrvatska banka za obnovu i razvitak",
           "poveznica": "https://data.gov.hr/ckan/dataset/financijski-instrument-investicijski-krediti-za-ruralni-razvoj",
           "licenca": "Otvorena dozvola (OD)",
-          "preuzeto": "2026-10-27"
+          "preuzeto": "2026-10-27",
+          "dopunski": false
         },
         {
           "naziv": "Financijski instrument \"Obrtna sredstva za ruralni razvoj\"",
           "izdavatelj": "Hrvatska banka za obnovu i razvitak",
           "poveznica": "https://data.gov.hr/ckan/dataset/financijski-instrument-obrtna-sredstva-za-ruralni-razvoj",
           "licenca": "Otvorena dozvola (OD)",
-          "preuzeto": "2026-10-27"
+          "preuzeto": "2026-10-27",
+          "dopunski": false
         }
       ]
     },
@@ -599,49 +614,56 @@
       "izdavatelj": "Hrvatska narodna banka",
       "poveznica": "https://data.gov.hr/ckan/dataset/bilten-hnb-a",
       "licenca": "Otvorena dozvola (OD)",
-      "preuzeto": "2026-10-27"
+      "preuzeto": "2026-10-27",
+      "dopunski": false
     },
     "hnb-opca-drzava": {
       "naziv": "Sektor opće države",
       "izdavatelj": "Hrvatska narodna banka",
       "poveznica": "https://data.gov.hr/ckan/dataset/op-a-dr-ava",
       "licenca": "Otvorena dozvola (OD)",
-      "preuzeto": "2026-10-27"
+      "preuzeto": "2026-10-27",
+      "dopunski": false
     },
     "mfin-lokalni-proracuni": {
       "naziv": "Financijski izvještaji JLP(R)S: PR-RAS i RAS-funkcijski 2019.–2025. (EUR)",
       "izdavatelj": "Ministarstvo financija",
       "poveznica": "https://mfin.gov.hr/UserDocsImages//dokumenti/o-ministarstvu/lokalna-samouprava/financijski-izvjestaji-jlp-r-s//Lokalci%20FINALI%202019%202024%20EURO.zip",
       "licenca": "Nije navedena (mfin.gov.hr)",
-      "preuzeto": "2026-10-29"
+      "preuzeto": "2026-10-29",
+      "dopunski": true
     },
     "pu-kupoprodaje": {
       "naziv": "Pregled broja kupoprodaja nekretnina po stjecateljima po županijama i ukupno za RH od 2016.-2026.",
       "izdavatelj": "Porezna uprava",
       "poveznica": "https://data.gov.hr/ckan/dataset/pregled-broja-kupoprodaja-nekretnina-po-stjecateljima-po-zupanijama-i-ukupno-za-rh-od-2016-2026",
       "licenca": "Otvorena dozvola (OD)",
-      "preuzeto": "2026-10-27"
+      "preuzeto": "2026-10-27",
+      "dopunski": false
     },
     "pu-porez-dohodak": {
       "naziv": "Porez na dohodak",
       "izdavatelj": "Porezna uprava",
       "poveznica": "https://data.gov.hr/ckan/dataset/https-porezna-uprava-gov-hr-hr-porez-na-dohodak-4763-4763",
       "licenca": "Otvorena dozvola (OD)",
-      "preuzeto": "2026-10-27"
+      "preuzeto": "2026-10-27",
+      "dopunski": false
     },
     "pu-porezne-stope-jls": {
       "naziv": "Usporedba poreznih stopa prema odlukama jedinica lokalne samouprave u Republici Hrvatskoj",
       "izdavatelj": "Porezna uprava",
       "poveznica": "https://data.gov.hr/ckan/dataset/https-porezna-uprava-gov-hr-hr-odluke-jls-4009",
       "licenca": "Otvorena dozvola (OD)",
-      "preuzeto": "2026-10-28"
+      "preuzeto": "2026-10-28",
+      "dopunski": false
     },
     "granice-upravne-jedinice": {
       "naziv": "Upravne jedinice INSPIRE (granice države, županija, općina, naselja)",
       "izdavatelj": "Državna geodetska uprava",
-      "poveznica": "https://data.gov.hr/ckan/dataset/upravne-jedinice-inspire",
+      "poveznica": "https://geoportal.dgu.hr/services/atom/INSPIRE_Administrative_Units_(AU).zip",
       "licenca": "Otvorena dozvola (OD)",
-      "preuzeto": "2026-10-27"
+      "preuzeto": "2026-10-27",
+      "dopunski": false
     }
   }
 }

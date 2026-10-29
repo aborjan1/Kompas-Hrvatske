@@ -15,7 +15,7 @@ s područjem). BDP je naknadno uzet iz PDF priopćenja DZS-a (vidi dolje).
 | `dzs-popis2021` | `…zbirni_pregledi.xlsx`, tab. 1. | država, županija | 2021. | površina → gustoća naseljenosti |
 | `dzs-place` | `…pregled-po-zupanijama.xlsx`, 9.4.9. NKD 2025. | država, županija | 2025. | prosječna neto plaća |
 | `dzs-place` | isto, 9.4.8. | država, županija | 2024. | zaposleni |
-| `dzs-place` | isto, 9.4.14. | država, županija | lipanj 2026. | stopa registrirane nezaposlenosti |
+| `dzs-place` | isto, 9.4.14. | država, županija | rujan 2026. (zadnji objavljeni mjesec) | stopa registrirane nezaposlenosti |
 | `pu-porez-dohodak` | `pk_neto-dohodak…2022_2025….xlsx`, list „2025 EUR” | država, županija, **JLS** | 2025. | neto dohodak, uplaćeni porez na dohodak |
 | `pu-kupoprodaje` | `pk_ppn_pregled…po-upanijama….xlsx` | država, županija | 2025. | kupoprodaje nekretnina |
 | `eu-opkk-2014-2020` | `popis-operacija-opkk-31.5.2023.xlsx`, „CUT OFF 31.05.2023” | država, županija, **točke** | presjek 31. 5. 2023. | ugovorena EU sredstva, broj projekata, karta projekata |
@@ -59,7 +59,7 @@ Sva tri skupa su u `sources.csv` označena s `aktivno = ne`.
 - Zaglavlje GML-a tvrdi da sadrži 10.000 od 50.194 jedinica, ali stvarno sadrži svih 50.194 (21 županija, 556 JLS, 6.759 naselja, statistički i popisni krugovi).
 - Koordinate su u EPSG:3035 s redoslijedom osi sjever–istok; obrada ih okreće.
 - Svih 556 gradova i općina iz DGU-a spojeno je sa šifrarnikom po nazivu; time JLS imaju službene šifre.
-- ATOM usluga navodi „ograničenje javnog pristupa prema čl. 13. st. 1. t. (e) INSPIRE Direktive”, a data.gov.hr isti skup (i adrese) vodi pod Otvorenom dozvolom. Koristimo licencu s data.gov.hr, a nedoumicu provjeravamo s organizatorom datathona (open.data@mpudt.hr).
+- ATOM usluga navodi „ograničenje javnog pristupa prema čl. 13. st. 1. t. (e) INSPIRE Direktive”, a data.gov.hr isti skup (i adrese) vodi pod Otvorenom dozvolom. **Odgovor organizatora (29. 10. 2026.):** oba skupa su pod Otvorenom dozvolom, kao i usluge DGU-a prema INSPIRE geoportalu; podatke preuzete javnim uslugama bez autentifikacije smijemo koristiti, mijenjati i objaviti (uključujući pojednostavljene granice i koordinate adresa), uz navođenje izvora (DGU), datuma preuzimanja i poveznice na Otvorenu dozvolu.
 - EU projekti raspoređeni po JLS prema koordinatama: 54 od 8.355 točaka leži u drugoj županiji od one upisane u izvoru, a 11 izvan kopna.
 
 ## Faza 4 (razina Grad)
@@ -151,7 +151,7 @@ Sve su ispravljene u kodu, a ne ručno u datotekama, pa se popravak ponavlja pri
 - **HBOR krediti:** tablice ne navode valutu. Tablice objavljene prije 2023. su u kunama (preračun 7,53450), a one iz 2023. u eurima. **Provjereno** na dva načina: [program ESIF kredita za javne zgrade](https://www.hbor.hr/UserDocsImages/2018/05/Program-kreditiranja_ESIF-javne-zgrade.pdf) propisuje „kunske kredite” od 100 tisuća do 60 milijuna kuna, a tablica iz 2021. ima iznose od 0,5 do 25,7 milijuna; iznosi u tablicama iz 2023. imaju dugačke decimale koje pomnožene s 7,53450 daju okrugle kune (javna rasvjeta 73 %, obrtna sredstva 97 % iznosa), dakle to su kune preračunate u eure.
 - **EU projekti:** 10 projekata (726 mil. EUR) nema županiju; ulaze samo u zbroj države. Ukupna ugovorena ESIF sredstva (9,34 mlrd. EUR) premašuju alokaciju programa jer se ugovaralo više od 100 %.
 - **Po stanovniku:** svi pokazatelji dijele se sa stanovništvom iz Popisa 2021., jer novijih podataka po JLS nema.
-- **Licence:** od 39 korištenih skupova 33 su pod Otvorenom dozvolom (OD) ili CC BY 4.0. Bez navedene licence su: `dzs-place` i `dzs-rps` (portal: „No License Provided”), `dzs-bdp-regije` (PDF priopćenje s podaci.dzs.hr) i tri popisa EU operacija 2021.–2027. (eufondovi.gov.hr). Sve su to javno objavljeni podaci tijela javne vlasti i navodimo ih s izvorom. Uvjete ponovne uporabe provjeravamo s organizatorom datathona (open.data@mpudt.hr).
+- **Licence:** od 39 korištenih skupova 33 su pod Otvorenom dozvolom (OD) ili CC BY 4.0. Bez navedene licence su: `dzs-place` i `dzs-rps` (portal: „No License Provided”), `dzs-bdp-regije` (PDF priopćenje s podaci.dzs.hr) i tri popisa EU operacija 2021.–2027. (eufondovi.gov.hr). Prema odgovoru organizatora (29. 10. 2026.): skupovima DZS-a nedostaje oznaka dozvole (organizator traži od DZS-a dopunu), pa za njih ne navodimo Otvorenu dozvolu nego samo izvor i napomenu da su javno objavljeni na Portalu; dopunski izvori izvan portala (eufondovi.gov.hr, mfin.gov.hr, podaci.dzs.hr) su prihvatljivi uz jasno navođenje izvora i odvojeno od skupova s Portala – vidi `docs/izvori-podataka.md`, dijelovi A i B.
 
 ## Provjere u `build.py`
 

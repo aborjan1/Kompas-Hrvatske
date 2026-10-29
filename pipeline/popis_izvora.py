@@ -28,6 +28,7 @@ FAZE = {
 NACIN = {
     "preuzimanje": "skripta",
     "rucno": "ručno",
+    "url": "skripta (izravna poveznica)",
     "servis": "servis (WMS/WFS)",
     "api": "API (registracija)",
 }
@@ -81,6 +82,72 @@ PRETRAGE = [
 ]
 
 
+OD = "https://data.gov.hr/otvorena-dozvola"
+
+
+def je_dopunski(r: dict) -> bool:
+    """Skup koji nije objavljen na data.gov.hr (nema adrese skupa na portalu)."""
+    return not r.get("slug")
+
+
+def stranica(r: dict) -> str:
+    if je_dopunski(r):
+        return r["poveznica"]
+    return f"https://data.gov.hr/ckan/dataset/{r['slug']}"
+
+
+def dozvola(r: dict) -> str:
+    lic = r.get("licenca") or "nije navedena"
+    if lic.startswith("Otvorena dozvola"):
+        return f"[Otvorena dozvola]({OD})"
+    if lic.startswith("Creative Commons Imenovanje 4.0"):
+        return "[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.hr)"
+    return lic
+
+
+def tablica_koristenih(skupovi: list[dict]) -> list[str]:
+    out = [
+        "| Skup | Izdavatelj | Dozvola | Preuzeto | id (mapa) |",
+        "| --- | --- | --- | --- | --- |",
+    ]
+    for r in skupovi:
+        out.append(
+            f"| [{r['naziv'].strip()}]({stranica(r)}) | {r['izdavatelj'].strip()} | {dozvola(r)} "
+            f"| {r.get('datum_preuzimanja') or '–'} | `{r['id']}` |"
+        )
+    return out
+
+
+def korisceni_dio(redovi: list[dict]) -> list[str]:
+    aktivni = [r for r in redovi if r["aktivno"] == "da"]
+    portal = [r for r in aktivni if not je_dopunski(r)]
+    dopunski = [r for r in aktivni if je_dopunski(r)]
+    return [
+        "## Korišteni skupovi",
+        "",
+        f"Obrada (`pipeline/build.py`) koristi **{len(aktivni)}** skupova: **{len(portal)}** s "
+        f"Portala otvorenih podataka i **{len(dopunski)}** dopunskih izvora tijela javne vlasti. "
+        "Sve ih preuzima `python pipeline/download.py`.",
+        "",
+        "**Kako navoditi izvor.** Za skupove pod Otvorenom dozvolom navodi se izdavatelj, naziv "
+        f"skupa, datum preuzimanja i poveznica na [Otvorenu dozvolu]({OD}). Za skupove bez "
+        "navedene dozvole (npr. dio skupova DZS-a) navodi se samo izvor uz napomenu da su "
+        "javno objavljeni na Portalu (prema odgovoru organizatora datathona, 29. 10. 2026.).",
+        "",
+        "### A. Portal otvorenih podataka (data.gov.hr)",
+        "",
+        *tablica_koristenih(portal),
+        "",
+        "### B. Dopunski izvori tijela javne vlasti",
+        "",
+        "Pravila datathona dopuštaju dopunu podacima iz drugih javno dostupnih izvora tijela "
+        "javne vlasti, uz jasno navođenje izvora.",
+        "",
+        *tablica_koristenih(dopunski),
+        "",
+    ]
+
+
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     with SOURCES.open(encoding="utf-8-sig", newline="") as f:
@@ -102,6 +169,12 @@ def main() -> None:
         "ručno, koriste kao servis izravno na karti ili traže API registraciju.",
         "",
         "Mapa u koju se skup sprema je `data/raw/<id>/`.",
+        "",
+        *korisceni_dio(redovi),
+        "## Svi pregledani skupovi po fazama",
+        "",
+        "Uključuje i skupove koji su pregledani, ali se ne koriste, te neispravne izvore "
+        "(stupac Napomena).",
     ]
     for kljuc, naslov in FAZE.items():
         skupovi = po_fazi.get(kljuc, [])
@@ -109,7 +182,7 @@ def main() -> None:
             continue
         out += [
             "",
-            f"## {kljuc}. {naslov}",
+            f"### {kljuc}. {naslov}",
             "",
             "| id (mapa) | Skup | Izdavatelj | Formati | Način | Issue | Napomena |",
             "| --- | --- | --- | --- | --- | --- | --- |",
@@ -122,7 +195,7 @@ def main() -> None:
             )
     out += [
         "",
-        "## Izvori izvan data.gov.hr",
+        "## Ostali korisni izvori (nisu korišteni)",
         "",
         "| Izvor | Izdavatelj | Napomena |",
         "| --- | --- | --- |",
@@ -130,7 +203,7 @@ def main() -> None:
     out += [f"| [{n}]({u}) | {i} | {o} |" for n, i, u, o in VANJSKI]
     out += [
         "",
-        "## Pretrage lokalnih skupova",
+        "## Pretrage lokalnih skupova na portalu",
         "",
         "Stotine skupova općina i gradova u različitim formatima. "
         "Za demo ih ne obrađujemo sve, nego samo po potrebi.",
@@ -138,10 +211,6 @@ def main() -> None:
     ]
     out += [f"- [{n}]({u})" for n, u in PRETRAGE]
     out += [
-        "",
-        "## Što nije u katalogu",
-        "",
-        "- EU sredstva 2021.–2027. i NPOO: izvor tek treba pronaći (issue #15).",
         "",
     ]
 
