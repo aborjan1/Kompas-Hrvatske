@@ -59,7 +59,7 @@ Sva tri skupa su u `sources.csv` označena s `aktivno = ne`.
 - Zaglavlje GML-a tvrdi da sadrži 10.000 od 50.194 jedinica, ali stvarno sadrži svih 50.194 (21 županija, 556 JLS, 6.759 naselja, statistički i popisni krugovi).
 - Koordinate su u EPSG:3035 s redoslijedom osi sjever–istok; obrada ih okreće.
 - Svih 556 gradova i općina iz DGU-a spojeno je sa šifrarnikom po nazivu; time JLS imaju službene šifre.
-- ATOM usluga navodi „ograničenje javnog pristupa prema čl. 13. st. 1. t. (e) INSPIRE Direktive”, a data.gov.hr isti skup vodi pod Otvorenom dozvolom. **Prije predaje provjeriti uvjete korištenja s DGU-om.**
+- ATOM usluga navodi „ograničenje javnog pristupa prema čl. 13. st. 1. t. (e) INSPIRE Direktive”, a data.gov.hr isti skup (i adrese) vodi pod Otvorenom dozvolom. Koristimo licencu s data.gov.hr, a nedoumicu provjeravamo s organizatorom datathona (open.data@mpudt.hr).
 - EU projekti raspoređeni po JLS prema koordinatama: 54 od 8.355 točaka leži u drugoj županiji od one upisane u izvoru, a 11 izvan kopna.
 
 ## Faza 4 (razina Grad)
@@ -137,10 +137,10 @@ Sve su ispravljene u kodu, a ne ručno u datotekama, pa se popravak ponavlja pri
 
 - **Plaće:** do 2023. DZS ih objavljuje iz istraživanja RAD-1G, a od 2024. iz JOPPD-a (list 9.4.9.). Serije nisu usporedive, pa koristimo samo 2025.
 - **Zaposleni:** koristimo 2024., a ne 2025. U 2025. serija ima lom: Grad Zagreb pada s 472.598 na 377.586, a Zagrebačka raste za 32 %.
-- **HBOR krediti:** tablice ne navode valutu. Pretpostavljamo da su tablice objavljene prije 2023. u kunama (preračun 7,53450) i da su one iz 2023. u eurima. **Treba provjeriti na stranicama HBOR-a.**
+- **HBOR krediti:** tablice ne navode valutu. Tablice objavljene prije 2023. su u kunama (preračun 7,53450), a one iz 2023. u eurima. **Provjereno** na dva načina: [program ESIF kredita za javne zgrade](https://www.hbor.hr/UserDocsImages/2018/05/Program-kreditiranja_ESIF-javne-zgrade.pdf) propisuje „kunske kredite” od 100 tisuća do 60 milijuna kuna, a tablica iz 2021. ima iznose od 0,5 do 25,7 milijuna; iznosi u tablicama iz 2023. imaju dugačke decimale koje pomnožene s 7,53450 daju okrugle kune (javna rasvjeta 73 %, obrtna sredstva 97 % iznosa), dakle to su kune preračunate u eure.
 - **EU projekti:** 10 projekata (726 mil. EUR) nema županiju; ulaze samo u zbroj države. Ukupna ugovorena ESIF sredstva (9,34 mlrd. EUR) premašuju alokaciju programa jer se ugovaralo više od 100 %.
 - **Po stanovniku:** svi pokazatelji dijele se sa stanovništvom iz Popisa 2021., jer novijih podataka po JLS nema.
-- **Licence:** portal za dio skupova ne navodi licencu (npr. `dzs-place`). Prije predaje treba ih provjeriti na stranici skupa.
+- **Licence:** od 39 korištenih skupova 33 su pod Otvorenom dozvolom (OD) ili CC BY 4.0. Bez navedene licence su: `dzs-place` i `dzs-rps` (portal: „No License Provided”), `dzs-bdp-regije` (PDF priopćenje s podaci.dzs.hr) i tri popisa EU operacija 2021.–2027. (eufondovi.gov.hr). Sve su to javno objavljeni podaci tijela javne vlasti i navodimo ih s izvorom. Uvjete ponovne uporabe provjeravamo s organizatorom datathona (open.data@mpudt.hr).
 
 ## Provjere u `build.py`
 

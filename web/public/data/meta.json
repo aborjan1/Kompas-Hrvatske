@@ -1,6 +1,6 @@
 {
   "verzija_formata": 1,
-  "generirano": "2026-10-29T11:21:01+00:00",
+  "generirano": "2026-10-29T11:43:21+00:00",
   "probni_podaci": false,
   "probne_granice": false,
   "napomene": [
@@ -404,14 +404,14 @@
       "naziv": "Bruto domaći proizvod za Republiku Hrvatsku, HR_NUTS 2021. – HR NUTS 2 i županije u 2023. (priopćenje NR-2026-2-1)",
       "izdavatelj": "Državni zavod za statistiku",
       "poveznica": "https://podaci.dzs.hr/media/mmwmg1dv/nr-2026-2-1-bruto-domaći-proizvod-za-republiku-hrvatsku-hr_nuts-2021-hr-nuts-2-i-županije-u-2023.pdf",
-      "licenca": null,
+      "licenca": "Nije navedena (podaci.dzs.hr)",
       "preuzeto": "2026-10-27"
     },
     "dzs-place": {
       "naziv": "Statistika u nizu: Zaposlenost i plaće",
       "izdavatelj": "Državni zavod za statistiku",
       "poveznica": "https://data.gov.hr/ckan/dataset/statistika-u-nizu-zaposlenost-i-pla-e",
-      "licenca": null,
+      "licenca": "Nije navedena (data.gov.hr)",
       "preuzeto": "2026-10-27"
     },
     "dzs-popis2021": {
@@ -425,34 +425,34 @@
       "naziv": "Statistika u nizu:  Registar poslovnih subjekata",
       "izdavatelj": "Državni zavod za statistiku",
       "poveznica": "https://data.gov.hr/ckan/dataset/statistika-u-nizu-registar-poslovnih-subjekata",
-      "licenca": null,
+      "licenca": "Nije navedena (data.gov.hr)",
       "preuzeto": "2026-10-27"
     },
     "eu-2021-2027": {
       "naziv": "Popisi operacija EU programa 2021.–2027. (PKK, ITP, ULJP)",
       "izdavatelj": "Ministarstvo regionalnoga razvoja i fondova Europske unije",
       "poveznica": "https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-PKK-30.9.2026.xlsx",
-      "licenca": null,
+      "licenca": "Nije navedena (eufondovi.gov.hr)",
       "dijelovi": [
         {
           "naziv": "Popis operacija – Program Konkurentnost i kohezija 2021.–2027.",
           "izdavatelj": "Ministarstvo regionalnoga razvoja i fondova Europske unije",
           "poveznica": "https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-PKK-30.9.2026.xlsx",
-          "licenca": null,
+          "licenca": "Nije navedena (eufondovi.gov.hr)",
           "preuzeto": "2026-10-28"
         },
         {
           "naziv": "Popis operacija – Integrirani teritorijalni program 2021.–2027.",
           "izdavatelj": "Ministarstvo regionalnoga razvoja i fondova Europske unije",
           "poveznica": "https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-ITP-30.9.2026.xlsx",
-          "licenca": null,
+          "licenca": "Nije navedena (eufondovi.gov.hr)",
           "preuzeto": "2026-10-28"
         },
         {
           "naziv": "Popis operacija – Program Učinkoviti ljudski potencijali 2021.–2027.",
           "izdavatelj": "Ministarstvo regionalnoga razvoja i fondova Europske unije",
           "poveznica": "https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-u-okviru-PULJP-2021.-2027-final-table_30092026.xlsx",
-          "licenca": null,
+          "licenca": "Nije navedena (eufondovi.gov.hr)",
           "preuzeto": "2026-10-28"
         }
       ]

@@ -325,9 +325,12 @@ def hbor_krediti() -> pd.DataFrame:
     """Korisnici HBOR-ovih ESIF kredita, svi programi. Stupci: program, korisnik,
     zupanija, projekt, iznos_eur, objava.
 
-    Tablice ne navode valutu. PRETPOSTAVKA: tablice objavljene prije 2023. su u kunama
-    (preračunavamo fiksnim tečajem), a one iz 2023. u eurima. Primjer koji to potvrđuje:
-    Grad Supetar, energetska obnova vrtića – 3.351.741 (u kunama ≈ 445.000 EUR).
+    Tablice ne navode valutu. Tablice objavljene prije 2023. su u kunama (preračunavamo
+    fiksnim tečajem), a one iz 2023. u eurima. Provjereno: (1) program ESIF krediti za
+    javne zgrade propisuje kunske kredite od 100 tisuća do 60 milijuna kuna, a tablica iz
+    2021. ima iznose od ~0,5 do 25,7 milijuna; (2) iznosi u tablicama iz 2023. imaju dugačke
+    decimale i pomnoženi s 7,53450 daju okrugle kune (javna rasvjeta 73 %, obrtna sredstva
+    97 %), dakle to su kune preračunate u eure.
     """
     svi = []
     for mapa, program in HBOR.items():
