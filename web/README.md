@@ -16,12 +16,6 @@ Ključ s [cloud.maptiler.com](https://cloud.maptiler.com/account/keys/) upiši u
 ```powershell
 Copy-Item .env.example .env.local   # pa u .env.local upiši VITE_MAPTILER_KEY=...
 ```
-
-Za lokalni rad koristi ključ dopušten samo za `localhost`. Javna stranica
-(https://aborjan1.github.io/Kompas-Hrvatske/) gradi se na svaki push na `main`
-(`.github/workflows/pages.yaml`) s posebnim ključem dopuštenim samo za `aborjan1.github.io`,
-spremljenim kao GitHub secret `VITE_MAPTILER_KEY`.
-
 ## Struktura
 
 - `src/map/` – karta (MapLibre slojevi i kamera). Neovisno o frameworku: UI poziva samo `createMap(container)`.
