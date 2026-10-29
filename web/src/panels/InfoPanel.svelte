@@ -5,6 +5,7 @@
   import { nadjiPodrucje, ocitaj, podaci } from '../data/podaci.js';
   import { formatVrijednost } from '../data/format.js';
   import { TEME_POKAZATELJI } from '../data/teme.js';
+  import GrafUsporedbe from './GrafUsporedbe.svelte';
 
   const MAX_BROJEVA = 4;
 
@@ -70,6 +71,8 @@
     {/if}
 
     {#if recenica}<p class="recenica">{recenica}</p>{/if}
+
+    {#if $view.razina === 'zupanija'}<GrafUsporedbe />{/if}
   {/if}
 </aside>
 
