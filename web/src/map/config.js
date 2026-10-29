@@ -12,12 +12,6 @@ export const BASEMAP_STYLE = `https://api.maptiler.com/maps/landscape/style.json
 export const INTRO_START = { center: [16.4, 44.5], zoom: 1.2 };
 export const INTRO_DURATION = 6000;
 
-// Elevation: Mapterhorn (Terrarium encoding, 512 px tiles up to z12), no API key.
-// Served from Cloudflare, so much faster from Europe than the AWS terrain tiles.
-export const TERRAIN_TILES = 'https://tiles.mapterhorn.com/{z}/{x}/{y}.webp';
-export const TERRAIN_ATTRIBUTION = '<a href="https://mapterhorn.com/attribution">© Mapterhorn</a>';
-export const TERRAIN_EXAGGERATION = 1.5;
-
 // Croatia's extent, used for the intro and for "back to country" camera moves.
 export const CROATIA_BOUNDS = [
   [13.2, 42.15],
