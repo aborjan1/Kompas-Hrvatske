@@ -122,6 +122,17 @@ Stanje: 28. 10. 2026. Popisi operacija nisu na data.gov.hr, nego na
   Andrijaševci”, „Sigetec Ludbreški”) ili grad koji ne pripada upisanoj županiji.
 - Provjera: zbroj županija + državni projekti = ukupno za državu (do 1 EUR).
 
+## Proračuni gradova, općina i županija
+
+Stanje: 29. 10. 2026. Izvor: Ministarstvo financija, [Financijski izvještaji JLP(R)S](https://mfin.gov.hr/istaknute-teme/lokalna-samouprava/financijski-izvjestaji-jlp-r-s/pr-ras-i-ras-funkc-za-razdoblje-2019-2025-euro/3922) (`mfin-lokalni-proracuni`, nije na data.gov.hr).
+
+- ZIP (78 MB) ima radnu knjigu po županiji i jednu za državu; svaki list je jedan proračun ili zbroj. Godine 2019.–2025. (ime datoteke kaže „2019 2024”, ali sadrži i 2025.).
+- Za Osječko-baranjsku postoje dvije datoteke; koristi se ona s „ispravak” u imenu.
+- Svih 556 gradova i općina spojeno je sa šifrarnikom po nazivu lista („GRAD GOSPIĆ”, „OPĆINA BRINJE”).
+- **Zbrojeve računamo sami** iz pojedinačnih proračuna. Za prihode i rashode poklapaju se sa zbirnim listovima Ministarstva za svih 20 županija i državu (provjera u `build.py`).
+- **Greška u izvoru:** u zbirnom listu za cijelu Hrvatsku rashodi po funkcijama za 2025. iznose 0,79 mlrd. EUR, a zbroj jedinica 5,84 mlrd. EUR (npr. „Opće javne usluge” 261 mil. umjesto 1.200 mil.). Za ranije godine zbirni list je ispravan. Obrada koristi zbroj jedinica i ispisuje upozorenje.
+- Rashodi po funkcijama (RAS-funkcijski) ne uključuju prijenose drugim proračunima, pa je njihov zbroj oko 9 % manji od rashoda iz PR-RAS-a.
+
 ## Greške u izvorima koje obrada ispravlja
 
 Sve su ispravljene u kodu, a ne ručno u datotekama, pa se popravak ponavlja pri svakom pokretanju.

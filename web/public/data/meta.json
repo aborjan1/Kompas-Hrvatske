@@ -1,6 +1,6 @@
 {
   "verzija_formata": 1,
-  "generirano": "2026-10-29T11:43:21+00:00",
+  "generirano": "2026-10-29T12:14:07+00:00",
   "probni_podaci": false,
   "probne_granice": false,
   "napomene": [
@@ -280,6 +280,93 @@
       "izvor": "hnb-opca-drzava",
       "godina": "2026-06"
     },
+    "lokalni_prihodi": {
+      "naziv": "Prihodi lokalnog proračuna",
+      "tema": "novac",
+      "jedinica": "EUR",
+      "decimale": 0,
+      "po_stanovniku": {
+        "mnozitelj": 1,
+        "jedinica": "EUR po stanovniku"
+      },
+      "razine": [
+        "drzava",
+        "zupanija",
+        "jls"
+      ],
+      "izvor": "mfin-lokalni-proracuni",
+      "napomena": "Ostvarenje proračuna (ne plan), zadnja godina. Za županiju: proračun županije i svih njezinih gradova i općina; za državu: zbroj svih lokalnih proračuna.",
+      "godina": "2025"
+    },
+    "lokalni_rashodi": {
+      "naziv": "Rashodi lokalnog proračuna",
+      "tema": "novac",
+      "jedinica": "EUR",
+      "decimale": 0,
+      "po_stanovniku": {
+        "mnozitelj": 1,
+        "jedinica": "EUR po stanovniku"
+      },
+      "razine": [
+        "drzava",
+        "zupanija",
+        "jls"
+      ],
+      "izvor": "mfin-lokalni-proracuni",
+      "napomena": "Ostvarenje proračuna (ne plan), zadnja godina. Za županiju: proračun županije i svih njezinih gradova i općina; za državu: zbroj svih lokalnih proračuna.",
+      "godina": "2025"
+    },
+    "lokalna_ulaganja": {
+      "naziv": "Ulaganja lokalnog proračuna",
+      "tema": "novac",
+      "jedinica": "EUR",
+      "decimale": 0,
+      "po_stanovniku": {
+        "mnozitelj": 1,
+        "jedinica": "EUR po stanovniku"
+      },
+      "razine": [
+        "drzava",
+        "zupanija",
+        "jls"
+      ],
+      "izvor": "mfin-lokalni-proracuni",
+      "napomena": "Rashodi za nabavu nefinancijske imovine (ceste, zgrade, oprema).",
+      "godina": "2025"
+    },
+    "saldo_lokalnog_proracuna": {
+      "naziv": "Višak ili manjak lokalnog proračuna",
+      "tema": "novac",
+      "jedinica": "EUR",
+      "decimale": 0,
+      "po_stanovniku": {
+        "mnozitelj": 1,
+        "jedinica": "EUR po stanovniku"
+      },
+      "razine": [
+        "drzava",
+        "zupanija",
+        "jls"
+      ],
+      "izvor": "mfin-lokalni-proracuni",
+      "napomena": "Prihodi minus rashodi u godini (bez zaduživanja i prenesenog viška).",
+      "godina": "2025"
+    },
+    "udio_pomoci_u_prihodima": {
+      "naziv": "Udio pomoći u prihodima proračuna",
+      "tema": "novac",
+      "jedinica": "%",
+      "decimale": 1,
+      "po_stanovniku": null,
+      "razine": [
+        "drzava",
+        "zupanija",
+        "jls"
+      ],
+      "izvor": "mfin-lokalni-proracuni",
+      "napomena": "Pomoći iz državnog proračuna, EU i drugih proračuna (skupina 63) u ukupnim prihodima. Visok udio znači da općina ovisi o tuđem novcu.",
+      "godina": "2025"
+    },
     "porez_na_dohodak": {
       "naziv": "Uplaćeni porez na dohodak",
       "tema": "porezi",
@@ -520,6 +607,13 @@
       "poveznica": "https://data.gov.hr/ckan/dataset/op-a-dr-ava",
       "licenca": "Otvorena dozvola (OD)",
       "preuzeto": "2026-10-27"
+    },
+    "mfin-lokalni-proracuni": {
+      "naziv": "Financijski izvještaji JLP(R)S: PR-RAS i RAS-funkcijski 2019.–2025. (EUR)",
+      "izdavatelj": "Ministarstvo financija",
+      "poveznica": "https://mfin.gov.hr/UserDocsImages//dokumenti/o-ministarstvu/lokalna-samouprava/financijski-izvjestaji-jlp-r-s//Lokalci%20FINALI%202019%202024%20EURO.zip",
+      "licenca": "Nije navedena (mfin.gov.hr)",
+      "preuzeto": "2026-10-29"
     },
     "pu-kupoprodaje": {
       "naziv": "Pregled broja kupoprodaja nekretnina po stjecateljima po županijama i ukupno za RH od 2016.-2026.",

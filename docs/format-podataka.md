@@ -104,6 +104,11 @@ može dugo čuvati, a brojke se mijenjaju pri svakom pokretanju obrade.
 | `eu_2127_ugovoreno` | novac | EUR | EUR po st. | država, županija**, JLS** | 30. 9. 2026. |
 | `eu_2127_projekti` | novac | broj | na 1.000 st. | država, županija**, JLS** | 30. 9. 2026. |
 | `hbor_krediti` | novac | EUR | EUR po st. | država, županija | 2018.–2023. |
+| `lokalni_prihodi` | novac | EUR | EUR po st. | država***, županija***, JLS | 2025. |
+| `lokalni_rashodi` | novac | EUR | EUR po st. | država***, županija***, JLS | 2025. |
+| `lokalna_ulaganja` | novac | EUR | EUR po st. | država***, županija***, JLS | 2025. |
+| `saldo_lokalnog_proracuna` | novac | EUR | EUR po st. | država***, županija***, JLS | 2025. |
+| `udio_pomoci_u_prihodima` | novac | % | — | država***, županija***, JLS | 2025. |
 | `inflacija` | novac | % | — | država | IX. 2026. |
 | `saldo_proracuna` | novac | EUR | EUR po st. | država | 2025. |
 | `javni_dug` | novac | EUR | EUR po st. | država | VI. 2026. |
@@ -127,6 +132,13 @@ sjedište korisnika. Projekti ministarstava, HZZ-a i drugih državnih tijela (1,
 ulaze samo u zbroj države, pa zbroj županija nije jednak državi. Dobra „priča” za kartu:
 u razdoblju 2014.–2020. Zagreb je dobio 3,8 mlrd. EUR, a sada po stanovniku vode Karlovačka i
 Ličko-senjska županija.
+
+\*\*\* Proračuni (Ministarstvo financija, ostvarenje): za grad ili općinu to je njezin
+proračun, za županiju zbroj proračuna županije i svih njezinih gradova i općina, a za
+državu zbroj svih lokalnih proračuna. Raspodjela je jako nejednaka (prihodi po stanovniku od
+641 do 15.959 EUR; Ervenik ima neuobičajeno velike prihode), pa za boje karte treba koristiti
+kvantile, a ne linearnu skalu. `udio_pomoci_u_prihodima` je dobra „priča”: u polovici
+općina pomoći čine više od 40 % prihoda, a u nekima više od 80 %.
 
 Prijedlog za panel Država (najviše 4 broja): stanovništvo, BDP, prosječna neto plaća
 i inflacija.
@@ -174,6 +186,30 @@ Rang je samo poredak, ne ocjena. Je li veća vrijednost bolja (plaća) ili loši
 
 `jls.json` je spremljen bez uvlaka (282 KB), pa ga ne treba otvarati ručno. Za pregled
 postoji `data/obrada/jls.csv`, koji se otvara u Excelu.
+
+## `proracuni.json`
+
+Vremenski niz proračuna za graf u panelu, za državu (`"HR"`), županije (`"01"`–`"21"`) i
+sve gradove i općine (službena šifra):
+
+```json
+{
+  "godine": [2019, 2020, 2021, 2022, 2023, 2024, 2025],
+  "funkcije": {"01": "Opće javne usluge", "09": "Obrazovanje", "...": "..."},
+  "podrucja": {
+    "01333": {
+      "prihodi": [1012503810, 973008626, "…"],
+      "rashodi": ["…"],
+      "ulaganja": ["…"],
+      "funkcije": {"01": 123456789, "...": "…"}
+    }
+  }
+}
+```
+
+`prihodi`, `rashodi` i `ulaganja` imaju po jednu vrijednost za svaku godinu iz `godine`
+(EUR, ostvarenje). `funkcije` su rashodi po namjeni za zadnju godinu; ne uključuju prijenose
+drugim proračunima, pa je njihov zbroj manji od rashoda. Datoteka ima oko 220 KB.
 
 ## `zupanije.geojson`
 
