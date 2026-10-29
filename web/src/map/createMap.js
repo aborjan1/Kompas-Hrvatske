@@ -30,13 +30,20 @@ export function createMap(container) {
     style: BASEMAP_STYLE,
     ...INTRO_START,
     maxZoom: MAX_ZOOM,
+    // Flat, north-up map only: tilt and rotation add nothing to a choropleth.
+    maxPitch: 0,
+    dragRotate: false,
+    pitchWithRotate: false,
+    touchPitch: false,
     // Keep every tile seen this visit in memory, so zooming back out doesn't rebuild
     // tiles (costs memory, not MapTiler requests).
     maxTileCacheSize: 2000,
     attributionControl: { compact: true },
   });
 
-  map.addControl(new NavigationControl({ visualizePitch: true }), 'top-right');
+  map.touchZoomRotate.disableRotation();
+  map.keyboard.disableRotation();
+  map.addControl(new NavigationControl({ showCompass: false }), 'top-right');
   // Added first, so later bottom-left controls (the legend) stack above it.
   map.addControl(new MapTilerLogo(), 'bottom-left');
   map.on('style.load', () => {
@@ -104,12 +111,11 @@ export function setUserInput(map, enabled) {
   const handlers = [
     map.scrollZoom,
     map.boxZoom,
-    map.dragRotate,
     map.dragPan,
     map.keyboard,
     map.doubleClickZoom,
+    // Rotation stays off (createMap()), enable() keeps it that way.
     map.touchZoomRotate,
-    map.touchPitch,
   ];
   for (const handler of handlers) {
     if (enabled) handler.enable();
