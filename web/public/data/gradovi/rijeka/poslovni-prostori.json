@@ -5,15 +5,15 @@
   "ukupno": {
     "broj": 1296,
     "povrsina_m2": 154370,
-    "zakupnina_mjesecno_eur": 688106,
+    "zakupnina_mjesecno_eur": 688007,
     "prosjecna_cijena_eur_m2": 4.46
   },
   "po_zoni": {
     "0": {
       "broj": 141,
       "povrsina_m2": 12872,
-      "zakupnina_mjesecno_eur": 233900,
-      "prosjecna_cijena_eur_m2": 18.17
+      "zakupnina_mjesecno_eur": 233802,
+      "prosjecna_cijena_eur_m2": 18.16
     },
     "I": {
       "broj": 408,
@@ -50,8 +50,8 @@
     "Udruge i organizacije": {
       "broj": 157,
       "povrsina_m2": 17459,
-      "zakupnina_mjesecno_eur": 30380,
-      "prosjecna_cijena_eur_m2": 1.74
+      "zakupnina_mjesecno_eur": 30281,
+      "prosjecna_cijena_eur_m2": 1.73
     },
     "Smještaj i ugostiteljstvo": {
       "broj": 90,

@@ -1,6 +1,6 @@
 {
   "verzija_formata": 1,
-  "generirano": "2026-10-29T13:42:56+00:00",
+  "generirano": "2026-10-29T13:52:20+00:00",
   "probni_podaci": false,
   "probne_granice": false,
   "napomene": [
@@ -97,7 +97,7 @@
         "zupanija"
       ],
       "izvor": "dzs-place",
-      "godina": "VI. 2026."
+      "godina": "IX. 2026."
     },
     "neto_dohodak": {
       "naziv": "Neto dohodak stanovništva",
@@ -500,7 +500,7 @@
       "izdavatelj": "Državni zavod za statistiku",
       "poveznica": "https://data.gov.hr/ckan/dataset/statistika-u-nizu-zaposlenost-i-pla-e",
       "licenca": "Nije navedena (data.gov.hr)",
-      "preuzeto": "2026-10-27",
+      "preuzeto": "2026-10-29",
       "dopunski": false
     },
     "dzs-popis2021": {
