@@ -2,7 +2,7 @@
 
 Ova datoteka nastaje automatski iz `data/sources.csv` (`python pipeline/popis_izvora.py`). Ne uređuj je ručno.
 
-Broj skupova: **70**. Skripta `pipeline/download.py` preuzima njih **52**, a ostali se preuzimaju ručno, koriste kao servis izravno na karti ili traže API registraciju.
+Broj skupova: **70**. Skripta `pipeline/download.py` preuzima njih **40**, a ostali se preuzimaju ručno, koriste kao servis izravno na karti ili traže API registraciju.
 
 Mapa u koju se skup sprema je `data/raw/<id>/`.
 
@@ -10,9 +10,9 @@ Mapa u koju se skup sprema je `data/raw/<id>/`.
 
 | id (mapa) | Skup | Izdavatelj | Formati | Način | Issue | Napomena |
 | --- | --- | --- | --- | --- | --- | --- |
-| `granice-upravne-jedinice` | [Upravne jedinice INSPIRE (granice države, županija, općina, naselja)](https://data.gov.hr/ckan/dataset/upravne-jedinice-inspire) | Državna geodetska uprava | GML (ZIP) | ručno | #12 | Ručno: https://geoportal.dgu.hr/services/atom/INSPIRE_Administrative_Units_(AU).zip (ATOM https://geoportal.dgu.hr/services/atom/au/xml; poveznica na data.gov.hr je prazna). EPSG:3035. |
+| `granice-upravne-jedinice` | [Upravne jedinice INSPIRE (granice države, županija, općina, naselja)](https://geoportal.dgu.hr/services/atom/INSPIRE_Administrative_Units_(AU).zip) | Državna geodetska uprava | GML (ZIP) | url | #12 | ATOM https://geoportal.dgu.hr/services/atom/au/xml (poveznica na data.gov.hr, skup upravne-jedinice-inspire, je prazna). EPSG:3035, ZIP 200 MB. |
 | `sifrarnik-jls` | [Popis županija, gradova i općina](https://data.gov.hr/ckan/dataset/popis-zupanija-gradova-i-opcina) | Ministarstvo pravosuđa, uprave i digitalne transformacije | HTML, XLS | skripta | #9 | Osnova za areas.csv |
-| `dzs-nkd` | [Nacionalna klasifikacija djelatnosti 2007.](https://data.gov.hr/ckan/dataset/nacionalna-klasifikacija-djelatnosti-2007) | Državni zavod za statistiku | JSON, PDF | skripta | #10 | Grupiranje tvrtki po djelatnosti |
+| `dzs-nkd` | [Nacionalna klasifikacija djelatnosti 2007.](https://data.gov.hr/ckan/dataset/nacionalna-klasifikacija-djelatnosti-2007) | Državni zavod za statistiku | JSON, PDF | skripta | #10 | Grupiranje tvrtki po djelatnosti. Pregledano, ne koristi se (preuzimanje: --samo dzs-nkd). |
 | `sudreg` | [Sudski registar (REST API, uz besplatnu registraciju)](https://data.gov.hr/ckan/dataset/sudski-registar) | Ministarstvo pravosuđa, uprave i digitalne transformacije | API | API (registracija) | #4 | Besplatna registracija na sudreg-data.gov.hr (OAuth) |
 | `natural-earth-admin1` | [Natural Earth – Admin 1 States and Provinces (1:10m)](https://www.naturalearthdata.com/) | Natural Earth | GeoJSON | ručno | #6 | Samo probne granice; zamjenjuju se DGU granicama |
 
@@ -23,8 +23,8 @@ Mapa u koju se skup sprema je `data/raw/<id>/`.
 | `dzs-popis2021` | [Statistika u nizu: Popis stanovništva, kućanstava i stanova 2021.  - stanovništvo](https://data.gov.hr/ckan/dataset/statistika-u-nizu-popis-stanovnistva-kucanstava-i-stanova-2021) | Državni zavod za statistiku | XLSX | skripta | #7 | Zamjena za INSPIRE servise stanovništva |
 | `dzs-place` | [Statistika u nizu: Zaposlenost i plaće](https://data.gov.hr/ckan/dataset/statistika-u-nizu-zaposlenost-i-pla-e) | Državni zavod za statistiku | XLSX, XLS | skripta | #7 | Provjeriti razinu županija |
 | `dzs-bdp` | [Statistika u nizu:  Bruto domaći proizvod](https://data.gov.hr/ckan/dataset/statistika-u-nizu-bruto-doma-i-proizvod) | Državni zavod za statistiku | XLS, XLSX | skripta | #7 | Prazno: od 27. 2. 2026. DZS tromjesečni BDP objavljuje samo u PC-Axis bazi. Koristimo dzs-bdp-regije. |
-| `dzs-bdp-regije` | [Bruto domaći proizvod za Republiku Hrvatsku, HR_NUTS 2021. – HR NUTS 2 i županije u 2023. (priopćenje NR-2026-2-1)](https://podaci.dzs.hr/media/mmwmg1dv/nr-2026-2-1-bruto-domaći-proizvod-za-republiku-hrvatsku-hr_nuts-2021-hr-nuts-2-i-županije-u-2023.pdf) | Državni zavod za statistiku | PDF | ručno | #7 | Ručno preuzet PDF (izvan data.gov.hr, izdavatelj DZS). BDP za RH i bruto dodana vrijednost po županijama. |
-| `dzs-cijene` | [Statistika u nizu:  Cijene](https://data.gov.hr/ckan/dataset/statistika-u-nizu-cijene) | Državni zavod za statistiku | XLSX | skripta | #7 | Inflacija |
+| `dzs-bdp-regije` | [Bruto domaći proizvod za Republiku Hrvatsku, HR_NUTS 2021. – HR NUTS 2 i županije u 2023. (priopćenje NR-2026-2-1)](https://podaci.dzs.hr/media/mmwmg1dv/nr-2026-2-1-bruto-domaći-proizvod-za-republiku-hrvatsku-hr_nuts-2021-hr-nuts-2-i-županije-u-2023.pdf) | Državni zavod za statistiku | PDF | url | #7 | Ručno preuzet PDF (izvan data.gov.hr, izdavatelj DZS). BDP za RH i bruto dodana vrijednost po županijama. |
+| `dzs-cijene` | [Statistika u nizu:  Cijene](https://data.gov.hr/ckan/dataset/statistika-u-nizu-cijene) | Državni zavod za statistiku | XLSX | skripta | #7 | Inflacija. Pregledano, ne koristi se (preuzimanje: --samo dzs-cijene). |
 | `dzs-rps` | [Statistika u nizu:  Registar poslovnih subjekata](https://data.gov.hr/ckan/dataset/statistika-u-nizu-registar-poslovnih-subjekata) | Državni zavod za statistiku | XLSX | skripta | #7 |  |
 | `hnb-opca-drzava` | [Sektor opće države](https://data.gov.hr/ckan/dataset/op-a-dr-ava) | Hrvatska narodna banka | XLSX | skripta | #7 | Državni proračun: prihodi, rashodi, dug |
 | `hnb-bilten` | [Bilten HNB-a – dodatni gospodarski, financijski i monetarni pokazatelji](https://data.gov.hr/ckan/dataset/bilten-hnb-a) | Hrvatska narodna banka | XLSX | skripta | #7 | Krediti |
@@ -40,13 +40,13 @@ Mapa u koju se skup sprema je `data/raw/<id>/`.
 
 | id (mapa) | Skup | Izdavatelj | Formati | Način | Issue | Napomena |
 | --- | --- | --- | --- | --- | --- | --- |
-| `hzz-slobodna-mjesta` | [Slobodna radna mjesta po županijama u Hrvatskoj i u Europskoj uniji](https://data.gov.hr/ckan/dataset/slobodna-radna-mjesta-po-zupanijama-u-rh-i-eu) | Hrvatski zavod za zapošljavanje | XML | skripta | #7 | XML |
-| `dzs-poduzeca` | [Statistika u nizu: Poduzeća](https://data.gov.hr/ckan/dataset/statistika-u-nizu-poduzeca) | Državni zavod za statistiku | XLSX | skripta | #7 | Provjeriti razinu županija |
-| `dzs-turizam` | [Statistika u nizu:  Turizam](https://data.gov.hr/ckan/dataset/statistika-u-nizu-turizam) | Državni zavod za statistiku | XLSX | skripta | #7 |  |
+| `hzz-slobodna-mjesta` | [Slobodna radna mjesta po županijama u Hrvatskoj i u Europskoj uniji](https://data.gov.hr/ckan/dataset/slobodna-radna-mjesta-po-zupanijama-u-rh-i-eu) | Hrvatski zavod za zapošljavanje | XML | skripta | #7 | XML. Pregledano, ne koristi se (preuzimanje: --samo hzz-slobodna-mjesta). |
+| `dzs-poduzeca` | [Statistika u nizu: Poduzeća](https://data.gov.hr/ckan/dataset/statistika-u-nizu-poduzeca) | Državni zavod za statistiku | XLSX | skripta | #7 | Provjeriti razinu županija. Pregledano, ne koristi se (preuzimanje: --samo dzs-poduzeca). |
+| `dzs-turizam` | [Statistika u nizu:  Turizam](https://data.gov.hr/ckan/dataset/statistika-u-nizu-turizam) | Državni zavod za statistiku | XLSX | skripta | #7 | Pregledano, ne koristi se (preuzimanje: --samo dzs-turizam). |
 | `pu-kupoprodaje` | [Pregled broja kupoprodaja nekretnina po stjecateljima po županijama i ukupno za RH od 2016.-2026.](https://data.gov.hr/ckan/dataset/pregled-broja-kupoprodaja-nekretnina-po-stjecateljima-po-zupanijama-i-ukupno-za-rh-od-2016-2026) | Porezna uprava | XLSX | skripta | #7 |  |
 | `aik-poslovne-zone` | [Poslovne zone u Republici Hrvatskoj](https://data.gov.hr/ckan/dataset/poslovne-zone-u-republici-hrvatskoj) | Agencija za investicije i konkurentnost (NEAKTIVAN) | HTML, JSON | skripta | #14 | NEISPRAVAN: domena aik-invest.hr je istekla, poveznica vraća oglasnu stranicu. Tražiti zamjenski izvor poslovnih zona. Za Zagreb zamijenjeno skupom zg-planirana-namjena; za ostatak Hrvatske zamjene još nema. |
-| `udruge-financiranje` | [Podaci o financiranju udruga](https://data.gov.hr/ckan/dataset/podaci-o-financiranju-udruga) | Ured za udruge | XLS | skripta | #7 | Spaja se s Registrom udruga |
-| `registar-udruga` | [Registar udruga Republike Hrvatske](https://data.gov.hr/ckan/dataset/registar-udruga) | Ministarstvo pravosuđa, uprave i digitalne transformacije | HTML, JSON, XML, CSV | skripta | #7 | Sjedište udruge |
+| `udruge-financiranje` | [Podaci o financiranju udruga](https://data.gov.hr/ckan/dataset/podaci-o-financiranju-udruga) | Ured za udruge | XLS | skripta | #7 | Spaja se s Registrom udruga. Pregledano, ne koristi se (preuzimanje: --samo udruge-financiranje). |
+| `registar-udruga` | [Registar udruga Republike Hrvatske](https://data.gov.hr/ckan/dataset/registar-udruga) | Ministarstvo pravosuđa, uprave i digitalne transformacije | HTML, JSON, XML, CSV | skripta | #7 | Sjedište udruge. Pregledano, ne koristi se (preuzimanje: --samo registar-udruga). |
 | `hbor-rast-razvoj` | [Financijski instrument "ESIF krediti za rast i razvoj"](https://data.gov.hr/ckan/dataset/financijski-instrument-esif-krediti-za-rast-i-razvoj) | Hrvatska banka za obnovu i razvitak | XLSX | skripta | #7 | Korisnici HBOR kredita |
 | `hbor-energetska` | [Financijski instrument "ESIF krediti za energetsku učinkovitost"](https://data.gov.hr/ckan/dataset/financijski-instrument-esif-krediti-za-energetsku-ucinkovitost) | Hrvatska banka za obnovu i razvitak | XLSX | skripta | #7 | Korisnici HBOR kredita |
 | `hbor-rasvjeta` | [Financijski instrument "ESIF krediti za javnu rasvjetu"](https://data.gov.hr/ckan/dataset/financijski-instrument-esif-krediti-za-javnu-rasvjetu) | Hrvatska banka za obnovu i razvitak | XLSX | skripta | #7 | Korisnici HBOR kredita |
@@ -59,11 +59,11 @@ Mapa u koju se skup sprema je `data/raw/<id>/`.
 
 | id (mapa) | Skup | Izdavatelj | Formati | Način | Issue | Napomena |
 | --- | --- | --- | --- | --- | --- | --- |
-| `dzs-gradovi-opcine` | [Statistika u nizu:  Gradovi i općine u statistici](https://data.gov.hr/ckan/dataset/statistika-u-nizu-gradovi-u-statistici) | Državni zavod za statistiku | XLSX | skripta | #7 | Samo 128 gradova (bez općina): procjena stanovništva, prirodno kretanje, migracije; kandidat za kasnije. |
+| `dzs-gradovi-opcine` | [Statistika u nizu:  Gradovi i općine u statistici](https://data.gov.hr/ckan/dataset/statistika-u-nizu-gradovi-u-statistici) | Državni zavod za statistiku | XLSX | skripta | #7 | Samo 128 gradova (bez općina): procjena stanovništva, prirodno kretanje, migracije; kandidat za kasnije. Pregledano, ne koristi se (preuzimanje: --samo dzs-gradovi-opcine). |
 | `pu-porezne-stope-jls` | [Usporedba poreznih stopa prema odlukama jedinica lokalne samouprave u Republici Hrvatskoj](https://data.gov.hr/ckan/dataset/https-porezna-uprava-gov-hr-hr-odluke-jls-4009) | Porezna uprava | XLSX | skripta | #14 | Spaja se po službenoj šifri JLS. Stope poreza na dohodak, porez na potrošnju i na nekretnine; paušalni porez (po naseljima) zasad se ne koristi. |
 | `mfin-lokalni-proracuni` | [Financijski izvještaji JLP(R)S: PR-RAS i RAS-funkcijski 2019.–2025. (EUR)](https://mfin.gov.hr/UserDocsImages//dokumenti/o-ministarstvu/lokalna-samouprava/financijski-izvjestaji-jlp-r-s//Lokalci%20FINALI%202019%202024%20EURO.zip) | Ministarstvo financija | XLSX (ZIP) | url | #10 | Izvan data.gov.hr: mfin.gov.hr › Lokalna samouprava › Financijski izvještaji JLP(R)S. Prihodi i rashodi svih gradova, općina i županija. |
 | `komunalni-projekti` | [Financiranje projekata za poticanje razvoja komunalnog gospodarstva i komunalnog standarda](https://data.gov.hr/ckan/dataset/financiranje-projekata-komunalnog-gospodarstva-i-standarda) | Ministarstvo graditeljstva i prostornoga uređenja (NEAKTIVAN) | CSV | skripta | #14 | NEISPRAVAN: datoteke su na staroj domeni www.mgipu.hr koja prekida vezu (2014.–2017.). |
-| `turisticki-objekti` | [Popis kategoriziranih turističkih objekata u Republici Hrvatskoj](https://data.gov.hr/ckan/dataset/popis-kategoriziranih-turistickih-objekata) | Ministarstvo turizma i sporta | XLSX | skripta | #14 | Samo zbirni podaci iz 2019. bez adresa; zasad se ne koristi. |
+| `turisticki-objekti` | [Popis kategoriziranih turističkih objekata u Republici Hrvatskoj](https://data.gov.hr/ckan/dataset/popis-kategoriziranih-turistickih-objekata) | Ministarstvo turizma i sporta | XLSX | skripta | #14 | Samo zbirni podaci iz 2019. bez adresa; zasad se ne koristi. Pregledano, ne koristi se (preuzimanje: --samo turisticki-objekti). |
 | `popis2021-jls` | [Stanovništvo po dobi i spolu po gradovima/općinama (Popis 2021.) INSPIRE](https://data.gov.hr/ckan/dataset/raspodjela-stanovnitva-prema-dobnim-skupinama-i-spolu-na-razni-gradova-opina-iz-popisa-stanovni) | Državna geodetska uprava | WFS, WMS | servis (WMS/WFS) | #8 | Samo WFS; koristimo dzs-popis2021 |
 
 ## 5. Gradski prikaz: Zagreb
@@ -92,7 +92,7 @@ Mapa u koju se skup sprema je `data/raw/<id>/`.
 | `zg-zakup-prostora` | [Registar ugovora o zakupu / korištenju poslovnih prostora](https://data.gov.hr/ckan/dataset/registar-ugovora-o-zakupu-koristenju-poslovnih-prostora) | Grad Zagreb | XLSX, CSV | skripta | #16 | Adrese bez četvrti i koordinata; ne koristi se. |
 | `zg-zakup-zemljista` | [Ugovori o zakupu zemljišta](https://data.gov.hr/ckan/dataset/ugovori-o-zakupu-zemljista-2022) | Grad Zagreb | XLSX, CSV | skripta | #16 | Mali broj ugovora; ne koristi se. |
 | `zg-proracun-2026` | [Proračun Grada Zagreba 2026.](https://data.gov.hr/ckan/dataset/proracun-grada-zagreba-2026) | Grad Zagreb | XLSX, CSV | skripta | #16 | Konsolidirani plan; rashodi po funkcijskoj klasifikaciji (OznakaPodskupine). |
-| `zg-proracun-2022-2025` | [Proračun Grada Zagreba 2022. - 2025.](https://data.gov.hr/ckan/dataset/proracun) | Grad Zagreb | XLSX, CSV | skripta | #16 | Starije verzije proračuna; zasad se koristi samo zg-proracun-2026. |
+| `zg-proracun-2022-2025` | [Proračun Grada Zagreba 2022. - 2025.](https://data.gov.hr/ckan/dataset/proracun) | Grad Zagreb | XLSX, CSV | skripta | #16 | Starije verzije proračuna; zasad se koristi samo zg-proracun-2026. Pregledano, ne koristi se (preuzimanje: --samo zg-proracun-2022-2025). |
 
 ## 6. Gradski prikaz: Rijeka
 
