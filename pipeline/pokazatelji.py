@@ -39,6 +39,28 @@ POKAZATELJI: dict[str, dict] = {
         "razine": ["drzava", "zupanija", "jls"],
         "izvor": "dzs-popis2021",
     },
+    "stanovnistvo_procjena": {
+        "naziv": "Stanovništvo (procjena DZS-a)",
+        "tema": "ljudi",
+        "jedinica": "osoba",
+        "decimale": 0,
+        "po_stanovniku": None,
+        "razine": ["drzava", "zupanija"],
+        "izvor": "dzs-procjena-stanovnistva",
+        "napomena": "Procjena sredinom godine. Iznosi po stanovniku i dalje se računaju iz "
+        "Popisa 2021., jer za gradove i općine novije procjene nema.",
+    },
+    "promjena_stanovnistva": {
+        "naziv": "Promjena broja stanovnika",
+        "tema": "ljudi",
+        "jedinica": "%",
+        "decimale": 1,
+        "po_stanovniku": None,
+        "razine": ["drzava", "zupanija"],
+        "izvor": "dzs-procjena-stanovnistva",
+        "napomena": "Promjena procjene sredinom godine u odnosu na sredinu 2021. "
+        "(useljavanje i iseljavanje te rođeni i umrli).",
+    },
     "gustoca_naseljenosti": {
         "naziv": "Gustoća naseljenosti",
         "tema": "ljudi",

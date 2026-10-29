@@ -2,13 +2,13 @@
 
 Ova datoteka nastaje automatski iz `data/sources.csv` (`python pipeline/popis_izvora.py`). Ne uređuj je ručno.
 
-Broj skupova: **70**. Skripta `pipeline/download.py` preuzima njih **40**, a ostali se preuzimaju ručno, koriste kao servis izravno na karti ili traže API registraciju.
+Broj skupova: **71**. Skripta `pipeline/download.py` preuzima njih **41**, a ostali se preuzimaju ručno, koriste kao servis izravno na karti ili traže API registraciju.
 
 Mapa u koju se skup sprema je `data/raw/<id>/`.
 
 ## Korišteni skupovi
 
-Obrada (`pipeline/build.py`) koristi **40** skupova: **35** s Portala otvorenih podataka i **5** dopunskih izvora tijela javne vlasti. Sve ih preuzima `python pipeline/download.py`.
+Obrada (`pipeline/build.py`) koristi **41** skupova: **35** s Portala otvorenih podataka i **6** dopunskih izvora tijela javne vlasti. Sve ih preuzima `python pipeline/download.py`.
 
 **Kako navoditi izvor.** Za skupove pod Otvorenom dozvolom navodi se izdavatelj, naziv skupa, datum preuzimanja i poveznica na [Otvorenu dozvolu](https://data.gov.hr/otvorena-dozvola). Za skupove bez navedene dozvole (npr. dio skupova DZS-a) navodi se samo izvor uz napomenu da su javno objavljeni na Portalu (prema odgovoru organizatora datathona, 29. 10. 2026.).
 
@@ -20,7 +20,7 @@ Obrada (`pipeline/build.py`) koristi **40** skupova: **35** s Portala otvorenih 
 | [Popis županija, gradova i općina](https://data.gov.hr/ckan/dataset/popis-zupanija-gradova-i-opcina) | Ministarstvo pravosuđa, uprave i digitalne transformacije | [Otvorena dozvola](https://data.gov.hr/otvorena-dozvola) | 2026-10-27 | `sifrarnik-jls` |
 | [Adrese INSPIRE (kućni brojevi cijele Hrvatske)](https://data.gov.hr/ckan/dataset/adrese) | Državna geodetska uprava | [Otvorena dozvola](https://data.gov.hr/otvorena-dozvola) | 2026-10-29 | `dgu-adrese` |
 | [Statistika u nizu: Popis stanovništva, kućanstava i stanova 2021.  - stanovništvo](https://data.gov.hr/ckan/dataset/statistika-u-nizu-popis-stanovnistva-kucanstava-i-stanova-2021) | Državni zavod za statistiku | [Otvorena dozvola](https://data.gov.hr/otvorena-dozvola) | 2026-10-27 | `dzs-popis2021` |
-| [Statistika u nizu: Zaposlenost i plaće](https://data.gov.hr/ckan/dataset/statistika-u-nizu-zaposlenost-i-pla-e) | Državni zavod za statistiku | Nije navedena (data.gov.hr) | 2026-10-27 | `dzs-place` |
+| [Statistika u nizu: Zaposlenost i plaće](https://data.gov.hr/ckan/dataset/statistika-u-nizu-zaposlenost-i-pla-e) | Državni zavod za statistiku | Nije navedena (data.gov.hr) | 2026-10-29 | `dzs-place` |
 | [Statistika u nizu:  Registar poslovnih subjekata](https://data.gov.hr/ckan/dataset/statistika-u-nizu-registar-poslovnih-subjekata) | Državni zavod za statistiku | Nije navedena (data.gov.hr) | 2026-10-27 | `dzs-rps` |
 | [Sektor opće države](https://data.gov.hr/ckan/dataset/op-a-dr-ava) | Hrvatska narodna banka | [Otvorena dozvola](https://data.gov.hr/otvorena-dozvola) | 2026-10-27 | `hnb-opca-drzava` |
 | [Bilten HNB-a – dodatni gospodarski, financijski i monetarni pokazatelji](https://data.gov.hr/ckan/dataset/bilten-hnb-a) | Hrvatska narodna banka | [Otvorena dozvola](https://data.gov.hr/otvorena-dozvola) | 2026-10-27 | `hnb-bilten` |
@@ -49,7 +49,7 @@ Obrada (`pipeline/build.py`) koristi **40** skupova: **35** s Portala otvorenih 
 | [Prazni poslovni prostori](https://data.gov.hr/ckan/dataset/prazni-poslovni-prostori) | Grad Zagreb | [Otvorena dozvola](https://data.gov.hr/otvorena-dozvola) | 2026-10-28 | `zg-prazni-prostori` |
 | [Proračun Grada Zagreba 2026.](https://data.gov.hr/ckan/dataset/proracun-grada-zagreba-2026) | Grad Zagreb | [Otvorena dozvola](https://data.gov.hr/otvorena-dozvola) | 2026-10-28 | `zg-proracun-2026` |
 | [Proračun Grada Rijeke na 4.razini i Izvršenja na 5.razini konta](https://data.gov.hr/ckan/dataset/proracun-grada-rijeke-na-4-razini-konta) | Grad Rijeka | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.hr) | 2026-10-28 | `ri-proracun` |
-| [Poslovni prostori Grada Rijeke - U ZAKUPU](https://data.gov.hr/ckan/dataset/poslovni-prostori-u-zakupu) | Grad Rijeka | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.hr) | 2026-10-28 | `ri-prostori-zakup` |
+| [Poslovni prostori Grada Rijeke - U ZAKUPU](https://data.gov.hr/ckan/dataset/poslovni-prostori-u-zakupu) | Grad Rijeka | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.hr) | 2026-10-29 | `ri-prostori-zakup` |
 | [EU projekti u kojima je nositelj ili partner Grad Rijeka](https://data.gov.hr/ckan/dataset/eu-projekti-od-2013-godine) | Grad Rijeka | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.hr) | 2026-10-28 | `ri-eu-projekti` |
 
 ### B. Dopunski izvori tijela javne vlasti
@@ -59,6 +59,7 @@ Pravila datathona dopuštaju dopunu podacima iz drugih javno dostupnih izvora ti
 | Skup | Izdavatelj | Dozvola | Preuzeto | id (mapa) |
 | --- | --- | --- | --- | --- |
 | [Bruto domaći proizvod za Republiku Hrvatsku, HR_NUTS 2021. – HR NUTS 2 i županije u 2023. (priopćenje NR-2026-2-1)](https://podaci.dzs.hr/media/mmwmg1dv/nr-2026-2-1-bruto-domaći-proizvod-za-republiku-hrvatsku-hr_nuts-2021-hr-nuts-2-i-županije-u-2023.pdf) | Državni zavod za statistiku | Nije navedena (podaci.dzs.hr) | 2026-10-27 | `dzs-bdp-regije` |
+| [Procjena stanovništva Republike Hrvatske u 2025. (priopćenje STAN-2026-3-1)](https://podaci.dzs.hr/media/ae2kgoad/stan-2026-3-1-procjena-stanovništva-republike-hrvatske-u-2025.pdf) | Državni zavod za statistiku | Nije navedena (podaci.dzs.hr) | – | `dzs-procjena-stanovnistva` |
 | [Popis operacija – Program Konkurentnost i kohezija 2021.–2027.](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-PKK-30.9.2026.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | Nije navedena (eufondovi.gov.hr) | 2026-10-28 | `eu-pkk-2021-2027` |
 | [Popis operacija – Integrirani teritorijalni program 2021.–2027.](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-ITP-30.9.2026.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | Nije navedena (eufondovi.gov.hr) | 2026-10-28 | `eu-itp-2021-2027` |
 | [Popis operacija – Program Učinkoviti ljudski potencijali 2021.–2027.](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-u-okviru-PULJP-2021.-2027-final-table_30092026.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | Nije navedena (eufondovi.gov.hr) | 2026-10-28 | `eu-uljp-2021-2027` |
@@ -102,6 +103,7 @@ Uključuje i skupove koji su pregledani, ali se ne koriste, te neispravne izvore
 
 | id (mapa) | Skup | Izdavatelj | Formati | Način | Issue | Napomena |
 | --- | --- | --- | --- | --- | --- | --- |
+| `dzs-procjena-stanovnistva` | [Procjena stanovništva Republike Hrvatske u 2025. (priopćenje STAN-2026-3-1)](https://podaci.dzs.hr/media/ae2kgoad/stan-2026-3-1-procjena-stanovništva-republike-hrvatske-u-2025.pdf) | Državni zavod za statistiku | PDF | skripta (izravna poveznica) | #11 | Dopunski izvor (podaci.dzs.hr): procjena stanovništva po županijama sredinom godine 2021.–2025. Po gradovima i općinama DZS procjene ne objavljuje. |
 | `hzz-slobodna-mjesta` | [Slobodna radna mjesta po županijama u Hrvatskoj i u Europskoj uniji](https://data.gov.hr/ckan/dataset/slobodna-radna-mjesta-po-zupanijama-u-rh-i-eu) | Hrvatski zavod za zapošljavanje | XML | skripta | #7 | XML. Pregledano, ne koristi se (preuzimanje: --samo hzz-slobodna-mjesta). |
 | `dzs-poduzeca` | [Statistika u nizu: Poduzeća](https://data.gov.hr/ckan/dataset/statistika-u-nizu-poduzeca) | Državni zavod za statistiku | XLSX | skripta | #7 | Provjeriti razinu županija. Pregledano, ne koristi se (preuzimanje: --samo dzs-poduzeca). |
 | `dzs-turizam` | [Statistika u nizu:  Turizam](https://data.gov.hr/ckan/dataset/statistika-u-nizu-turizam) | Državni zavod za statistiku | XLSX | skripta | #7 | Pregledano, ne koristi se (preuzimanje: --samo dzs-turizam). |

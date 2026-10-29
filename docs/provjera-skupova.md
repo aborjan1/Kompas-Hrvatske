@@ -133,6 +133,14 @@ Stanje: 29. 10. 2026. Izvor: Ministarstvo financija, [Financijski izvještaji JL
 - **Greška u izvoru:** u zbirnom listu za cijelu Hrvatsku rashodi po funkcijama za 2025. iznose 0,79 mlrd. EUR, a zbroj jedinica 5,84 mlrd. EUR (npr. „Opće javne usluge” 261 mil. umjesto 1.200 mil.). Za ranije godine zbirni list je ispravan. Obrada koristi zbroj jedinica i ispisuje upozorenje.
 - Rashodi po funkcijama (RAS-funkcijski) ne uključuju prijenose drugim proračunima, pa je njihov zbroj oko 9 % manji od rashoda iz PR-RAS-a.
 
+## Procjena stanovništva
+
+Izvor: DZS, [Procjena stanovništva Republike Hrvatske u 2025.](https://podaci.dzs.hr/media/ae2kgoad/stan-2026-3-1-procjena-stanovništva-republike-hrvatske-u-2025.pdf) (`dzs-procjena-stanovnistva`, PDF, dopunski izvor). Iz tablice 1. čita se stanovništvo po županijama sredinom godine 2021.–2025.
+
+- Procjene postoje **samo za državu i županije**; po gradovima i općinama DZS ih ne objavljuje. Zato svi iznosi po stanovniku ostaju na Popisu 2021., da sve razine dijele istim nazivnikom.
+- Promjena se računa između procjena sredinom 2021. i sredinom 2025. (ne prema Popisu, koji je na drugi datum). Hrvatska: 3.878.981 → 3.874.993 (−0,1 %), s najnižom točkom 2022. (3.855.641).
+- Provjera: zbroj županija = država (3.874.993).
+
 ## Greške u izvorima koje obrada ispravlja
 
 Sve su ispravljene u kodu, a ne ručno u datotekama, pa se popravak ponavlja pri svakom pokretanju.
