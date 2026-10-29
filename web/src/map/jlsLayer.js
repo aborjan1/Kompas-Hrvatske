@@ -1,7 +1,7 @@
 // City and municipality (JLS) choropleth for one county at a time, loaded from
 // public/data/jls/<county code>.geojson when the user enters that county. Inside the
 // county every JLS is filled by class, like the counties at country level; once one
-// is selected it alone keeps its colour, with a dark outline.
+// is selected the rest fade, so the surroundings stay readable around it.
 
 import { JLS_BOUNDARIES_URL } from './config.js';
 import { CLASS_COLORS, colorExpression, FILL_OPACITY, quantileClasses } from './countyLayer.js';
@@ -11,7 +11,9 @@ export const JLS_SOURCE = 'jls';
 export const JLS_FILL_LAYER = 'jls-fill';
 const LINE_LAYER = 'jls-line';
 const HOVER_LAYER = 'jls-hover';
+const SELECTED_HALO_LAYER = 'jls-selected-halo';
 const SELECTED_LAYER = 'jls-selected';
+const FADED_OPACITY = FILL_OPACITY / 2;
 
 /** @type {GeoJSON.FeatureCollection} */
 const EMPTY = { type: 'FeatureCollection', features: [] };
@@ -43,10 +45,18 @@ export function createJlsLayer(map) {
     type: 'line',
     paint: { 'line-color': '#1f1f1d', 'line-width': 1.5, 'line-opacity': ['case', isHovered, 1, 0] },
   });
+  // A white halo under the dark outline keeps the selection visible on any class colour.
+  addLayer({
+    id: SELECTED_HALO_LAYER,
+    type: 'line',
+    layout: { 'line-join': 'round' },
+    paint: { 'line-color': '#ffffff', 'line-width': 6, 'line-opacity': ['case', isSelected, 0.9, 0] },
+  });
   addLayer({
     id: SELECTED_LAYER,
     type: 'line',
-    paint: { 'line-color': '#1f1f1d', 'line-width': 2, 'line-opacity': ['case', isSelected, 1, 0] },
+    layout: { 'line-join': 'round' },
+    paint: { 'line-color': '#1f1f1d', 'line-width': 2.5, 'line-opacity': ['case', isSelected, 1, 0] },
   });
 
   let county = null;
@@ -73,11 +83,11 @@ export function createJlsLayer(map) {
     applyOpacity();
   }
 
-  // Every JLS while browsing the county, only the selected one once there is one. No
+  // Every JLS while browsing the county; once one is selected the others fade. No
   // values (the tema has nothing for cities): outlines only.
   function applyOpacity() {
     let opacity = 0;
-    if (values) opacity = selected ? ['case', isSelected, FILL_OPACITY, 0] : FILL_OPACITY;
+    if (values) opacity = selected ? ['case', isSelected, FILL_OPACITY, FADED_OPACITY] : FILL_OPACITY;
     map.setPaintProperty(JLS_FILL_LAYER, 'fill-opacity', opacity);
   }
 

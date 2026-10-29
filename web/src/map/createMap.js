@@ -13,9 +13,6 @@ import {
   CROATIA_BOUNDS,
   FOCUS_PADDING,
   MAX_ZOOM,
-  TERRAIN_ATTRIBUTION,
-  TERRAIN_EXAGGERATION,
-  TERRAIN_TILES,
 } from './config.js';
 import { clampToHull } from './geometry.js';
 
@@ -45,9 +42,8 @@ export function createMap(container) {
   map.on('style.load', () => {
     useLocalLabels(map);
     addCountryBorders(map);
-    addGlobeAndTerrain(map);
+    addGlobe(map);
   });
-  map.on('pitchend', () => terrainWhenTilted(map));
 
   return map;
 }
@@ -98,31 +94,39 @@ export function unlockCamera(map) {
   map.setTransformConstrain(null);
 }
 
+// Turns the user's scroll, drag, keyboard and touch camera controls on or off. The
+// zoom buttons stay; a click on them ends the flight and the lock applies right there.
+/**
+ * @param {import('maplibre-gl').MapLibreMap} map
+ * @param {boolean} enabled
+ */
+export function setUserInput(map, enabled) {
+  const handlers = [
+    map.scrollZoom,
+    map.boxZoom,
+    map.dragRotate,
+    map.dragPan,
+    map.keyboard,
+    map.doubleClickZoom,
+    map.touchZoomRotate,
+    map.touchPitch,
+  ];
+  for (const handler of handlers) {
+    if (enabled) handler.enable();
+    else handler.disable();
+  }
+}
+
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
-// Re-applied on every style load, so a basemap switch (orthophoto, phase 7) keeps them.
-function addGlobeAndTerrain(map) {
+// Re-applied on every style load, so a basemap switch (orthophoto, phase 7) keeps it.
+// Relief is the style's own hillshade; 3D terrain popped in on tilt and cost a second DEM.
+function addGlobe(map) {
   map.setProjection({ type: 'globe' });
   // Atmosphere glow around the globe, fading out as the camera nears the ground.
   map.setSky({ 'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, 1, 5, 1, 7, 0] });
-  map.addSource('teren', {
-    type: 'raster-dem',
-    tiles: [TERRAIN_TILES],
-    encoding: 'terrarium',
-    tileSize: 512,
-    maxzoom: 12,
-    attribution: TERRAIN_ATTRIBUTION,
-  });
-}
-
-// Terrain is invisible from straight above and slow to load (every visible tile needs
-// elevation too), so it is on only while the camera is tilted.
-function terrainWhenTilted(map) {
-  const tilted = map.getPitch() > 0;
-  if (tilted === Boolean(map.getTerrain())) return;
-  map.setTerrain(tilted ? { source: 'teren', exaggeration: TERRAIN_EXAGGERATION } : null);
 }
 
 // The style shows English or Latin names ("Croatia"); show the Croatian name where

@@ -11,7 +11,7 @@
     INTRO_DURATION,
   } from './config.js';
   import { createCountyLayer, FILL_LAYER, SOURCE } from './countyLayer.js';
-  import { createMap, lockToArea, lockToCroatia, unlockCamera } from './createMap.js';
+  import { createMap, lockToArea, lockToCroatia, setUserInput, unlockCamera } from './createMap.js';
   import { formatNumber } from './format.js';
   import { addHoverTooltip } from './hover.js';
   import { convexHull, simplifiedOutline } from './geometry.js';
@@ -98,26 +98,27 @@
       function focusOn(bounds, { croatia = false, intro = false } = {}) {
         const token = ++focusToken;
         unlockCamera(map);
-        const options = { padding: FOCUS_PADDING, pitch: map.getPitch() };
-        const target = map.cameraForBounds(bounds, options);
-        // moveend also fires when a newer move interrupts an older one, so lock only
-        // once the camera has actually arrived.
+        // A scroll or drag mid-flight would cancel it before the lock applies and leave
+        // the camera free to zoom out to space, so input waits for the landing.
+        setUserInput(map, false);
+        // moveend also fires when a newer focusOn() interrupts this move; that one
+        // locks instead.
         const arrived = () => {
-          if (token !== focusToken) return map.off('moveend', arrived);
-          if (target) {
-            const zoom = Math.min(target.zoom, map.getMaxZoom());
-            const offset = map.project(map.getCenter()).dist(map.project(target.center));
-            if (Math.abs(map.getZoom() - zoom) > 0.05 || offset > 2) return;
-          }
           map.off('moveend', arrived);
+          if (token !== focusToken) return;
           if (croatia) lockToCroatia(map, hull);
           else lockToArea(map, bounds);
+          setUserInput(map, true);
         };
         // Listen first: under prefers-reduced-motion the move is a jump, whose moveend
         // fires inside fitBounds().
         map.on('moveend', arrived);
         // Not `essential`, so MapLibre jumps instead of flying under prefers-reduced-motion.
-        map.fitBounds(bounds, { ...options, ...(intro && { duration: INTRO_DURATION }) });
+        map.fitBounds(bounds, {
+          padding: FOCUS_PADDING,
+          pitch: map.getPitch(),
+          ...(intro && { duration: INTRO_DURATION }),
+        });
       }
 
       // The first call is the intro: from the globe (createMap) straight down to the
