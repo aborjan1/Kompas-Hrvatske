@@ -16,7 +16,6 @@ Ključ s [cloud.maptiler.com](https://cloud.maptiler.com/account/keys/) upiši u
 ```powershell
 Copy-Item .env.example .env.local   # pa u .env.local upiši VITE_MAPTILER_KEY=...
 ```
-
 ## Struktura
 
 - `src/map/` – karta (MapLibre slojevi i kamera). Neovisno o frameworku: UI poziva samo `createMap(container)`.
