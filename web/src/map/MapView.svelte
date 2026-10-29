@@ -12,7 +12,7 @@
   } from './config.js';
   import { createCountyLayer, FILL_LAYER, SOURCE } from './countyLayer.js';
   import { createMap, lockToArea, lockToCroatia, setUserInput, unlockCamera } from './createMap.js';
-  import { formatNumber } from './format.js';
+  import { formatVrijednost } from '../data/format.js';
   import { addHoverTooltip } from './hover.js';
   import { convexHull, simplifiedOutline } from './geometry.js';
   import { hidePlacesOutside } from './labels.js';
@@ -20,6 +20,21 @@
   import { LegendControl } from './legend.js';
 
   let container;
+
+  // Legend rows carry short units ("563 mil. €", "3,3 %"); a long one such as
+  // "na 1.000 stanovnika" or "po stanovniku" goes once into the title instead.
+  /** @param {import('../data/indicator.js').Indicator | null} ind */
+  function legendText(ind) {
+    if (!ind) return { title: '' };
+    const eur = ind.unit.startsWith('EUR');
+    const short = eur || ['%', 'osoba', 'broj', 'godina'].includes(ind.unit);
+    const rowUnit = eur ? 'EUR' : short ? ind.unit : 'broj';
+    const titleUnit = eur ? ind.unit.slice(3) : short ? '' : ` (${ind.unit})`;
+    return {
+      title: `${ind.title}${titleUnit}`,
+      format: (/** @type {number} */ v) => formatVrijednost(v, rowUnit, ind.decimale),
+    };
+  }
 
   onMount(() => {
     const map = createMap(container);
@@ -72,7 +87,7 @@
           shownJls = null;
           legendData = jls.clearValues();
         }
-        legend.update({ title: ind?.title ?? '', unit: ind?.unit, ...legendData });
+        legend.update({ ...legendText(ind), ...legendData });
         colouredLevel = ind?.razina ?? null;
         showColouredAreas();
       });
@@ -168,7 +183,7 @@
         describe: (f) => ({
           title: f.properties.naziv,
           detail: Number.isFinite(f.state.value)
-            ? `${formatNumber(f.state.value)} ${shown.unit}`
+            ? formatVrijednost(f.state.value, shown.unit, shown.decimale)
             : 'nema podatka',
         }),
       });
@@ -179,7 +194,7 @@
           title: f.properties.naziv,
           detail:
             !shownJls ? 'nema podatka za ovu temu'
-            : Number.isFinite(f.state.value) ? `${formatNumber(f.state.value)} ${shownJls.unit}`
+            : Number.isFinite(f.state.value) ? formatVrijednost(f.state.value, shownJls.unit, shownJls.decimale)
             : 'nema podatka',
         }),
       });

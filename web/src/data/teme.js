@@ -6,6 +6,33 @@
 // `boje` is the tema's map ramp: five classes, one hue, light → dark, OKLab lightness
 // ~0.93 → ~0.35 in even steps. The fourth step doubles as the tema's accent colour.
 
+// Everyday names for the indicators, shown on the map and in the panels instead of the
+// official ones from meta.json (still shown on hover in the info panel). Keys missing
+// here fall back to the official name.
+/** @type {Record<string, string>} */
+export const JEDNOSTAVNI_NAZIVI = {
+  stanovnistvo: 'Broj stanovnika',
+  prosjecna_starost: 'Prosječna dob stanovnika',
+  prosjecna_neto_placa: 'Prosječna plaća (na ruke)',
+  stopa_nezaposlenosti: 'Nezaposlenost',
+  neto_dohodak: 'Ukupna primanja stanovnika',
+  bdp: 'Vrijednost gospodarstva (BDP)',
+  bruto_dodana_vrijednost: 'Koliko gospodarstvo zaradi',
+  eu_2127_ugovoreno: 'Novac iz EU fondova (2021.–2027.)',
+  hbor_krediti: 'Krediti iz EU fondova (HBOR)',
+  inflacija: 'Rast cijena (inflacija)',
+  lokalni_prihodi: 'Prihodi grada ili općine',
+  lokalna_ulaganja: 'Ulaganja grada ili općine',
+  udio_pomoci_u_prihodima: 'Dio proračuna koji dolazi iz pomoći',
+  porez_na_dohodak: 'Plaćeni porez na plaće',
+  stopa_poreza_dohodak_niza: 'Porez na plaću (niža stopa)',
+  stopa_poreza_dohodak_visa: 'Porez na plaću (viša stopa)',
+  porez_na_potrosnju: 'Porez na piće u kafićima i restoranima',
+  porez_na_nekretnine: 'Porez na nekretnine',
+  kupoprodaje_nekretnina: 'Prodane nekretnine',
+  pravne_osobe_aktivne: 'Aktivne tvrtke i udruge',
+};
+
 /**
  * @type {Record<import('../state.js').Tema, {
  *   boje: string[],
