@@ -1,0 +1,12 @@
+# Postavke za ruff (provjera i formatiranje Python koda)
+# Provjera:     ruff check pipeline
+# Formatiranje: ruff format pipeline
+
+target-version = "py312"
+line-length = 100
+
+[lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+
+[format]
+quote-style = "double"
