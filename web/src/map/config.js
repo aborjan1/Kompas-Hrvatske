@@ -17,8 +17,5 @@ export const MAX_BOUNDS = [
 
 export const LABEL_LANGUAGE = 'hr';
 
-// Dev fixture: geoBoundaries HRV ADM1 (ODbL, © OpenStreetMap contributors) with
-// `sifra`/`naziv` added.
-// TODO(David): waiting on the data contract + sample file. Point this at the
-// county GeoJSON in web/public/data/, check the property names, delete dev/.
-export { default as COUNTY_BOUNDARIES_URL } from './dev/zupanije.mock.geojson?url';
+// Official DGU county boundaries from pipeline/build.py (docs/format-podataka.md).
+export const COUNTY_BOUNDARIES_URL = `${import.meta.env.BASE_URL}data/zupanije.geojson`;

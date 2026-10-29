@@ -17,12 +17,11 @@ npm run build    # izlaz u web/dist/
   - `countyLayer.js` – choropleth županija: `createCountyLayer(map, geojson).setValues({ [sifra]: broj })`, 5 kvantilnih razreda
   - `legend.js` – legenda kao MapLibre kontrola
   - `hover.js` – isticanje granice i oblačić za bilo koji sloj poligona (`addHoverTooltip`)
-  - `dev/` – privremeni mock (granice iz geoBoundaries, ODbL; izmišljene vrijednosti) dok ne stignu pravi podaci
-  - `MapView.svelte` – tanki Svelte omotač
+  - `MapView.svelte` – tanki Svelte omotač: granice iz `public/data/zupanije.geojson`, boje iz storea `indicator` (`src/data/indicator.js`)
 - `src/state.js` – zajedničko stanje (vidi dolje)
 - `src/data/indicator.js` – pretvara temu i mjeru u brojke po šifri (stub, čeka format podataka)
 - `src/panels/`, `src/stories/` – sučelje (u izradi)
-- `public/data/` – gotove GeoJSON/JSON datoteke iz `pipeline/` (u izradi)
+- `public/data/` – gotove GeoJSON/JSON datoteke iz `pipeline/` (format: `docs/format-podataka.md`)
 
 ## Zajedničko stanje (`src/state.js`)
 
