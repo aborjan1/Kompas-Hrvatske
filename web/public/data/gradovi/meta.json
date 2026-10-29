@@ -1,5 +1,5 @@
 {
-  "generirano": "2026-10-29T13:42:56+00:00",
+  "generirano": "2026-10-29T13:52:20+00:00",
   "gradovi": {
     "zagreb": {
       "sifra": "01333",
@@ -351,7 +351,7 @@
       "izdavatelj": "Grad Rijeka",
       "poveznica": "https://data.gov.hr/ckan/dataset/poslovni-prostori-u-zakupu",
       "licenca": "Creative Commons Imenovanje 4.0 međunarodna",
-      "preuzeto": "2026-10-28",
+      "preuzeto": "2026-10-29",
       "dopunski": false
     },
     "ri-eu-projekti": {
