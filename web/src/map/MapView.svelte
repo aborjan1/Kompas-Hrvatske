@@ -2,11 +2,18 @@
   import { onMount } from 'svelte';
   import { indicator } from '../data/indicator.js';
   import { selectArea, view } from '../state.js';
-  import { COUNTY_BOUNDARIES_URL, CROATIA_BOUNDS, focusPadding } from './config.js';
+  import {
+    COUNTY_BOUNDARIES_URL,
+    CROATIA_BOUNDS,
+    FOCUS_PADDING,
+    INTRO_DURATION,
+  } from './config.js';
   import { createCountyLayer, FILL_LAYER, SOURCE } from './countyLayer.js';
-  import { createMap } from './createMap.js';
+  import { createMap, lockToCroatia } from './createMap.js';
   import { formatNumber } from './format.js';
   import { addHoverTooltip } from './hover.js';
+  import { convexHull, simplifiedOutline } from './geometry.js';
+  import { hidePlacesOutside } from './labels.js';
   import { LegendControl } from './legend.js';
 
   let container;
@@ -24,7 +31,10 @@
     map.on('load', async () => {
       const response = await fetch(COUNTY_BOUNDARIES_URL);
       if (!response.ok) throw new Error(`${COUNTY_BOUNDARIES_URL}: HTTP ${response.status}`);
-      const counties = createCountyLayer(map, await response.json());
+      const geojson = await response.json();
+      const counties = createCountyLayer(map, geojson);
+      const outline = simplifiedOutline(geojson);
+      hidePlacesOutside(map, outline);
 
       unsubscribe = indicator.subscribe((ind) => {
         // Values per city/municipality belong to the JLS layer (phase 4); until then
@@ -39,15 +49,36 @@
       // so the breadcrumb, search and URL move it the same way.
       map.on('click', FILL_LAYER, (e) => selectArea('zupanija', e.features[0].properties.sifra));
 
-      // createMap() already shows the whole country, so start from there.
-      let focused = 'drzava/null';
+      // Start the intro only once the globe is drawn, not over a blank sphere.
+      await new Promise((resolve) => map.once('idle', resolve));
+
+      // The first call is the intro: from the globe (createMap) straight down to the
+      // current area, which is the whole country unless the app opened on a county.
+      let focused = null;
       unsubscribeView = view.subscribe(({ razina, podrucje }) => {
         const key = `${razina}/${podrucje}`;
         if (key === focused) return;
+        const intro = focused === null;
         focused = key;
-        // TODO(#23): a city or municipality needs the JLS boundaries.
-        const bounds = razina === 'drzava' ? CROATIA_BOUNDS : counties.bounds(podrucje);
-        if (bounds) map.fitBounds(bounds, { padding: focusPadding(container.clientWidth) });
+        // TODO(#23): a city or municipality needs the JLS boundaries; until then the
+        // intro lands on the whole country.
+        const bounds =
+          razina === 'zupanija' ? counties.bounds(podrucje)
+          : razina === 'drzava' || intro ? CROATIA_BOUNDS
+          : null;
+        if (!bounds) return;
+
+        // Listen first: under prefers-reduced-motion the intro is a jump, whose moveend
+        // fires inside fitBounds().
+        if (intro) {
+          map.once('moveend', () => lockToCroatia(map, convexHull(outline.coordinates.flat(2))));
+        }
+        // Not `essential`, so MapLibre jumps instead of flying under prefers-reduced-motion.
+        map.fitBounds(bounds, {
+          padding: FOCUS_PADDING,
+          pitch: map.getPitch(),
+          ...(intro && { duration: INTRO_DURATION }),
+        });
       });
 
       addHoverTooltip(map, {
@@ -76,5 +107,7 @@
   .map {
     position: absolute;
     inset: 0;
+    /* Space behind the globe. */
+    background: #0b1222;
   }
 </style>

@@ -13,6 +13,8 @@ const HOVER_LAYER = 'zupanije-hover';
 // Sequential blue, light → dark, one hue so order reads without relying on hue.
 export const CLASS_COLORS = ['#cde2fb', '#86b6ef', '#3987e5', '#1c5cab', '#0d366b'];
 export const NO_DATA_COLOR = '#d6d5d1';
+// Light enough for roads and relief to show through.
+const FILL_OPACITY = 0.1;
 
 /**
  * @param {import('maplibre-gl').MapLibreMap} map
@@ -26,14 +28,16 @@ export function createCountyLayer(map, geojson) {
 
   map.addSource(SOURCE, { type: 'geojson', data: geojson, promoteId: 'sifra' });
 
-  // Below the basemap labels so place names stay readable on top of the fill.
-  const beforeId = map.getStyle().layers.find((l) => l.type === 'symbol')?.id;
+  // Below roads and labels, so they stay readable on top of the fill.
+  const beforeId = map
+    .getStyle()
+    .layers.find((l) => l.type === 'symbol' || l['source-layer'] === 'transportation')?.id;
   map.addLayer(
     {
       id: FILL_LAYER,
       type: 'fill',
       source: SOURCE,
-      paint: { 'fill-color': NO_DATA_COLOR, 'fill-opacity': 0.85 },
+      paint: { 'fill-color': NO_DATA_COLOR, 'fill-opacity': FILL_OPACITY },
     },
     beforeId,
   );
@@ -42,7 +46,7 @@ export function createCountyLayer(map, geojson) {
       id: LINE_LAYER,
       type: 'line',
       source: SOURCE,
-      paint: { 'line-color': '#ffffff', 'line-width': 1 },
+      paint: { 'line-color': '#3a3a36', 'line-width': 0.8, 'line-opacity': 0.8 },
     },
     beforeId,
   );
@@ -54,7 +58,7 @@ export function createCountyLayer(map, geojson) {
       source: SOURCE,
       paint: {
         'line-color': '#1f1f1d',
-        'line-width': 2.5,
+        'line-width': 1.5,
         'line-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 1, 0],
       },
     },

@@ -9,11 +9,20 @@ npm run dev      # http://localhost:5173
 npm run build    # izlaz u web/dist/
 ```
 
+Podloga karte je MapTiler (besplatni plan: nekomercijalno, 5.000 učitavanja karte mjesečno).
+Ključ s [cloud.maptiler.com](https://cloud.maptiler.com/account/keys/) upiši u `web/.env.local`
+(ne ide u git), po uzoru na `web/.env.example`:
+
+```powershell
+Copy-Item .env.example .env.local   # pa u .env.local upiši VITE_MAPTILER_KEY=...
+```
+
 ## Struktura
 
 - `src/map/` – karta (MapLibre slojevi i kamera). Neovisno o frameworku: UI poziva samo `createMap(container)`.
-  - `config.js` – podloga, granice Hrvatske, jezik oznaka
-  - `createMap.js` – stvara kartu (OpenFreeMap Positron, oznake na hrvatskom)
+  - `config.js` – podloga (MapTiler Landscape), uvodni let, granice Hrvatske, raspon zuma
+  - `createMap.js` – stvara kartu (globus, oznake na hrvatskom, MapTiler logo, ograničenje kamere)
+  - `labels.js` – skriva nazive mjesta izvan Hrvatske
   - `countyLayer.js` – choropleth županija: `createCountyLayer(map, geojson).setValues({ [sifra]: broj })`, 5 kvantilnih razreda
   - `legend.js` – legenda kao MapLibre kontrola
   - `hover.js` – isticanje granice i oblačić za bilo koji sloj poligona (`addHoverTooltip`)
