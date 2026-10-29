@@ -2,7 +2,7 @@
 // only calls createMap() and talks to the returned MapLibre instance; it never
 // reaches into map internals. Later phases add layers via functions in this folder.
 
-import { LngLat, MapLibreMap, NavigationControl, setWorkerUrl } from 'maplibre-gl';
+import { LngLat, LngLatBounds, MapLibreMap, NavigationControl, setWorkerUrl } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './controls.css';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url';
@@ -68,6 +68,34 @@ export function lockToCroatia(map, hull) {
     center: LngLat.convert(/** @type {[number, number]} */ (clampToHull([center.lng, center.lat], hull))),
     zoom: clamp(zoom, minZoom, MAX_ZOOM),
   }));
+}
+
+// Keeps the camera on a selected county or city: the centre stays inside the area's
+// bounding box and the user can't zoom out past the framed view, so the area stays
+// in focus while they look around it.
+/**
+ * @param {import('maplibre-gl').MapLibreMap} map
+ * @param {import('maplibre-gl').LngLatBoundsLike} bounds
+ */
+export function lockToArea(map, bounds) {
+  const box = LngLatBounds.convert(bounds);
+  const framed = map.cameraForBounds(box, { padding: FOCUS_PADDING, pitch: map.getPitch() });
+  const minZoom = Math.min(framed?.zoom ?? map.getZoom(), MAX_ZOOM);
+  map.setMinZoom(minZoom);
+  map.setTransformConstrain((center, zoom) => ({
+    center: new LngLat(
+      clamp(center.lng, box.getWest(), box.getEast()),
+      clamp(center.lat, box.getSouth(), box.getNorth()),
+    ),
+    zoom: clamp(zoom, minZoom, MAX_ZOOM),
+  }));
+}
+
+// Lifts lockToCroatia() / lockToArea(), so the camera can fly to another area.
+/** @param {import('maplibre-gl').MapLibreMap} map */
+export function unlockCamera(map) {
+  map.setMinZoom(null);
+  map.setTransformConstrain(null);
 }
 
 function clamp(value, min, max) {

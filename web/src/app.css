@@ -5,7 +5,22 @@ body,
   height: 100%;
 }
 
+:root {
+  --kh-tekst: #1f1f1d;
+  --kh-tekst-blago: #6b6a65;
+  --kh-naglasak: #1c5cab;
+  --kh-rub: #e2e1dc;
+  --kh-pozadina-blaga: #f0efeb;
+}
+
 body {
   font-family: system-ui, sans-serif;
   background: #f2f2f0;
+}
+
+/* Floating panel card, shared by everything in src/panels/. */
+.kh-panel {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }

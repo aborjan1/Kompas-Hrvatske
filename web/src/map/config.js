@@ -35,3 +35,8 @@ export const LABEL_LANGUAGE = 'hr';
 
 // Official DGU county boundaries from pipeline/build.py (docs/format-podataka.md).
 export const COUNTY_BOUNDARIES_URL = `${import.meta.env.BASE_URL}data/zupanije.geojson`;
+
+// City and municipality boundaries, one file per county.
+/** @param {string} countyCode */
+export const JLS_BOUNDARIES_URL = (countyCode) =>
+  `${import.meta.env.BASE_URL}data/jls/${countyCode}.geojson`;

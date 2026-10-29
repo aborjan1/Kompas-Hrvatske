@@ -7,9 +7,11 @@ import './hover.css';
 /**
  * @param {import('maplibre-gl').MapLibreMap} map
  * @param {{ layerId: string, source: string,
- *   describe: (feature: import('maplibre-gl').MapGeoJSONFeature) => { title: string, detail: string } }} options
+ *   describe: (feature: import('maplibre-gl').MapGeoJSONFeature) => { title: string, detail: string },
+ *   yieldTo?: string[] }} options `yieldTo`: layers drawn above this one that own the
+ *   hover where they have features (a county yields to its cities and municipalities).
  */
-export function addHoverTooltip(map, { layerId, source, describe }) {
+export function addHoverTooltip(map, { layerId, source, describe, yieldTo = [] }) {
   const popup = new Popup({
     closeButton: false,
     closeOnClick: false,
@@ -26,6 +28,11 @@ export function addHoverTooltip(map, { layerId, source, describe }) {
   }
 
   map.on('mousemove', layerId, (e) => {
+    if (yieldTo.length && map.queryRenderedFeatures(e.point, { layers: yieldTo }).length) {
+      setHovered(null);
+      popup.remove();
+      return;
+    }
     const feature = e.features[0];
     if (feature.id !== hoveredId) setHovered(feature.id);
 

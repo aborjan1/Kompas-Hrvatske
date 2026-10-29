@@ -3,18 +3,20 @@
 // Values arrive separately as { [sifra]: number } so the map doesn't care which
 // indicator is selected or where it came from; that's decided by app state.
 
-import { LngLatBounds } from 'maplibre-gl';
+import { geometryBounds } from './geometry.js';
 
 export const SOURCE = 'zupanije';
 export const FILL_LAYER = 'zupanije-fill';
 const LINE_LAYER = 'zupanije-line';
 const HOVER_LAYER = 'zupanije-hover';
 
-// Sequential blue, light → dark, one hue so order reads without relying on hue.
+// Default ramp when the caller passes none: sequential blue, light → dark, one hue so
+// order reads without relying on hue. Each tema brings its own ramp (src/data/teme.js).
 export const CLASS_COLORS = ['#cde2fb', '#86b6ef', '#3987e5', '#1c5cab', '#0d366b'];
 export const NO_DATA_COLOR = '#d6d5d1';
-// Light enough for roads and relief to show through.
-const FILL_OPACITY = 0.1;
+// Opaque enough that the five classes stay distinct over the basemap; roads and
+// labels are drawn above the fill, so they stay readable.
+export const FILL_OPACITY = 0.8;
 
 /**
  * @param {import('maplibre-gl').MapLibreMap} map
@@ -73,11 +75,25 @@ export function createCountyLayer(map, geojson) {
     bounds: (code) => boundsByCode.get(code),
 
     /**
+     * Colours only these counties and leaves the rest as plain basemap: one when a
+     * county is selected, none when a city is. null colours every county again.
+     * @param {string[] | null} only
+     */
+    showOnly(only) {
+      map.setPaintProperty(
+        FILL_LAYER,
+        'fill-opacity',
+        only ? ['case', ['in', ['get', 'sifra'], ['literal', only]], FILL_OPACITY, 0] : FILL_OPACITY,
+      );
+    },
+
+    /**
      * Colours counties by value in up to 5 quantile classes.
      * @param {Record<string, number | null>} values
+     * @param {string[]} [colors] Five colours, light → dark.
      * @returns {{ classes: { color: string, min: number, max: number }[], hasMissing: boolean }}
      */
-    setValues(values) {
+    setValues(values, colors = CLASS_COLORS) {
       for (const code of codes) {
         // Clear only `value`; `hover` state belongs to the hover handler.
         map.removeFeatureState({ source: SOURCE, id: code }, 'value');
@@ -86,7 +102,7 @@ export function createCountyLayer(map, geojson) {
       }
 
       const present = codes.map((c) => values[c]).filter(Number.isFinite);
-      const classes = quantileClasses(present, CLASS_COLORS);
+      const classes = quantileClasses(present, colors);
       map.setPaintProperty(FILL_LAYER, 'fill-color', colorExpression(classes));
 
       return { classes, hasMissing: present.length < codes.length };
@@ -94,10 +110,10 @@ export function createCountyLayer(map, geojson) {
   };
 }
 
-// Splits sorted values into equal-count classes. Duplicate values never straddle
+// Splits sorted values into equal-count classes. Shared with the JLS layer. Duplicate values never straddle
 // a break, so fewer classes come back when data has many ties; colours are then
 // spread across the full ramp so the darkest class still means "highest".
-function quantileClasses(values, colors) {
+export function quantileClasses(values, colors) {
   const sorted = [...values].sort((a, b) => a - b);
   if (sorted.length === 0) return [];
 
@@ -118,14 +134,7 @@ function quantileClasses(values, colors) {
   }));
 }
 
-function geometryBounds(geometry) {
-  const bounds = new LngLatBounds();
-  const extend = (c) => (typeof c[0] === 'number' ? bounds.extend(c) : c.forEach(extend));
-  extend(geometry.coordinates);
-  return bounds;
-}
-
-function colorExpression(classes) {
+export function colorExpression(classes) {
   const value = ['feature-state', 'value'];
   if (classes.length === 0) return NO_DATA_COLOR;
 
