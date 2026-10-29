@@ -802,3 +802,39 @@ def lokalni_proracuni() -> tuple[pd.DataFrame, str]:
     df = df.drop_duplicates(["zupanija", "razina", "naziv", "godina", "stavka"])
     zadnja = max(df["godina"])
     return df, zadnja
+
+
+def procjena_stanovnistva() -> tuple[pd.DataFrame, str, str]:
+    """DZS, Procjena stanovništva RH (PDF priopćenje), tablica 1.: ukupno stanovništvo po
+    županijama sredinom godine. Vraća (tablica zupanija × godina, prva, zadnja godina)."""
+    import logging
+
+    import pdfplumber
+
+    logging.getLogger("pdfminer").setLevel(logging.ERROR)
+    put = nadji("dzs-procjena-stanovnistva", ".pdf")
+    with pdfplumber.open(put) as pdf:
+        stranica = next(
+            s
+            for s in pdf.pages
+            if "PROCJENA UKUPNOG STANOVNIŠTVA" in (s.extract_text() or "")
+            and "PO ŽUPANIJAMA" in (s.extract_text() or "")
+        )
+        retci = _pdf_retci(stranica)
+    godine: list[str] = []
+    zapisi = {}
+    for _, rijeci in retci:
+        naziv = " ".join(w["text"] for w in rijeci if not re.search(r"\d", w["text"])).strip()
+        brojevi = _pdf_brojevi(rijeci)
+        if naziv == "Županija":
+            godine = [str(int(b)) for b in brojevi]
+            continue
+        if not godine or len(brojevi) != len(godine):
+            continue
+        sifra = "HR" if naziv == "Republika Hrvatska" else sifra_zupanije(naziv)
+        if sifra:
+            zapisi[sifra] = dict(zip(godine, brojevi, strict=True))
+    t = pd.DataFrame(zapisi).T
+    if len(t) != 22:
+        raise ValueError(f"Procjena stanovništva: očekujem 21 županiju + RH, a ima {len(t)}")
+    return t, godine[0], godine[-1]

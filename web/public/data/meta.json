@@ -1,6 +1,6 @@
 {
   "verzija_formata": 1,
-  "generirano": "2026-10-29T13:52:20+00:00",
+  "generirano": "2026-10-29T14:05:30+00:00",
   "probni_podaci": false,
   "probne_granice": false,
   "napomene": [
@@ -27,6 +27,34 @@
       ],
       "izvor": "dzs-popis2021",
       "godina": "2021"
+    },
+    "stanovnistvo_procjena": {
+      "naziv": "Stanovništvo (procjena DZS-a)",
+      "tema": "ljudi",
+      "jedinica": "osoba",
+      "decimale": 0,
+      "po_stanovniku": null,
+      "razine": [
+        "drzava",
+        "zupanija"
+      ],
+      "izvor": "dzs-procjena-stanovnistva",
+      "napomena": "Procjena sredinom godine. Iznosi po stanovniku i dalje se računaju iz Popisa 2021., jer za gradove i općine novije procjene nema.",
+      "godina": "sredina 2025."
+    },
+    "promjena_stanovnistva": {
+      "naziv": "Promjena broja stanovnika",
+      "tema": "ljudi",
+      "jedinica": "%",
+      "decimale": 1,
+      "po_stanovniku": null,
+      "razine": [
+        "drzava",
+        "zupanija"
+      ],
+      "izvor": "dzs-procjena-stanovnistva",
+      "napomena": "Promjena procjene sredinom godine u odnosu na sredinu 2021. (useljavanje i iseljavanje te rođeni i umrli).",
+      "godina": "2021.→2025."
     },
     "gustoca_naseljenosti": {
       "naziv": "Gustoća naseljenosti",
@@ -510,6 +538,14 @@
       "licenca": "Otvorena dozvola (OD)",
       "preuzeto": "2026-10-27",
       "dopunski": false
+    },
+    "dzs-procjena-stanovnistva": {
+      "naziv": "Procjena stanovništva Republike Hrvatske u 2025. (priopćenje STAN-2026-3-1)",
+      "izdavatelj": "Državni zavod za statistiku",
+      "poveznica": "https://podaci.dzs.hr/media/ae2kgoad/stan-2026-3-1-procjena-stanovništva-republike-hrvatske-u-2025.pdf",
+      "licenca": "Nije navedena (podaci.dzs.hr)",
+      "preuzeto": "2026-10-29",
+      "dopunski": true
     },
     "dzs-rps": {
       "naziv": "Statistika u nizu:  Registar poslovnih subjekata",

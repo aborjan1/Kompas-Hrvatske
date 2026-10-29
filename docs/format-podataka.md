@@ -99,6 +99,8 @@ može dugo čuvati, a brojke se mijenjaju pri svakom pokretanju obrade.
 | Ključ | Tema | Jedinica | Po stanovniku | Razine | Godina |
 | --- | --- | --- | --- | --- | --- |
 | `stanovnistvo` | ljudi | osoba | — | država, županija, JLS | 2021. |
+| `stanovnistvo_procjena` | ljudi | osoba | — | država, županija | sredina 2025. |
+| `promjena_stanovnistva` | ljudi | % | — | država, županija | 2021.→2025. |
 | `gustoca_naseljenosti` | ljudi | st./km² | — | država, županija | 2021. |
 | `prosjecna_starost` | ljudi | godina | — | država, županija, JLS | 2021. |
 | `prosjecna_neto_placa` | ljudi | EUR | — | država, županija | 2025. |
@@ -147,6 +149,11 @@ državu zbroj svih lokalnih proračuna. Raspodjela je jako nejednaka (prihodi po
 641 do 15.959 EUR; Ervenik ima neuobičajeno velike prihode), pa za boje karte treba koristiti
 kvantile, a ne linearnu skalu. `udio_pomoci_u_prihodima` je dobra „priča”: u polovici
 općina pomoći čine više od 40 % prihoda, a u nekima više od 80 %.
+
+`stanovnistvo` je Popis 2021. i služi za sve iznose po stanovniku (za gradove i općine
+novije procjene nema). `stanovnistvo_procjena` i `promjena_stanovnistva` su DZS-ova procjena
+sredinom godine, samo za državu i županije. Dobra „priča”: Hrvatska je praktički na istom
+broju stanovnika (−0,1 %), ali Slavonija gubi 4–6 %, a Istra i Zadarska dobivaju 4–6 %.
 
 Prijedlog za panel Država (najviše 4 broja): stanovništvo, BDP, prosječna neto plaća
 i inflacija.

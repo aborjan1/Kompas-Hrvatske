@@ -92,6 +92,13 @@ def zupanije_i_drzava(godine: dict) -> pd.DataFrame:
         godine[p] = "2021"
     print("  stanovništvo i dob (Popis 2021.)")
 
+    pr, prva, zadnja = citaci.procjena_stanovnistva()
+    t["stanovnistvo_procjena"] = pr[zadnja]
+    t["promjena_stanovnistva"] = (pr[zadnja] / pr[prva] - 1) * 100
+    godine["stanovnistvo_procjena"] = f"sredina {zadnja}."
+    godine["promjena_stanovnistva"] = f"{prva}.→{zadnja}."
+    print(f"  procjena stanovništva ({prva}.–{zadnja}., DZS)")
+
     for citac, opis in [
         (citaci.place_zupanije, "neto plaće"),
         (citaci.zaposleni_zupanije, "zaposleni"),
@@ -370,6 +377,7 @@ def provjere(t: pd.DataFrame, jls: pd.DataFrame) -> None:
     print(f"  {'pokazatelj':26} {'zbroj županija':>18} {'država':>18}  razlika")
     for p in (
         "stanovnistvo",
+        "stanovnistvo_procjena",
         "zaposleni",
         "kupoprodaje_nekretnina",
         "neto_dohodak",
