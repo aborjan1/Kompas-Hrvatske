@@ -61,42 +61,82 @@
   });
 
   const temaNaziv = $derived($podaci.meta?.teme[$view.tema] ?? $view.tema);
+
+  // Phones only (the button is hidden on wider screens): the panel drops down to its
+  // title so the map is visible, and the arrow brings it back. Kept while browsing,
+  // so tapping around the map doesn't keep covering it.
+  let sklopljeno = $state(false);
 </script>
 
-<aside class="kh-panel info" aria-live="polite">
+<aside class="kh-panel info" class:sklopljeno aria-live="polite">
   {#if $podaci.greska}
     <p class="poruka">{$podaci.greska}</p>
   {:else if !podrucje}
     <p class="poruka">Učitavanje…</p>
   {:else}
-    <p class="tema" style:color={TEME_POKAZATELJI[$view.tema].boje[3]}>{temaNaziv}</p>
-    <h2>{podrucje.naziv}</h2>
-    {#if podnaslov}<p class="podnaslov">{podnaslov}</p>{/if}
+    <div class="zaglavlje">
+      <div class="naslov">
+        <p class="tema" style:color={TEME_POKAZATELJI[$view.tema].boje[3]}>{temaNaziv}</p>
+        <h2>{podrucje.naziv}</h2>
+      </div>
+      <button
+        type="button"
+        class="ladica"
+        aria-expanded={!sklopljeno}
+        aria-controls="info-detalji"
+        aria-label={sklopljeno ? 'Prikaži podatke' : 'Sakrij podatke'}
+        title={sklopljeno ? 'Prikaži podatke' : 'Sakrij podatke'}
+        onclick={() => (sklopljeno = !sklopljeno)}
+      >
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+          <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
 
-    {#if brojevi.length}
-      <dl>
-        {#each brojevi as b (b.kljuc)}
-          <div class="broj">
-            <dt title={b.opis}>{b.naziv}</dt>
-            <dd class:nedostaje={b.nedostaje}>{b.vrijednost}</dd>
-            <dd class="godina">{b.godina}</dd>
-          </div>
-        {/each}
-      </dl>
-    {:else}
-      <p class="poruka">Za ovu temu nema podataka na ovoj razini.</p>
-    {/if}
+    <div id="info-detalji" class="detalji">
+      {#if podnaslov}<p class="podnaslov">{podnaslov}</p>{/if}
 
-    {#if recenica}<p class="recenica">{recenica}</p>{/if}
+      {#if brojevi.length}
+        <dl>
+          {#each brojevi as b (b.kljuc)}
+            <div class="broj">
+              <dt title={b.opis}>{b.naziv}</dt>
+              <dd class:nedostaje={b.nedostaje}>{b.vrijednost}</dd>
+              <dd class="godina">{b.godina}</dd>
+            </div>
+          {/each}
+        </dl>
+      {:else}
+        <p class="poruka">Za ovu temu nema podataka na ovoj razini.</p>
+      {/if}
 
-    {#if $view.razina === 'zupanija'}<GrafUsporedbe />{/if}
-    {#if $view.razina === 'jls'}<UsporedbaSlicnih />{/if}
+      {#if recenica}<p class="recenica">{recenica}</p>{/if}
+
+      {#if $view.razina === 'zupanija'}<GrafUsporedbe />{/if}
+      {#if $view.razina === 'jls'}<UsporedbaSlicnih />{/if}
+    </div>
   {/if}
 </aside>
 
 <style>
   .info {
     padding: 14px 16px;
+  }
+
+  .zaglavlje {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .naslov {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ladica {
+    display: none;
   }
 
   .tema {
@@ -109,14 +149,20 @@
   }
 
   h2 {
-    margin: 2px 0 12px;
+    margin: 2px 0 4px;
     font-size: 18px;
     line-height: 1.25;
     color: var(--kh-tekst);
   }
 
+  /* Spacing between the title and the details lives here, not in a negative margin:
+     on phones the title row is sticky and would cover anything pulled up under it. */
+  .detalji {
+    padding-top: 8px;
+  }
+
   .podnaslov {
-    margin: -8px 0 12px;
+    margin: -4px 0 12px;
     font-size: 12px;
     color: var(--kh-tekst-blago);
   }
@@ -175,5 +221,73 @@
     margin: 0;
     font-size: 13px;
     color: var(--kh-tekst-blago);
+  }
+
+  /* Phones: an arrow drops the panel down to its title and brings it back. The title
+     row stays at the top while the details scroll under it. */
+  @media (max-width: 640px) {
+    .zaglavlje {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      margin: -14px -16px 0;
+      padding: 14px 16px 4px;
+      border-radius: 8px 8px 0 0;
+      background: #fff;
+    }
+
+    .ladica {
+      display: grid;
+      flex: none;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      margin: -2px -6px 0 0;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: var(--kh-pozadina-blaga);
+      color: var(--kh-tekst);
+      cursor: pointer;
+    }
+
+    .ladica:focus-visible {
+      outline: 2px solid var(--kh-naglasak);
+      outline-offset: 2px;
+    }
+
+    .ladica svg {
+      transition: transform 200ms ease;
+    }
+
+    .sklopljeno .ladica svg {
+      transform: rotate(180deg);
+    }
+
+    .sklopljeno {
+      padding-block: 10px;
+    }
+
+    .sklopljeno .zaglavlje {
+      margin-top: -10px;
+      padding-top: 10px;
+      padding-bottom: 0;
+      border-radius: 8px;
+    }
+
+    .sklopljeno h2 {
+      margin-bottom: 0;
+      font-size: 16px;
+    }
+
+    .sklopljeno .detalji {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) and (prefers-reduced-motion: reduce) {
+    .ladica svg {
+      transition: none;
+    }
   }
 </style>

@@ -62,16 +62,35 @@
     left: 50%;
     transform: translateX(-50%);
     display: grid;
+    /* minmax(0, …): the column must not grow to fit the unbroken source line, which
+       would widen the whole page on a phone. */
+    grid-template-columns: minmax(0, 1fr);
     justify-items: center;
     gap: 6px;
     width: min(620px, calc(100% - 24px));
   }
 
+  /* Phones: everything stacks at the bottom, above the map's logo and attribution
+     (the legend moves to the top left, see src/map/legend.css). */
   @media (max-width: 640px) {
+    /* Full width up to the zoom buttons in the top-right corner. */
+    .gore {
+      left: 12px;
+      right: 56px;
+      grid-template-columns: minmax(0, 1fr);
+      width: auto;
+      max-width: none;
+      transform: none;
+    }
+
+    .dolje {
+      bottom: 40px;
+    }
+
     .desno {
       top: auto;
       right: 12px;
-      bottom: 150px;
+      bottom: 180px;
       width: calc(100% - 24px);
       max-height: 40%;
     }
