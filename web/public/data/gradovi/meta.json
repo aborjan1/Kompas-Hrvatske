@@ -1,5 +1,5 @@
 {
-  "generirano": "2026-10-28T23:00:46+00:00",
+  "generirano": "2026-10-29T11:21:01+00:00",
   "gradovi": {
     "zagreb": {
       "sifra": "01333",
@@ -12,7 +12,8 @@
         "trznice": "trznice.geojson",
         "gradska-drustva": "gradska-drustva.geojson",
         "brownfield": "brownfield.geojson",
-        "gospodarske-zone": "gospodarske-zone.geojson"
+        "gospodarske-zone": "gospodarske-zone.geojson",
+        "prazni-prostori": "prazni-prostori.geojson"
       },
       "tablice": [
         "cetvrti.json",
@@ -44,18 +45,32 @@
           "najvisa": 96.5,
           "volumen_m3": 18459551
         }
+      },
+      "adrese": {
+        "ukupno": 733,
+        "tocno": 717,
+        "ulica": 16,
+        "nije_spojeno": 0
       }
     },
     "rijeka": {
       "sifra": "03735",
       "naziv": "Rijeka",
       "podrucja": null,
-      "slojevi": {},
+      "slojevi": {
+        "poslovni-prostori": "poslovni-prostori.geojson"
+      },
       "tablice": [
         "proracun.json",
         "poslovni-prostori.json",
         "eu-projekti.json"
       ],
+      "adrese": {
+        "ukupno": 1296,
+        "tocno": 1292,
+        "ulica": 3,
+        "nije_spojeno": 1
+      },
       "napomena": "Rijeka nema otvorene granice mjesnih odbora; granica grada je u jls/08.geojson (šifra 03735)."
     }
   },
@@ -271,6 +286,12 @@
       "naziv": "ZG3D Gradska četvrt Trnje 2022",
       "izdavatelj": "Grad Zagreb",
       "poveznica": "https://data.gov.hr/ckan/dataset/zg3d-gradska-cetvrt-trnje-2022",
+      "licenca": "Otvorena dozvola (OD)"
+    },
+    "dgu-adrese": {
+      "naziv": "Adrese INSPIRE (kućni brojevi cijele Hrvatske)",
+      "izdavatelj": "Državna geodetska uprava",
+      "poveznica": "https://geoportal.dgu.hr/services/atom/INSPIRE_Addresses_(AD).zip",
       "licenca": "Otvorena dozvola (OD)"
     },
     "zg-eu-projekti": {

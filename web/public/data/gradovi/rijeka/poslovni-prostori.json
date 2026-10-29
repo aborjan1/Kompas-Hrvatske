@@ -144,5 +144,5 @@
       "prosjecna_cijena_eur_m2": 9.95
     }
   },
-  "napomena": "Zakupnina je mjesečna (površina × jedinična cijena po m²). Zone su zone zakupnine Grada Rijeke; zona 0 ima najvišu cijenu (središte grada). Izvor nema koordinate, samo adrese."
+  "napomena": "Zakupnina je mjesečna (površina × jedinična cijena po m²). Zone su zone zakupnine Grada Rijeke; zona 0 ima najvišu cijenu (središte grada). Točke na karti su dobivene spajanjem adresa s registrom adresa DGU-a."
 }

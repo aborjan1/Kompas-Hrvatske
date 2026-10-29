@@ -2,7 +2,7 @@
 
 Ova datoteka nastaje automatski iz `data/sources.csv` (`python pipeline/popis_izvora.py`). Ne uređuj je ručno.
 
-Broj skupova: **69**. Skripta `pipeline/download.py` preuzima njih **50**, a ostali se preuzimaju ručno, koriste kao servis izravno na karti ili traže API registraciju.
+Broj skupova: **69**. Skripta `pipeline/download.py` preuzima njih **51**, a ostali se preuzimaju ručno, koriste kao servis izravno na karti ili traže API registraciju.
 
 Mapa u koju se skup sprema je `data/raw/<id>/`.
 
@@ -13,7 +13,6 @@ Mapa u koju se skup sprema je `data/raw/<id>/`.
 | `granice-upravne-jedinice` | [Upravne jedinice INSPIRE (granice države, županija, općina, naselja)](https://data.gov.hr/ckan/dataset/upravne-jedinice-inspire) | Državna geodetska uprava | GML (ZIP) | ručno | #12 | Ručno: https://geoportal.dgu.hr/services/atom/INSPIRE_Administrative_Units_(AU).zip (ATOM https://geoportal.dgu.hr/services/atom/au/xml; poveznica na data.gov.hr je prazna). EPSG:3035. |
 | `sifrarnik-jls` | [Popis županija, gradova i općina](https://data.gov.hr/ckan/dataset/popis-zupanija-gradova-i-opcina) | Ministarstvo pravosuđa, uprave i digitalne transformacije | HTML, XLS | skripta | #9 | Osnova za areas.csv |
 | `dzs-nkd` | [Nacionalna klasifikacija djelatnosti 2007.](https://data.gov.hr/ckan/dataset/nacionalna-klasifikacija-djelatnosti-2007) | Državni zavod za statistiku | JSON, PDF | skripta | #10 | Grupiranje tvrtki po djelatnosti |
-| `dgu-adrese` | [Adrese INSPIRE](https://data.gov.hr/ckan/dataset/adrese-inspire) | Državna geodetska uprava | ATOM, WMS | servis (WMS/WFS) | #16 | Adrese u točke (prazni prostori Zagreba) |
 | `sudreg` | [Sudski registar (REST API, uz besplatnu registraciju)](https://data.gov.hr/ckan/dataset/sudski-registar) | Ministarstvo pravosuđa, uprave i digitalne transformacije | API | API (registracija) | #4 | Besplatna registracija na sudreg-data.gov.hr (OAuth) |
 | `natural-earth-admin1` | [Natural Earth – Admin 1 States and Provinces (1:10m)](https://www.naturalearthdata.com/) | Natural Earth | GeoJSON | ručno | #6 | Samo probne granice; zamjenjuju se DGU granicama |
 
@@ -70,6 +69,7 @@ Mapa u koju se skup sprema je `data/raw/<id>/`.
 
 | id (mapa) | Skup | Izdavatelj | Formati | Način | Issue | Napomena |
 | --- | --- | --- | --- | --- | --- | --- |
+| `dgu-adrese` | [Adrese INSPIRE (kućni brojevi cijele Hrvatske)](https://geoportal.dgu.hr/services/atom/INSPIRE_Addresses_(AD).zip) | Državna geodetska uprava | GML (ZIP) | url | #16 | ATOM https://geoportal.dgu.hr/services/atom/ad/xml (skup "adrese" na data.gov.hr). EPSG:3035, 84 MB. Adrese praznih prostora Zagreba i prostora u zakupu Rijeke u točke. |
 | `dgu-ortofoto-2024` | [Digitalni ortofoto 1:5000 2024. (+ 2011.–2023., LIDAR 2022./23., 1:500 i 1:1000 – zasebni skupovi)](https://data.gov.hr/ckan/dataset/digitalni-ortofoto-u-mjerilu-1-5000-2024-godina) | Državna geodetska uprava | WMS, WMTS | servis (WMS/WFS) | #16 | WMTS: karta ga učitava uživo, ne preuzima se |
 | `zg3d` | [ZG3D 2022 – 3D model Grada Zagreba (+ 17 gradskih četvrti)](https://data.gov.hr/ckan/dataset/zg3d-2022-3d-model-gz) | Grad Zagreb | CSV, GeoJSON, XLSX, FGDB | ručno | #17 | Zamijenjeno skupovima po četvrtima (zg3d-donji-grad, zg3d-gornji-grad, zg3d-trnje). |
 | `zg3d-donji-grad` | [ZG3D Gradska četvrt Donji Grad 2022](https://data.gov.hr/ckan/dataset/zg3d-gradska-cetvrt-donji-grad-2022) | Grad Zagreb | GeoJSON | skripta | #17 | 3D zgrade (LoD 2.2) za 3D prikaz središta Zagreba; koristi se GeoJSON (visina = Z_Delta). |

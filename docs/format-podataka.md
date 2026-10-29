@@ -245,6 +245,7 @@ gradovi/
   zagreb/brownfield.geojson         poligoni: 43 napuštene površine
   zagreb/gospodarske-zone.geojson   poligoni: 553 gospodarske zone iz prostornih planova
   zagreb/zgrade-3d/<šifra>.geojson  3D zgrade (ZG3D) za Donji grad, Gornji grad–Medveščak i Trnje
+  zagreb/prazni-prostori.geojson    točke: 733 prazna gradska prostora i garaže (po adresi)
   zagreb/smjestaj.geojson           točke: 2.702 smještajna objekta (hotel, hostel, domaćinstvo)
   zagreb/trznice.geojson            točke: 31 gradska tržnica
   zagreb/gradska-drustva.geojson    točke: 33 gradska trgovačka društva
@@ -253,6 +254,7 @@ gradovi/
   rijeka/proracun.json              proračun 2025., isti oblik kao za Zagreb
   rijeka/poslovni-prostori.json     1.296 gradskih prostora u zakupu po zonama i djelatnostima
   rijeka/eu-projekti.json           popis 16 EU projekata Grada (2013.–2017.)
+  rijeka/poslovni-prostori.geojson  točke: 1.295 gradskih prostora u zakupu (po adresi)
 ```
 
 **Četvrti.** Šifra četvrti je službena 5-znamenkasta šifra iz Registra prostornih
@@ -304,6 +306,16 @@ map.addLayer({
 Datoteke učitati tek kad korisnik u prikazu Zagreba približi kartu (zoom 14 ili više),
 jer su zajedno oko 8,5 MB.
 
+**Prostori po adresi** nastaju spajanjem adrese iz gradske tablice s registrom adresa
+DGU-a. Svojstvo `tocnost` kaže koliko je točka pouzdana: `"tocno"` (ista ulica, broj i
+slovo), `"bez dodatka"` (ista ulica i broj) ili `"ulica"` (samo ulica, točka je sredina
+ulice, npr. za adrese „bez broja”). Zagreb (`prazni-prostori.geojson`): `vrsta` (poslovni
+prostor, poslovni prostor (ne ispunjava uvjete), garaža, parkirno mjesto), `adresa`,
+`povrsina` (m²), `cetvrt`. Rijeka (`poslovni-prostori.geojson`): `adresa`, `zona` (0 =
+najskuplja, središte; III = rub grada), `povrsina`, `djelatnost`, `cijena_eur_m2`,
+`zakupnina_mjesecno` (EUR). Imena zakupnika se namjerno ne prikazuju. Na istoj adresi može
+biti više prostora (npr. garaže u istoj zgradi), pa točke treba grupirati.
+
 **Točke** imaju svojstvo `cetvrt` (šifra četvrti u kojoj leže; `null` izvan grada).
 Kapitalna ulaganja imaju `godina` (2023 ili 2024) i `iznos` (EUR), pa sloj treba
 filtrirati po godini, npr. `["==", ["get", "godina"], 2024]`. Smještaj (oko 600 KB)
@@ -331,8 +343,8 @@ uz drugi:
 `napomena` treba prikazati uz usporedbu: Zagreb kao grad i županija financira i bolnice
 i srednje škole, pa njegov proračun po stanovniku nije izravno usporediv s Rijekom.
 
-**Rijeka** nema otvorene granice mjesnih odbora ni koordinate prostora. Na karti se
-prikazuje granica grada iz `jls/08.geojson` (šifra `03735`), a podaci u panelu.
+**Rijeka** nema otvorene granice mjesnih odbora. Na karti se prikazuje granica grada iz
+`jls/08.geojson` (šifra `03735`) i točke prostora u zakupu, a zbrojevi u panelu.
 
 ## Kako se mijenja ovaj format
 
