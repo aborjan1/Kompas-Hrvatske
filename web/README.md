@@ -33,6 +33,8 @@ Copy-Item .env.example .env.local   # pa u .env.local upiši VITE_MAPTILER_KEY=.
   - `indicator.js` – pretvara razinu, temu i mjeru u brojke po šifri za kartu
   - `format.js` – formatiranje brojeva prema `jedinica` i `decimale` iz `meta.json`
 - `src/panels/` – lebdeći paneli: putanja, info panel, teme i prekidač ukupno / po stanovniku
+  - `GrafUsporedbe.svelte` – u profilu županije: položaj među svih 21 županija (Chart.js), klik na stupac odabire županiju
+  - `IzvorPodatka.svelte` – izvor, godina i poveznica pokazatelja kojim je karta obojana, ispod tema
   - `dev/DevOdabir.svelte` – birač područja samo u `npm run dev`, dok karta ne javlja klik na grad ili općinu
 - `src/stories/` – priče (u izradi)
 - `public/data/` – gotove GeoJSON/JSON datoteke iz `pipeline/` (format: `docs/format-podataka.md`)
@@ -61,6 +63,6 @@ Pravila:
 - Šifre su neprozirni stringovi iz Davidovih podataka. Za JLS se nadređena županija čita iz šifrarnika područja, ne sprema se u stanje.
 - Hover i oblačić nisu u stanju, to je interni posao karte.
 
-Karta čita `razina` i `podrucje` (kamera) te `indicator` iz `src/data/indicator.js` (boje), a ne temu i mjeru izravno. `indicator` je `{ kljuc, razina, title, unit, godina, izvor, poStanovniku, imaPoStanovniku, values: { [sifra]: broj | null } }` ili `null` (podaci se učitavaju ili tema nema pokazatelj na toj razini). `razina` je `'zupanija'` za državu, a `'jls'` za odabranu županiju i grad ili općinu u njoj, s vrijednostima za gradove i općine te županije. Ako tema za gradove nema pokazatelj (Imovina), odabrana županija dobiva vrijednosti županija. Karta na razini države boja sve županije, za odabranu županiju njezine gradove i općine, a za odabrani grad i dalje cijelu županiju, s ostalim gradovima i općinama izblijeđenima i odabranim istaknutim obrubom. Koji pokazatelj pripada kojoj temi određuje `src/data/teme.js`.
+Karta čita `razina` i `podrucje` (kamera) te `indicator` iz `src/data/indicator.js` (boje), a ne temu i mjeru izravno. `indicator` je `{ kljuc, razina, title, unit, godina, izvor, poveznica, poStanovniku, imaPoStanovniku, values: { [sifra]: broj | null } }` ili `null` (podaci se učitavaju ili tema nema pokazatelj na toj razini). `razina` je `'zupanija'` za državu, a `'jls'` za odabranu županiju i grad ili općinu u njoj, s vrijednostima za gradove i općine te županije. Ako tema za gradove nema pokazatelj (Imovina), odabrana županija dobiva vrijednosti županija. Karta na razini države boja sve županije, za odabranu županiju njezine gradove i općine, a za odabrani grad i dalje cijelu županiju, s ostalim gradovima i općinama izblijeđenima i odabranim istaknutim obrubom. Koji pokazatelj pripada kojoj temi određuje `src/data/teme.js`.
 
 U `.svelte` datotekama: `$view.tema`. U običnom JS-u: `view.subscribe((v) => …)`, koji vraća funkciju za odjavu.

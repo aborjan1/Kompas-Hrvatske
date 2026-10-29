@@ -19,7 +19,8 @@ import { TEME_POKAZATELJI } from './teme.js';
  * @property {string} title Indicator name shown in the legend and panel.
  * @property {string} unit Unit from meta.json, e.g. 'EUR', 'EUR po stanovniku', '%'.
  * @property {string} godina Period of the data, free text ("2025", "stanje 31.05.2023").
- * @property {string} izvor Dataset and publisher, shown under the map.
+ * @property {string} izvor Publisher and dataset ("Državni zavod za statistiku – …"), shown under the map.
+ * @property {string | null} poveznica Link to the dataset.
  * @property {boolean} poStanovniku Whether values are per capita.
  * @property {boolean} imaPoStanovniku Whether the indicator has a per-capita variant at all.
  * @property {string[]} boje The tema's colour ramp for the map classes, light → dark.
@@ -66,7 +67,8 @@ export const indicator = derived([view, podaci], ([v, p]) => {
     title: pokazatelj.naziv,
     unit: jedinica,
     godina: pokazatelj.godina,
-    izvor: izvor ? `${izvor.naziv}, ${izvor.izdavatelj}` : pokazatelj.izvor,
+    izvor: izvor ? `${izvor.izdavatelj} – ${izvor.naziv}` : pokazatelj.izvor,
+    poveznica: izvor?.poveznica ?? null,
     poStanovniku,
     imaPoStanovniku: pokazatelj.po_stanovniku !== null,
     boje: TEME_POKAZATELJI[v.tema].boje,

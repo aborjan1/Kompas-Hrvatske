@@ -3,6 +3,7 @@
   // map stays draggable between panels; only the panels catch clicks.
   import DevOdabir from './dev/DevOdabir.svelte';
   import InfoPanel from './InfoPanel.svelte';
+  import IzvorPodatka from './IzvorPodatka.svelte';
   import Putanja from './Putanja.svelte';
   import TemeBar from './TemeBar.svelte';
 </script>
@@ -13,7 +14,10 @@
     {#if import.meta.env.DEV}<DevOdabir />{/if}
   </div>
   <div class="desno"><InfoPanel /></div>
-  <div class="dolje"><TemeBar /></div>
+  <div class="dolje">
+    <TemeBar />
+    <IzvorPodatka />
+  </div>
 </div>
 
 <style>
@@ -51,19 +55,23 @@
     overflow-y: auto;
   }
 
+  /* Fixed width so a long source line is cut with "…" instead of widening the bar. */
   .dolje {
     position: absolute;
     bottom: 16px;
     left: 50%;
     transform: translateX(-50%);
-    max-width: calc(100% - 24px);
+    display: grid;
+    justify-items: center;
+    gap: 6px;
+    width: min(620px, calc(100% - 24px));
   }
 
   @media (max-width: 640px) {
     .desno {
       top: auto;
       right: 12px;
-      bottom: 120px;
+      bottom: 150px;
       width: calc(100% - 24px);
       max-height: 40%;
     }
