@@ -22,6 +22,9 @@
   let { redovi, odabrani, boja, naslov, visinaRetka = 13, onodaberi } = $props();
 
   const NEUTRALNA = '#d6d5d1';
+  // Chart.js gives the labels at most half the chart width (~129px in the panel), so
+  // the longest county names are cut; the tooltip and the hidden table have them whole.
+  const MAX_OZNAKA = 20;
   const NEUTRALNA_HOVER = '#b9b8b2';
 
   /** @type {HTMLCanvasElement | undefined} */
@@ -94,12 +97,14 @@
           ticks: {
             autoSkip: false,
             padding: 4,
-            font: (ctx) => ({
-              family: 'system-ui, sans-serif',
-              size: 11,
-              weight: ctx.index === indeks ? 'bold' : 'normal',
-            }),
-            color: (ctx) => (ctx.index === indeks ? '#1f1f1d' : '#6b6a65'),
+            callback: (_value, i) => {
+              const oznaka = trenutni[i]?.oznaka ?? '';
+              return oznaka.length > MAX_OZNAKA ? `${oznaka.slice(0, MAX_OZNAKA - 1)}…` : oznaka;
+            },
+            // Not bold for the selected row: Chart.js sizes the axis from the regular
+            // font, so a bold label would be cut. Darker text and the coloured bar mark it.
+            font: { family: 'system-ui, sans-serif', size: 11 },
+            color: (ctx) => (ctx.index === indeks ? '#1f1f1d' : '#8a8984'),
           },
         },
       },
@@ -111,14 +116,17 @@
   <canvas bind:this={canvas}></canvas>
 </div>
 
-<table class="sr-only">
-  <caption>{naslov}</caption>
-  <tbody>
-    {#each redovi as red (red.id)}
-      <tr><th scope="row">{red.naziv}</th><td>{red.detalji.join(', ')}</td></tr>
-    {/each}
-  </tbody>
-</table>
+<!-- A table ignores a 1px width, so the visually hidden wrapper is a div. -->
+<div class="sr-only">
+  <table>
+    <caption>{naslov}</caption>
+    <tbody>
+      {#each redovi as red (red.id)}
+        <tr><th scope="row">{red.naziv}</th><td>{red.detalji.join(', ')}</td></tr>
+      {/each}
+    </tbody>
+  </table>
+</div>
 
 <style>
   .platno {

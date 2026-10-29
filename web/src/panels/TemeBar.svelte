@@ -45,11 +45,14 @@
 </div>
 
 <style>
+  /* Never wider than the screen: on a phone the switch wraps under the temas. */
   .traka {
+    box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 8px 16px;
+    max-width: 100%;
     padding: 8px;
   }
 

@@ -70,12 +70,21 @@ export const odabir = derived([view, store], ([{ razina, podrucje }, p]) => ({
 }));
 
 let jlsZatrazen = false;
-view.subscribe(({ razina }) => {
-  if (razina === 'drzava' || jlsZatrazen) return;
+
+/**
+ * Starts loading jls.json once: when the user leaves country level, or earlier when
+ * search needs every city and municipality name.
+ */
+export function ucitajJls() {
+  if (jlsZatrazen) return;
   jlsZatrazen = true;
   dohvati('jls')
     .then((jls) => store.update((p) => ({ ...p, jls: jls.podrucja })))
     .catch(prijaviGresku);
+}
+
+view.subscribe(({ razina }) => {
+  if (razina !== 'drzava') ucitajJls();
 });
 
 async function dohvati(naziv) {

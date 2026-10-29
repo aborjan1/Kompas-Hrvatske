@@ -38,6 +38,8 @@
 
 <style>
   .putanja {
+    box-sizing: border-box;
+    max-width: 100%;
     padding: 8px 12px;
     font-size: 14px;
   }
@@ -78,5 +80,29 @@
 
   .strelica {
     color: var(--kh-tekst-blago);
+  }
+
+  /* Phones: one line, so the search box and the legend below stay put. A long county
+     name gives way first ("Dubrovačko-neretv…"); "Hrvatska" never shrinks. */
+  @media (max-width: 640px) {
+    ol {
+      flex-wrap: nowrap;
+    }
+
+    li {
+      min-width: 0;
+    }
+
+    li:first-child {
+      flex: none;
+    }
+
+    .link,
+    [aria-current='page'] {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 </style>

@@ -5,6 +5,14 @@ body,
   height: 100%;
 }
 
+/* A full-screen map app: the page itself never scrolls (or bounces on a phone), even
+   if a panel pokes past the edge. Panels scroll inside themselves. */
+html,
+body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 :root {
   --kh-tekst: #1f1f1d;
   --kh-tekst-blago: #6b6a65;

@@ -29,3 +29,35 @@
   height: 18px;
   border-radius: 4px;
 }
+
+/* Phones: the bottom holds the tema bar, the source line and the info panel, so the
+   legend moves to the top left, under the breadcrumb and search, and gets smaller.
+   Fixed, because MapLibre's control corners have no top-left slot below the panels.
+   Same breakpoint as src/panels/Paneli.svelte. */
+@media (max-width: 640px) {
+  .kh-legend {
+    position: fixed;
+    top: 112px;
+    left: 10px;
+    max-width: 52vw;
+    margin: 0;
+    padding: 6px 8px;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .kh-legend__title {
+    margin-bottom: 4px;
+    font-size: 12px;
+  }
+
+  .kh-legend__row {
+    gap: 6px;
+  }
+
+  .kh-legend__swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+  }
+}
