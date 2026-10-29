@@ -49,8 +49,17 @@ tests/               testovi obrade i provjera podataka za kartu
 
 ## Izvori podataka
 
-Popis korištenih skupova podataka s izdavateljima, poveznicama i licencama vodi se u [data/sources.csv](data/sources.csv).
+Rješenje koristi 40 skupova: 35 s [Portala otvorenih podataka](https://data.gov.hr) i 5
+dopunskih izvora tijela javne vlasti (Ministarstvo financija, Ministarstvo regionalnoga
+razvoja i fondova EU, DZS). Popis s izdavateljem, poveznicom, datumom preuzimanja i dozvolom
+za svaki skup je u [docs/izvori-podataka.md](docs/izvori-podataka.md) (nastaje iz
+[data/sources.csv](data/sources.csv)). Isti podaci su u `web/public/data/meta.json`, pa ih
+aplikacija prikazuje uz svaki broj.
 
 ## Licenca
 
-[MIT](LICENSE)
+- **Kod** (Python, web aplikacija): [MIT](LICENSE).
+- **Podaci** zadržavaju dozvolu svojih izdavatelja. Većina je pod
+  [Otvorenom dozvolom](https://data.gov.hr/otvorena-dozvola) ili CC BY 4.0, uz obvezu
+  navođenja izvora. Za skupove bez navedene dozvole navodi se izvor i napomena da su javno
+  objavljeni. Pojedinačno: [docs/izvori-podataka.md](docs/izvori-podataka.md).

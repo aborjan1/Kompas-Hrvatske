@@ -866,6 +866,8 @@ def _meta_izvori() -> dict:
             "izdavatelj": izvori[sid]["izdavatelj"],
             "poveznica": izvori[sid]["poveznica"],
             "licenca": izvori[sid].get("licenca") or None,
+            "preuzeto": izvori[sid].get("datum_preuzimanja") or None,
+            "dopunski": not izvori[sid].get("slug"),
         }
         for sid in IZVORI_GRADOVA
         if sid in izvori

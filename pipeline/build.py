@@ -332,6 +332,8 @@ def meta_izvori(potrebni: set[str], dgu: bool) -> dict:
             "poveznica": r["poveznica"],
             "licenca": r.get("licenca") or None,
             "preuzeto": r.get("datum_preuzimanja") or None,
+            # dopunski izvor = nije na data.gov.hr (službene stranice tijela javne vlasti)
+            "dopunski": not r.get("slug"),
         }
 
     out = {}
@@ -344,6 +346,7 @@ def meta_izvori(potrebni: set[str], dgu: bool) -> dict:
                 "izdavatelj": zb["izdavatelj"],
                 "poveznica": dijelovi[0]["poveznica"],
                 "licenca": dijelovi[0]["licenca"],
+                "dopunski": all(d["dopunski"] for d in dijelovi),
                 "dijelovi": dijelovi,
             }
         else:

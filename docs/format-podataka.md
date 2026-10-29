@@ -68,7 +68,8 @@ može dugo čuvati, a brojke se mijenjaju pri svakom pokretanju obrade.
       "izdavatelj": "Porezna uprava",
       "poveznica": "https://data.gov.hr/ckan/dataset/…",
       "licenca": "Otvorena dozvola (OD)",
-      "preuzeto": "2026-10-27"
+      "preuzeto": "2026-10-27",
+      "dopunski": false
     }
   }
 }
@@ -83,7 +84,14 @@ može dugo čuvati, a brojke se mijenjaju pri svakom pokretanju obrade.
 - `mnozitelj` je 1 za iznose u eurima („EUR po stanovniku”), a 1000 za brojeve
   („na 1.000 stanovnika”).
 - `razine` govori gdje pokazatelj postoji. Npr. `inflacija` postoji samo na razini države.
-- `izvor` je ključ u `izvori`. `hbor-esif` je zbirni izvor s poljem `dijelovi` (5 skupova).
+- `izvor` je ključ u `izvori`. `hbor-esif` (5 skupova) i `eu-2021-2027` (3 popisa) su
+  zbirni izvori s poljem `dijelovi`.
+- **Navođenje izvora u sučelju** (uvjet organizatora): uz broj prikazati izdavatelja, naziv
+  skupa i datum preuzimanja (`preuzeto`). Ako `licenca` počinje s „Otvorena dozvola”, dodati
+  poveznicu https://data.gov.hr/otvorena-dozvola; ako dozvola nije navedena, napisati samo
+  „javno objavljeno”. `dopunski: true` znači da skup nije s Portala otvorenih podataka nego sa
+  službenih stranica tijela javne vlasti – takve izvore treba vidljivo odvojiti (npr. oznaka
+  „dopunski izvor”).
 - `napomene` su općenite napomene o podacima (npr. da su granice probne).
 
 ### Pokazatelji
@@ -95,7 +103,7 @@ može dugo čuvati, a brojke se mijenjaju pri svakom pokretanju obrade.
 | `prosjecna_starost` | ljudi | godina | — | država, županija, JLS | 2021. |
 | `prosjecna_neto_placa` | ljudi | EUR | — | država, županija | 2025. |
 | `zaposleni` | ljudi | osoba | na 1.000 st. | država, županija | 2024. |
-| `stopa_nezaposlenosti` | ljudi | % | — | država, županija | VI. 2026. |
+| `stopa_nezaposlenosti` | ljudi | % | — | država, županija | IX. 2026. |
 | `neto_dohodak` | ljudi | EUR | EUR po st. | država, županija, JLS | 2025. |
 | `bdp` | novac | EUR | EUR po st. | država | 2023. |
 | `bruto_dodana_vrijednost` | novac | EUR | EUR po st. | država, županija | 2023. |
