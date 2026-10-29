@@ -2,8 +2,10 @@
 // colours areas from this and the panels show its title and source, so the meaning
 // of each tema lives in one place and the map never needs to know about temas.
 //
-// At country level the values are per county; inside a county they are per city and
-// municipality of that county (the JLS layer, phase 4). `razina` says which.
+// For the country the values are per county. For a selected county, and for a city or
+// municipality in it, they are per JLS of that county, so the map ranks its cities and
+// municipalities against each other. A county whose tema has nothing for its cities
+// (Imovina) falls back to county values. `razina` says which.
 
 import { derived } from 'svelte/store';
 import { view } from '../state.js';
@@ -20,18 +22,23 @@ import { TEME_POKAZATELJI } from './teme.js';
  * @property {string} izvor Dataset and publisher, shown under the map.
  * @property {boolean} poStanovniku Whether values are per capita.
  * @property {boolean} imaPoStanovniku Whether the indicator has a per-capita variant at all.
+ * @property {string[]} boje The tema's colour ramp for the map classes, light → dark.
  * @property {Record<string, number | null>} values Keyed by area code (`sifra`).
  */
 
 /**
  * Null while data is loading, or when the tema has no indicator at the coloured level
- * (e.g. Novac for cities and municipalities).
+ * (e.g. Imovina for cities and municipalities).
  * @type {import('svelte/store').Readable<Indicator | null>}
  */
 export const indicator = derived([view, podaci], ([v, p]) => {
   if (!p.meta) return null;
 
-  const razina = v.razina === 'drzava' ? 'zupanija' : 'jls';
+  const kljucJls = TEME_POKAZATELJI[v.tema].karta.jls;
+  const jlsMoguce = Boolean(kljucJls && p.meta.pokazatelji[kljucJls]?.razine.includes('jls'));
+  if (v.razina === 'jls' && !jlsMoguce) return null;
+  // Until jls.json has loaded, a county shows its own value rather than nothing.
+  const razina = v.razina !== 'drzava' && jlsMoguce && p.jls ? 'jls' : 'zupanija';
   const kljuc = TEME_POKAZATELJI[v.tema].karta[razina];
   const pokazatelj = kljuc ? p.meta.pokazatelji[kljuc] : null;
   if (!pokazatelj?.razine.includes(razina)) return null;
@@ -62,6 +69,7 @@ export const indicator = derived([view, podaci], ([v, p]) => {
     izvor: izvor ? `${izvor.naziv}, ${izvor.izdavatelj}` : pokazatelj.izvor,
     poStanovniku,
     imaPoStanovniku: pokazatelj.po_stanovniku !== null,
+    boje: TEME_POKAZATELJI[v.tema].boje,
     values,
   };
 });

@@ -2,7 +2,7 @@
 // store. Cities and municipalities (jls.json) load only after the user first leaves
 // country level, since most visits never need them.
 
-import { writable } from 'svelte/store';
+import { derived, writable } from 'svelte/store';
 import { view } from '../state.js';
 
 const BASE_URL = `${import.meta.env.BASE_URL}data/`;
@@ -52,6 +52,22 @@ Promise.all([dohvati('meta'), dohvati('drzava'), dohvati('zupanije')])
     store.update((p) => ({ ...p, meta, drzava, zupanije: zupanije.podrucja })),
   )
   .catch(prijaviGresku);
+
+/**
+ * The selected area with its county resolved, for whoever needs the county of a city
+ * or municipality (the map's JLS layer, the breadcrumb). For a JLS the county comes
+ * from jls.json, so `zupanija` is null until that file has loaded. Fires on every
+ * view or data change; compare fields before acting.
+ * @type {import('svelte/store').Readable<{ razina: import('../state.js').Razina, podrucje: string | null, zupanija: string | null }>}
+ */
+export const odabir = derived([view, store], ([{ razina, podrucje }, p]) => ({
+  razina,
+  podrucje,
+  zupanija:
+    razina === 'zupanija' ? podrucje
+    : razina === 'jls' ? (p.jls?.[podrucje]?.nadredeno ?? null)
+    : null,
+}));
 
 let jlsZatrazen = false;
 view.subscribe(({ razina }) => {
