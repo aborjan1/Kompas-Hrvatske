@@ -3,6 +3,8 @@
 // Values arrive separately as { [sifra]: number } so the map doesn't care which
 // indicator is selected or where it came from; that's decided by app state.
 
+import { LngLatBounds } from 'maplibre-gl';
+
 export const SOURCE = 'zupanije';
 export const FILL_LAYER = 'zupanije-fill';
 const LINE_LAYER = 'zupanije-line';
@@ -18,6 +20,9 @@ export const NO_DATA_COLOR = '#d6d5d1';
  */
 export function createCountyLayer(map, geojson) {
   const codes = geojson.features.map((f) => f.properties.sifra);
+  const boundsByCode = new Map(
+    geojson.features.map((f) => [f.properties.sifra, geometryBounds(f.geometry)]),
+  );
 
   map.addSource(SOURCE, { type: 'geojson', data: geojson, promoteId: 'sifra' });
 
@@ -57,6 +62,12 @@ export function createCountyLayer(map, geojson) {
   );
 
   return {
+    /**
+     * @param {string} code
+     * @returns {import('maplibre-gl').LngLatBounds | undefined}
+     */
+    bounds: (code) => boundsByCode.get(code),
+
     /**
      * Colours counties by value in up to 5 quantile classes.
      * @param {Record<string, number | null>} values
@@ -101,6 +112,13 @@ function quantileClasses(values, colors) {
     min: g[0],
     max: g[g.length - 1],
   }));
+}
+
+function geometryBounds(geometry) {
+  const bounds = new LngLatBounds();
+  const extend = (c) => (typeof c[0] === 'number' ? bounds.extend(c) : c.forEach(extend));
+  extend(geometry.coordinates);
+  return bounds;
 }
 
 function colorExpression(classes) {

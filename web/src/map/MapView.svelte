@@ -1,7 +1,8 @@
 <script>
   import { onMount } from 'svelte';
   import { indicator } from '../data/indicator.js';
-  import { COUNTY_BOUNDARIES_URL } from './config.js';
+  import { selectArea, view } from '../state.js';
+  import { COUNTY_BOUNDARIES_URL, CROATIA_BOUNDS, focusPadding } from './config.js';
   import { createCountyLayer, FILL_LAYER, SOURCE } from './countyLayer.js';
   import { createMap } from './createMap.js';
   import { formatNumber } from './format.js';
@@ -18,6 +19,7 @@
     /** @type {import('../data/indicator.js').Indicator | null} */
     let shown = null;
     let unsubscribe = () => {};
+    let unsubscribeView = () => {};
 
     map.on('load', async () => {
       const response = await fetch(COUNTY_BOUNDARIES_URL);
@@ -31,6 +33,21 @@
         shown = ind;
         const legendData = counties.setValues(ind?.values ?? {});
         legend.update({ title: ind?.title ?? '', unit: ind?.unit, ...legendData });
+      });
+
+      // The map only reports the click; the camera moves below, when the state changes,
+      // so the breadcrumb, search and URL move it the same way.
+      map.on('click', FILL_LAYER, (e) => selectArea('zupanija', e.features[0].properties.sifra));
+
+      // createMap() already shows the whole country, so start from there.
+      let focused = 'drzava/null';
+      unsubscribeView = view.subscribe(({ razina, podrucje }) => {
+        const key = `${razina}/${podrucje}`;
+        if (key === focused) return;
+        focused = key;
+        // TODO(#23): a city or municipality needs the JLS boundaries.
+        const bounds = razina === 'drzava' ? CROATIA_BOUNDS : counties.bounds(podrucje);
+        if (bounds) map.fitBounds(bounds, { padding: focusPadding(container.clientWidth) });
       });
 
       addHoverTooltip(map, {
@@ -47,6 +64,7 @@
 
     return () => {
       unsubscribe();
+      unsubscribeView();
       map.remove();
     };
   });
