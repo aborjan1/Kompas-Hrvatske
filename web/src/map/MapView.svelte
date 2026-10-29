@@ -12,7 +12,7 @@
   } from './config.js';
   import { createCountyLayer, FILL_LAYER, SOURCE } from './countyLayer.js';
   import { createMap, lockToArea, lockToCroatia, setUserInput, unlockCamera } from './createMap.js';
-  import { formatNumber } from './format.js';
+  import { formatVrijednost } from '../data/format.js';
   import { addHoverTooltip } from './hover.js';
   import { convexHull, simplifiedOutline } from './geometry.js';
   import { hidePlacesOutside } from './labels.js';
@@ -20,6 +20,21 @@
   import { LegendControl } from './legend.js';
 
   let container;
+
+  // Legend rows carry short units ("563 mil. €", "3,3 %"); a long one such as
+  // "na 1.000 stanovnika" or "po stanovniku" goes once into the title instead.
+  /** @param {import('../data/indicator.js').Indicator | null} ind */
+  function legendText(ind) {
+    if (!ind) return { title: '' };
+    const eur = ind.unit.startsWith('EUR');
+    const short = eur || ['%', 'osoba', 'broj', 'godina'].includes(ind.unit);
+    const rowUnit = eur ? 'EUR' : short ? ind.unit : 'broj';
+    const titleUnit = eur ? ind.unit.slice(3) : short ? '' : ` (${ind.unit})`;
+    return {
+      title: `${ind.title}${titleUnit}`,
+      format: (/** @type {number} */ v) => formatVrijednost(v, rowUnit, ind.decimale),
+    };
+  }
 
   onMount(() => {
     const map = createMap(container);
@@ -72,7 +87,7 @@
           shownJls = null;
           legendData = jls.clearValues();
         }
-        legend.update({ title: ind?.title ?? '', unit: ind?.unit, ...legendData });
+        legend.update({ ...legendText(ind), ...legendData });
         colouredLevel = ind?.razina ?? null;
         showColouredAreas();
       });
@@ -85,6 +100,25 @@
         selectArea('zupanija', e.features[0].properties.sifra);
       });
       map.on('click', JLS_FILL_LAYER, (e) => selectArea('jls', e.features[0].properties.sifra));
+
+      // Scrolling out past a county's or city's framed view goes up a level (city →
+      // county → country), like the breadcrumb. A little extra scroll is needed first,
+      // so a trackpad's leftover momentum after landing doesn't trigger it.
+      const PULL_TO_LEAVE = 150;
+      let pull = 0;
+      map.on('wheel', ({ originalEvent }) => {
+        const atFurthest = map.getZoom() <= map.getMinZoom() + 0.01;
+        if (!map.scrollZoom.isEnabled() || !atFurthest || originalEvent.deltaY <= 0) {
+          pull = 0;
+          return;
+        }
+        pull += originalEvent.deltaY;
+        if (pull < PULL_TO_LEAVE) return;
+        pull = 0;
+        const { razina, zupanija } = get(odabir);
+        if (razina === 'jls' && zupanija) selectArea('zupanija', zupanija);
+        else if (razina !== 'drzava') selectArea('drzava');
+      });
 
       // Start the intro only once the globe is drawn, not over a blank sphere.
       await new Promise((resolve) => map.once('idle', resolve));
@@ -168,7 +202,7 @@
         describe: (f) => ({
           title: f.properties.naziv,
           detail: Number.isFinite(f.state.value)
-            ? `${formatNumber(f.state.value)} ${shown.unit}`
+            ? formatVrijednost(f.state.value, shown.unit, shown.decimale)
             : 'nema podatka',
         }),
       });
@@ -179,7 +213,7 @@
           title: f.properties.naziv,
           detail:
             !shownJls ? 'nema podatka za ovu temu'
-            : Number.isFinite(f.state.value) ? `${formatNumber(f.state.value)} ${shownJls.unit}`
+            : Number.isFinite(f.state.value) ? formatVrijednost(f.state.value, shownJls.unit, shownJls.decimale)
             : 'nema podatka',
         }),
       });

@@ -4,7 +4,7 @@
   import { view } from '../state.js';
   import { nadjiPodrucje, ocitaj, podaci } from '../data/podaci.js';
   import { formatVrijednost } from '../data/format.js';
-  import { TEME_POKAZATELJI } from '../data/teme.js';
+  import { JEDNOSTAVNI_NAZIVI, TEME_POKAZATELJI } from '../data/teme.js';
   import GrafUsporedbe from './GrafUsporedbe.svelte';
 
   const MAX_BROJEVA = 4;
@@ -22,7 +22,9 @@
         const o = ocitaj(podrucje, kljuc, pokazatelj, $view.mjera);
         return {
           kljuc,
-          naziv: pokazatelj.naziv,
+          naziv: JEDNOSTAVNI_NAZIVI[kljuc] ?? pokazatelj.naziv,
+          // Official name and note on hover, for anyone who wants the exact definition.
+          opis: [pokazatelj.naziv, pokazatelj.napomena].filter(Boolean).join('. '),
           vrijednost: formatVrijednost(o.value, o.jedinica, o.decimale),
           nedostaje: o.value === null,
           godina: pokazatelj.godina,
@@ -60,7 +62,7 @@
       <dl>
         {#each brojevi as b (b.kljuc)}
           <div class="broj">
-            <dt title={b.napomena}>{b.naziv}</dt>
+            <dt title={b.opis}>{b.naziv}</dt>
             <dd class:nedostaje={b.nedostaje}>{b.vrijednost}</dd>
             <dd class="godina">{b.godina}</dd>
           </div>
@@ -111,7 +113,7 @@
 
   dt {
     grid-column: 1 / -1;
-    font-size: 12px;
+    font-size: 13px;
     color: var(--kh-tekst-blago);
   }
 
@@ -120,8 +122,8 @@
   }
 
   dd:not(.godina) {
-    font-size: 17px;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: 700;
     font-variant-numeric: tabular-nums;
     color: var(--kh-tekst);
   }

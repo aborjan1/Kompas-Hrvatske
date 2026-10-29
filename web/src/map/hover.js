@@ -40,7 +40,10 @@ export function addHoverTooltip(map, { layerId, source, describe, yieldTo = [] }
     const content = document.createElement('div');
     const strong = document.createElement('strong');
     strong.textContent = title;
-    content.append(strong, document.createElement('br'), detail);
+    const value = document.createElement('div');
+    value.className = 'kh-tooltip__value';
+    value.textContent = detail;
+    content.append(strong, value);
 
     popup.setLngLat(e.lngLat).setDOMContent(content).addTo(map);
     map.getCanvas().style.cursor = 'pointer';

@@ -4,6 +4,9 @@
 // Units that read better without a label ("3.871.833", not "3.871.833 osoba").
 const SKRIVENE_JEDINICE = new Set(['osoba', 'broj']);
 
+// Millions and billions: "563 mil.", "1,1 mlrd.", never "563,0 mil.".
+const skraceno = new Intl.NumberFormat('hr-HR', { maximumFractionDigits: 1 });
+
 const formati = new Map();
 function broj(decimale) {
   if (!formati.has(decimale)) {
@@ -27,8 +30,8 @@ export function formatVrijednost(value, jedinica, decimale) {
   if (jedinica.startsWith('EUR')) {
     const ostatak = jedinica.slice(3); // " po stanovniku" or ""
     const iznos = Math.abs(value);
-    if (iznos >= 1e9) return `${broj(1).format(value / 1e9)} mlrd. €${ostatak}`;
-    if (iznos >= 1e6) return `${broj(1).format(value / 1e6)} mil. €${ostatak}`;
+    if (iznos >= 1e9) return `${skraceno.format(value / 1e9)} mlrd. €${ostatak}`;
+    if (iznos >= 1e6) return `${skraceno.format(value / 1e6)} mil. €${ostatak}`;
     return `${broj(decimale).format(value)} €${ostatak}`;
   }
 

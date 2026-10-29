@@ -10,7 +10,7 @@
 import { derived } from 'svelte/store';
 import { view } from '../state.js';
 import { ocitaj, podaci } from './podaci.js';
-import { TEME_POKAZATELJI } from './teme.js';
+import { JEDNOSTAVNI_NAZIVI, TEME_POKAZATELJI } from './teme.js';
 
 /**
  * @typedef {object} Indicator
@@ -18,6 +18,7 @@ import { TEME_POKAZATELJI } from './teme.js';
  * @property {'zupanija' | 'jls'} razina Which areas `values` are keyed by.
  * @property {string} title Indicator name shown in the legend and panel.
  * @property {string} unit Unit from meta.json, e.g. 'EUR', 'EUR po stanovniku', '%'.
+ * @property {number} decimale Decimals for formatVrijednost() in format.js.
  * @property {string} godina Period of the data, free text ("2025", "stanje 31.05.2023").
  * @property {string} izvor Publisher and dataset ("Državni zavod za statistiku – …"), shown under the map.
  * @property {string | null} poveznica Link to the dataset.
@@ -49,6 +50,7 @@ export const indicator = derived([view, podaci], ([v, p]) => {
   const zupanija = v.razina === 'zupanija' ? v.podrucje : p.jls?.[v.podrucje]?.nadredeno;
 
   let jedinica = pokazatelj.jedinica;
+  let decimale = pokazatelj.decimale;
   let poStanovniku = false;
   /** @type {Record<string, number | null>} */
   const values = {};
@@ -57,6 +59,7 @@ export const indicator = derived([view, podaci], ([v, p]) => {
     const o = ocitaj(podrucje, kljuc, pokazatelj, v.mjera);
     values[podrucje.sifra] = o.value;
     jedinica = o.jedinica;
+    decimale = o.decimale;
     poStanovniku = o.poStanovniku;
   }
 
@@ -64,8 +67,9 @@ export const indicator = derived([view, podaci], ([v, p]) => {
   return {
     kljuc,
     razina,
-    title: pokazatelj.naziv,
+    title: JEDNOSTAVNI_NAZIVI[kljuc] ?? pokazatelj.naziv,
     unit: jedinica,
+    decimale,
     godina: pokazatelj.godina,
     izvor: izvor ? `${izvor.izdavatelj} – ${izvor.naziv}` : pokazatelj.izvor,
     poveznica: izvor?.poveznica ?? null,
