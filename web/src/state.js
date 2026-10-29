@@ -45,13 +45,7 @@ export const view = { subscribe: store.subscribe };
  * @param {string | null} [podrucje] Area code; required for zupanija and jls, omitted for drzava.
  */
 export function selectArea(razina, podrucje = null) {
-  assertOneOf('razina', razina, RAZINE);
-  if (razina === 'drzava' && podrucje !== null) {
-    throw new Error(`selectArea: razina 'drzava' takes no podrucje, got ${JSON.stringify(podrucje)}`);
-  }
-  if (razina !== 'drzava' && (typeof podrucje !== 'string' || podrucje === '')) {
-    throw new Error(`selectArea: razina '${razina}' needs podrucje as a string code, got ${JSON.stringify(podrucje)}`);
-  }
+  assertArea(razina, podrucje);
   set({ razina, podrucje });
 }
 
@@ -67,6 +61,19 @@ export function setMjera(mjera) {
   set({ mjera });
 }
 
+/**
+ * Set the whole view at once. Used by the URL sync (src/url.js) for a shared link and
+ * for the browser's Back and Forward; everything else changes one part with the
+ * functions above.
+ * @param {View} next
+ */
+export function setView({ razina, podrucje = null, tema, mjera }) {
+  assertArea(razina, podrucje);
+  assertOneOf('tema', tema, TEME);
+  assertOneOf('mjera', mjera, MJERE);
+  set({ razina, podrucje, tema, mjera });
+}
+
 // svelte/store treats objects as always changed, so skip no-op writes here to
 // avoid waking every subscriber when nothing changed.
 /** @param {Partial<View>} patch */
@@ -74,6 +81,16 @@ function set(patch) {
   const current = get(store);
   const changed = Object.entries(patch).some(([key, value]) => current[key] !== value);
   if (changed) store.set({ ...current, ...patch });
+}
+
+function assertArea(razina, podrucje) {
+  assertOneOf('razina', razina, RAZINE);
+  if (razina === 'drzava' && podrucje !== null) {
+    throw new Error(`razina 'drzava' takes no podrucje, got ${JSON.stringify(podrucje)}`);
+  }
+  if (razina !== 'drzava' && (typeof podrucje !== 'string' || podrucje === '')) {
+    throw new Error(`razina '${razina}' needs podrucje as a string code, got ${JSON.stringify(podrucje)}`);
+  }
 }
 
 function assertOneOf(name, value, allowed) {
