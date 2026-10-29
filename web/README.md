@@ -35,6 +35,8 @@ Copy-Item .env.example .env.local   # pa u .env.local upiši VITE_MAPTILER_KEY=.
   - `format.js` – formatiranje brojeva prema `jedinica` i `decimale` iz `meta.json`
 - `src/panels/` – lebdeći paneli: putanja, info panel, teme i prekidač ukupno / po stanovniku
   - `GrafUsporedbe.svelte` – u profilu županije: položaj među svih 21 županija (Chart.js), klik na stupac odabire županiju
+  - `UsporedbaSlicnih.svelte` – u profilu grada ili općine: usporedba s 5 najsličnijih po broju stanovnika (`slicni` iz `jls.json`), klik odabire taj grad
+  - `GrafStupci.svelte` – zajednički vodoravni stupčasti graf (Chart.js) za obje usporedbe
   - `IzvorPodatka.svelte` – izvor, godina i poveznica pokazatelja kojim je karta obojana, ispod tema
   - `dev/DevOdabir.svelte` – birač područja samo u `npm run dev`, dok karta ne javlja klik na grad ili općinu
 - `src/stories/` – priče (u izradi)

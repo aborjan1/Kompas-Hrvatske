@@ -6,6 +6,7 @@
   import { formatVrijednost } from '../data/format.js';
   import { JEDNOSTAVNI_NAZIVI, TEME_POKAZATELJI } from '../data/teme.js';
   import GrafUsporedbe from './GrafUsporedbe.svelte';
+  import UsporedbaSlicnih from './UsporedbaSlicnih.svelte';
 
   const MAX_BROJEVA = 4;
 
@@ -42,8 +43,21 @@
     const od =
       $view.razina === 'zupanija'
         ? `od ${Object.keys($podaci.zupanije ?? {}).length} županija`
-        : 'među gradovima i općinama';
+        : `od ${Object.keys($podaci.jls ?? {}).length} gradova i općina`;
     return `${prvi.naziv}: ${prvi.rang}. mjesto po veličini ${od}.`;
+  });
+
+  // City or municipality profile: what it is, where, and how big.
+  const podnaslov = $derived.by(() => {
+    if ($view.razina !== 'jls' || !podrucje) return '';
+    const stanovnika = podrucje.pokazatelji.stanovnistvo;
+    return [
+      podrucje.vrsta === 'grad' ? 'Grad' : 'Općina',
+      $podaci.zupanije?.[podrucje.nadredeno]?.naziv,
+      stanovnika != null && `${formatVrijednost(stanovnika, 'osoba', 0)} stanovnika`,
+    ]
+      .filter(Boolean)
+      .join(' · ');
   });
 
   const temaNaziv = $derived($podaci.meta?.teme[$view.tema] ?? $view.tema);
@@ -57,6 +71,7 @@
   {:else}
     <p class="tema" style:color={TEME_POKAZATELJI[$view.tema].boje[3]}>{temaNaziv}</p>
     <h2>{podrucje.naziv}</h2>
+    {#if podnaslov}<p class="podnaslov">{podnaslov}</p>{/if}
 
     {#if brojevi.length}
       <dl>
@@ -75,6 +90,7 @@
     {#if recenica}<p class="recenica">{recenica}</p>{/if}
 
     {#if $view.razina === 'zupanija'}<GrafUsporedbe />{/if}
+    {#if $view.razina === 'jls'}<UsporedbaSlicnih />{/if}
   {/if}
 </aside>
 
@@ -97,6 +113,12 @@
     font-size: 18px;
     line-height: 1.25;
     color: var(--kh-tekst);
+  }
+
+  .podnaslov {
+    margin: -8px 0 12px;
+    font-size: 12px;
+    color: var(--kh-tekst-blago);
   }
 
   dl {
