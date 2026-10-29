@@ -1,0 +1,135 @@
+// County (županija) choropleth. Boundaries are a GeoJSON FeatureCollection whose
+// features carry `sifra` (two-digit county code, "01"–"21") and `naziv`.
+// Values arrive separately as { [sifra]: number } so the map doesn't care which
+// indicator is selected or where it came from; that's decided by app state.
+
+import { LngLatBounds } from 'maplibre-gl';
+
+export const SOURCE = 'zupanije';
+export const FILL_LAYER = 'zupanije-fill';
+const LINE_LAYER = 'zupanije-line';
+const HOVER_LAYER = 'zupanije-hover';
+
+// Sequential blue, light → dark, one hue so order reads without relying on hue.
+export const CLASS_COLORS = ['#cde2fb', '#86b6ef', '#3987e5', '#1c5cab', '#0d366b'];
+export const NO_DATA_COLOR = '#d6d5d1';
+// Light enough for roads and relief to show through.
+const FILL_OPACITY = 0.1;
+
+/**
+ * @param {import('maplibre-gl').MapLibreMap} map
+ * @param {GeoJSON.FeatureCollection} geojson
+ */
+export function createCountyLayer(map, geojson) {
+  const codes = geojson.features.map((f) => f.properties.sifra);
+  const boundsByCode = new Map(
+    geojson.features.map((f) => [f.properties.sifra, geometryBounds(f.geometry)]),
+  );
+
+  map.addSource(SOURCE, { type: 'geojson', data: geojson, promoteId: 'sifra' });
+
+  // Below roads and labels, so they stay readable on top of the fill.
+  const beforeId = map
+    .getStyle()
+    .layers.find((l) => l.type === 'symbol' || l['source-layer'] === 'transportation')?.id;
+  map.addLayer(
+    {
+      id: FILL_LAYER,
+      type: 'fill',
+      source: SOURCE,
+      paint: { 'fill-color': NO_DATA_COLOR, 'fill-opacity': FILL_OPACITY },
+    },
+    beforeId,
+  );
+  map.addLayer(
+    {
+      id: LINE_LAYER,
+      type: 'line',
+      source: SOURCE,
+      paint: { 'line-color': '#3a3a36', 'line-width': 0.8, 'line-opacity': 0.8 },
+    },
+    beforeId,
+  );
+  // Separate layer so the hovered outline is drawn above every neighbour's white border.
+  map.addLayer(
+    {
+      id: HOVER_LAYER,
+      type: 'line',
+      source: SOURCE,
+      paint: {
+        'line-color': '#1f1f1d',
+        'line-width': 1.5,
+        'line-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 1, 0],
+      },
+    },
+    beforeId,
+  );
+
+  return {
+    /**
+     * @param {string} code
+     * @returns {import('maplibre-gl').LngLatBounds | undefined}
+     */
+    bounds: (code) => boundsByCode.get(code),
+
+    /**
+     * Colours counties by value in up to 5 quantile classes.
+     * @param {Record<string, number | null>} values
+     * @returns {{ classes: { color: string, min: number, max: number }[], hasMissing: boolean }}
+     */
+    setValues(values) {
+      for (const code of codes) {
+        // Clear only `value`; `hover` state belongs to the hover handler.
+        map.removeFeatureState({ source: SOURCE, id: code }, 'value');
+        const value = values[code];
+        if (Number.isFinite(value)) map.setFeatureState({ source: SOURCE, id: code }, { value });
+      }
+
+      const present = codes.map((c) => values[c]).filter(Number.isFinite);
+      const classes = quantileClasses(present, CLASS_COLORS);
+      map.setPaintProperty(FILL_LAYER, 'fill-color', colorExpression(classes));
+
+      return { classes, hasMissing: present.length < codes.length };
+    },
+  };
+}
+
+// Splits sorted values into equal-count classes. Duplicate values never straddle
+// a break, so fewer classes come back when data has many ties; colours are then
+// spread across the full ramp so the darkest class still means "highest".
+function quantileClasses(values, colors) {
+  const sorted = [...values].sort((a, b) => a - b);
+  if (sorted.length === 0) return [];
+
+  const groups = [];
+  let start = 0;
+  for (let k = 1; k <= colors.length; k++) {
+    let end = Math.round((k * sorted.length) / colors.length);
+    while (end < sorted.length && end > 0 && sorted[end] === sorted[end - 1]) end++;
+    if (end > start) groups.push(sorted.slice(start, end));
+    start = Math.max(start, end);
+  }
+
+  const last = colors.length - 1;
+  return groups.map((g, i) => ({
+    color: colors[groups.length === 1 ? last : Math.round((i * last) / (groups.length - 1))],
+    min: g[0],
+    max: g[g.length - 1],
+  }));
+}
+
+function geometryBounds(geometry) {
+  const bounds = new LngLatBounds();
+  const extend = (c) => (typeof c[0] === 'number' ? bounds.extend(c) : c.forEach(extend));
+  extend(geometry.coordinates);
+  return bounds;
+}
+
+function colorExpression(classes) {
+  const value = ['feature-state', 'value'];
+  if (classes.length === 0) return NO_DATA_COLOR;
+
+  const step = ['step', value, classes[0].color];
+  for (const c of classes.slice(1)) step.push(c.min, c.color);
+  return ['case', ['==', value, null], NO_DATA_COLOR, step];
+}
