@@ -27,6 +27,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import citaci  # noqa: E402
 import gradovi  # noqa: E402
 import granice  # noqa: E402
+import proracuni  # noqa: E402
 import sifrarnik  # noqa: E402
 from izvoz import IZLAZ, dodaj_rang, dodaj_slicne, spremi_json, zapis_podrucja  # noqa: E402
 from nazivi import kljuc, uskladi  # noqa: E402
@@ -56,6 +57,14 @@ ZBIRNI_IZVORI = {
         "dijelovi": ["eu-pkk-2021-2027", "eu-itp-2021-2027", "eu-uljp-2021-2027"],
     },
 }
+
+PRORACUN_POKAZATELJI = [
+    "lokalni_prihodi",
+    "lokalni_rashodi",
+    "lokalna_ulaganja",
+    "saldo_lokalnog_proracuna",
+    "udio_pomoci_u_prihodima",
+]
 
 # Granica Hrvatske (za odbacivanje očito pogrešnih koordinata)
 BBOX = (13.2, 42.2, 19.5, 46.6)
@@ -366,6 +375,8 @@ def provjere(t: pd.DataFrame, jls: pd.DataFrame) -> None:
         "eu_ugovoreno",
         "eu_2127_ugovoreno",
         "hbor_krediti",
+        "lokalni_prihodi",
+        "lokalni_rashodi",
     ):
         if p not in t:
             continue
@@ -435,6 +446,24 @@ def main() -> None:
     jls = gradovi_i_opcine(areas, godine, eu_jls)
     ponderirane_stope(t, jls)
 
+    korak("2. Proračuni gradova, općina i županija")
+    pr = proracuni.ucitaj(jls)
+    for p in PRORACUN_POKAZATELJI:
+        jls[p] = jls["sifra"].map(pr["jls"][p])
+        t[p] = pr["zupanije"][p]
+        t.loc["HR", p] = pr["drzava"][p]
+        godine[p] = pr["godina"]
+    print(f"  {pr['broj_jls']} gradova i općina, 21 županija ({pr['godina']})")
+    upozorenja = proracuni.provjeri(pr)
+    krivi = [u for u in upozorenja if u.split()[1] in ("6", "7", "3", "4")]
+    if krivi:
+        raise SystemExit("Proračuni: zbroj ≠ zbirni list Ministarstva:\n  " + "\n  ".join(krivi))
+    print("  ✔ zbrojevi prihoda i rashoda = zbirni listovi Ministarstva (županije i država)")
+    if upozorenja:
+        print(f"  Greške u zbirnim listovima izvora ({len(upozorenja)}; koristimo zbroj jedinica):")
+        for u in upozorenja[:3]:
+            print(f"    {u}")
+
     provjere(t, jls)
 
     OBRADA.mkdir(parents=True, exist_ok=True)
@@ -470,6 +499,7 @@ def main() -> None:
     spremi_json("jls.json", {"generirano": sada, "podrucja": pj}, uvlaka=None)
 
     spremi_json("tocke/eu-projekti.geojson", eu_tocke(eu_jls), uvlaka=None)
+    spremi_json("proracuni.json", proracuni.json_nizovi(pr), uvlaka=None)
 
     pokazatelji = {p: {**d, "godina": godine.get(p)} for p, d in POKAZATELJI.items()}
     meta = {

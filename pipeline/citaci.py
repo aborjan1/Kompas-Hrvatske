@@ -722,3 +722,83 @@ def eu_2021_2027() -> tuple[pd.DataFrame, str]:
     sve = pd.concat(dijelovi, ignore_index=True)
     presjek = " / ".join(sorted(presjeci))
     return sve, presjek
+
+
+# --------------------------------------------------------------------------- proračuni JLP(R)S
+
+# Stavke koje zadržavamo iz obrazaca PR-RAS (računski plan) i RAS-funkcijski (01–10)
+STAVKE_PRORACUNA = {
+    "6": "prihodi poslovanja",
+    "7": "prihodi od prodaje nefinancijske imovine",
+    "61": "porezi",
+    "63": "pomoći",
+    "3": "rashodi poslovanja",
+    "31": "rashodi za zaposlene",
+    "4": "rashodi za nabavu nefinancijske imovine",
+    **{f"{i:02d}": f"funkcija {i:02d}" for i in range(1, 11)},
+}
+
+
+def lokalni_proracuni() -> tuple[pd.DataFrame, str]:
+    """Ostvarenje proračuna svih gradova, općina i županija (Ministarstvo financija).
+
+    ZIP sadrži jednu radnu knjigu po županiji (01–21) i jednu za cijelu državu (22). Svaki
+    list je jedna jedinica ("GRAD GOSPIĆ", "OPĆINA BRINJE", "LIČKO-SENJSKA ŽUPANIJA") ili
+    zbroj ("SVEUKUPNO OPĆ_GRAD_ŽUPANIJA"). Stupci "Ostvareno u <godina>".
+
+    Vraća dugu tablicu: zupanija, razina (jls | zupanija | zupanija_ukupno | drzava),
+    naziv, kljuc, godina, stavka, iznos.
+    """
+    import io
+    import zipfile
+
+    put = nadji("mfin-lokalni-proracuni", ".zip")
+    retci = []
+    with zipfile.ZipFile(put) as z:
+        datoteke: dict[str, zipfile.ZipInfo] = {}
+        for info in z.infolist():
+            m = re.match(r"(\d\d)\s", info.filename)
+            if not m:
+                continue
+            # kod dvije verzije iste županije prednost ima "ispravak"
+            if m[1] not in datoteke or "ispravak" in info.filename.lower():
+                datoteke[m[1]] = info
+        for oznaka, info in sorted(datoteke.items()):
+            knjiga = pd.ExcelFile(io.BytesIO(z.read(info)), engine="calamine")
+            for list_ in knjiga.sheet_names:
+                ime = " ".join(list_.split()).upper()
+                if oznaka == "22":
+                    if not ime.startswith("SVEUKUPNO OPĆ_GRAD_ŽUPANIJA"):
+                        continue
+                    zup, razina = "HR", "drzava"
+                elif oznaka == "21":
+                    zup, razina = "21", "jls"  # Grad Zagreb je i grad i županija
+                elif ime.startswith("SVEUKUPNO"):
+                    zup, razina = oznaka, "zupanija_ukupno"
+                elif ime.startswith("UKUPNO"):
+                    continue
+                elif ime.endswith("ŽUPANIJA"):
+                    zup, razina = oznaka, "zupanija"
+                else:
+                    zup, razina = oznaka, "jls"
+                t = pd.read_excel(knjiga, list_, header=None, dtype=str).fillna("")
+                zag = next(i for i, v in enumerate(t[3]) if str(v).startswith("Ostvareno u"))
+                godine = {
+                    c: _godina(str(t.iloc[zag, c]))
+                    for c in t.columns
+                    if str(t.iloc[zag, c]).startswith("Ostvareno u")
+                }
+                tijelo = t.iloc[zag + 2 :]  # preskoči redak s brojevima stupaca "1 2 3 4…"
+                tijelo = tijelo[tijelo[2].str.strip().isin(STAVKE_PRORACUNA)]
+                tijelo = tijelo.drop_duplicates(2)  # ista oznaka zna se ponoviti niže
+                k = kljuc(ime)
+                for c, god in godine.items():
+                    for stavka, v in zip(tijelo[2].str.strip(), tijelo[c], strict=True):
+                        retci.append((zup, razina, ime, k, god, stavka, broj(v)))
+    df = pd.DataFrame(
+        retci, columns=["zupanija", "razina", "naziv", "kljuc", "godina", "stavka", "iznos"]
+    )
+    # ista stavka može se pojaviti dvaput (npr. "01" u PR-RAS i u RAS-funkc): uzima se prva
+    df = df.drop_duplicates(["zupanija", "razina", "naziv", "godina", "stavka"])
+    zadnja = max(df["godina"])
+    return df, zadnja

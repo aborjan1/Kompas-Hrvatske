@@ -2,7 +2,7 @@
 
 Ova datoteka nastaje automatski iz `data/sources.csv` (`python pipeline/popis_izvora.py`). Ne uređuj je ručno.
 
-Broj skupova: **69**. Skripta `pipeline/download.py` preuzima njih **51**, a ostali se preuzimaju ručno, koriste kao servis izravno na karti ili traže API registraciju.
+Broj skupova: **70**. Skripta `pipeline/download.py` preuzima njih **52**, a ostali se preuzimaju ručno, koriste kao servis izravno na karti ili traže API registraciju.
 
 Mapa u koju se skup sprema je `data/raw/<id>/`.
 
@@ -61,6 +61,7 @@ Mapa u koju se skup sprema je `data/raw/<id>/`.
 | --- | --- | --- | --- | --- | --- | --- |
 | `dzs-gradovi-opcine` | [Statistika u nizu:  Gradovi i općine u statistici](https://data.gov.hr/ckan/dataset/statistika-u-nizu-gradovi-u-statistici) | Državni zavod za statistiku | XLSX | skripta | #7 | Samo 128 gradova (bez općina): procjena stanovništva, prirodno kretanje, migracije; kandidat za kasnije. |
 | `pu-porezne-stope-jls` | [Usporedba poreznih stopa prema odlukama jedinica lokalne samouprave u Republici Hrvatskoj](https://data.gov.hr/ckan/dataset/https-porezna-uprava-gov-hr-hr-odluke-jls-4009) | Porezna uprava | XLSX | skripta | #14 | Spaja se po službenoj šifri JLS. Stope poreza na dohodak, porez na potrošnju i na nekretnine; paušalni porez (po naseljima) zasad se ne koristi. |
+| `mfin-lokalni-proracuni` | [Financijski izvještaji JLP(R)S: PR-RAS i RAS-funkcijski 2019.–2025. (EUR)](https://mfin.gov.hr/UserDocsImages//dokumenti/o-ministarstvu/lokalna-samouprava/financijski-izvjestaji-jlp-r-s//Lokalci%20FINALI%202019%202024%20EURO.zip) | Ministarstvo financija | XLSX (ZIP) | url | #10 | Izvan data.gov.hr: mfin.gov.hr › Lokalna samouprava › Financijski izvještaji JLP(R)S. Prihodi i rashodi svih gradova, općina i županija. |
 | `komunalni-projekti` | [Financiranje projekata za poticanje razvoja komunalnog gospodarstva i komunalnog standarda](https://data.gov.hr/ckan/dataset/financiranje-projekata-komunalnog-gospodarstva-i-standarda) | Ministarstvo graditeljstva i prostornoga uređenja (NEAKTIVAN) | CSV | skripta | #14 | NEISPRAVAN: datoteke su na staroj domeni www.mgipu.hr koja prekida vezu (2014.–2017.). |
 | `turisticki-objekti` | [Popis kategoriziranih turističkih objekata u Republici Hrvatskoj](https://data.gov.hr/ckan/dataset/popis-kategoriziranih-turistickih-objekata) | Ministarstvo turizma i sporta | XLSX | skripta | #14 | Samo zbirni podaci iz 2019. bez adresa; zasad se ne koristi. |
 | `popis2021-jls` | [Stanovništvo po dobi i spolu po gradovima/općinama (Popis 2021.) INSPIRE](https://data.gov.hr/ckan/dataset/raspodjela-stanovnitva-prema-dobnim-skupinama-i-spolu-na-razni-gradova-opina-iz-popisa-stanovni) | Državna geodetska uprava | WFS, WMS | servis (WMS/WFS) | #8 | Samo WFS; koristimo dzs-popis2021 |
