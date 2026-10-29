@@ -44,7 +44,6 @@
       <option value="">— cijela županija —</option>
       {#each jlsZupanije as j (j.sifra)}<option value={j.sifra}>{j.naziv}</option>{/each}
     </select>
-    {#if $podaci.jls && !jlsZupanije.length}<small>nema JLS u mocku</small>{/if}
   {/if}
 </div>
 
@@ -67,9 +66,5 @@
   select {
     max-width: 220px;
     font: inherit;
-  }
-
-  small {
-    color: var(--kh-tekst-blago);
   }
 </style>

@@ -5,8 +5,7 @@
 import { writable } from 'svelte/store';
 import { view } from '../state.js';
 
-// TODO: switch to 'data/' once the pipeline output is on main, then delete public/mock/.
-const BASE_URL = `${import.meta.env.BASE_URL}mock/`;
+const BASE_URL = `${import.meta.env.BASE_URL}data/`;
 
 /**
  * @typedef {object} Podrucje

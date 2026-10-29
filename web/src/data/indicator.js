@@ -32,8 +32,8 @@ export const indicator = derived([view, podaci], ([v, p]) => {
   if (!p.meta) return null;
 
   const razina = v.razina === 'drzava' ? 'zupanija' : 'jls';
-  const kljuc = TEME_POKAZATELJI[v.tema].karta;
-  const pokazatelj = p.meta.pokazatelji[kljuc];
+  const kljuc = TEME_POKAZATELJI[v.tema].karta[razina];
+  const pokazatelj = kljuc ? p.meta.pokazatelji[kljuc] : null;
   if (!pokazatelj?.razine.includes(razina)) return null;
 
   const podrucja = razina === 'zupanija' ? p.zupanije : p.jls;
