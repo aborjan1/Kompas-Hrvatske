@@ -49,9 +49,10 @@ tests/               testovi obrade i provjera podataka za kartu
 
 ## Izvori podataka
 
-Rješenje koristi 40 skupova: 35 s [Portala otvorenih podataka](https://data.gov.hr) i 5
+Rješenje koristi 41 skup: 35 s [Portala otvorenih podataka](https://data.gov.hr) i 6
 dopunskih izvora tijela javne vlasti (Ministarstvo financija, Ministarstvo regionalnoga
-razvoja i fondova EU, DZS). Popis s izdavateljem, poveznicom, datumom preuzimanja i dozvolom
+razvoja i fondova EU, DZS). Cijela obrada podataka opisana je u
+[docs/podaci-dokumentacija.md](docs/podaci-dokumentacija.md). Popis s izdavateljem, poveznicom, datumom preuzimanja i dozvolom
 za svaki skup je u [docs/izvori-podataka.md](docs/izvori-podataka.md) (nastaje iz
 [data/sources.csv](data/sources.csv)). Isti podaci su u `web/public/data/meta.json`, pa ih
 aplikacija prikazuje uz svaki broj.
