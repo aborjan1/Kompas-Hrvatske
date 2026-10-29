@@ -68,15 +68,17 @@
           : null;
         if (!bounds) return;
 
+        // Listen first: under prefers-reduced-motion the intro is a jump, whose moveend
+        // fires inside fitBounds().
+        if (intro) {
+          map.once('moveend', () => lockToCroatia(map, convexHull(outline.coordinates.flat(2))));
+        }
         // Not `essential`, so MapLibre jumps instead of flying under prefers-reduced-motion.
         map.fitBounds(bounds, {
           padding: FOCUS_PADDING,
           pitch: map.getPitch(),
           ...(intro && { duration: INTRO_DURATION }),
         });
-        if (intro) {
-          map.once('moveend', () => lockToCroatia(map, convexHull(outline.coordinates.flat(2))));
-        }
       });
 
       addHoverTooltip(map, {
