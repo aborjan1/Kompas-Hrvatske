@@ -25,6 +25,7 @@ Copy-Item .env.example .env.local   # pa u .env.local upiši VITE_MAPTILER_KEY=.
   - `countyLayer.js` – choropleth županija: `createCountyLayer(map, geojson).setValues({ [sifra]: broj })`, 5 kvantilnih razreda
   - `legend.js` – legenda kao MapLibre kontrola
   - `hover.js` – isticanje granice i oblačić za bilo koji sloj poligona (`addHoverTooltip`)
+  - `euLayer.js` – krugovi EU projekata, jedan po gradu ili općini, površina prema iznosu iz EU
   - `MapView.svelte` – tanki Svelte omotač: granice iz `public/data/zupanije.geojson`, boje iz storea `indicator` (`src/data/indicator.js`)
 - `src/state.js` – zajedničko stanje (vidi dolje)
 - `src/url.js` – stanje u URL-u: svaki pogled ima svoj link, Natrag i Naprijed rade (vidi dolje)
@@ -33,12 +34,14 @@ Copy-Item .env.example .env.local   # pa u .env.local upiši VITE_MAPTILER_KEY=.
   - `teme.js` – koji pokazatelji pripadaju kojoj temi (karta i info panel)
   - `indicator.js` – pretvara razinu, temu i mjeru u brojke po šifri za kartu
   - `format.js` – formatiranje brojeva prema `jedinica` i `decimale` iz `meta.json`
+  - `euProjekti.js` – EU projekti (2014.–2020.) zbrojeni po gradu ili općini, učitavaju se tek kad se uključi gumb „EU projekti”
 - `src/panels/` – lebdeći paneli: putanja, info panel, teme i prekidač ukupno / po stanovniku
   - `GrafUsporedbe.svelte` – u profilu županije: položaj među svih 21 županija (Chart.js), klik na stupac odabire županiju
   - `UsporedbaSlicnih.svelte` – u profilu grada ili općine: usporedba s 5 najsličnijih po broju stanovnika (`slicni` iz `jls.json`), klik odabire taj grad
   - `GrafStupci.svelte` – zajednički vodoravni stupčasti graf (Chart.js) za obje usporedbe
   - `IzvorPodatka.svelte` – izvor, godina i poveznica pokazatelja kojim je karta obojana, ispod tema
   - `Pretraga.svelte` – pretraga županija, gradova i općina (Fuse.js), radi i bez kvačica; logika u `src/data/pretraga.js`
+  - `EuProjektiPopis.svelte` – broj, iznos i 5 najvećih EU projekata odabranog grada, dok je sloj uključen
 - `src/stories/` – priče (u izradi)
 - `public/data/` – gotove GeoJSON/JSON datoteke iz `pipeline/` (format: `docs/format-podataka.md`)
 

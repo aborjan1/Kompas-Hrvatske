@@ -1,6 +1,7 @@
 <script>
-  // Bottom bar: the four temas and the total / per-capita switch.
+  // Bottom bar: the four temas, the total / per-capita switch and the EU projects layer.
   import { MJERE, TEME, setMjera, setTema, view } from '../state.js';
+  import { euProjekti, prebaciEuProjekte } from '../data/euProjekti.js';
   import { podaci } from '../data/podaci.js';
   import { indicator } from '../data/indicator.js';
   import { TEME_POKAZATELJI } from '../data/teme.js';
@@ -42,6 +43,19 @@
       </button>
     {/each}
   </div>
+
+  <div class="grupa">
+    <button
+      type="button"
+      class="eu"
+      aria-pressed={$euProjekti.prikazano}
+      aria-busy={$euProjekti.prikazano && !$euProjekti.poJls}
+      title="Krugovi po gradu: koliko EU novca je dobio (2014.–2020.)"
+      onclick={prebaciEuProjekte}
+    >
+      EU projekti
+    </button>
+  </div>
 </div>
 
 <style>
@@ -82,6 +96,17 @@
   button[aria-pressed='true'] {
     background: var(--boja-teme, var(--kh-naglasak));
     color: #fff;
+  }
+
+  /* EU flag colours, matching the circles on the map. */
+  button.eu[aria-pressed='true'] {
+    background: #003399;
+    color: #ffcc00;
+  }
+
+  button.eu[aria-busy='true'] {
+    opacity: 0.7;
+    cursor: progress;
   }
 
   button:disabled {

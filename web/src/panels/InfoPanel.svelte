@@ -5,6 +5,7 @@
   import { nadjiPodrucje, ocitaj, podaci } from '../data/podaci.js';
   import { formatVrijednost } from '../data/format.js';
   import { JEDNOSTAVNI_NAZIVI, TEME_POKAZATELJI } from '../data/teme.js';
+  import EuProjektiPopis from './EuProjektiPopis.svelte';
   import GrafUsporedbe from './GrafUsporedbe.svelte';
   import UsporedbaSlicnih from './UsporedbaSlicnih.svelte';
 
@@ -114,7 +115,7 @@
       {#if recenica}<p class="recenica">{recenica}</p>{/if}
 
       {#if $view.razina === 'zupanija'}<GrafUsporedbe />{/if}
-      {#if $view.razina === 'jls'}<UsporedbaSlicnih />{/if}
+      {#if $view.razina === 'jls'}<EuProjektiPopis /><UsporedbaSlicnih />{/if}
     </div>
   {/if}
 </aside>

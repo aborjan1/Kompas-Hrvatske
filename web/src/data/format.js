@@ -4,6 +4,20 @@
 // Units that read better without a label ("3.871.833", not "3.871.833 osoba").
 const SKRIVENE_JEDINICE = new Set(['osoba', 'broj']);
 
+/**
+ * @param {number} n
+ * @returns {string} "1 projekt", "3 projekta", "12 projekata".
+ */
+export function brojProjekata(n) {
+  const zadnja = n % 10;
+  const zadnjeDvije = n % 100;
+  const oblik =
+    zadnja === 1 && zadnjeDvije !== 11 ? 'projekt'
+    : zadnja >= 2 && zadnja <= 4 && (zadnjeDvije < 12 || zadnjeDvije > 14) ? 'projekta'
+    : 'projekata';
+  return `${broj(0).format(n)} ${oblik}`;
+}
+
 // Millions and billions: "563 mil.", "1,1 mlrd.", never "563,0 mil.".
 const skraceno = new Intl.NumberFormat('hr-HR', { maximumFractionDigits: 1 });
 
