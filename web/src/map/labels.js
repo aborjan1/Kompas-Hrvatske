@@ -2,8 +2,8 @@
 
 import { convertFilter } from '@maplibre/maplibre-gl-style-spec';
 
-// OpenMapTiles source layers with point names: cities, towns, villages, airports.
-const PLACE_SOURCE_LAYERS = new Set(['place', 'aerodrome_label']);
+// Mapbox Streets source layers with point names: cities, towns, villages, airports.
+const PLACE_SOURCE_LAYERS = new Set(['place_label', 'airport_label']);
 
 /**
  * Hides place and airport names outside `outline`. Country names stay so the
