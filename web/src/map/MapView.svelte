@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { get } from 'svelte/store';
+  import { euProjekti } from '../data/euProjekti.js';
   import { indicator } from '../data/indicator.js';
   import { odabir } from '../data/podaci.js';
   import { selectArea, view } from '../state.js';
@@ -12,7 +13,8 @@
   } from './config.js';
   import { createCountyLayer, FILL_LAYER, SOURCE } from './countyLayer.js';
   import { createMap, lockToArea, lockToCroatia, setUserInput, unlockCamera } from './createMap.js';
-  import { formatVrijednost } from '../data/format.js';
+  import { brojProjekata, formatVrijednost } from '../data/format.js';
+  import { createEuLayer, EU_LAYER, EU_SOURCE } from './euLayer.js';
   import { addHoverTooltip } from './hover.js';
   import { convexHull, simplifiedOutline } from './geometry.js';
   import { hidePlacesOutside } from './labels.js';
@@ -48,6 +50,7 @@
     let unsubscribe = () => {};
     let unsubscribeView = () => {};
     let unsubscribeJls = () => {};
+    let unsubscribeEu = () => {};
 
     map.on('load', async () => {
       const response = await fetch(COUNTY_BOUNDARIES_URL);
@@ -57,6 +60,11 @@
       const outline = simplifiedOutline(geojson);
       hidePlacesOutside(map, outline);
       const jls = createJlsLayer(map);
+      const eu = createEuLayer(map);
+      unsubscribeEu = euProjekti.subscribe(({ prikazano, poJls }) => {
+        if (prikazano && poJls) eu.show(Object.values(poJls));
+        else eu.hide();
+      });
 
       // Which areas show colour: every county for the country; for a county its cities
       // and municipalities (the JLS layer), or the county itself when the tema has
@@ -94,12 +102,18 @@
 
       // The map only reports the click; the camera moves below, when the state changes,
       // so the breadcrumb, search and URL move it the same way.
+      // Every layer fires for the same click, so the one on top claims it: an EU
+      // circle, then a city or municipality inside the open county, then the county.
+      const claimedBy = (point, layers) => map.queryRenderedFeatures(point, { layers }).length > 0;
       map.on('click', FILL_LAYER, (e) => {
-        // Inside the open county the click belongs to its city or municipality.
-        if (map.queryRenderedFeatures(e.point, { layers: [JLS_FILL_LAYER] }).length) return;
+        if (claimedBy(e.point, [EU_LAYER, JLS_FILL_LAYER])) return;
         selectArea('zupanija', e.features[0].properties.sifra);
       });
-      map.on('click', JLS_FILL_LAYER, (e) => selectArea('jls', e.features[0].properties.sifra));
+      map.on('click', JLS_FILL_LAYER, (e) => {
+        if (claimedBy(e.point, [EU_LAYER])) return;
+        selectArea('jls', e.features[0].properties.sifra);
+      });
+      map.on('click', EU_LAYER, (e) => selectArea('jls', e.features[0].properties.sifra));
 
       // Scrolling out past a county's or city's framed view goes up a level (city →
       // county → country), like the breadcrumb. A little extra scroll is needed first,
@@ -198,7 +212,7 @@
       addHoverTooltip(map, {
         layerId: FILL_LAYER,
         source: SOURCE,
-        yieldTo: [JLS_FILL_LAYER],
+        yieldTo: [EU_LAYER, JLS_FILL_LAYER],
         describe: (f) => ({
           title: f.properties.naziv,
           detail: Number.isFinite(f.state.value)
@@ -209,6 +223,7 @@
       addHoverTooltip(map, {
         layerId: JLS_FILL_LAYER,
         source: JLS_SOURCE,
+        yieldTo: [EU_LAYER],
         describe: (f) => ({
           title: f.properties.naziv,
           detail:
@@ -217,12 +232,21 @@
             : 'nema podatka',
         }),
       });
+      addHoverTooltip(map, {
+        layerId: EU_LAYER,
+        source: EU_SOURCE,
+        describe: (f) => ({
+          title: `${f.properties.mjesto}: EU projekti`,
+          detail: `${brojProjekata(f.properties.broj)} · ${formatVrijednost(f.properties.esif_eur, 'EUR', 0)}`,
+        }),
+      });
     });
 
     return () => {
       unsubscribe();
       unsubscribeView();
       unsubscribeJls();
+      unsubscribeEu();
       map.remove();
     };
   });
