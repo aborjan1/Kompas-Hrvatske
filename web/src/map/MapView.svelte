@@ -20,6 +20,7 @@
   import { hidePlacesOutside } from './labels.js';
   import { createJlsLayer, JLS_FILL_LAYER, JLS_SOURCE } from './jlsLayer.js';
   import { LegendControl } from './legend.js';
+  import { shouldWarmUp, warmUp } from './warmUp.js';
 
   let container;
 
@@ -53,6 +54,8 @@
     let unsubscribeEu = () => {};
 
     map.on('load', async () => {
+      // Runs alongside the intro; ?zagrij only.
+      if (shouldWarmUp()) warmUp(map);
       const response = await fetch(COUNTY_BOUNDARIES_URL);
       if (!response.ok) throw new Error(`${COUNTY_BOUNDARIES_URL}: HTTP ${response.status}`);
       const geojson = await response.json();

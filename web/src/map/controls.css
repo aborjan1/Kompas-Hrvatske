@@ -10,3 +10,11 @@
   border-top-color: rgb(0 0 0 / 0.08);
 }
 
+/* Warm-up progress (warmUp.js), only with ?zagrij. */
+.kh-zagrijavanje {
+  max-width: 260px;
+  padding: 8px 12px;
+  font: 13px/1.4 system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
