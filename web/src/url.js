@@ -47,7 +47,14 @@ export function formatHash({ razina, podrucje, tema, mjera }) {
  * the area in the link.
  */
 export function startUrlSync() {
-  setView(parseHash(location.hash, get(view)));
+  const fromLink = parseHash(location.hash, get(view));
+  // A shared link opens on its area, but a reload or a restored tab starts again from
+  // the whole country (tema and mjera stay), so the intro always lands on Croatia.
+  const navigation = /** @type {PerformanceNavigationTiming | undefined} */ (
+    performance.getEntriesByType('navigation')[0]
+  );
+  const reopened = navigation?.type === 'reload' || navigation?.type === 'back_forward';
+  setView(reopened ? { ...fromLink, razina: 'drzava', podrucje: null } : fromLink);
   // Normalise the link (fills in tema and mjera, drops anything unknown).
   history.replaceState(history.state, '', formatHash(get(view)));
 
