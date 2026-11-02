@@ -5,8 +5,9 @@
 const CACHE = 'mapbox-v1';
 const MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000;
 const CACHED_AT = 'x-kh-cached-at';
-// Style JSON is left out so a style change reaches visitors right away.
-const CACHEABLE = /^https:\/\/api\.mapbox\.com\/(v4\/|fonts\/|styles\/v1\/[^?]+\/sprite)/;
+// Style JSON is left out so a style change reaches visitors right away. `styles/.../tiles/`
+// is the satellite of the city view (src/map/cityLayers.js).
+const CACHEABLE = /^https:\/\/api\.mapbox\.com\/(v4\/|fonts\/|styles\/v1\/[^?]+\/(sprite|tiles\/))/;
 
 self.addEventListener('install', () => self.skipWaiting());
 // Take over the open page at once, so the first visit already fills the cache.

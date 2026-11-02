@@ -33,6 +33,7 @@ preglednika na 30 dana, pa se tijekom prezentacije ništa ne čeka s interneta.
   - `createMap.js` – stvara kartu (globus, oznake na hrvatskom, ograničenje kamere)
   - `labels.js` – skriva nazive mjesta i zanimljivosti izvan Hrvatske
   - `warmUp.js` – zagrijavanje za prezentaciju (`?zagrij`)
+  - `cityLayers.js` – gradski prikaz Zagreba i Rijeke: satelit i slojevi 4 filtra (ekonomska područja, poslovne zone, javna ulaganja, gradska imovina) iz `public/data/gradovi/`
   - `countyLayer.js` – choropleth županija: `createCountyLayer(map, geojson).setValues({ [sifra]: broj })`, 5 kvantilnih razreda
   - `legend.js` – legenda kao MapLibre kontrola
   - `hover.js` – isticanje granice i oblačić za bilo koji sloj poligona (`addHoverTooltip`)
@@ -46,6 +47,7 @@ preglednika na 30 dana, pa se tijekom prezentacije ništa ne čeka s interneta.
   - `indicator.js` – pretvara razinu, temu i mjeru u brojke po šifri za kartu
   - `format.js` – formatiranje brojeva prema `jedinica` i `decimale` iz `meta.json`
   - `euProjekti.js` – EU projekti (2014.–2020.) zbrojeni po gradu ili općini, učitavaju se tek kad se uključi gumb „EU projekti”
+  - `gradskiPrikaz.js` – koji grad ima koje filtre i koji su uključeni; gradski prikaz se otvara sam kad se odabere Zagreb ili Rijeka
 - `src/panels/` – lebdeći paneli: putanja, info panel, teme i prekidač ukupno / po stanovniku
   - `GrafUsporedbe.svelte` – u profilu županije: položaj među svih 21 županija (Chart.js), klik na stupac odabire županiju
   - `UsporedbaSlicnih.svelte` – u profilu grada ili općine: usporedba s 5 najsličnijih po broju stanovnika (`slicni` iz `jls.json`), klik odabire taj grad
@@ -53,6 +55,7 @@ preglednika na 30 dana, pa se tijekom prezentacije ništa ne čeka s interneta.
   - `IzvorPodatka.svelte` – izvor, godina i poveznica pokazatelja kojim je karta obojana, ispod tema
   - `Pretraga.svelte` – pretraga županija, gradova i općina (Fuse.js), radi i bez kvačica; logika u `src/data/pretraga.js`
   - `EuProjektiPopis.svelte` – broj, iznos i 5 najvećih EU projekata odabranog grada, dok je sloj uključen
+  - `GradskiFiltri.svelte` – gumbi za 4 filtra gradskog prikaza u profilu Zagreba ili Rijeke
 - `src/stories/` – priče (u izradi)
 - `public/data/` – gotove GeoJSON/JSON datoteke iz `pipeline/` (format: `docs/format-podataka.md`)
 
