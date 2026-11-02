@@ -33,10 +33,31 @@ export function createMap(container) {
   map.touchZoomRotate.disableRotation();
   map.keyboard.disableRotation();
   map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right');
-  map.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-right');
+  setDataAttribution(map, '');
   map.on('style.load', () => useLocalLabels(map));
 
   return map;
+}
+
+/** @type {WeakMap<mapboxgl.Map, mapboxgl.AttributionControl>} */
+const attributions = new WeakMap();
+
+// The map's "i" button credits the basemap and, once meta.json has loaded, the
+// boundaries (Državna geodetska uprava): source, download date and licence, as the
+// Open Licence requires. `html` is trusted text built from meta.json.
+/**
+ * @param {mapboxgl.Map} map
+ * @param {string} html
+ */
+export function setDataAttribution(map, html) {
+  const old = attributions.get(map);
+  if (old) map.removeControl(old);
+  const control = new mapboxgl.AttributionControl({
+    compact: true,
+    ...(html ? { customAttribution: html } : {}),
+  });
+  map.addControl(control, 'bottom-right');
+  attributions.set(map, control);
 }
 
 // Called once the camera has landed on an area (the whole country after the intro):
