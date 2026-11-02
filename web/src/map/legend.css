@@ -17,6 +17,13 @@
   color: #1f1f1d;
 }
 
+.kh-legend__opis {
+  margin: -2px 0 8px;
+  font-size: 12px;
+  line-height: 1.35;
+  color: #6b6a65;
+}
+
 .kh-legend__row {
   display: flex;
   align-items: center;
@@ -49,6 +56,11 @@
   .kh-legend__title {
     margin-bottom: 4px;
     font-size: 12px;
+  }
+
+  /* No room on phones; the info panel has the full explanation. */
+  .kh-legend__opis {
+    display: none;
   }
 
   .kh-legend__row {

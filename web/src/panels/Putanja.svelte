@@ -78,6 +78,12 @@
     text-decoration: underline;
   }
 
+  .link:focus-visible {
+    border-radius: 2px;
+    outline: 2px solid var(--kh-naglasak);
+    outline-offset: 2px;
+  }
+
   .strelica {
     color: var(--kh-tekst-blago);
   }
