@@ -80,14 +80,14 @@ const GROUPS = {
 /** Layers a user can point at, for hover and click. */
 export const CITY_POINT_LAYERS = ['grad-ulaganja', 'grad-prostori', 'grad-trznice', 'grad-drustva'];
 
-// Every location the same small dot: where something is, not how big; the amount is in
-// the tooltip.
+// Every location the same dot: where something is, not how big; the amount is in the
+// tooltip. A thick white ring so it stands out on the photo, roads and labels alike.
 function dot(color) {
   return {
     'circle-color': color,
-    'circle-radius': ['interpolate', ['linear'], ['zoom'], 8, 2.5, 10, 4, 13, 5.5],
+    'circle-radius': ['interpolate', ['linear'], ['zoom'], 8, 3.5, 10, 5, 13, 7],
     'circle-stroke-color': '#ffffff',
-    'circle-stroke-width': 1,
+    'circle-stroke-width': 2,
   };
 }
 export const CITY_AREA_LAYERS = ['grad-brownfield-fill', 'grad-zone-fill', 'grad-cetvrti-fill'];
@@ -125,7 +125,10 @@ export function createCityLayers(map) {
       });
     }
     for (const layer of group.layers) {
-      map.addLayer({ ...layer, layout: { ...layer.layout, visibility: 'none' } }, beforeId);
+      // Dots on top of everything: Outdoors draws its roads and names after `beforeId`,
+      // and they hid the dots.
+      const before = layer.type === 'circle' ? undefined : beforeId;
+      map.addLayer({ ...layer, layout: { ...layer.layout, visibility: 'none' } }, before);
     }
   }
 
