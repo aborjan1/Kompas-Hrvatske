@@ -17,6 +17,7 @@ import { JEDNOSTAVNI_NAZIVI, TEME_POKAZATELJI } from './teme.js';
  * @property {string} kljuc Indicator key in meta.json `pokazatelji`.
  * @property {'zupanija' | 'jls'} razina Which areas `values` are keyed by.
  * @property {string} title Indicator name shown in the legend and panel.
+ * @property {string} objasnjenje What the number means, in plain words (meta.json).
  * @property {string} unit Unit from meta.json, e.g. 'EUR', 'EUR po stanovniku', '%'.
  * @property {number} decimale Decimals for formatVrijednost() in format.js.
  * @property {string} godina Period of the data, free text ("2025", "stanje 31.05.2023").
@@ -68,6 +69,7 @@ export const indicator = derived([view, podaci], ([v, p]) => {
     kljuc,
     razina,
     title: JEDNOSTAVNI_NAZIVI[kljuc] ?? pokazatelj.naziv,
+    objasnjenje: pokazatelj.objasnjenje ?? '',
     unit: jedinica,
     decimale,
     godina: pokazatelj.godina,

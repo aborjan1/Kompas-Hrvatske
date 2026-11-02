@@ -18,16 +18,19 @@ export class LegendControl {
   }
 
   /**
-   * @param {{ title: string, format?: (value: number) => string,
+   * @param {{ title: string, opis?: string, format?: (value: number) => string,
    *   classes: { color: string, min: number, max: number }[], hasMissing: boolean }} legend
+   *   `opis` is one plain-language sentence on what the number means, under the title.
    *   `format` turns a class bound into text with its unit ("563 mil. €").
    */
-  update({ title, format = formatNumber, classes, hasMissing }) {
+  update({ title, opis = '', format = formatNumber, classes, hasMissing }) {
     const range = (min, max) => (min === max ? format(min) : `${format(min)} – ${format(max)}`);
     const rows = classes.map((c) => row(c.color, range(c.min, c.max)));
     if (hasMissing) rows.push(row(NO_DATA_COLOR, 'nema podatka'));
 
-    this.container.replaceChildren(el('div', 'kh-legend__title', title), ...rows);
+    const head = [el('div', 'kh-legend__title', title)];
+    if (opis) head.push(el('div', 'kh-legend__opis', opis));
+    this.container.replaceChildren(...head, ...rows);
     this.container.hidden = classes.length === 0;
   }
 }
