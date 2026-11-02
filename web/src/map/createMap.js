@@ -44,9 +44,18 @@ export function createMap(container) {
 // pan to, so the area stays in focus while they look around it.
 /** @param {mapboxgl.Map} map */
 function lockToView(map) {
-  map.setMaxBounds(map.getBounds());
+  // A little wider than the view: with bounds exactly the view, zooming out around a
+  // cursor off-centre got stuck short of the minimum, so scrolling out never reached
+  // the next level up (MapView.svelte).
+  const view = map.getBounds();
+  const padLng = (view.getEast() - view.getWest()) * 0.05;
+  const padLat = (view.getNorth() - view.getSouth()) * 0.05;
+  map.setMaxBounds([
+    [view.getWest() - padLng, view.getSouth() - padLat],
+    [view.getEast() + padLng, view.getNorth() + padLat],
+  ]);
   // After the bounds: they can nudge the zoom in a hair, and the minimum must be
-  // reachable for scrolling out to a higher level (MapView.svelte).
+  // reachable for scrolling out to a higher level.
   map.setMinZoom(map.getZoom());
 }
 
