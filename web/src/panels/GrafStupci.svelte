@@ -104,7 +104,7 @@
             // Not bold for the selected row: Chart.js sizes the axis from the regular
             // font, so a bold label would be cut. Darker text and the coloured bar mark it.
             font: { family: 'system-ui, sans-serif', size: 11 },
-            color: (ctx) => (ctx.index === indeks ? '#1f1f1d' : '#8a8984'),
+            color: (ctx) => (ctx.index === indeks ? '#1f1f1d' : '#6b6a65'),
           },
         },
       },

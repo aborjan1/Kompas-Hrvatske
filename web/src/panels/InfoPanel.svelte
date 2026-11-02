@@ -1,12 +1,15 @@
 <script>
   // Info panel: the selected area, up to four numbers for the current tema and one
-  // sentence. Proper sentence templates come later (issue "Predlošci rečenica").
+  // sentence about them (templates in src/data/recenice.js).
+  import { get } from 'svelte/store';
   import { view } from '../state.js';
   import { nadjiPodrucje, ocitaj, podaci } from '../data/podaci.js';
   import { formatVrijednost } from '../data/format.js';
+  import { napraviRecenicu } from '../data/recenice.js';
   import { JEDNOSTAVNI_NAZIVI, TEME_POKAZATELJI } from '../data/teme.js';
   import EuProjektiPopis from './EuProjektiPopis.svelte';
   import GrafUsporedbe from './GrafUsporedbe.svelte';
+  import PopisPrica from './PopisPrica.svelte';
   import UsporedbaSlicnih from './UsporedbaSlicnih.svelte';
 
   const MAX_BROJEVA = 4;
@@ -31,22 +34,11 @@
           nedostaje: o.value === null,
           godina: pokazatelj.godina,
           napomena: pokazatelj.napomena,
-          rang: o.rang,
         };
       });
   });
 
-  const recenica = $derived.by(() => {
-    if (!podrucje) return '';
-    if ($view.razina === 'drzava') return 'Odaberite županiju na karti za usporedbu.';
-    const prvi = brojevi.find((b) => b.rang !== null);
-    if (!prvi) return '';
-    const od =
-      $view.razina === 'zupanija'
-        ? `od ${Object.keys($podaci.zupanije ?? {}).length} županija`
-        : `od ${Object.keys($podaci.jls ?? {}).length} gradova i općina`;
-    return `${prvi.naziv}: ${prvi.rang}. mjesto po veličini ${od}.`;
-  });
+  const recenica = $derived(napraviRecenicu($podaci, $view));
 
   // City or municipality profile: what it is, where, and how big.
   const podnaslov = $derived.by(() => {
@@ -66,7 +58,26 @@
   // Phones only (the button is hidden on wider screens): the panel drops down to its
   // title so the map is visible, and the arrow brings it back. Kept while browsing,
   // so tapping around the map doesn't keep covering it.
-  let sklopljeno = $state(false);
+  // On a phone the country view starts dropped down, so the map is the first thing seen.
+  const mobitel = typeof matchMedia === 'function' && matchMedia('(max-width: 640px)').matches;
+  let sklopljeno = $state(mobitel && get(view).razina === 'drzava');
+
+  // A swipe on the title row drops the panel (down) or brings it back (up), next to the
+  // arrow. Touch and pen only: a mouse has the arrow.
+  const PRAG_POVLACENJA = 30; // px
+  let pocetakY = null;
+
+  function onpointerdown(e) {
+    if (e.pointerType !== 'mouse') pocetakY = e.clientY;
+  }
+
+  function onpointerup(e) {
+    if (pocetakY === null) return;
+    const pomak = e.clientY - pocetakY;
+    pocetakY = null;
+    if (pomak > PRAG_POVLACENJA) sklopljeno = true;
+    else if (pomak < -PRAG_POVLACENJA) sklopljeno = false;
+  }
 </script>
 
 <aside class="kh-panel info" class:sklopljeno aria-live="polite">
@@ -75,7 +86,9 @@
   {:else if !podrucje}
     <p class="poruka">Učitavanje…</p>
   {:else}
-    <div class="zaglavlje">
+    <!-- The swipe only adds to the arrow button, which keyboards and screen readers use. -->
+    <!-- svelte-ignore a11y_no_static_element_interactions -->
+    <div class="zaglavlje" {onpointerdown} {onpointerup} onpointercancel={() => (pocetakY = null)}>
       <div class="naslov">
         <p class="tema" style:color={TEME_POKAZATELJI[$view.tema].boje[3]}>{temaNaziv}</p>
         <h2>{podrucje.naziv}</h2>
@@ -114,6 +127,7 @@
 
       {#if recenica}<p class="recenica">{recenica}</p>{/if}
 
+      {#if $view.razina === 'drzava'}<PopisPrica />{/if}
       {#if $view.razina === 'zupanija'}<GrafUsporedbe />{/if}
       {#if $view.razina === 'jls'}<EuProjektiPopis /><UsporedbaSlicnih />{/if}
     </div>
@@ -235,6 +249,8 @@
       padding: 14px 16px 4px;
       border-radius: 8px 8px 0 0;
       background: #fff;
+      /* The swipe is ours, not a scroll of the panel. */
+      touch-action: none;
     }
 
     .ladica {

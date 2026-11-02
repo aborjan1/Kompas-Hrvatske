@@ -42,6 +42,24 @@ export function formatHash({ razina, podrucje, tema, mjera }) {
   return `#${path}?tema=${tema}&mjera=${mjera}`;
 }
 
+// When set, the next URL write replaces the current history entry instead of adding one.
+let replaceNext = false;
+
+/**
+ * Runs `promjena` (a change to the view) without adding a history entry: the URL still
+ * follows, in place. Stories use it, so a story doesn't fill the Back button with its
+ * scenes.
+ * @param {() => void} promjena
+ */
+export function bezNovogZapisa(promjena) {
+  replaceNext = true;
+  try {
+    promjena();
+  } finally {
+    replaceNext = false;
+  }
+}
+
 /**
  * Starts the sync. Call before mounting the app, so the map's intro already lands on
  * the area in the link.
@@ -59,7 +77,6 @@ export function startUrlSync() {
   history.replaceState(history.state, '', formatHash(get(view)));
 
   let previous = get(view);
-  let replaceNext = false;
   view.subscribe((v) => {
     const hash = formatHash(v);
     const novoPodrucje = v.razina !== previous.razina || v.podrucje !== previous.podrucje;
@@ -73,11 +90,7 @@ export function startUrlSync() {
 
   // Back, Forward and a hash typed into the address bar. The browser has already made
   // the history entry, so a link that needs normalising is fixed in place.
-  addEventListener('popstate', () => {
-    replaceNext = true;
-    setView(parseHash(location.hash, get(view)));
-    replaceNext = false;
-  });
+  addEventListener('popstate', () => bezNovogZapisa(() => setView(parseHash(location.hash, get(view)))));
 
   // A code the data doesn't know (a stale or mistyped link) falls back to the country,
   // once the file that could have it has loaded. It replaces the bad entry, so Back

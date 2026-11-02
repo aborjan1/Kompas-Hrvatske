@@ -138,6 +138,10 @@ export function colorExpression(classes) {
   const value = ['feature-state', 'value'];
   if (classes.length === 0) return NO_DATA_COLOR;
 
+  // One class (Grad Zagreb has a single city): a `step` needs at least one stop, so
+  // MapLibre would reject it and leave the area uncoloured.
+  if (classes.length === 1) return ['case', ['==', value, null], NO_DATA_COLOR, classes[0].color];
+
   const step = ['step', value, classes[0].color];
   for (const c of classes.slice(1)) step.push(c.min, c.color);
   return ['case', ['==', value, null], NO_DATA_COLOR, step];
