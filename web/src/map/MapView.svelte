@@ -34,6 +34,14 @@
 
   // Legend rows carry short units ("563 mil. €", "3,3 %"); a long one such as
   // "na 1.000 stanovnika" or "po stanovniku" goes once into the title instead.
+  // The legend has room for one sentence of the explanation; the panel shows all of it.
+  // A full stop only ends a sentence before a capital, so "2021. do 2025." stays whole.
+  /** @param {string} tekst */
+  function prvaRecenica(tekst) {
+    const m = tekst.match(/^.+?\.(?=\s+[A-ZČĆŠĐŽ])/);
+    return m ? m[0] : tekst;
+  }
+
   /** @param {import('../data/indicator.js').Indicator | null} ind */
   function legendText(ind) {
     if (!ind) return { title: '' };
@@ -43,6 +51,7 @@
     const titleUnit = eur ? ind.unit.slice(3) : short ? '' : ` (${ind.unit})`;
     return {
       title: `${ind.title}${titleUnit}`,
+      opis: prvaRecenica(ind.objasnjenje),
       format: (/** @type {number} */ v) => formatVrijednost(v, rowUnit, ind.decimale),
     };
   }

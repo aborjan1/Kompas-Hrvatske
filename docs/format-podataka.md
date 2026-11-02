@@ -59,6 +59,7 @@ može dugo čuvati, a brojke se mijenjaju pri svakom pokretanju obrade.
       "razine": ["drzava", "zupanija", "jls"],
       "izvor": "pu-porez-dohodak",
       "napomena": "Plaće, mirovine i ostali dohodak nakon poreza i doprinosa, za cijelu godinu.",
+      "objasnjenje": "Koliko su svi stanovnici zajedno primili u godini nakon poreza i doprinosa: …",
       "godina": "2025"
     }
   },
@@ -78,7 +79,11 @@ može dugo čuvati, a brojke se mijenjaju pri svakom pokretanju obrade.
 - `godina` je razdoblje na koje se broj odnosi. Pokazatelji imaju **različite godine**
   (npr. stanovništvo 2021., plaće 2025.), pa godinu treba prikazati uz izvor.
   To je tekst, ne broj: može biti `"2025"`, `"VI. 2026."` ili `"stanje 31.05.2023"`.
-- `napomena` je neobavezna rečenica za korisnika (npr. u oblačiću uz pokazatelj).
+- `objasnjenje` je obavezna rečenica ili dvije o tome **što broj znači**, jednostavnim
+  riječima (npr. „Od svakih 100 € prihoda, koliko je grad ili općina dobila od države…”).
+  Prikazuje se uz broj u panelu i ispod naslova legende.
+- `napomena` je neobavezna rečenica o tome **kako je broj izračunat** (točna definicija,
+  obuhvat). U panelu se prikazuje ispod objašnjenja kao „Kako je izračunato”.
 - `po_stanovniku` je `null` ako se pokazatelj ne preračunava po stanovniku (npr. stope u %).
   Prekidač „ukupno / po stanovniku” za takve pokazatelje treba biti onemogućen.
 - `mnozitelj` je 1 za iznose u eurima („EUR po stanovniku”), a 1000 za brojeve

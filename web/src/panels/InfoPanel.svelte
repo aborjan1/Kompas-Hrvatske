@@ -1,13 +1,19 @@
 <script>
   // Info panel: the selected area, up to four numbers for the current tema and one
-  // sentence. Proper sentence templates come later (issue "Predlošci rečenica").
+  // sentence about them (templates in src/data/recenice.js).
+  import { get } from 'svelte/store';
   import { view } from '../state.js';
   import { nadjiPodrucje, ocitaj, podaci } from '../data/podaci.js';
   import { formatVrijednost } from '../data/format.js';
+  import { napraviRecenicu } from '../data/recenice.js';
   import { JEDNOSTAVNI_NAZIVI, TEME_POKAZATELJI } from '../data/teme.js';
   import EuProjektiPopis from './EuProjektiPopis.svelte';
   import GradskiFiltri from './GradskiFiltri.svelte';
   import GrafUsporedbe from './GrafUsporedbe.svelte';
+  import KamoIdeNovac from './KamoIdeNovac.svelte';
+  import ProracunKrozGodine from './ProracunKrozGodine.svelte';
+  import { siroko } from './ekran.js';
+  import PopisPrica from './PopisPrica.svelte';
   import UsporedbaSlicnih from './UsporedbaSlicnih.svelte';
 
   const MAX_BROJEVA = 4;
@@ -26,28 +32,20 @@
         return {
           kljuc,
           naziv: JEDNOSTAVNI_NAZIVI[kljuc] ?? pokazatelj.naziv,
-          // Official name and note on hover, for anyone who wants the exact definition.
-          opis: [pokazatelj.naziv, pokazatelj.napomena].filter(Boolean).join('. '),
           vrijednost: formatVrijednost(o.value, o.jedinica, o.decimale),
           nedostaje: o.value === null,
           godina: pokazatelj.godina,
+          // Shown when the name is tapped: what the number means in plain words, then
+          // the official name and how it is calculated, for the exact definition.
+          objasnjenje: pokazatelj.objasnjenje,
+          sluzbeniNaziv: pokazatelj.naziv,
           napomena: pokazatelj.napomena,
-          rang: o.rang,
+          poStanovniku: o.poStanovniku,
         };
       });
   });
 
-  const recenica = $derived.by(() => {
-    if (!podrucje) return '';
-    if ($view.razina === 'drzava') return 'Odaberite županiju na karti za usporedbu.';
-    const prvi = brojevi.find((b) => b.rang !== null);
-    if (!prvi) return '';
-    const od =
-      $view.razina === 'zupanija'
-        ? `od ${Object.keys($podaci.zupanije ?? {}).length} županija`
-        : `od ${Object.keys($podaci.jls ?? {}).length} gradova i općina`;
-    return `${prvi.naziv}: ${prvi.rang}. mjesto po veličini ${od}.`;
-  });
+  const recenica = $derived(napraviRecenicu($podaci, $view));
 
   // City or municipality profile: what it is, where, and how big.
   const podnaslov = $derived.by(() => {
@@ -64,10 +62,33 @@
 
   const temaNaziv = $derived($podaci.meta?.teme[$view.tema] ?? $view.tema);
 
+  // Which number's explanation is open. One at a time, so the panel stays short.
+  /** @type {string | null} */
+  let otvoreno = $state(null);
+
   // Phones only (the button is hidden on wider screens): the panel drops down to its
   // title so the map is visible, and the arrow brings it back. Kept while browsing,
   // so tapping around the map doesn't keep covering it.
-  let sklopljeno = $state(false);
+  // On a phone the country view starts dropped down, so the map is the first thing seen.
+  const mobitel = typeof matchMedia === 'function' && matchMedia('(max-width: 640px)').matches;
+  let sklopljeno = $state(mobitel && get(view).razina === 'drzava');
+
+  // A swipe on the title row drops the panel (down) or brings it back (up), next to the
+  // arrow. Touch and pen only: a mouse has the arrow.
+  const PRAG_POVLACENJA = 30; // px
+  let pocetakY = null;
+
+  function onpointerdown(e) {
+    if (e.pointerType !== 'mouse') pocetakY = e.clientY;
+  }
+
+  function onpointerup(e) {
+    if (pocetakY === null) return;
+    const pomak = e.clientY - pocetakY;
+    pocetakY = null;
+    if (pomak > PRAG_POVLACENJA) sklopljeno = true;
+    else if (pomak < -PRAG_POVLACENJA) sklopljeno = false;
+  }
 </script>
 
 <aside class="kh-panel info" class:sklopljeno aria-live="polite">
@@ -76,7 +97,9 @@
   {:else if !podrucje}
     <p class="poruka">Učitavanje…</p>
   {:else}
-    <div class="zaglavlje">
+    <!-- The swipe only adds to the arrow button, which keyboards and screen readers use. -->
+    <!-- svelte-ignore a11y_no_static_element_interactions -->
+    <div class="zaglavlje" {onpointerdown} {onpointerup} onpointercancel={() => (pocetakY = null)}>
       <div class="naslov">
         <p class="tema" style:color={TEME_POKAZATELJI[$view.tema].boje[3]}>{temaNaziv}</p>
         <h2>{podrucje.naziv}</h2>
@@ -103,9 +126,31 @@
         <dl>
           {#each brojevi as b (b.kljuc)}
             <div class="broj">
-              <dt title={b.opis}>{b.naziv}</dt>
+              <dt>
+                <button
+                  type="button"
+                  class="pitanje"
+                  aria-expanded={otvoreno === b.kljuc}
+                  aria-controls="objasnjenje-{b.kljuc}"
+                  title={otvoreno === b.kljuc ? 'Sakrij objašnjenje' : 'Što znači ovaj broj?'}
+                  onclick={() => (otvoreno = otvoreno === b.kljuc ? null : b.kljuc)}
+                >
+                  {b.naziv}
+                  <span class="ikona" aria-hidden="true">i</span>
+                </button>
+              </dt>
               <dd class:nedostaje={b.nedostaje}>{b.vrijednost}</dd>
               <dd class="godina">{b.godina}</dd>
+              <dd class="objasnjenje" id="objasnjenje-{b.kljuc}" hidden={otvoreno !== b.kljuc}>
+                {#if b.objasnjenje}<p>{b.objasnjenje}</p>{/if}
+                {#if b.poStanovniku}
+                  <p class="kako">Po stanovniku: ukupni iznos podijeljen brojem stanovnika iz Popisa 2021.</p>
+                {/if}
+                {#if b.napomena}
+                  <p class="kako"><strong>Kako je izračunato:</strong> {b.napomena}</p>
+                {/if}
+                <p class="kako"><strong>Službeni naziv:</strong> {b.sluzbeniNaziv}</p>
+              </dd>
             </div>
           {/each}
         </dl>
@@ -115,6 +160,13 @@
 
       {#if recenica}<p class="recenica">{recenica}</p>{/if}
 
+      <!-- Wide screens show these in the chart panel in the top-left corner (GrafoviPanel). -->
+      {#if $view.tema === 'novac' && $view.razina !== 'drzava' && !$siroko}
+        <KamoIdeNovac />
+        <ProracunKrozGodine />
+      {/if}
+
+      {#if $view.razina === 'drzava'}<PopisPrica />{/if}
       {#if $view.razina === 'zupanija'}<GrafUsporedbe />{/if}
       {#if $view.razina === 'jls'}<GradskiFiltri /><EuProjektiPopis /><UsporedbaSlicnih />{/if}
     </div>
@@ -191,7 +243,77 @@
     margin: 0;
   }
 
-  dd:not(.godina) {
+  .pitanje {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .pitanje:hover,
+  .pitanje[aria-expanded='true'] {
+    color: var(--kh-tekst);
+  }
+
+  .pitanje:focus-visible {
+    outline: 2px solid var(--kh-naglasak);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+
+  .ikona {
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+    width: 15px;
+    height: 15px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    font-family: Georgia, serif;
+    font-size: 10px;
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .pitanje[aria-expanded='true'] .ikona {
+    border-color: var(--kh-naglasak);
+    background: var(--kh-naglasak);
+    color: #fff;
+  }
+
+  .objasnjenje {
+    grid-column: 1 / -1;
+    margin-top: 6px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    background: var(--kh-pozadina-blaga);
+    font-size: 12.5px;
+    line-height: 1.45;
+    color: var(--kh-tekst);
+  }
+
+  .objasnjenje[hidden] {
+    display: none;
+  }
+
+  .objasnjenje p {
+    margin: 0;
+  }
+
+  .objasnjenje .kako {
+    margin-top: 6px;
+    font-size: 11.5px;
+    color: var(--kh-tekst-blago);
+  }
+
+  dd:not(.godina):not(.objasnjenje) {
     font-size: 20px;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
@@ -236,6 +358,8 @@
       padding: 14px 16px 4px;
       border-radius: 8px 8px 0 0;
       background: #fff;
+      /* The swipe is ours, not a scroll of the panel. */
+      touch-action: none;
     }
 
     .ladica {

@@ -1,21 +1,26 @@
 <script>
   // Floating panels over the map. The layer itself lets pointer events through so the
   // map stays draggable between panels; only the panels catch clicks.
+  import GrafoviPanel from './GrafoviPanel.svelte';
   import InfoPanel from './InfoPanel.svelte';
   import IzvorPodatka from './IzvorPodatka.svelte';
   import Pretraga from './Pretraga.svelte';
+  import PricaKartica from './PricaKartica.svelte';
   import Putanja from './Putanja.svelte';
   import TemeBar from './TemeBar.svelte';
+  import { reprodukcija } from '../stories/player.js';
 </script>
 
-<div class="sloj">
+<div class="sloj" class:u-prici={$reprodukcija}>
   <div class="gore">
     <Putanja />
     <Pretraga />
   </div>
+  <div class="lijevo"><GrafoviPanel /></div>
   <div class="desno"><InfoPanel /></div>
   <div class="dolje">
-    <TemeBar />
+    <!-- A story sets the tema itself, so its card takes the tema bar's place. -->
+    {#if $reprodukcija}<PricaKartica />{:else}<TemeBar />{/if}
     <IzvorPodatka />
   </div>
 </div>
@@ -24,6 +29,7 @@
   .sloj {
     position: absolute;
     inset: 0;
+    z-index: 1;
     pointer-events: none;
     font-size: 14px;
     color: var(--kh-tekst);
@@ -43,6 +49,22 @@
     gap: 8px;
     width: max-content;
     max-width: calc(100% - 24px);
+  }
+
+  /* Charts for the selected area (wide screens only, see ekran.js). Stops above the
+     legend in the bottom-left corner. */
+  .lijevo {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 290px;
+    max-height: calc(100% - 300px);
+    overflow-y: auto;
+    border-radius: 8px;
+  }
+
+  .u-prici .lijevo {
+    display: none;
   }
 
   /* Leaves room for the map's zoom controls in the top-right corner. */
@@ -85,6 +107,12 @@
 
     .dolje {
       bottom: 40px;
+    }
+
+    /* During a story the card tells what is shown and the breadcrumb where, so the info
+       panel steps aside and leaves the map visible. */
+    .u-prici .desno {
+      display: none;
     }
 
     .desno {

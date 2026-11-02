@@ -1,0 +1,138 @@
+[
+  {
+    "id": "ulaganja",
+    "naslov": "Gdje gradovi najviše ulažu",
+    "opis": "Ulaganja gradova i općina po stanovniku",
+    "scene": [
+      {
+        "razina": "drzava",
+        "tema": "novac",
+        "mjera": "po-stanovniku",
+        "tekst": "Gradovi i općine iz svojih proračuna grade ceste, škole i vrtiće. Gledamo iznos po stanovniku, da se mali i veliki mogu usporediti."
+      },
+      {
+        "razina": "zupanija",
+        "odabir": "najveci",
+        "pokazatelj": "lokalna_ulaganja",
+        "tema": "novac",
+        "mjera": "po-stanovniku",
+        "tekst": "Županija u kojoj gradovi i općine najviše ulažu po stanovniku je {naziv}: {vrijednost}."
+      },
+      {
+        "razina": "jls",
+        "odabir": "najveci",
+        "pokazatelj": "lokalna_ulaganja",
+        "tema": "novac",
+        "mjera": "po-stanovniku",
+        "tekst": "U cijeloj Hrvatskoj po stanovniku najviše ulaže {naziv} ({zupanija}): {vrijednost}."
+      },
+      {
+        "razina": "jls",
+        "odabir": "najmanji",
+        "pokazatelj": "lokalna_ulaganja",
+        "tema": "novac",
+        "mjera": "po-stanovniku",
+        "tekst": "Na drugom kraju je {naziv} ({zupanija}): {vrijednost}. Ista država, vrlo različite mogućnosti."
+      }
+    ]
+  },
+  {
+    "id": "eu",
+    "naslov": "Kamo ide EU novac",
+    "opis": "EU projekti po gradovima i novac 2021.–2027.",
+    "scene": [
+      {
+        "razina": "drzava",
+        "tema": "novac",
+        "mjera": "ukupno",
+        "eu": true,
+        "tekst": "Krugovi pokazuju koliko je EU novca 2014.–2020. stiglo u pojedini grad ili općinu: što veći krug, to više novca."
+      },
+      {
+        "razina": "zupanija",
+        "odabir": "najveci",
+        "pokazatelj": "eu_2127_ugovoreno",
+        "tema": "novac",
+        "mjera": "po-stanovniku",
+        "eu": true,
+        "tekst": "Najviše ugovorenog EU novca po stanovniku u razdoblju 2021.–2027. ima {naziv}: {vrijednost}."
+      },
+      {
+        "razina": "jls",
+        "odabir": "najveci",
+        "pokazatelj": "eu_2127_ugovoreno",
+        "tema": "novac",
+        "mjera": "ukupno",
+        "eu": true,
+        "tekst": "Od svih gradova i općina najviše je EU novca 2021.–2027. ugovoreno za {naziv}: {vrijednost}."
+      }
+    ]
+  },
+  {
+    "id": "porezi",
+    "naslov": "Porez na plaću nije svugdje isti",
+    "opis": "Stope poreza na dohodak po gradovima i općinama",
+    "scene": [
+      {
+        "razina": "drzava",
+        "tema": "porezi",
+        "mjera": "ukupno",
+        "tekst": "Gradovi i općine sami biraju stopu poreza na plaću, unutar granica koje propisuje zakon. Zato ista plaća nije svugdje jednako oporezovana."
+      },
+      {
+        "razina": "jls",
+        "odabir": "najveci",
+        "pokazatelj": "stopa_poreza_dohodak_niza",
+        "tema": "porezi",
+        "mjera": "ukupno",
+        "tekst": "Među najvišim stopama je {naziv} ({zupanija}): {vrijednost}."
+      },
+      {
+        "razina": "jls",
+        "odabir": "najmanji",
+        "pokazatelj": "stopa_poreza_dohodak_niza",
+        "tema": "porezi",
+        "mjera": "ukupno",
+        "tekst": "Među najnižima je {naziv} ({zupanija}): {vrijednost}."
+      }
+    ]
+  },
+  {
+    "id": "place",
+    "naslov": "Plaće i nezaposlenost",
+    "opis": "Razlike među županijama",
+    "scene": [
+      {
+        "razina": "drzava",
+        "pokazatelj": "prosjecna_neto_placa",
+        "tema": "ljudi",
+        "mjera": "ukupno",
+        "tekst": "Prosječna plaća na ruke u Hrvatskoj je {vrijednost}. Među županijama su razlike velike."
+      },
+      {
+        "razina": "zupanija",
+        "odabir": "najveci",
+        "pokazatelj": "prosjecna_neto_placa",
+        "tema": "ljudi",
+        "mjera": "ukupno",
+        "tekst": "Najveću prosječnu plaću ima {naziv}: {vrijednost}."
+      },
+      {
+        "razina": "zupanija",
+        "odabir": "najmanji",
+        "pokazatelj": "prosjecna_neto_placa",
+        "tema": "ljudi",
+        "mjera": "ukupno",
+        "tekst": "Najmanju ima {naziv}: {vrijednost}."
+      },
+      {
+        "razina": "zupanija",
+        "odabir": "najveci",
+        "pokazatelj": "stopa_nezaposlenosti",
+        "tema": "ljudi",
+        "mjera": "ukupno",
+        "tekst": "Najveću nezaposlenost ima {naziv}: {vrijednost}."
+      }
+    ]
+  }
+]
