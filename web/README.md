@@ -41,8 +41,10 @@ Copy-Item .env.example .env.local   # pa u .env.local upiši VITE_MAPTILER_KEY=.
   - `GrafStupci.svelte` – zajednički vodoravni stupčasti graf (Chart.js) za obje usporedbe
   - `IzvorPodatka.svelte` – izvor, godina i poveznica pokazatelja kojim je karta obojana, ispod tema
   - `Pretraga.svelte` – pretraga županija, gradova i općina (Fuse.js), radi i bez kvačica; logika u `src/data/pretraga.js`
+  - `PopisPrica.svelte` i `PricaKartica.svelte` – popis priča (u panelu za Hrvatsku) i kartica priče koja za vrijeme priče zamjenjuje traku s temama
+- `src/data/recenice.js` – rečenica info panela za svaku temu i razinu, od stvarnih brojeva; dio bez podatka se izostavlja
   - `EuProjektiPopis.svelte` – broj, iznos i 5 najvećih EU projekata odabranog grada, dok je sloj uključen
-- `src/stories/` – priče (u izradi)
+- `src/stories/` – priče (vidi dolje): `price.json` (scene), `scene.js` (scena → pogled i tekst), `player.js` (reprodukcija)
 - `public/data/` – gotove GeoJSON/JSON datoteke iz `pipeline/` (format: `docs/format-podataka.md`)
 
 ## Zajedničko stanje (`src/state.js`)
@@ -88,3 +90,25 @@ Stanje se zrcali u hash, s istim vrijednostima:
 - Natrag, Naprijed i ručno upisan hash postavljaju stanje preko `setView()`.
 - Nepoznata tema ili mjera zamijeni se trenutnom, a nepoznata šifra područja vraća na Hrvatsku čim se podaci učitaju. Link se pritom ispravi na mjestu.
 - Hash, a ne putanja, pa GitHub Pages ne treba nikakvo podešavanje servera.
+
+## Priče (`src/stories/`)
+
+Priča je naslov i niz scena u `price.json`. Scena postavlja zajednički pogled, pa karta i paneli rade kao i inače:
+
+```json
+{
+  "razina": "jls",
+  "odabir": "najveci",
+  "pokazatelj": "lokalna_ulaganja",
+  "tema": "novac",
+  "mjera": "po-stanovniku",
+  "eu": false,
+  "tekst": "U cijeloj Hrvatskoj po stanovniku najviše ulaže {naziv} ({zupanija}): {vrijednost}."
+}
+```
+
+- Područje se bira pravilom (`"odabir": "najveci"` ili `"najmanji"` po `pokazatelj`) ili fiksnom šifrom (`"sifra"`). Za `drzava` ne treba ništa.
+- U tekstu `{naziv}`, `{vrijednost}` (pokazatelj scene u mjeri scene) i `{zupanija}` popunjavaju se iz podataka, pa priča ostaje točna kad se podaci osvježe.
+- `"eu": true` uključuje sloj EU projekata.
+- Scene ne dodaju zapise u povijest preglednika, a „Završi” (ili Esc) vraća pogled i sloj od prije priče. Strelice lijevo i desno mijenjaju scenu, a „Automatski” ih mijenja sam (za snimanje videa; ne nudi se uz smanjeno kretanje).
+

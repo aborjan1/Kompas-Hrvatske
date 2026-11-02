@@ -4,18 +4,21 @@
   import InfoPanel from './InfoPanel.svelte';
   import IzvorPodatka from './IzvorPodatka.svelte';
   import Pretraga from './Pretraga.svelte';
+  import PricaKartica from './PricaKartica.svelte';
   import Putanja from './Putanja.svelte';
   import TemeBar from './TemeBar.svelte';
+  import { reprodukcija } from '../stories/player.js';
 </script>
 
-<div class="sloj">
+<div class="sloj" class:u-prici={$reprodukcija}>
   <div class="gore">
     <Putanja />
     <Pretraga />
   </div>
   <div class="desno"><InfoPanel /></div>
   <div class="dolje">
-    <TemeBar />
+    <!-- A story sets the tema itself, so its card takes the tema bar's place. -->
+    {#if $reprodukcija}<PricaKartica />{:else}<TemeBar />{/if}
     <IzvorPodatka />
   </div>
 </div>
@@ -85,6 +88,12 @@
 
     .dolje {
       bottom: 40px;
+    }
+
+    /* During a story the card tells what is shown and the breadcrumb where, so the info
+       panel steps aside and leaves the map visible. */
+    .u-prici .desno {
+      display: none;
     }
 
     .desno {

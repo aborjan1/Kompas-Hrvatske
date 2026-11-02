@@ -8,6 +8,7 @@
   import { JEDNOSTAVNI_NAZIVI, TEME_POKAZATELJI } from '../data/teme.js';
   import EuProjektiPopis from './EuProjektiPopis.svelte';
   import GrafUsporedbe from './GrafUsporedbe.svelte';
+  import PopisPrica from './PopisPrica.svelte';
   import UsporedbaSlicnih from './UsporedbaSlicnih.svelte';
 
   const MAX_BROJEVA = 4;
@@ -104,6 +105,7 @@
 
       {#if recenica}<p class="recenica">{recenica}</p>{/if}
 
+      {#if $view.razina === 'drzava'}<PopisPrica />{/if}
       {#if $view.razina === 'zupanija'}<GrafUsporedbe />{/if}
       {#if $view.razina === 'jls'}<EuProjektiPopis /><UsporedbaSlicnih />{/if}
     </div>
