@@ -3,7 +3,7 @@
   import { get } from 'svelte/store';
   import { euProjekti } from '../data/euProjekti.js';
   import { indicator } from '../data/indicator.js';
-  import { odabir } from '../data/podaci.js';
+  import { odabir, podaci } from '../data/podaci.js';
   import { selectArea, view } from '../state.js';
   import {
     COUNTY_BOUNDARIES_URL,
@@ -12,7 +12,15 @@
     INTRO_DURATION,
   } from './config.js';
   import { createCountyLayer, FILL_LAYER, SOURCE } from './countyLayer.js';
-  import { createMap, lockToArea, lockToCroatia, setUserInput, unlockCamera } from './createMap.js';
+  import {
+    createMap,
+    lockToArea,
+    lockToCroatia,
+    setDataAttribution,
+    setUserInput,
+    unlockCamera,
+  } from './createMap.js';
+  import { datumPreuzimanja } from '../data/indicator.js';
   import { brojProjekata, formatVrijednost } from '../data/format.js';
   import { createEuLayer, EU_LAYER, EU_SOURCE } from './euLayer.js';
   import { addHoverTooltip } from './hover.js';
@@ -65,6 +73,21 @@
     let unsubscribeView = () => {};
     let unsubscribeJls = () => {};
     let unsubscribeEu = () => {};
+
+    // Boundaries: Državna geodetska uprava under the Open Licence (source, date, licence).
+    let granicePripisane = false;
+    const unsubscribeMeta = podaci.subscribe((p) => {
+      const izvor = p.meta?.izvori['granice-upravne-jedinice'];
+      if (!izvor || granicePripisane) return;
+      granicePripisane = true;
+      const datum = datumPreuzimanja(izvor);
+      setDataAttribution(
+        map,
+        `Granice: <a href="${izvor.poveznica}" target="_blank" rel="noopener">${izvor.izdavatelj}</a>` +
+          `${datum ? `, preuzeto ${datum}` : ''}, ` +
+          '<a href="https://data.gov.hr/otvorena-dozvola" target="_blank" rel="noopener">Otvorena dozvola</a>',
+      );
+    });
 
     map.on('load', async () => {
       // Runs alongside the intro; ?zagrij only.
@@ -270,6 +293,7 @@
       unsubscribeView();
       unsubscribeJls();
       unsubscribeEu();
+      unsubscribeMeta();
       map.remove();
     };
   });

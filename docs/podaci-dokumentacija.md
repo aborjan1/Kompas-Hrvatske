@@ -128,7 +128,7 @@ dopuštaju uz jasno navođenje izvora)
 | Skup | Izdavatelj | Dozvola | Preuzeto | Koristi se za |
 | --- | --- | --- | --- | --- |
 | [Bruto domaći proizvod za Republiku Hrvatsku, HR_NUTS 2021. – HR NUTS 2 i županije u 2023. (priopćenje NR-2026-2-1)](https://podaci.dzs.hr/media/mmwmg1dv/nr-2026-2-1-bruto-domaći-proizvod-za-republiku-hrvatsku-hr_nuts-2021-hr-nuts-2-i-županije-u-2023.pdf) | Državni zavod za statistiku | nije navedena¹ | 2026-10-27 | BDP (država), bruto dodana vrijednost (županije) |
-| [Procjena stanovništva Republike Hrvatske u 2025. (priopćenje STAN-2026-3-1)](https://podaci.dzs.hr/media/ae2kgoad/stan-2026-3-1-procjena-stanovništva-republike-hrvatske-u-2025.pdf) | Državni zavod za statistiku | nije navedena¹ | – | procjena i promjena stanovništva 2021.–2025. |
+| [Procjena stanovništva Republike Hrvatske u 2025. (priopćenje STAN-2026-3-1)](https://podaci.dzs.hr/media/ae2kgoad/stan-2026-3-1-procjena-stanovništva-republike-hrvatske-u-2025.pdf) | Državni zavod za statistiku | nije navedena¹ | 2026-10-29 | procjena i promjena stanovništva 2021.–2025. |
 | [Popis operacija – Program Konkurentnost i kohezija 2021.–2027.](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-PKK-30.9.2026.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | nije navedena¹ | 2026-10-28 | EU sredstva 2021.–2027. |
 | [Popis operacija – Integrirani teritorijalni program 2021.–2027.](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-ITP-30.9.2026.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | nije navedena¹ | 2026-10-28 | EU sredstva 2021.–2027. |
 | [Popis operacija – Program Učinkoviti ljudski potencijali 2021.–2027.](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-u-okviru-PULJP-2021.-2027-final-table_30092026.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | nije navedena¹ | 2026-10-28 | EU sredstva 2021.–2027. |
@@ -145,6 +145,11 @@ Otvorenu dozvolu.
 - Za skupove pod Otvorenom dozvolom navodi se izdavatelj, naziv, datum preuzimanja i
   poveznica na https://data.gov.hr/otvorena-dozvola; za CC BY 4.0 izdavatelj i dozvola.
 - Dopunski izvori su u dokumentaciji i sučelju odvojeni od skupova s portala.
+- **U aplikaciji** traka ispod karte uz svaki prikazani pokazatelj ispisuje izdavatelja,
+  naziv skupa, razdoblje i datum preuzimanja, poveznicu na stranicu s koje je skup preuzet
+  (npr. data.gov.hr, eufondovi.gov.hr, mfin.gov.hr) te poveznicu na dozvolu **samo kad je
+  izdavatelj navodi** (Otvorena dozvola, CC BY 4.0). Granice Državne geodetske uprave s
+  datumom preuzimanja i poveznicom na Otvorenu dozvolu navedene su u gumbu ⓘ na karti.
 - **Licenca koda je MIT** ([LICENSE](../LICENSE)); podaci zadržavaju dozvolu svojih
   izdavatelja. To je navedeno u [README.md](../README.md).
 
