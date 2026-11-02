@@ -8,6 +8,7 @@
   import { napraviRecenicu } from '../data/recenice.js';
   import { JEDNOSTAVNI_NAZIVI, TEME_POKAZATELJI } from '../data/teme.js';
   import EuProjektiPopis from './EuProjektiPopis.svelte';
+  import GradskiFiltri from './GradskiFiltri.svelte';
   import GrafUsporedbe from './GrafUsporedbe.svelte';
   import KamoIdeNovac from './KamoIdeNovac.svelte';
   import ProracunKrozGodine from './ProracunKrozGodine.svelte';
@@ -167,7 +168,7 @@
 
       {#if $view.razina === 'drzava'}<PopisPrica />{/if}
       {#if $view.razina === 'zupanija'}<GrafUsporedbe />{/if}
-      {#if $view.razina === 'jls'}<EuProjektiPopis /><UsporedbaSlicnih />{/if}
+      {#if $view.razina === 'jls'}<GradskiFiltri /><EuProjektiPopis /><UsporedbaSlicnih />{/if}
     </div>
   {/if}
 </aside>

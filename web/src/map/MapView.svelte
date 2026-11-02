@@ -2,14 +2,17 @@
   import { onMount } from 'svelte';
   import { get } from 'svelte/store';
   import { euProjekti } from '../data/euProjekti.js';
+  import { GRADOVI, ukljuceniFiltri } from '../data/gradskiPrikaz.js';
   import { indicator } from '../data/indicator.js';
   import { odabir, podaci } from '../data/podaci.js';
   import { selectArea, view } from '../state.js';
   import {
+    CITY_MAX_ZOOM,
     COUNTY_BOUNDARIES_URL,
     CROATIA_BOUNDS,
     FOCUS_PADDING,
     INTRO_DURATION,
+    MAX_ZOOM,
   } from './config.js';
   import { createCountyLayer, FILL_LAYER, SOURCE } from './countyLayer.js';
   import {
@@ -22,6 +25,7 @@
   } from './createMap.js';
   import { datumPreuzimanja } from '../data/indicator.js';
   import { brojProjekata, formatVrijednost } from '../data/format.js';
+  import { CITY_AREA_LAYERS, CITY_POINT_LAYERS, createCityLayers } from './cityLayers.js';
   import { createEuLayer, EU_LAYER, EU_SOURCE } from './euLayer.js';
   import { addHoverTooltip } from './hover.js';
   import { simplifiedOutline } from './geometry.js';
@@ -73,6 +77,7 @@
     let unsubscribeView = () => {};
     let unsubscribeJls = () => {};
     let unsubscribeEu = () => {};
+    let unsubscribeCity = () => {};
 
     // Boundaries: Državna geodetska uprava under the Open Licence (source, date, licence).
     let granicePripisane = false;
@@ -104,6 +109,26 @@
         if (prikazano && poJls) eu.show(Object.values(poJls));
         else eu.hide();
       });
+
+      // Selecting Zagreb or Rijeka opens its city view: the satellite photo fades in under
+      // the switched-on filters, and the camera may zoom in a little further.
+      const city = createCityLayers(map);
+      // Raised as soon as a city opens; lowered only once the camera has left it
+      // (focusOn), since lowering it first would snap the camera out.
+      let maxZoom = MAX_ZOOM;
+      const showCity = () => {
+        const { razina, podrucje } = get(view);
+        const grad = razina === 'jls' ? GRADOVI[podrucje] : undefined;
+        maxZoom = grad ? CITY_MAX_ZOOM : MAX_ZOOM;
+        if (grad) map.setMaxZoom(CITY_MAX_ZOOM);
+        city.show(grad?.mapa ?? null, grad ? grad.filtri.filter((f) => get(ukljuceniFiltri).has(f)) : []);
+      };
+      const unsubscribeCityView = view.subscribe(showCity);
+      const unsubscribeFilters = ukljuceniFiltri.subscribe(showCity);
+      unsubscribeCity = () => {
+        unsubscribeCityView();
+        unsubscribeFilters();
+      };
 
       // Which areas show colour: every county for the country; for a county its cities
       // and municipalities (the JLS layer), or the county itself when the tema has
@@ -199,6 +224,7 @@
           map.off('moveend', arrived);
           if (token !== focusToken) return;
           introRunning = false;
+          map.setMaxZoom(maxZoom);
           if (croatia) lockToCroatia(map);
           else lockToArea(map, bounds);
           setUserInput(map, true);
@@ -258,7 +284,7 @@
       addHoverTooltip(map, {
         layerId: FILL_LAYER,
         source: SOURCE,
-        yieldTo: [EU_LAYER, JLS_FILL_LAYER],
+        yieldTo: [...CITY_POINT_LAYERS, ...CITY_AREA_LAYERS, EU_LAYER, JLS_FILL_LAYER],
         describe: (f) => ({
           title: f.properties.naziv,
           detail: Number.isFinite(f.state.value)
@@ -269,7 +295,7 @@
       addHoverTooltip(map, {
         layerId: JLS_FILL_LAYER,
         source: JLS_SOURCE,
-        yieldTo: [EU_LAYER],
+        yieldTo: [...CITY_POINT_LAYERS, ...CITY_AREA_LAYERS, EU_LAYER],
         describe: (f) => ({
           title: f.properties.naziv,
           detail:
@@ -286,6 +312,38 @@
           detail: `${brojProjekata(f.properties.broj)} · ${formatVrijednost(f.properties.esif_eur, 'EUR', 0)}`,
         }),
       });
+
+      // City view: one tooltip per layer, points before areas.
+      const m2 = (v) => formatVrijednost(v, 'm²', 0);
+      const cityTooltips = {
+        'grad-ulaganja': (p) => ({ title: p.naziv, detail: `${formatVrijednost(p.iznos, 'EUR', 0)} · plan ${p.godina}.` }),
+        'grad-prostori': (p) => ({
+          title: p.adresa,
+          detail: p.zakupnina_mjesecno != null
+            ? `${p.djelatnost} · ${m2(p.povrsina)} · ${formatVrijednost(p.zakupnina_mjesecno, 'EUR', 0)} mjesečno`
+            : `Prazno: ${p.vrsta} · ${m2(p.povrsina)}`,
+        }),
+        'grad-trznice': (p) => ({ title: p.naziv, detail: 'Gradska tržnica' }),
+        'grad-drustva': (p) => ({ title: p.naziv, detail: `Gradsko društvo · ${p.udjeli}` }),
+        'grad-brownfield-fill': (p) => ({ title: p.naziv, detail: `Napuštena površina · ${formatVrijednost(p.povrsina_ha, 'ha', 1)}` }),
+        'grad-zone-fill': (p) => ({
+          title: p.namjena || p.vrsta,
+          detail: `${p.vrsta} zona · ${formatVrijednost(p.povrsina_ha, 'ha', 1)}${p.izgradjenost === 'neizgrađeno' ? ' · neizgrađeno' : ''}`,
+        }),
+        'grad-cetvrti-fill': (p, state) => ({
+          title: p.naziv,
+          detail: Number.isFinite(state.value) ? `Gospodarske površine: ${formatVrijednost(state.value, '%', 1)}` : 'nema podatka',
+        }),
+      };
+      const cityLayers = [...CITY_POINT_LAYERS, ...CITY_AREA_LAYERS];
+      cityLayers.forEach((layerId, i) => {
+        addHoverTooltip(map, {
+          layerId,
+          source: map.getLayer(layerId).source,
+          yieldTo: cityLayers.slice(0, i),
+          describe: (f) => cityTooltips[layerId](f.properties, f.state),
+        });
+      });
     });
 
     return () => {
@@ -293,6 +351,7 @@
       unsubscribeView();
       unsubscribeJls();
       unsubscribeEu();
+      unsubscribeCity();
       unsubscribeMeta();
       map.remove();
     };
