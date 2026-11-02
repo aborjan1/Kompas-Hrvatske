@@ -1,9 +1,10 @@
 <script>
   // Info panel: the selected area, up to four numbers for the current tema and one
-  // sentence. Proper sentence templates come later (issue "Predlošci rečenica").
+  // sentence about them (templates in src/data/recenice.js).
   import { view } from '../state.js';
   import { nadjiPodrucje, ocitaj, podaci } from '../data/podaci.js';
   import { formatVrijednost } from '../data/format.js';
+  import { napraviRecenicu } from '../data/recenice.js';
   import { JEDNOSTAVNI_NAZIVI, TEME_POKAZATELJI } from '../data/teme.js';
   import EuProjektiPopis from './EuProjektiPopis.svelte';
   import GrafUsporedbe from './GrafUsporedbe.svelte';
@@ -31,22 +32,11 @@
           nedostaje: o.value === null,
           godina: pokazatelj.godina,
           napomena: pokazatelj.napomena,
-          rang: o.rang,
         };
       });
   });
 
-  const recenica = $derived.by(() => {
-    if (!podrucje) return '';
-    if ($view.razina === 'drzava') return 'Odaberite županiju na karti za usporedbu.';
-    const prvi = brojevi.find((b) => b.rang !== null);
-    if (!prvi) return '';
-    const od =
-      $view.razina === 'zupanija'
-        ? `od ${Object.keys($podaci.zupanije ?? {}).length} županija`
-        : `od ${Object.keys($podaci.jls ?? {}).length} gradova i općina`;
-    return `${prvi.naziv}: ${prvi.rang}. mjesto po veličini ${od}.`;
-  });
+  const recenica = $derived(napraviRecenicu($podaci, $view));
 
   // City or municipality profile: what it is, where, and how big.
   const podnaslov = $derived.by(() => {
