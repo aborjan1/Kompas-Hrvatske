@@ -29,7 +29,8 @@ const BASE_URL = `${import.meta.env.BASE_URL}data/`;
  * @property {string[]} razine
  * @property {string} izvor Key into meta.json `izvori`.
  * @property {string} godina Free text, e.g. "2025" or "stanje 31.05.2023".
- * @property {string} [napomena]
+ * @property {string} [napomena] How the number is calculated (exact definition).
+ * @property {string} objasnjenje What the number means, in plain words.
  */
 
 /**

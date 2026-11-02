@@ -36,6 +36,7 @@ def test_meta_osnovno(meta):
         assert p["izvor"] in meta["izvori"], f"{pid}: izvor {p['izvor']} nije u meta.izvori"
         assert set(p["razine"]) <= {"drzava", "zupanija", "jls"}, pid
         assert p["godina"], f"{pid}: nema godine (izvor nije pročitan?)"
+        assert p.get("objasnjenje"), f"{pid}: nema objašnjenja za korisnika"
 
 
 def _provjeri_podrucja(podrucja: dict, razina: str, meta: dict):
