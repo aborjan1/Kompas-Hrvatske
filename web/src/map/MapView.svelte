@@ -23,6 +23,10 @@
   import { shouldWarmUp, warmUp } from './warmUp.js';
 
   let container;
+  // The intro flight from space can be skipped (button or Esc); under
+  // prefers-reduced-motion it is a jump anyway, so the button never shows.
+  let introRunning = false;
+  let skipIntro = () => {};
 
   // Legend rows carry short units ("563 mil. €", "3,3 %"); a long one such as
   // "na 1.000 stanovnika" or "po stanovniku" goes once into the title instead.
@@ -145,8 +149,14 @@
       // Flies to an area and, once there, keeps the camera on it: the user can look
       // around inside it but not pan away or zoom out past it. The whole country keeps
       // its own lock (lockToCroatia).
-      function focusOn(bounds, { croatia = false, intro = false } = {}) {
+      function focusOn(bounds, { croatia = false, intro = false, duration = undefined } = {}) {
         const token = ++focusToken;
+        // End a flight still under way before listening below: its moveend would
+        // otherwise count as this move's landing and lock the camera mid-air.
+        map.stop();
+        introRunning = intro;
+        // „Preskoči”: the same landing as the intro's, without the flight.
+        skipIntro = () => focusOn(bounds, { croatia, duration: 0 });
         unlockCamera(map);
         // A scroll or drag mid-flight would cancel it before the lock applies and leave
         // the camera free to zoom out to space, so input waits for the landing.
@@ -156,6 +166,7 @@
         const arrived = () => {
           map.off('moveend', arrived);
           if (token !== focusToken) return;
+          introRunning = false;
           if (croatia) lockToCroatia(map);
           else lockToArea(map, bounds);
           setUserInput(map, true);
@@ -163,11 +174,12 @@
         // Listen first: under prefers-reduced-motion the move is a jump, whose moveend
         // fires inside fitBounds().
         map.on('moveend', arrived);
-        // Not `essential`, so MapLibre jumps instead of flying under prefers-reduced-motion.
+        // Not `essential`, so Mapbox jumps instead of flying under prefers-reduced-motion.
         map.fitBounds(bounds, {
           padding: FOCUS_PADDING,
           pitch: map.getPitch(),
           ...(intro && { duration: INTRO_DURATION }),
+          ...(duration !== undefined && { duration }),
         });
       }
 
@@ -254,9 +266,34 @@
   });
 </script>
 
+<svelte:window onkeydown={(e) => introRunning && e.key === 'Escape' && skipIntro()} />
+
 <div class="map" bind:this={container}></div>
+{#if introRunning}
+  <button type="button" class="kh-panel preskoci" onclick={() => skipIntro()}>Preskoči uvod ›</button>
+{/if}
 
 <style>
+  .preskoci {
+    position: absolute;
+    right: 16px;
+    bottom: 40px;
+    padding: 8px 14px;
+    border: 0;
+    font: 14px system-ui, sans-serif;
+    color: var(--kh-tekst);
+    cursor: pointer;
+  }
+
+  .preskoci:hover {
+    background: #fff;
+  }
+
+  .preskoci:focus-visible {
+    outline: 2px solid var(--kh-naglasak);
+    outline-offset: 2px;
+  }
+
   .map {
     position: absolute;
     inset: 0;
