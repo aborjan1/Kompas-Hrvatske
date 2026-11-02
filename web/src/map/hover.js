@@ -46,6 +46,10 @@ export function addHoverTooltip(map, { layerId, source, describe, yieldTo = [] }
     content.append(strong, value);
 
     popup.setLngLat(e.lngLat).setDOMContent(content).addTo(map);
+    // While Mapbox thinks the camera moves (e.g. scrolling against the zoom limit), it
+    // places the popup only on the next frame; without one it stayed in the top-left
+    // corner. Ask for that frame.
+    map.triggerRepaint();
     map.getCanvas().style.cursor = 'pointer';
   });
 
