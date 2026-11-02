@@ -2,11 +2,19 @@
 
 Interaktivna karta Hrvatske koja na jednom mjestu prikazuje gospodarske i javne podatke po razinama Država → Županija → Grad. Rješenje za Datathon Portala otvorenih podataka, izazov C: Gospodarstvo i učinkovito upravljanje.
 
-**Demo:** _(link na GitHub Pages, u izradi)_
+**Demo:** <https://aborjan1.github.io/Kompas-Hrvatske/>
 
 ## Arhitektura
 
-Statička aplikacija bez servera. Python unaprijed obradi otvorene podatke u GeoJSON i JSON datoteke, a Vite + Svelte + MapLibre ih prikazuju u pregledniku.
+Statička aplikacija bez servera. Python unaprijed obradi otvorene podatke u GeoJSON i JSON datoteke, a Vite + Svelte + Mapbox GL JS ih prikazuju u pregledniku.
+
+## Dokumentacija
+
+- [Sučelje](docs/sucelje.md) – što aplikacija prikazuje i kako se koristi, sa snimkama zaslona
+- [Pokretanje](docs/pokretanje.md) – PowerShell naredbe za web i obradu podataka, česti problemi
+- [Podaci](docs/podaci-dokumentacija.md) – izvori, obrada i kontrola kvalitete
+- [Alati](docs/alati.md) – korišteni alati s licencama i alati umjetne inteligencije
+- [Tehnički opis web aplikacije](web/README.md) – stanje, URL, priče, rečenice
 
 ## Pokretanje (PowerShell)
 

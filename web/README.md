@@ -46,6 +46,7 @@ preglednika na 30 dana, pa se tijekom prezentacije ništa ne čeka s interneta.
   - `indicator.js` – pretvara razinu, temu i mjeru u brojke po šifri za kartu
   - `format.js` – formatiranje brojeva prema `jedinica` i `decimale` iz `meta.json`
   - `euProjekti.js` – EU projekti (2014.–2020.) zbrojeni po gradu ili općini, učitavaju se tek kad se uključi gumb „EU projekti”
+  - `recenice.js` – rečenica info panela za svaku temu i razinu, od stvarnih brojeva; dio bez podatka se izostavlja
 - `src/panels/` – lebdeći paneli: putanja, info panel, teme i prekidač ukupno / po stanovniku
   - `GrafUsporedbe.svelte` – u profilu županije: položaj među svih 21 županija (Chart.js), klik na stupac odabire županiju
   - `UsporedbaSlicnih.svelte` – u profilu grada ili općine: usporedba s 5 najsličnijih po broju stanovnika (`slicni` iz `jls.json`), klik odabire taj grad
@@ -53,7 +54,6 @@ preglednika na 30 dana, pa se tijekom prezentacije ništa ne čeka s interneta.
   - `IzvorPodatka.svelte` – izvor, godina i poveznica pokazatelja kojim je karta obojana, ispod tema
   - `Pretraga.svelte` – pretraga županija, gradova i općina (Fuse.js), radi i bez kvačica; logika u `src/data/pretraga.js`
   - `PopisPrica.svelte` i `PricaKartica.svelte` – popis priča (u panelu za Hrvatsku) i kartica priče koja za vrijeme priče zamjenjuje traku s temama
-- `src/data/recenice.js` – rečenica info panela za svaku temu i razinu, od stvarnih brojeva; dio bez podatka se izostavlja
   - `EuProjektiPopis.svelte` – broj, iznos i 5 najvećih EU projekata odabranog grada, dok je sloj uključen
 - `src/stories/` – priče (vidi dolje): `price.json` (scene), `scene.js` (scena → pogled i tekst), `player.js` (reprodukcija)
 - `public/data/` – gotove GeoJSON/JSON datoteke iz `pipeline/` (format: `docs/format-podataka.md`)
