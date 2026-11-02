@@ -1,6 +1,7 @@
 <script>
   // Info panel: the selected area, up to four numbers for the current tema and one
   // sentence about them (templates in src/data/recenice.js).
+  import { get } from 'svelte/store';
   import { view } from '../state.js';
   import { nadjiPodrucje, ocitaj, podaci } from '../data/podaci.js';
   import { formatVrijednost } from '../data/format.js';
@@ -57,7 +58,26 @@
   // Phones only (the button is hidden on wider screens): the panel drops down to its
   // title so the map is visible, and the arrow brings it back. Kept while browsing,
   // so tapping around the map doesn't keep covering it.
-  let sklopljeno = $state(false);
+  // On a phone the country view starts dropped down, so the map is the first thing seen.
+  const mobitel = typeof matchMedia === 'function' && matchMedia('(max-width: 640px)').matches;
+  let sklopljeno = $state(mobitel && get(view).razina === 'drzava');
+
+  // A swipe on the title row drops the panel (down) or brings it back (up), next to the
+  // arrow. Touch and pen only: a mouse has the arrow.
+  const PRAG_POVLACENJA = 30; // px
+  let pocetakY = null;
+
+  function onpointerdown(e) {
+    if (e.pointerType !== 'mouse') pocetakY = e.clientY;
+  }
+
+  function onpointerup(e) {
+    if (pocetakY === null) return;
+    const pomak = e.clientY - pocetakY;
+    pocetakY = null;
+    if (pomak > PRAG_POVLACENJA) sklopljeno = true;
+    else if (pomak < -PRAG_POVLACENJA) sklopljeno = false;
+  }
 </script>
 
 <aside class="kh-panel info" class:sklopljeno aria-live="polite">
@@ -66,7 +86,9 @@
   {:else if !podrucje}
     <p class="poruka">Učitavanje…</p>
   {:else}
-    <div class="zaglavlje">
+    <!-- The swipe only adds to the arrow button, which keyboards and screen readers use. -->
+    <!-- svelte-ignore a11y_no_static_element_interactions -->
+    <div class="zaglavlje" {onpointerdown} {onpointerup} onpointercancel={() => (pocetakY = null)}>
       <div class="naslov">
         <p class="tema" style:color={TEME_POKAZATELJI[$view.tema].boje[3]}>{temaNaziv}</p>
         <h2>{podrucje.naziv}</h2>
@@ -227,6 +249,8 @@
       padding: 14px 16px 4px;
       border-radius: 8px 8px 0 0;
       background: #fff;
+      /* The swipe is ours, not a scroll of the panel. */
+      touch-action: none;
     }
 
     .ladica {
