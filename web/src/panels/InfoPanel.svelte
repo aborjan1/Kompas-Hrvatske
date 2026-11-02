@@ -9,6 +9,9 @@
   import { JEDNOSTAVNI_NAZIVI, TEME_POKAZATELJI } from '../data/teme.js';
   import EuProjektiPopis from './EuProjektiPopis.svelte';
   import GrafUsporedbe from './GrafUsporedbe.svelte';
+  import KamoIdeNovac from './KamoIdeNovac.svelte';
+  import ProracunKrozGodine from './ProracunKrozGodine.svelte';
+  import { siroko } from './ekran.js';
   import PopisPrica from './PopisPrica.svelte';
   import UsporedbaSlicnih from './UsporedbaSlicnih.svelte';
 
@@ -155,6 +158,12 @@
       {/if}
 
       {#if recenica}<p class="recenica">{recenica}</p>{/if}
+
+      <!-- Wide screens show these in the chart panel in the top-left corner (GrafoviPanel). -->
+      {#if $view.tema === 'novac' && $view.razina !== 'drzava' && !$siroko}
+        <KamoIdeNovac />
+        <ProracunKrozGodine />
+      {/if}
 
       {#if $view.razina === 'drzava'}<PopisPrica />{/if}
       {#if $view.razina === 'zupanija'}<GrafUsporedbe />{/if}
