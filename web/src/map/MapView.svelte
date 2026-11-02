@@ -16,10 +16,11 @@
   import { brojProjekata, formatVrijednost } from '../data/format.js';
   import { createEuLayer, EU_LAYER, EU_SOURCE } from './euLayer.js';
   import { addHoverTooltip } from './hover.js';
-  import { convexHull, simplifiedOutline } from './geometry.js';
+  import { simplifiedOutline } from './geometry.js';
   import { hidePlacesOutside } from './labels.js';
   import { createJlsLayer, JLS_FILL_LAYER, JLS_SOURCE } from './jlsLayer.js';
   import { LegendControl } from './legend.js';
+  import { shouldWarmUp, warmUp } from './warmUp.js';
 
   let container;
 
@@ -53,6 +54,8 @@
     let unsubscribeEu = () => {};
 
     map.on('load', async () => {
+      // Runs alongside the intro; ?zagrij only.
+      if (shouldWarmUp()) warmUp(map);
       const response = await fetch(COUNTY_BOUNDARIES_URL);
       if (!response.ok) throw new Error(`${COUNTY_BOUNDARIES_URL}: HTTP ${response.status}`);
       const geojson = await response.json();
@@ -137,7 +140,6 @@
       // Start the intro only once the globe is drawn, not over a blank sphere.
       await new Promise((resolve) => map.once('idle', resolve));
 
-      const hull = convexHull(outline.coordinates.flat(2));
       let focusToken = 0;
 
       // Flies to an area and, once there, keeps the camera on it: the user can look
@@ -154,7 +156,7 @@
         const arrived = () => {
           map.off('moveend', arrived);
           if (token !== focusToken) return;
-          if (croatia) lockToCroatia(map, hull);
+          if (croatia) lockToCroatia(map);
           else lockToArea(map, bounds);
           setUserInput(map, true);
         };

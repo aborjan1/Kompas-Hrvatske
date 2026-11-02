@@ -17,6 +17,7 @@
     "@maplibre/maplibre-gl-style-spec": "^26.5.0",
     "chart.js": "^4.6.1",
     "fuse.js": "^7.5.0",
+    "mapbox-gl": "3.33.0",
     "maplibre-gl": "^6.16.0"
   }
 }

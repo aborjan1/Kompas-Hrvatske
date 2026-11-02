@@ -1,7 +1,7 @@
 // Hover highlight + tooltip for any polygon layer whose source uses promoteId.
 // Hover is internal to the map: it never touches shared app state.
 
-import { Popup } from 'maplibre-gl';
+import mapboxgl from 'mapbox-gl';
 import './hover.css';
 
 /**
@@ -12,7 +12,7 @@ import './hover.css';
  *   hover where they have features (a county yields to its cities and municipalities).
  */
 export function addHoverTooltip(map, { layerId, source, describe, yieldTo = [] }) {
-  const popup = new Popup({
+  const popup = new mapboxgl.Popup({
     closeButton: false,
     closeOnClick: false,
     className: 'kh-tooltip',

@@ -1,27 +1,38 @@
 # Kompas Hrvatske – web
 
-Vite + Svelte aplikacija s MapLibre kartom.
+Vite + Svelte aplikacija s Mapbox GL JS kartom.
 
 ```powershell
 cd web
 npm install
 npm run dev      # http://localhost:5173
 npm run build    # izlaz u web/dist/
+npm run preview  # http://localhost:4173, objavljena verzija (s predmemorijom karte)
 ```
 
-Podloga karte je MapTiler (besplatni plan: nekomercijalno, 5.000 učitavanja karte mjesečno).
-Ključ s [cloud.maptiler.com](https://cloud.maptiler.com/account/keys/) upiši u `web/.env.local`
-(ne ide u git), po uzoru na `web/.env.example`:
+Podloga karte je Mapbox Outdoors (besplatno 50.000 učitavanja karte mjesečno).
+Javni token s [account.mapbox.com](https://account.mapbox.com/access-tokens/), ograničen na
+`http://localhost:5173` i `http://localhost:4173`, upiši u `web/.env.local` (ne ide u git),
+po uzoru na `web/.env.example`:
 
 ```powershell
-Copy-Item .env.example .env.local   # pa u .env.local upiši VITE_MAPTILER_KEY=...
+Copy-Item .env.example .env.local   # pa u .env.local upiši VITE_MAPBOX_TOKEN=...
 ```
+
+Objava (GitHub Pages) koristi drugi token, ograničen na `https://aborjan1.github.io`, iz
+GitHub tajne `VITE_MAPBOX_TOKEN` (`.github/workflows/pages.yaml`).
+
+**Prije prezentacije:** `npm run build`, `npm run preview` pa otvori
+`http://localhost:4173/?zagrij`. Karta skine cijelu Hrvatsku (~40 MB, 20–30 s) u predmemoriju
+preglednika na 30 dana, pa se tijekom prezentacije ništa ne čeka s interneta.
+
 ## Struktura
 
-- `src/map/` – karta (MapLibre slojevi i kamera). Neovisno o frameworku: UI poziva samo `createMap(container)`.
-  - `config.js` – podloga (MapTiler Landscape), uvodni let, granice Hrvatske, raspon zuma
-  - `createMap.js` – stvara kartu (globus, oznake na hrvatskom, MapTiler logo, ograničenje kamere)
-  - `labels.js` – skriva nazive mjesta izvan Hrvatske
+- `src/map/` – karta (Mapbox slojevi i kamera). Neovisno o frameworku: UI poziva samo `createMap(container)`.
+  - `config.js` – podloga (Mapbox Outdoors), uvodni let, granice Hrvatske, raspon zuma
+  - `createMap.js` – stvara kartu (globus, oznake na hrvatskom, ograničenje kamere)
+  - `labels.js` – skriva nazive mjesta i zanimljivosti izvan Hrvatske
+  - `warmUp.js` – zagrijavanje za prezentaciju (`?zagrij`)
   - `countyLayer.js` – choropleth županija: `createCountyLayer(map, geojson).setValues({ [sifra]: broj })`, 5 kvantilnih razreda
   - `legend.js` – legenda kao MapLibre kontrola
   - `hover.js` – isticanje granice i oblačić za bilo koji sloj poligona (`addHoverTooltip`)

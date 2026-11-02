@@ -1,12 +1,12 @@
-// Keeps MapTiler tiles, fonts and icons the visitor has already seen for 30 days, so a
-// revisit draws Croatia from disk instead of MapTiler (their own cache headers are 4-8 h).
-// Nothing is prefetched: only responses the map asked for anyway are stored.
+// Keeps Mapbox tiles, fonts and icons the visitor has already seen for 30 days, so a
+// revisit draws Croatia from disk instead of Mapbox. Filled by normal use, or all at
+// once by the warm-up for presentations (?zagrij, src/map/warmUp.js).
 
-const CACHE = 'maptiler-v1';
+const CACHE = 'mapbox-v1';
 const MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000;
 const CACHED_AT = 'x-kh-cached-at';
 // Style JSON is left out so a style change reaches visitors right away.
-const CACHEABLE = /^https:\/\/api\.maptiler\.com\/(tiles|fonts|maps\/[^/]+\/sprite)/;
+const CACHEABLE = /^https:\/\/api\.mapbox\.com\/(v4\/|fonts\/|styles\/v1\/[^?]+\/sprite)/;
 
 self.addEventListener('install', () => self.skipWaiting());
 // Take over the open page at once, so the first visit already fills the cache.
@@ -17,9 +17,18 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(cacheFirst(event.request));
 });
 
+// Mapbox adds a per-map-load `sku` to every tile URL; without dropping it a tile
+// stored on one visit would never match on the next.
+function cacheKey(url) {
+  const u = new URL(url);
+  u.searchParams.delete('sku');
+  return u.href;
+}
+
 async function cacheFirst(request) {
   const cache = await caches.open(CACHE);
-  const cached = await cache.match(request);
+  const key = cacheKey(request.url);
+  const cached = await cache.match(key);
   if (cached && Date.now() - Number(cached.headers.get(CACHED_AT)) < MAX_AGE_MS) return cached;
 
   const response = await fetch(request);
@@ -28,6 +37,6 @@ async function cacheFirst(request) {
   const headers = new Headers(response.headers);
   headers.set(CACHED_AT, String(Date.now()));
   const body = await response.arrayBuffer();
-  await cache.put(request, new Response(body, { status: response.status, headers }));
+  await cache.put(key, new Response(body, { status: response.status, headers }));
   return new Response(body, { status: response.status, headers: response.headers });
 }

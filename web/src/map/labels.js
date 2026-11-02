@@ -2,11 +2,12 @@
 
 import { convertFilter } from '@maplibre/maplibre-gl-style-spec';
 
-// OpenMapTiles source layers with point names: cities, towns, villages, airports.
-const PLACE_SOURCE_LAYERS = new Set(['place', 'aerodrome_label']);
+// Mapbox Streets source layers with point names: cities, towns, villages, airports,
+// and points of interest such as national parks. Sea names (natural_label) stay.
+const PLACE_SOURCE_LAYERS = new Set(['place_label', 'airport_label', 'poi_label']);
 
 /**
- * Hides place and airport names outside `outline`. Country names stay so the
+ * Hides place, airport and point-of-interest names outside `outline`. Country names stay so the
  * neighbours are still recognisable.
  * @param {import('maplibre-gl').MapLibreMap} map
  * @param {GeoJSON.MultiPolygon} outline From simplifiedOutline() in geometry.js.

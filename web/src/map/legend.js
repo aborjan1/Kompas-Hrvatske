@@ -8,7 +8,7 @@ import './legend.css';
 export class LegendControl {
   onAdd() {
     this.container = document.createElement('div');
-    this.container.className = 'maplibregl-ctrl kh-legend';
+    this.container.className = 'mapboxgl-ctrl kh-legend';
     this.container.hidden = true;
     return this.container;
   }

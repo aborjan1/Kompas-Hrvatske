@@ -34,8 +34,8 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
-          # Production key, allowed only on aborjan1.github.io.
-          VITE_MAPTILER_KEY: ${{ secrets.VITE_MAPTILER_KEY }}
+          # Production token, allowed only on aborjan1.github.io.
+          VITE_MAPBOX_TOKEN: ${{ secrets.VITE_MAPBOX_TOKEN }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: web/dist

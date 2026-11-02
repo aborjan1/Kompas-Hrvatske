@@ -1,7 +1,7 @@
 // Small planar geometry on [lng, lat] degrees. Precise enough at Croatia's scale for
 // label filtering and camera limits; not for measuring distances or areas.
 
-import { LngLatBounds } from 'maplibre-gl';
+import mapboxgl from 'mapbox-gl';
 
 // ~500 m is precise enough for both uses, and islets this small have no settlement.
 const TOLERANCE = 0.005; // degrees
@@ -104,10 +104,10 @@ function simplify(points, tolerance) {
 /**
  * Bounding box of a (Multi)Polygon, for fitBounds().
  * @param {GeoJSON.Polygon | GeoJSON.MultiPolygon} geometry
- * @returns {LngLatBounds}
+ * @returns {mapboxgl.LngLatBounds}
  */
 export function geometryBounds(geometry) {
-  const bounds = new LngLatBounds();
+  const bounds = new mapboxgl.LngLatBounds();
   const extend = (c) => (typeof c[0] === 'number' ? bounds.extend(c) : c.forEach(extend));
   extend(geometry.coordinates);
   return bounds;
