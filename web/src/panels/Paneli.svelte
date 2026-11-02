@@ -1,6 +1,7 @@
 <script>
   // Floating panels over the map. The layer itself lets pointer events through so the
   // map stays draggable between panels; only the panels catch clicks.
+  import GrafoviPanel from './GrafoviPanel.svelte';
   import InfoPanel from './InfoPanel.svelte';
   import IzvorPodatka from './IzvorPodatka.svelte';
   import Pretraga from './Pretraga.svelte';
@@ -15,6 +16,7 @@
     <Putanja />
     <Pretraga />
   </div>
+  <div class="lijevo"><GrafoviPanel /></div>
   <div class="desno"><InfoPanel /></div>
   <div class="dolje">
     <!-- A story sets the tema itself, so its card takes the tema bar's place. -->
@@ -47,6 +49,22 @@
     gap: 8px;
     width: max-content;
     max-width: calc(100% - 24px);
+  }
+
+  /* Charts for the selected area (wide screens only, see ekran.js). Stops above the
+     legend in the bottom-left corner. */
+  .lijevo {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 290px;
+    max-height: calc(100% - 300px);
+    overflow-y: auto;
+    border-radius: 8px;
+  }
+
+  .u-prici .lijevo {
+    display: none;
   }
 
   /* Leaves room for the map's zoom controls in the top-right corner. */
