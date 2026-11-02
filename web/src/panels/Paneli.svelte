@@ -27,6 +27,7 @@
   .sloj {
     position: absolute;
     inset: 0;
+    z-index: 1;
     pointer-events: none;
     font-size: 14px;
     color: var(--kh-tekst);
