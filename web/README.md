@@ -95,6 +95,7 @@ Stanje se zrcali u hash, s istim vrijednostima:
 | Grad ili općina | `#/jls/<sifra>?tema=porezi&mjera=ukupno` |
 
 - `main.js` pokreće `startUrlSync()` prije aplikacije, pa podijeljeni link odmah otvara taj pogled (i uvodni let karte sleti na njega).
+- Osvježavanje stranice i ponovno otvoreni tab uvijek kreću od cijele Hrvatske (tema i mjera ostaju), bez obzira na područje u adresi. Samo otvoreni link vodi ravno na područje.
 - Novo područje dodaje zapis u povijest preglednika, a nova tema ili mjera samo zamjenjuje trenutni, pa Natrag ide po područjima.
 - Natrag, Naprijed i ručno upisan hash postavljaju stanje preko `setView()`.
 - Nepoznata tema ili mjera zamijeni se trenutnom, a nepoznata šifra područja vraća na Hrvatsku čim se podaci učitaju. Link se pritom ispravi na mjestu.
