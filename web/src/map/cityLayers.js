@@ -5,12 +5,12 @@
 
 import { FILTRI } from '../data/gradskiPrikaz.js';
 import { MAPBOX_TOKEN } from './config.js';
-import { colorExpression, quantileClasses } from './countyLayer.js';
+import { colorExpression, NO_DATA_COLOR, quantileClasses } from './countyLayer.js';
 
 const BASE_URL = `${import.meta.env.BASE_URL}data/gradovi/`;
 const SATELLITE = 'grad-satelit';
-// Same fonts as the Outdoors style, which the map already has.
-const FONT = ['DIN Pro Medium', 'Arial Unicode MS Regular'];
+// The satellite blends in and out instead of popping; instant under reduced motion.
+const FADE_MS = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 800;
 const EMPTY = { type: 'FeatureCollection', features: [] };
 
 // Amber ramp for the districts, light → dark.
@@ -25,15 +25,21 @@ const ZONE_COLORS = [
   '#8b5cf6',
 ];
 
-/**
- * Layers of each filter: source id → its file and options, then the layers on it.
- * Clustered sources group points that share an address (many garages in one building).
- */
+/** Layers of each filter: source id → its file (per city when it differs), then the layers. */
 const GROUPS = {
   ekonomska: {
     sources: { 'grad-cetvrti': { file: 'cetvrti.geojson' } },
     layers: [
-      { id: 'grad-cetvrti-fill', type: 'fill', source: 'grad-cetvrti', paint: { 'fill-color': DISTRICT_COLORS[2], 'fill-opacity': 0.55 } },
+      // Per-district (feature-state) from the start and switched without a transition:
+      // Mapbox threw while blending a plain colour into the per-district one.
+      {
+        id: 'grad-cetvrti-fill', type: 'fill', source: 'grad-cetvrti',
+        paint: {
+          'fill-color': ['case', ['==', ['feature-state', 'value'], null], NO_DATA_COLOR, DISTRICT_COLORS[2]],
+          'fill-color-transition': { duration: 0, delay: 0 },
+          'fill-opacity': 0.55,
+        },
+      },
       { id: 'grad-cetvrti-line', type: 'line', source: 'grad-cetvrti', paint: { 'line-color': '#ffffff', 'line-width': 1.5 } },
     ],
   },
@@ -54,37 +60,36 @@ const GROUPS = {
   ulaganja: {
     sources: { 'grad-ulaganja': { file: 'kapitalna-ulaganja.geojson' } },
     layers: [
-      {
-        id: 'grad-ulaganja', type: 'circle', source: 'grad-ulaganja',
-        paint: {
-          'circle-color': FILTRI.ulaganja.boja,
-          'circle-opacity': 0.85,
-          'circle-stroke-color': '#ffffff',
-          'circle-stroke-width': 1.5,
-          // Area follows the amount; 50 million € and more is the largest circle.
-          'circle-radius': ['interpolate', ['linear'], ['sqrt', ['get', 'iznos']], 0, 4, 7000, 24],
-        },
-      },
+      { id: 'grad-ulaganja', type: 'circle', source: 'grad-ulaganja', paint: dot(FILTRI.ulaganja.boja) },
     ],
   },
   imovina: {
     sources: {
-      'grad-prostori': { file: { zagreb: 'prazni-prostori.geojson', rijeka: 'poslovni-prostori.geojson' }, cluster: true },
+      'grad-prostori': { file: { zagreb: 'prazni-prostori.geojson', rijeka: 'poslovni-prostori.geojson' } },
       'grad-trznice': { file: { zagreb: 'trznice.geojson' } },
       'grad-drustva': { file: { zagreb: 'gradska-drustva.geojson' } },
     },
     layers: [
-      { id: 'grad-prostori-grupa', type: 'circle', source: 'grad-prostori', filter: ['has', 'point_count'], paint: { 'circle-color': FILTRI.imovina.boja, 'circle-opacity': 0.85, 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 1.5, 'circle-radius': ['interpolate', ['linear'], ['get', 'point_count'], 2, 12, 100, 26] } },
-      { id: 'grad-prostori-broj', type: 'symbol', source: 'grad-prostori', filter: ['has', 'point_count'], layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-font': FONT, 'text-size': 12, 'text-allow-overlap': true }, paint: { 'text-color': '#ffffff' } },
-      { id: 'grad-prostori', type: 'circle', source: 'grad-prostori', filter: ['!', ['has', 'point_count']], paint: { 'circle-color': FILTRI.imovina.boja, 'circle-radius': 6, 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 1.5 } },
-      { id: 'grad-trznice', type: 'circle', source: 'grad-trznice', paint: { 'circle-color': '#16a34a', 'circle-radius': 7, 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2 } },
-      { id: 'grad-drustva', type: 'circle', source: 'grad-drustva', paint: { 'circle-color': '#1d4ed8', 'circle-radius': 7, 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2 } },
+      { id: 'grad-prostori', type: 'circle', source: 'grad-prostori', paint: dot(FILTRI.imovina.boja) },
+      { id: 'grad-trznice', type: 'circle', source: 'grad-trznice', paint: dot('#16a34a') },
+      { id: 'grad-drustva', type: 'circle', source: 'grad-drustva', paint: dot('#1d4ed8') },
     ],
   },
 };
 
 /** Layers a user can point at, for hover and click. */
-export const CITY_POINT_LAYERS = ['grad-ulaganja', 'grad-prostori-grupa', 'grad-prostori', 'grad-trznice', 'grad-drustva'];
+export const CITY_POINT_LAYERS = ['grad-ulaganja', 'grad-prostori', 'grad-trznice', 'grad-drustva'];
+
+// Every location the same small dot: where something is, not how big; the amount is in
+// the tooltip.
+function dot(color) {
+  return {
+    'circle-color': color,
+    'circle-radius': ['interpolate', ['linear'], ['zoom'], 8, 2.5, 10, 4, 13, 5.5],
+    'circle-stroke-color': '#ffffff',
+    'circle-stroke-width': 1,
+  };
+}
 export const CITY_AREA_LAYERS = ['grad-brownfield-fill', 'grad-zone-fill', 'grad-cetvrti-fill'];
 
 /** @param {mapboxgl.Map} map */
@@ -99,15 +104,24 @@ export function createCityLayers(map) {
     tileSize: 512,
     attribution: '© Mapbox © Maxar',
   });
-  map.addLayer({ id: SATELLITE, type: 'raster', source: SATELLITE, layout: { visibility: 'none' } }, beforeId);
+  map.addLayer(
+    {
+      id: SATELLITE,
+      type: 'raster',
+      source: SATELLITE,
+      layout: { visibility: 'none' },
+      paint: { 'raster-opacity': 0, 'raster-opacity-transition': { duration: FADE_MS, delay: 0 } },
+    },
+    beforeId,
+  );
+  let hideSatellite = 0;
 
   for (const group of Object.values(GROUPS)) {
-    for (const [id, { cluster }] of Object.entries(group.sources)) {
+    for (const id of Object.keys(group.sources)) {
       map.addSource(id, {
         type: 'geojson',
         data: EMPTY,
         ...(id === 'grad-cetvrti' ? { promoteId: 'sifra' } : { generateId: true }),
-        ...(cluster && { cluster: true, clusterRadius: 40, clusterMaxZoom: 15 }),
       });
     }
     for (const layer of group.layers) {
@@ -167,7 +181,11 @@ export function createCityLayers(map) {
         loads.clear();
         shownCity = city;
       }
-      map.setLayoutProperty(SATELLITE, 'visibility', city ? 'visible' : 'none');
+      // Fade, then hide once faded out: a hidden layer stops loading satellite tiles.
+      clearTimeout(hideSatellite);
+      if (city) map.setLayoutProperty(SATELLITE, 'visibility', 'visible');
+      else hideSatellite = setTimeout(() => map.setLayoutProperty(SATELLITE, 'visibility', 'none'), FADE_MS);
+      map.setPaintProperty(SATELLITE, 'raster-opacity', city ? 1 : 0);
       for (const [filter, group] of Object.entries(GROUPS)) {
         const on = Boolean(city) && filters.includes(filter);
         if (on) load(city, filter);

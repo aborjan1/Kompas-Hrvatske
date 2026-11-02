@@ -78,20 +78,18 @@
         else eu.hide();
       });
 
-      // Selecting Zagreb or Rijeka opens its city view: satellite photo, the switched-on
-      // filters, and room to zoom in to street level.
+      // Selecting Zagreb or Rijeka opens its city view: the satellite photo fades in under
+      // the switched-on filters, and the camera may zoom in a little further.
       const city = createCityLayers(map);
       // Raised as soon as a city opens; lowered only once the camera has left it
       // (focusOn), since lowering it first would snap the camera out.
       let maxZoom = MAX_ZOOM;
-      let shownCity = null;
       const showCity = () => {
         const { razina, podrucje } = get(view);
         const grad = razina === 'jls' ? GRADOVI[podrucje] : undefined;
-        if (grad && !shownCity) map.setMaxZoom(CITY_MAX_ZOOM);
-        shownCity = grad?.mapa ?? null;
         maxZoom = grad ? CITY_MAX_ZOOM : MAX_ZOOM;
-        city.show(shownCity, grad ? grad.filtri.filter((f) => get(ukljuceniFiltri).has(f)) : []);
+        if (grad) map.setMaxZoom(CITY_MAX_ZOOM);
+        city.show(grad?.mapa ?? null, grad ? grad.filtri.filter((f) => get(ukljuceniFiltri).has(f)) : []);
       };
       const unsubscribeCityView = view.subscribe(showCity);
       const unsubscribeFilters = ukljuceniFiltri.subscribe(showCity);
@@ -287,7 +285,6 @@
       const m2 = (v) => formatVrijednost(v, 'm²', 0);
       const cityTooltips = {
         'grad-ulaganja': (p) => ({ title: p.naziv, detail: `${formatVrijednost(p.iznos, 'EUR', 0)} · plan ${p.godina}.` }),
-        'grad-prostori-grupa': (p) => ({ title: `${p.point_count} gradskih prostora`, detail: 'Klikni za približavanje' }),
         'grad-prostori': (p) => ({
           title: p.adresa,
           detail: p.zakupnina_mjesecno != null
@@ -313,13 +310,6 @@
           source: map.getLayer(layerId).source,
           yieldTo: cityLayers.slice(0, i),
           describe: (f) => cityTooltips[layerId](f.properties, f.state),
-        });
-      });
-      // A group of premises opens up on click.
-      map.on('click', 'grad-prostori-grupa', (e) => {
-        const [feature] = e.features;
-        map.getSource('grad-prostori').getClusterExpansionZoom(feature.properties.cluster_id, (error, zoom) => {
-          if (!error) map.easeTo({ center: feature.geometry.coordinates, zoom });
         });
       });
     });

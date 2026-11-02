@@ -138,10 +138,10 @@ export function colorExpression(classes) {
   const value = ['feature-state', 'value'];
   if (classes.length === 0) return NO_DATA_COLOR;
 
-  // A single class (Zagreb is its county's only JLS) is one colour: Mapbox rejects a
-  // `step` without stops.
-  if (classes.length === 1) return ['case', ['==', value, null], NO_DATA_COLOR, classes[0].color];
   const step = ['step', value, classes[0].color];
   for (const c of classes.slice(1)) step.push(c.min, c.color);
+  // A single class (Zagreb is its county's only JLS) still needs one stop: Mapbox rejects
+  // a `step` without any. Same colour on both sides keeps it one class.
+  if (classes.length === 1) step.push(classes[0].max, classes[0].color);
   return ['case', ['==', value, null], NO_DATA_COLOR, step];
 }

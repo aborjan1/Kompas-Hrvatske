@@ -24,8 +24,9 @@ export const FOCUS_PADDING = 40;
 // Furthest in after the intro: a whole city (Zagreb fills the screen). Furthest out is
 // the whole-country view, which depends on the screen size (lockToCroatia()).
 export const MAX_ZOOM = 10.25;
-// In a city view (Zagreb, Rijeka) down to streets, where its points and zones are.
-export const CITY_MAX_ZOOM = 16;
+// A city view (Zagreb, Rijeka) goes a little further: neighbourhoods, so nearby
+// projects come apart, but not single streets.
+export const CITY_MAX_ZOOM = 13;
 
 export const LABEL_LANGUAGE = 'hr';
 

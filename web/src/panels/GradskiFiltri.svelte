@@ -23,7 +23,6 @@
         </button>
       {/each}
     </div>
-    <p class="blago">Približi kartu za pojedinačne lokacije.</p>
   </section>
 {/if}
 
@@ -74,9 +73,4 @@
     }
   }
 
-  .blago {
-    margin: 8px 0 0;
-    font-size: 12px;
-    color: var(--kh-tekst-blago);
-  }
 </style>
