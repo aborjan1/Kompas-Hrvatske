@@ -32,6 +32,8 @@ export const LABEL_LANGUAGE = 'hr';
 
 // Official DGU county boundaries from pipeline/build.py (docs/format-podataka.md).
 export const COUNTY_BOUNDARIES_URL = `${import.meta.env.BASE_URL}data/zupanije.geojson`;
+// Croatia's outline, the union of the counties, for the space around it (spaceMask.js).
+export const CROATIA_OUTLINE_URL = `${import.meta.env.BASE_URL}data/hrvatska.geojson`;
 
 // City and municipality boundaries, one file per county.
 /** @param {string} countyCode */
