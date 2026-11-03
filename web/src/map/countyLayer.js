@@ -39,7 +39,11 @@ export function createCountyLayer(map, geojson) {
       id: FILL_LAYER,
       type: 'fill',
       source: SOURCE,
-      paint: { 'fill-color': NO_DATA_COLOR, 'fill-opacity': FILL_OPACITY },
+      paint: {
+        'fill-color': colorExpression([]),
+        'fill-color-transition': FILL_COLOR_NO_BLEND,
+        'fill-opacity': FILL_OPACITY,
+      },
     },
     beforeId,
   );
@@ -134,9 +138,14 @@ export function quantileClasses(values, colors) {
   }));
 }
 
+// Always a per-feature (feature-state) expression, even with no classes, and fills
+// set it with FILL_COLOR_NO_BLEND: Mapbox threw while blending a plain colour into a
+// per-feature one ("reading 'r'") and stopped drawing the layer.
+export const FILL_COLOR_NO_BLEND = { duration: 0, delay: 0 };
+
 export function colorExpression(classes) {
   const value = ['feature-state', 'value'];
-  if (classes.length === 0) return NO_DATA_COLOR;
+  if (classes.length === 0) return ['case', ['==', value, null], NO_DATA_COLOR, NO_DATA_COLOR];
 
   // One class (Grad Zagreb has a single city): a `step` needs at least one stop, so
   // MapLibre would reject it and leave the area uncoloured.

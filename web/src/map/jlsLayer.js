@@ -4,7 +4,7 @@
 // is selected the rest fade, so the surroundings stay readable around it.
 
 import { JLS_BOUNDARIES_URL } from './config.js';
-import { CLASS_COLORS, colorExpression, FILL_OPACITY, quantileClasses } from './countyLayer.js';
+import { CLASS_COLORS, colorExpression, FILL_COLOR_NO_BLEND, FILL_OPACITY, quantileClasses } from './countyLayer.js';
 import { geometryBounds } from './geometry.js';
 
 export const JLS_SOURCE = 'jls';
@@ -33,7 +33,7 @@ export function createJlsLayer(map) {
   addLayer({
     id: JLS_FILL_LAYER,
     type: 'fill',
-    paint: { 'fill-color': CLASS_COLORS[0], 'fill-opacity': 0 },
+    paint: { 'fill-color': colorExpression([]), 'fill-color-transition': FILL_COLOR_NO_BLEND, 'fill-opacity': 0 },
   });
   addLayer({
     id: LINE_LAYER,
