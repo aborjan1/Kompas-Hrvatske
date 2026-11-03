@@ -42,7 +42,7 @@ export function createCountyLayer(map, geojson) {
       paint: {
         'fill-color': colorExpression([]),
         'fill-color-transition': FILL_COLOR_NO_BLEND,
-        'fill-opacity': FILL_OPACITY,
+        'fill-opacity': ['*', FADE, FILL_OPACITY],
       },
     },
     beforeId,
@@ -84,11 +84,17 @@ export function createCountyLayer(map, geojson) {
      * @param {string[] | null} only
      */
     showOnly(only) {
-      map.setPaintProperty(
-        FILL_LAYER,
-        'fill-opacity',
-        only ? ['case', ['in', ['get', 'sifra'], ['literal', only]], FILL_OPACITY, 0] : FILL_OPACITY,
-      );
+      const opacity = only ? ['case', ['in', ['get', 'sifra'], ['literal', only]], FILL_OPACITY, 0] : FILL_OPACITY;
+      map.setPaintProperty(FILL_LAYER, 'fill-opacity', ['*', FADE, opacity]);
+    },
+
+    /**
+     * Dims every colour at once, 0 (none) to 1 (as usual): stories fade them between
+     * scenes, frame by frame.
+     * @param {number} level
+     */
+    setFade(level) {
+      for (const code of codes) map.setFeatureState({ source: SOURCE, id: code }, { fade: level });
     },
 
     /**
@@ -142,6 +148,12 @@ export function quantileClasses(values, colors) {
 // set it with FILL_COLOR_NO_BLEND: Mapbox threw while blending a plain colour into a
 // per-feature one ("reading 'r'") and stopped drawing the layer.
 export const FILL_COLOR_NO_BLEND = { duration: 0, delay: 0 };
+
+// Every fill's opacity is scaled by its `fade` feature state (1 when unset), which
+// setFade() changes for each area. Per feature state, not a new paint expression:
+// Mapbox re-tiles the source for each new data-driven expression, far too slow for an
+// animation. Shared with the JLS layer.
+export const FADE = ['number', ['feature-state', 'fade'], 1];
 
 export function colorExpression(classes) {
   const value = ['feature-state', 'value'];

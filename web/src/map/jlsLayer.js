@@ -4,7 +4,14 @@
 // is selected the rest fade, so the surroundings stay readable around it.
 
 import { JLS_BOUNDARIES_URL } from './config.js';
-import { CLASS_COLORS, colorExpression, FILL_COLOR_NO_BLEND, FILL_OPACITY, quantileClasses } from './countyLayer.js';
+import {
+  CLASS_COLORS,
+  colorExpression,
+  FILL_COLOR_NO_BLEND,
+  FILL_OPACITY,
+  FADE,
+  quantileClasses,
+} from './countyLayer.js';
 import { geometryBounds } from './geometry.js';
 
 export const JLS_SOURCE = 'jls';
@@ -33,7 +40,11 @@ export function createJlsLayer(map) {
   addLayer({
     id: JLS_FILL_LAYER,
     type: 'fill',
-    paint: { 'fill-color': colorExpression([]), 'fill-color-transition': FILL_COLOR_NO_BLEND, 'fill-opacity': 0 },
+    paint: {
+      'fill-color': colorExpression([]),
+      'fill-color-transition': FILL_COLOR_NO_BLEND,
+      'fill-opacity': 0,
+    },
   });
   addLayer({
     id: LINE_LAYER,
@@ -70,6 +81,7 @@ export function createJlsLayer(map) {
   let values = null;
   /** @type {{ color: string, min: number, max: number }[]} */
   let classes = [];
+  let fade = 1;
 
   // Values may arrive before the county's boundaries do, so they are kept and applied
   // again once the features are on the map.
@@ -88,7 +100,12 @@ export function createJlsLayer(map) {
   function applyOpacity() {
     let opacity = 0;
     if (values) opacity = selected ? ['case', isSelected, FILL_OPACITY, FADED_OPACITY] : FILL_OPACITY;
-    map.setPaintProperty(JLS_FILL_LAYER, 'fill-opacity', opacity);
+    map.setPaintProperty(JLS_FILL_LAYER, 'fill-opacity', opacity === 0 ? 0 : ['*', FADE, opacity]);
+  }
+
+  // See setFade(); also for a county's cities and municipalities as they arrive.
+  function applyFade() {
+    for (const code of codes) map.setFeatureState({ source: JLS_SOURCE, id: code }, { fade });
   }
 
   function select(code) {
@@ -120,6 +137,7 @@ export function createJlsLayer(map) {
           boundsByCode = new Map(
             geojson.features.map((f) => [f.properties.sifra, geometryBounds(f.geometry)]),
           );
+          applyFade();
           map.getSource(JLS_SOURCE).setData(geojson);
           applyValues();
         });
@@ -155,6 +173,15 @@ export function createJlsLayer(map) {
       classes = quantileClasses(present, colors);
       applyValues();
       return { classes, hasMissing: present.length < all.length };
+    },
+
+    /**
+     * Dims every colour at once, 0 (none) to 1 (as usual), like the county layer's.
+     * @param {number} level
+     */
+    setFade(level) {
+      fade = level;
+      applyFade();
     },
 
     /** No values: the tema has nothing to show for cities and municipalities. */

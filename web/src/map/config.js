@@ -21,6 +21,16 @@ export const CROATIA_BOUNDS = [
 // Camera padding around a focused area, equal on all sides so it lands centred.
 export const FOCUS_PADDING = 40;
 
+// Stories (src/stories/player.js) are filmed: the camera tilts, flies slowly from one
+// area to the next and, once there, drifts in and turns a little while the sentence
+// is read.
+export const STORY_PITCH = 42;
+export const STORY_FLIGHT_MS = 3000;
+// Mapbox's default is 1.42; higher zooms out further mid-flight, past the starry space
+// around Croatia (spaceMask.js) once the camera is tilted.
+export const STORY_FLIGHT_CURVE = 1.2;
+export const STORY_DRIFT = { zoom: 0.3, bearing: 6, duration: 10000 };
+
 // Furthest in after the intro: a whole city (Zagreb fills the screen). Furthest out is
 // the whole-country view, which depends on the screen size (lockToCroatia()).
 export const MAX_ZOOM = 10.25;

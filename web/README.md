@@ -59,7 +59,7 @@ preglednika na 30 dana, pa se tijekom prezentacije ništa ne čeka s interneta.
   - `IzvorPodatka.svelte` – izvor, godina i poveznica pokazatelja kojim je karta obojana, ispod tema
   - `Pretraga.svelte` – pretraga županija, gradova i općina (Fuse.js), radi i bez kvačica; logika u `src/data/pretraga.js`
   - `JezikGumb.svelte` – prekidač HR / EN pokraj pretrage
-  - `PopisPrica.svelte` i `PricaKartica.svelte` – popis priča (u panelu za Hrvatsku) i kartica priče koja za vrijeme priče zamjenjuje traku s temama
+  - `PopisPrica.svelte` i `PricaKartica.svelte` – popis priča (u panelu za Hrvatsku) i priča preko cijelog ekrana: naslov, oblačić s rečenicom scene i kontrole s koracima
   - `EuProjektiPopis.svelte` – broj, iznos i 5 najvećih EU projekata odabranog grada, dok je sloj uključen
   - `GradskiFiltri.svelte` – gumbi za 4 filtra gradskog prikaza u profilu Zagreba ili Rijeke
   - `GrafVeza.svelte` – tema Nabava: graf veza (dobavljači i drugi gradovi i općine s istim dobavljačem) i popis dobavljača iz `nabava.json` (`src/data/nabava.js`)
@@ -136,5 +136,19 @@ Priča je naslov i niz scena u `price.json`. Scena postavlja zajednički pogled,
 - Područje se bira pravilom (`"odabir": "najveci"` ili `"najmanji"` po `pokazatelj`) ili fiksnom šifrom (`"sifra"`). Za `drzava` ne treba ništa.
 - U tekstu `{naziv}`, `{vrijednost}` (pokazatelj scene u mjeri scene) i `{zupanija}` popunjavaju se iz podataka, pa priča ostaje točna kad se podaci osvježe.
 - `"eu": true` uključuje sloj EU projekata.
-- Scene ne dodaju zapise u povijest preglednika, a „Završi” (ili Esc) vraća pogled i sloj od prije priče. Strelice lijevo i desno mijenjaju scenu, a „Automatski” ih mijenja sam (za snimanje videa; ne nudi se uz smanjeno kretanje).
+- Scene ne dodaju zapise u povijest preglednika, a „Završi” (ili Esc) vraća pogled i sloj od prije priče.
+
+Priča se reproducira kao kratki film (`player.js`, polje `faza` u storeu `reprodukcija`):
+
+| Faza | Što se vidi |
+| --- | --- |
+| `uvod` | Naslov priče preko karte, paneli se sklanjaju (`html[data-kino]`, `src/raspored.css`), kamera se nagne. |
+| `odlazak` | Boje na karti se gase. |
+| `let` | Scena postavlja pogled i kamera sporo leti na područje (`STORY_*` u `src/map/config.js`). |
+| `prikaz` | Kamera je sletjela (`src/map/slijetanje.js`): boje se vraćaju, rečenica se pojavi u oblačiću riječ po riječ, a kamera polako prilazi i okreće se. |
+
+- Priča sama ide dalje: scena traje dok se rečenica ne pročita (4–8 s prema duljini), a traka koraka pokazuje koliko je ostalo. Gumb pauze ili razmak je zaustavljaju, strelice lijevo i desno mijenjaju scenu, klik na korak otvara tu scenu.
+- Za vrijeme priče kamerom upravlja priča: nema zumiranja ni klika na područja. Nagib postoji samo u priči (inače je karta ravna, `maxPitch: 0`).
+- Boje se gase i pale preko feature-statea `fade` (`setFade` u `countyLayer.js` i `jlsLayer.js`), jer Mapbox ne može pretopiti jednu boju u drugu, a novi izraz za prozirnost u svakom frameu ponovno bi učitao sloj.
+- Uz smanjeno kretanje priča ne ide sama, kamera skače umjesto da leti, a tekst se pojavi odjednom.
 

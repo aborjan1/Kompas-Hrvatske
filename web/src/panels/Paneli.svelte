@@ -1,15 +1,14 @@
 <script>
   // Floating panels over the map. The layer itself lets pointer events through so the
-  // map stays draggable between panels; only the panels catch clicks.
+  // map stays draggable between panels; only the panels catch clicks. During a story
+  // the whole layer steps aside for the map (html[data-kino], src/raspored.css).
   import GrafoviPanel from './GrafoviPanel.svelte';
   import InfoPanel from './InfoPanel.svelte';
   import IzvorPodatka from './IzvorPodatka.svelte';
   import JezikGumb from './JezikGumb.svelte';
   import Pretraga from './Pretraga.svelte';
-  import PricaKartica from './PricaKartica.svelte';
   import Putanja from './Putanja.svelte';
   import TemeBar from './TemeBar.svelte';
-  import { reprodukcija } from '../stories/player.js';
   import { onMount } from 'svelte';
   import { t } from '../jezik.js';
 
@@ -50,7 +49,7 @@
   });
 </script>
 
-<div class="sloj" class:u-prici={$reprodukcija}>
+<div class="sloj">
   <div class="gore">
     <Putanja />
     <div class="vrh">
@@ -61,8 +60,7 @@
   <div class="lijevo" bind:this={grafovi}><GrafoviPanel /></div>
   <div class="desno"><InfoPanel /></div>
   <div class="dolje">
-    <!-- A story sets the tema itself, so its card takes the tema bar's place. -->
-    {#if $reprodukcija}<PricaKartica />{:else}<TemeBar />{/if}
+    <TemeBar />
     <IzvorPodatka />
   </div>
   <!-- Column tabs, shown on wide screens only (raspored.css). -->
@@ -92,6 +90,8 @@
     pointer-events: none;
     font-size: 14px;
     color: var(--kh-tekst);
+    /* Steps aside for a story once its panels have faded, see raspored.css. */
+    transition: visibility 300ms;
   }
 
   .sloj :global(.kh-panel) {
@@ -141,10 +141,6 @@
     border-radius: 8px;
   }
 
-  .u-prici .lijevo {
-    display: none;
-  }
-
   /* Leaves room for the map's zoom controls in the top-right corner. */
   .desno {
     position: absolute;
@@ -185,12 +181,6 @@
 
     .dolje {
       bottom: 40px;
-    }
-
-    /* During a story the card tells what is shown and the breadcrumb where, so the info
-       panel steps aside and leaves the map visible. */
-    .u-prici .desno {
-      display: none;
     }
 
     .desno {

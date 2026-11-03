@@ -78,8 +78,11 @@ Esc briše upit.
 
 ## Priče
 
-Priče su kratki vođeni obilasci: karta sama odleti na područja, postavi temu i ispiše
-rečenicu. Pokreću se iz info panela na razini Hrvatske.
+Priče su kratki vođeni obilasci, napravljeni kao film. Pokreću se iz info panela na razini
+Hrvatske. Paneli se sklone i karta zauzme cijeli ekran, preko nje se pojavi naslov priče, a
+kamera se nagne u 3D. Zatim za svaku scenu boje se ugase, kamera polako odleti na područje,
+boje se vrate, a rečenica scene pojavi se u oblačiću, riječ po riječ. Dok se čita, kamera
+polako prilazi.
 
 | Priča | Što pokazuje |
 | --- | --- |
@@ -90,10 +93,12 @@ rečenicu. Pokreću se iz info panela na razini Hrvatske.
 
 ![Priča „Gdje gradovi najviše ulažu”](snimke/5-prica.jpg)
 
-Za vrijeme priče kartica dolje ima „Natrag”, „Dalje”, „Automatski” (scene se mijenjaju same,
-npr. za snimanje videa) i × za kraj. Strelice lijevo i desno mijenjaju scenu, Esc završava
-priču. Na kraju se vraća pogled od prije priče. Brojevi u pričama računaju se iz podataka, pa
-ostaju točni kad se podaci osvježe.
+Priča ide sama: svaka scena traje dok se rečenica ne pročita, a traka koraka ispod oblačića
+pokazuje koliko je ostalo. Kontrole su ‹ i › (scena natrag i naprijed), pauza i × za kraj, a
+klik na korak otvara tu scenu. Na tipkovnici strelice lijevo i desno mijenjaju scenu, razmak
+pauzira, a Esc završava priču. Na kraju se vraća pogled od prije priče. Uz smanjeno kretanje u
+sustavu priča ne ide sama i kamera skače umjesto da leti. Brojevi u pričama računaju se iz
+podataka, pa ostaju točni kad se podaci osvježe.
 
 ## Linkovi
 

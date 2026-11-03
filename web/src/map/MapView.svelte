@@ -14,7 +14,13 @@
     FOCUS_PADDING,
     INTRO_DURATION,
     MAX_ZOOM,
+    STORY_DRIFT,
+    STORY_FLIGHT_CURVE,
+    STORY_FLIGHT_MS,
+    STORY_PITCH,
   } from './config.js';
+  import { reprodukcija, smanjenoKretanje } from '../stories/player.js';
+  import { javiPolijetanje, javiSletanje } from './slijetanje.js';
   import { createCountyLayer, FILL_LAYER, SOURCE } from './countyLayer.js';
   import {
     createMap,
@@ -86,6 +92,9 @@
     };
   }
 
+  /** @param {number} t */
+  const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+
   // One level up, like the breadcrumb: city → county → country. Zooming out past the
   // framed view does this (odzumiravanje.js).
   function idiGore() {
@@ -125,6 +134,9 @@
     let unsubscribeJls = () => {};
     let unsubscribeEu = () => {};
     let unsubscribeCity = () => {};
+    let unsubscribeStory = () => {};
+    // A story is playing (src/stories/player.js).
+    let inStory = false;
 
     // Boundaries: Državna geodetska uprava under the Open Licence (source, date, licence).
     // Rebuilt when the language changes (podaci then carries the English publisher name).
@@ -231,16 +243,19 @@
       // so the breadcrumb, search and URL move it the same way.
       // Every layer fires for the same click, so the one on top claims it: an EU
       // circle, then a city or municipality inside the open county, then the county.
+      // During a story the story chooses the areas, so clicks do nothing.
       const claimedBy = (point, layers) => map.queryRenderedFeatures(point, { layers }).length > 0;
       map.on('click', FILL_LAYER, (e) => {
-        if (claimedBy(e.point, [EU_LAYER, JLS_FILL_LAYER])) return;
+        if (inStory || claimedBy(e.point, [EU_LAYER, JLS_FILL_LAYER])) return;
         selectArea('zupanija', e.features[0].properties.sifra);
       });
       map.on('click', JLS_FILL_LAYER, (e) => {
-        if (claimedBy(e.point, [EU_LAYER])) return;
+        if (inStory || claimedBy(e.point, [EU_LAYER])) return;
         selectArea('jls', e.features[0].properties.sifra);
       });
-      map.on('click', EU_LAYER, (e) => selectArea('jls', e.features[0].properties.sifra));
+      map.on('click', EU_LAYER, (e) => {
+        if (!inStory) selectArea('jls', e.features[0].properties.sifra);
+      });
 
       // Zooming out below a county's or city's framed view goes up a level (city →
       // county → country), however it is done: pinch, trackpad, wheel, "−". A camera
@@ -255,8 +270,12 @@
       // Flies to an area and, once there, keeps the camera on it: the user can look
       // around it and zoom out a little towards the level up (lockToArea), but not wander
       // off. The whole country can't be zoomed out past (lockToCroatia).
+      // During a story the flight is filmed (config.js): tilted, slower, in a higher arc,
+      // and the camera is the story's: no user input, and it drifts in once there.
       function focusOn(bounds, { croatia = false, intro = false, duration = undefined } = {}) {
         const token = ++focusToken;
+        const story = Boolean(get(reprodukcija));
+        javiPolijetanje();
         // End a flight still under way before listening below: its moveend would
         // otherwise count as this move's landing and lock the camera mid-air.
         map.stop();
@@ -278,19 +297,70 @@
           space?.show();
           map.setMaxZoom(maxZoom);
           okvir = croatia ? lockToCroatia(map) : lockToArea(map);
-          setUserInput(map, true);
+          setUserInput(map, !story);
+          // Flat again after a story (createMap: maxPitch 0), now that the camera is.
+          if (!story) map.setMaxPitch(0);
+          javiSletanje(get(view));
+          if (story && !smanjenoKretanje) drift();
         };
         // Listen first: under prefers-reduced-motion the move is a jump, whose moveend
         // fires inside fitBounds().
         map.on('moveend', arrived);
+        // The map is flat and north-up (createMap) except in a story.
+        if (story) map.setMaxPitch(STORY_PITCH);
         // Not `essential`, so Mapbox jumps instead of flying under prefers-reduced-motion.
         map.fitBounds(bounds, {
           padding: focusPadding(),
-          pitch: map.getPitch(),
+          pitch: story ? STORY_PITCH : 0,
+          bearing: 0,
+          ...(story && { duration: STORY_FLIGHT_MS, curve: STORY_FLIGHT_CURVE, easing: easeInOutCubic }),
           ...(intro && { duration: INTRO_DURATION }),
           ...(duration !== undefined && { duration }),
         });
       }
+
+      // While a scene is read the camera slowly moves in and turns a little, so the
+      // shot stays alive. The next focusOn() stops it (map.stop()).
+      function drift() {
+        map.easeTo({
+          zoom: Math.min(map.getZoom() + STORY_DRIFT.zoom, map.getMaxZoom()),
+          bearing: STORY_DRIFT.bearing,
+          duration: STORY_DRIFT.duration,
+          easing: (t) => t,
+        });
+      }
+
+      // Between a story's scenes the colours fade out while the camera flies and come back
+      // once it has landed. By opacity (setFade): blending one fill colour into another
+      // is what Mapbox can't do (FILL_COLOR_NO_BLEND).
+      let colourLevel = 1;
+      let colourFrame = 0;
+      function fadeColours(to) {
+        cancelAnimationFrame(colourFrame);
+        const from = colourLevel;
+        if (from === to) return;
+        const ms = smanjenoKretanje ? 0 : to > from ? 700 : 300;
+        const start = performance.now();
+        const step = (now) => {
+          const t = ms ? Math.min(1, (now - start) / ms) : 1;
+          colourLevel = from + (to - from) * t * t * (3 - 2 * t);
+          counties.setFade(colourLevel);
+          jls.setFade(colourLevel);
+          if (t < 1) colourFrame = requestAnimationFrame(step);
+        };
+        colourFrame = requestAnimationFrame(step);
+      }
+
+      // A story tilts the camera in when it starts and back when it ends, framing the
+      // area again for the full-screen map (html[data-kino]) or the panels.
+      unsubscribeStory = reprodukcija.subscribe((r) => {
+        fadeColours(!r || r.faza === 'prikaz' ? 1 : 0);
+        if (Boolean(r) === inStory) return;
+        inStory = Boolean(r);
+        // Started during the intro: once it has landed.
+        if (introRunning) map.once('moveend', () => refocus());
+        else refocus();
+      });
 
       // The first call is the intro: from the globe (createMap) straight down to the
       // current area, which is the whole country unless the app opened on a county.
@@ -409,6 +479,7 @@
       unsubscribeJls();
       unsubscribeEu();
       unsubscribeCity();
+      unsubscribeStory();
       unsubscribeMeta();
       unsubscribeJezik();
       removeEventListener('kh:raspored', onLayout);

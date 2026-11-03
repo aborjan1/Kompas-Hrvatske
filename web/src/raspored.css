@@ -59,7 +59,7 @@
     display: grid;
     grid-template-columns: var(--kh-karta-lijevo) minmax(0, 1fr) var(--kh-karta-desno);
     grid-template-rows: auto minmax(0, 1fr);
-    transition: grid-template-columns 260ms ease;
+    transition: grid-template-columns 260ms ease, visibility 300ms;
   }
 
   /* Column backgrounds. */
@@ -503,6 +503,70 @@
 
 @media (max-width: 640px) and (prefers-reduced-motion: reduce) {
   html:root .sloj .desno .info {
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------- stories */
+/* A playing story has the screen to itself (PricaKartica.svelte, stories/player.js):
+   the panels fade, the columns slide away, and the map frames each area over the
+   whole screen, above the speech bubble. !important because the column rules above
+   set the same variables, some with :has(), which outranks any plain selector here. */
+html:root[data-kino] {
+  --kh-karta-lijevo: 0px !important;
+  --kh-karta-desno: 0px !important;
+  --kh-karta-gore: 30px !important;
+  --kh-karta-dolje: 190px !important;
+}
+
+/* Coming back, the panels fade in once the columns have opened. */
+html:root .sloj > * {
+  transition: opacity 220ms ease 200ms;
+}
+
+html:root[data-kino] .sloj {
+  visibility: hidden;
+}
+
+html:root[data-kino] .sloj > * {
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+/* The story moves the camera, so no zoom buttons. */
+html:root .mapboxgl-ctrl-top-right {
+  transition: opacity 250ms ease, visibility 250ms;
+}
+
+html:root[data-kino] .mapboxgl-ctrl-top-right {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* The legend moves to the top left, out of the bubble's way; the map's logo and
+   credits stay in their corners at the bottom. */
+html:root[data-kino] .kh-legend {
+  position: fixed;
+  top: calc(12px + env(safe-area-inset-top, 0px));
+  left: 12px;
+}
+
+@media (max-width: 640px) {
+  html:root[data-kino] {
+    --kh-karta-gore: 50px !important;
+    --kh-karta-dolje: 210px !important;
+  }
+
+  html:root[data-kino] .mapboxgl-ctrl-bottom-left,
+  html:root[data-kino] .mapboxgl-ctrl-bottom-right {
+    bottom: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:root .sloj > *,
+  html:root[data-kino] .sloj > *,
+  html:root .mapboxgl-ctrl-top-right {
     transition: none;
   }
 }
