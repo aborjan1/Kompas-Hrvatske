@@ -41,6 +41,7 @@ preglednika na 30 dana, pa se tijekom prezentacije ništa ne čeka s interneta.
   - `euLayer.js` – krugovi EU projekata, jedan po gradu ili općini, površina prema iznosu iz EU
   - `MapView.svelte` – tanki Svelte omotač: granice iz `public/data/zupanije.geojson`, boje iz storea `indicator` (`src/data/indicator.js`)
 - `src/state.js` – zajedničko stanje (vidi dolje)
+- `src/jezik.js` – jezik sučelja (hrvatski ili engleski): `t('Grafovi', 'Charts')`, lokalni format brojeva, `lang=en` u linku; izbor se pamti u pregledniku, a nikad se ne pogađa iz jezika preglednika. Paneli se pri promjeni jezika iscrtaju iznova (`App.svelte`), karta prati jezik sama (nazivi mjesta `name_en`, legenda, oblačići)
 - `src/url.js` – stanje u URL-u: svaki pogled ima svoj link, Natrag i Naprijed rade (vidi dolje)
 - `src/data/` – učitavanje podataka i pokazatelji
   - `podaci.js` – učitava `meta`, `drzava` i `zupanije` na startu, `jls.json` tek nakon izlaska s razine države
@@ -49,13 +50,15 @@ preglednika na 30 dana, pa se tijekom prezentacije ništa ne čeka s interneta.
   - `format.js` – formatiranje brojeva prema `jedinica` i `decimale` iz `meta.json`
   - `euProjekti.js` – EU projekti (2014.–2020.) zbrojeni po gradu ili općini, učitavaju se tek kad se uključi gumb „EU projekti”
   - `gradskiPrikaz.js` – koji grad ima koje filtre i koji su uključeni; gradski prikaz se otvara sam kad se odabere Zagreb ili Rijeka
-  - `recenice.js` – rečenica info panela za svaku temu i razinu, od stvarnih brojeva; dio bez podatka se izostavlja
+  - `recenice.js` – rečenica info panela za svaku temu i razinu, od stvarnih brojeva; dio bez podatka se izostavlja (posebni predlošci za engleski)
+  - `prijevod.js` – engleski tekstovi podataka iz `en.json` (nazivi i objašnjenja pokazatelja, županije, nizovi, funkcije proračuna, EU pozivi); učitavaju se tek kad se odabere EN i stavljaju se preko hrvatskih u storeovima `podaci`, `nizovi`, `proracuni`, `nabava` i `euPozivi`
 - `src/panels/` – paneli: putanja, info panel, teme i prekidač ukupno / po stanovniku; na širokom ekranu u dvije bočne trake koje se zatvaraju (`src/raspored.css`)
   - `GrafUsporedbe.svelte` – u profilu županije: položaj među svih 21 županija (Chart.js), klik na stupac odabire županiju
   - `UsporedbaSlicnih.svelte` – u profilu grada ili općine: usporedba s 5 najsličnijih po broju stanovnika (`slicni` iz `jls.json`), klik odabire taj grad
   - `GrafStupci.svelte` – zajednički vodoravni stupčasti graf (Chart.js) za obje usporedbe
   - `IzvorPodatka.svelte` – izvor, godina i poveznica pokazatelja kojim je karta obojana, ispod tema
   - `Pretraga.svelte` – pretraga županija, gradova i općina (Fuse.js), radi i bez kvačica; logika u `src/data/pretraga.js`
+  - `JezikGumb.svelte` – prekidač HR / EN pokraj pretrage
   - `PopisPrica.svelte` i `PricaKartica.svelte` – popis priča (u panelu za Hrvatsku) i kartica priče koja za vrijeme priče zamjenjuje traku s temama
   - `EuProjektiPopis.svelte` – broj, iznos i 5 najvećih EU projekata odabranog grada, dok je sloj uključen
   - `GradskiFiltri.svelte` – gumbi za 4 filtra gradskog prikaza u profilu Zagreba ili Rijeke
@@ -104,6 +107,7 @@ Stanje se zrcali u hash, s istim vrijednostima:
 | Hrvatska | `#/?tema=novac&mjera=ukupno` |
 | Županija | `#/zupanija/05?tema=novac&mjera=po-stanovniku` |
 | Grad ili općina | `#/jls/<sifra>?tema=porezi&mjera=ukupno` |
+| Na engleskom | `#/?tema=novac&mjera=ukupno&lang=en` (hrvatski nema `lang`) |
 
 - `main.js` pokreće `startUrlSync()` prije aplikacije, pa podijeljeni link odmah otvara taj pogled (i uvodni let karte sleti na njega).
 - Osvježavanje stranice i ponovno otvoreni tab uvijek kreću od cijele Hrvatske (tema i mjera ostaju), bez obzira na područje u adresi. Samo otvoreni link vodi ravno na područje.
@@ -111,6 +115,7 @@ Stanje se zrcali u hash, s istim vrijednostima:
 - Natrag, Naprijed i ručno upisan hash postavljaju stanje preko `setView()`.
 - Nepoznata tema ili mjera zamijeni se trenutnom, a nepoznata šifra područja vraća na Hrvatsku čim se podaci učitaju. Link se pritom ispravi na mjestu.
 - Hash, a ne putanja, pa GitHub Pages ne treba nikakvo podešavanje servera.
+- Promjena jezika (prekidač HR / EN) zamjenjuje link na mjestu, pa se može poslati pogled na engleskom. Natrag i Naprijed ne mijenjaju odabrani jezik.
 
 ## Priče (`src/stories/`)
 

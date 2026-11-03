@@ -3,23 +3,24 @@
   // over the satellite photo (src/map/cityLayers.js).
   import { view } from '../state.js';
   import { FILTRI, GRADOVI, prebaciFiltar, ukljuceniFiltri } from '../data/gradskiPrikaz.js';
+  import { t } from '../jezik.js';
 
   const grad = $derived($view.razina === 'jls' ? GRADOVI[$view.podrucje] : undefined);
 </script>
 
 {#if grad}
   <section class="grad">
-    <h3>Gradski prikaz</h3>
-    <div class="filtri" role="group" aria-label="Slojevi grada">
+    <h3>{t('Gradski prikaz', 'City view')}</h3>
+    <div class="filtri" role="group" aria-label={t('Slojevi grada', 'City layers')}>
       {#each grad.filtri as filtar}
         <button
           type="button"
           style:--boja={FILTRI[filtar].boja}
           aria-pressed={$ukljuceniFiltri.has(filtar)}
-          title={FILTRI[filtar].opis}
+          title={t(FILTRI[filtar].opis, FILTRI[filtar].opis_en)}
           onclick={() => prebaciFiltar(filtar)}
         >
-          {FILTRI[filtar].naziv}
+          {t(FILTRI[filtar].naziv, FILTRI[filtar].naziv_en)}
         </button>
       {/each}
     </div>

@@ -10,7 +10,8 @@
 import { derived } from 'svelte/store';
 import { view } from '../state.js';
 import { ocitaj, podaci } from './podaci.js';
-import { JEDNOSTAVNI_NAZIVI, TEME_POKAZATELJI } from './teme.js';
+import { TEME_POKAZATELJI, jednostavniNaziv } from './teme.js';
+import { engleski, t } from '../jezik.js';
 
 /**
  * @typedef {object} Indicator
@@ -75,7 +76,7 @@ export const indicator = derived([view, podaci], ([v, p]) => {
   return {
     kljuc,
     razina,
-    title: JEDNOSTAVNI_NAZIVI[kljuc] ?? pokazatelj.naziv,
+    title: jednostavniNaziv(kljuc, pokazatelj),
     objasnjenje: pokazatelj.objasnjenje ?? '',
     unit: jedinica,
     decimale,
@@ -92,9 +93,11 @@ export const indicator = derived([view, podaci], ([v, p]) => {
   };
 });
 
+const MONTHS = 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ');
+
 /**
- * Download date of a source from meta.json `izvori`, as "29.10.2026.". Combined sources
- * take their first part's date.
+ * Download date of a source from meta.json `izvori`, as "29.10.2026." (English
+ * "29 Oct 2026"). Combined sources take their first part's date.
  * @param {{ preuzeto?: string | null, dijelovi?: { preuzeto?: string | null }[] }} izvor
  * @returns {string | null}
  */
@@ -102,7 +105,7 @@ export function datumPreuzimanja(izvor) {
   const iso = izvor.preuzeto ?? izvor.dijelovi?.find((d) => d.preuzeto)?.preuzeto;
   if (!iso) return null;
   const [g, m, d] = iso.split('-');
-  return `${Number(d)}.${Number(m)}.${g}.`;
+  return engleski() ? `${Number(d)} ${MONTHS[Number(m) - 1]} ${g}` : `${Number(d)}.${Number(m)}.${g}.`;
 }
 
 /**
@@ -112,10 +115,10 @@ export function datumPreuzimanja(izvor) {
  */
 function dozvola(licenca) {
   if (licenca?.startsWith('Otvorena dozvola')) {
-    return { naziv: 'Otvorena dozvola', poveznica: 'https://data.gov.hr/otvorena-dozvola' };
+    return { naziv: t('Otvorena dozvola', 'Open Licence'), poveznica: 'https://data.gov.hr/otvorena-dozvola' };
   }
   if (licenca?.startsWith('CC BY')) {
-    return { naziv: 'CC BY 4.0', poveznica: 'https://creativecommons.org/licenses/by/4.0/deed.hr' };
+    return { naziv: 'CC BY 4.0', poveznica: `https://creativecommons.org/licenses/by/4.0/${t('deed.hr', 'deed.en')}` };
   }
   return null;
 }

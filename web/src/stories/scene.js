@@ -18,6 +18,7 @@ import { formatVrijednost } from '../data/format.js';
  * @property {import('../state.js').Mjera} mjera
  * @property {boolean} [eu] Show the EU projects layer.
  * @property {string} tekst
+ * @property {string} [tekst_en] The same sentence in English (same placeholders).
  */
 
 /**
@@ -25,6 +26,8 @@ import { formatVrijednost } from '../data/format.js';
  * @property {string} id
  * @property {string} naslov
  * @property {string} opis
+ * @property {string} [naslov_en]
+ * @property {string} [opis_en]
  * @property {Scena[]} scene
  */
 
@@ -71,6 +74,6 @@ function odaberi(podrucja, procitaj, odabir) {
   const s = podrucja
     .map((podrucje) => ({ podrucje, value: procitaj(podrucje)?.value ?? null }))
     .filter((x) => x.value !== null)
-    .sort((a, b) => (odabir === 'najmanji' ? a.value - b.value : b.value - a.value) || a.podrucje.naziv.localeCompare(b.podrucje.naziv, 'hr'));
+    .sort((a, b) => (odabir === 'najmanji' ? a.value - b.value : b.value - a.value) || (a.podrucje.naziv_hr ?? a.podrucje.naziv).localeCompare(b.podrucje.naziv_hr ?? b.podrucje.naziv, 'hr'));
   return s[0]?.podrucje ?? null;
 }

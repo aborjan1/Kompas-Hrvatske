@@ -3,6 +3,7 @@
 // Nabava tema needs it.
 
 import { writable } from 'svelte/store';
+import { sPrijevodom } from './prijevod.js';
 
 /**
  * @typedef {object} Dobavljac
@@ -24,7 +25,7 @@ import { writable } from 'svelte/store';
 const store = writable({ podaci: null, greska: false });
 
 /** @type {import('svelte/store').Readable<{ podaci: Nabava | null, greska: boolean }>} */
-export const nabava = { subscribe: store.subscribe };
+export const nabava = sPrijevodom(store, (n, en) => ({ ...n, napomena: en.nabava.napomena, razdoblje: en.nabava.razdoblje }));
 
 let zatrazeno = false;
 

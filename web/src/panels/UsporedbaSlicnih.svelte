@@ -5,7 +5,8 @@
   import { selectArea, view } from '../state.js';
   import { ocitaj, podaci } from '../data/podaci.js';
   import { formatVrijednost } from '../data/format.js';
-  import { JEDNOSTAVNI_NAZIVI, TEME_POKAZATELJI } from '../data/teme.js';
+  import { t } from '../jezik.js';
+  import { TEME_POKAZATELJI, jednostavniNaziv } from '../data/teme.js';
   import GrafStupci from './GrafStupci.svelte';
 
   const usporedba = $derived.by(() => {
@@ -41,12 +42,12 @@
     redovi.sort((a, b) => b.value - a.value);
     for (const r of redovi) {
       r.detalji = [r.tekst];
-      if (r.stanovnika != null) r.detalji.push(`${formatVrijednost(r.stanovnika, 'osoba', 0)} stanovnika`);
+      if (r.stanovnika != null) r.detalji.push(`${formatVrijednost(r.stanovnika, 'osoba', 0)} ${t('stanovnika', 'residents')}`);
     }
     const indeks = redovi.findIndex((r) => r.id === grad.sifra);
 
     return {
-      naslov: (JEDNOSTAVNI_NAZIVI[kljuc] ?? pokazatelj.naziv) + (poStanovniku ? ' po stanovniku' : ''),
+      naslov: jednostavniNaziv(kljuc, pokazatelj) + (poStanovniku ? t(' po stanovniku', ' per resident') : ''),
       godina: pokazatelj.godina,
       naziv: grad.naziv,
       redovi,
@@ -60,30 +61,33 @@
 
 {#if usporedba}
   <section class="graf" aria-labelledby="graf-slicni-naslov">
-    <h3 id="graf-slicni-naslov">Usporedba sa sličnima po broju stanovnika</h3>
+    <h3 id="graf-slicni-naslov">{t('Usporedba sa sličnima po broju stanovnika', 'Compared with places of similar size')}</h3>
     {#if usporedba.bezPokazatelja}
-      <p class="napomena">Za ovu temu nema podatka po gradovima i općinama.</p>
+      <p class="napomena">{t('Za ovu temu nema podatka po gradovima i općinama.', 'This theme has no data for cities and municipalities.')}</p>
     {:else}
       <p class="pokazatelj">{usporedba.naslov} <span class="godina">{usporedba.godina}</span></p>
       {#if usporedba.odabrani}
         <p class="isticanje">
-          <strong>{usporedba.mjesto}. od {usporedba.redovi.length}</strong> · {usporedba.odabrani.tekst}
+          <strong>{t(`${usporedba.mjesto}. od ${usporedba.redovi.length}`, `${usporedba.mjesto} of ${usporedba.redovi.length}`)}</strong> · {usporedba.odabrani.tekst}
         </p>
       {:else}
-        <p class="isticanje">Za {usporedba.naziv} nema podatka.</p>
+        <p class="isticanje">{t(`Za ${usporedba.naziv} nema podatka.`, `No data for ${usporedba.naziv}.`)}</p>
       {/if}
 
       <GrafStupci
         redovi={usporedba.redovi}
         odabrani={usporedba.odabrani?.id ?? null}
         boja={usporedba.boja}
-        naslov="{usporedba.naslov}: {usporedba.naziv} i 5 sličnih po broju stanovnika"
+        naslov={t(
+          `${usporedba.naslov}: ${usporedba.naziv} i 5 sličnih po broju stanovnika`,
+          `${usporedba.naslov}: ${usporedba.naziv} and 5 places of similar size`,
+        )}
         visinaRetka={22}
         onodaberi={(red) => selectArea('jls', red.id)}
       />
 
       {#if usporedba.bezPodatka.length}
-        <p class="napomena">Bez podatka: {usporedba.bezPodatka.join(', ')}.</p>
+        <p class="napomena">{t('Bez podatka', 'No data')}: {usporedba.bezPodatka.join(', ')}.</p>
       {/if}
     {/if}
   </section>

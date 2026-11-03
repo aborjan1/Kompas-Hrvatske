@@ -7,10 +7,11 @@
   import { euPozivi, stanje, ucitajEuPozive } from '../data/euPozivi.js';
   import { formatVrijednost } from '../data/format.js';
   import { TEME_POKAZATELJI } from '../data/teme.js';
+  import { engleski, t } from '../jezik.js';
 
   $effect(() => ucitajEuPozive());
 
-  const ULOGA = { prijavitelj: 'prijavitelj', partner: 'partner' };
+  const ULOGA = { prijavitelj: t('kao prijavitelj', 'as applicant'), partner: t('kao partner', 'as partner') };
 
   const podrucje = $derived(nadjiPodrucje($podaci, $view.razina, $view.podrucje));
 
@@ -33,7 +34,7 @@
         return {
           ...p,
           stanje: s,
-          uloga: imenovan ? 'namijenjen ovom gradu' : `kao ${ULOGA[uloga]}`,
+          uloga: imenovan ? t('namijenjen ovom gradu', 'meant for this town') : ULOGA[uloga],
           iznosTekst: p.iznos ? formatVrijednost(p.iznos, 'EUR', 0) : null,
         };
       })
@@ -67,41 +68,62 @@
 
 {#if prikaz}
   <section class="graf" aria-labelledby="eu-pozivi-naslov">
-    <h3 id="eu-pozivi-naslov">EU pozivi za {prikaz.jls ? 'grad ili općinu' : 'županiju'} <span class="godina">2026.</span></h3>
+    <h3 id="eu-pozivi-naslov">
+      {prikaz.jls ? t('EU pozivi za grad ili općinu', 'EU calls for this city or municipality') : t('EU pozivi za županiju', 'EU calls for this county')}
+      <span class="godina">{t('2026.', '2026')}</span>
+    </h3>
     {#if prikaz.usporedba}
       <p class="usporedba" class:upozorenje={prikaz.usporedba.manje}>
-        Slični gradovi i općine (po profilu) ugovorili su iz EU fondova 2021.–2027. u prosjeku
-        <strong>{prikaz.usporedba.slicni}</strong>, a {prikaz.naziv} <strong>{prikaz.usporedba.ovdje}</strong>.
+        {#if engleski()}
+          Similar cities and municipalities (by profile) have contracted on average
+          <strong>{prikaz.usporedba.slicni}</strong> from EU funds 2021–2027, and {prikaz.naziv}
+          <strong>{prikaz.usporedba.ovdje}</strong>.
+        {:else}
+          Slični gradovi i općine (po profilu) ugovorili su iz EU fondova 2021.–2027. u prosjeku
+          <strong>{prikaz.usporedba.slicni}</strong>, a {prikaz.naziv} <strong>{prikaz.usporedba.ovdje}</strong>.
+        {/if}
       </p>
     {/if}
     {#if prikaz.pozivi.length}
       <p class="podnaslov">
-        {prikaz.pozivi.length}
-        {prikaz.pozivi.length === 1 ? 'otvoren ili planiran poziv' : 'otvorenih ili planiranih poziva'} u kojima
-        {prikaz.jls ? 'grad ili općina može' : 'županija može'} sudjelovati:
+        {#if engleski()}
+          {prikaz.pozivi.length}
+          {prikaz.pozivi.length === 1 ? 'open or planned call' : 'open or planned calls'} the
+          {prikaz.jls ? 'city or municipality' : 'county'} can take part in:
+        {:else}
+          {prikaz.pozivi.length}
+          {prikaz.pozivi.length === 1 ? 'otvoren ili planiran poziv' : 'otvorenih ili planiranih poziva'} u kojima
+          {prikaz.jls ? 'grad ili općina može' : 'županija može'} sudjelovati:
+        {/if}
       </p>
       <ul class="popis">
         {#each prikaz.pozivi as p (p.id)}
           <li style:--boja={prikaz.boja}>
-            <p class="naziv"><span class="program">{p.program}</span> {p.naziv}</p>
+            <p class="naziv"><span class="program" title={p.program_naziv}>{p.program}</span> {p.naziv}</p>
             <p class="detalji">
               <span class="stanje {p.stanje.kod}">{p.stanje.tekst}</span>
-              · {p.uloga}{p.iznosTekst ? ` · ${p.iznosTekst} za cijeli poziv` : ''}
+              · {p.uloga}{p.iznosTekst ? ` · ${p.iznosTekst} ${t('za cijeli poziv', 'for the whole call')}` : ''}
             </p>
             {#if p.napomena}<p class="detalji">{p.napomena}</p>{/if}
             <details>
-              <summary>Tko se može prijaviti</summary>
-              <p>{p.prijavitelji}</p>
-              <p class="sitno">{p.vrsta} · područje: {p.podrucje}</p>
+              <summary>{t('Tko se može prijaviti', 'Who can apply')}</summary>
+              <p lang="hr">{p.prijavitelji}</p>
+              {#if engleski()}<p class="sitno">As written in the plan (in Croatian).</p>{/if}
+              <p class="sitno">{p.vrsta} · {t('područje', 'area')}: {p.podrucje}</p>
             </details>
           </li>
         {/each}
       </ul>
     {:else}
-      <p class="podnaslov">Trenutno nema otvorenih ni planiranih poziva za {prikaz.jls ? 'gradove i općine' : 'županije'} na ovom području.</p>
+      <p class="podnaslov">
+        {prikaz.jls
+          ? t('Trenutno nema otvorenih ni planiranih poziva za gradove i općine na ovom području.', 'There are currently no open or planned calls for cities and municipalities in this area.')
+          : t('Trenutno nema otvorenih ni planiranih poziva za županije na ovom području.', 'There are currently no open or planned calls for counties in this area.')}
+      </p>
     {/if}
     <p class="napomena">
-      {prikaz.napomena} Izvor: Ministarstvo regionalnoga razvoja i fondova EU (eufondovi.gov.hr).
+      {prikaz.napomena}
+      {t('Izvor: Ministarstvo regionalnoga razvoja i fondova EU (eufondovi.gov.hr).', 'Source: Ministry of Regional Development and EU Funds (eufondovi.gov.hr).')}
     </p>
   </section>
 {/if}

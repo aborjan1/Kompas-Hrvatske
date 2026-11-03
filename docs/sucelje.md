@@ -16,6 +16,7 @@ Demo: <https://aborjan1.github.io/Kompas-Hrvatske/> · Pokretanje: [pokretanje.m
 | --- | --- | --- |
 | **Putanja** | gore u sredini | Hrvatska › županija › grad. Klik na višu razinu vraća na nju. |
 | **Pretraga** | ispod putanje | Traži županiju, grad ili općinu po imenu (vidi [Pretraga](#pretraga)). |
+| **HR / EN** | pokraj pretrage | Jezik sučelja: hrvatski ili engleski (vidi [Engleska verzija](#engleska-verzija)). |
 | **Karta** | cijeli zaslon | Područja obojana prema odabranom pokazatelju. Prelazak mišem pokazuje ime i vrijednost, klik odabire područje. |
 | **Legenda** | dolje lijevo | Pet razreda boje s rasponom vrijednosti. |
 | **Info panel** | desno | Odabrano područje: do četiri broja, rečenica koja ih objašnjava, usporedba i priče. |
@@ -99,6 +100,22 @@ ostaju točni kad se podaci osvježe.
 Svaki pogled ima svoj link, npr. `#/zupanija/05?tema=novac&mjera=po-stanovniku` ili
 `#/jls/04723?tema=porezi&mjera=ukupno`. Link poslan drugoj osobi otvara isti pogled, a tipke
 Natrag i Naprijed u pregledniku idu po područjima.
+
+## Engleska verzija
+
+Prekidač **HR / EN** pokraj pretrage prebacuje cijelo sučelje na engleski: teme, nazive i
+objašnjenja pokazatelja, rečenice, grafove, priče, legendu, oblačiće na karti i nazive mjesta
+na podlozi. Brojevi se pišu na engleski način (€2.9 bn, 3.3%), a županije engleskim nazivima
+(Split-Dalmatia County); pretraga i dalje pronalazi i hrvatske nazive.
+
+Namijenjena je stranim ulagačima, EU partnerima i novinarima. Link na engleskom ima
+`&lang=en` (npr. `#/jls/04090?tema=novac&mjera=ukupno&lang=en`), pa se može poslati pogled
+koji se otvara na engleskom. Izbor se pamti u pregledniku; jezik se nikad ne pogađa iz jezika
+preglednika, pa domaći korisnici uvijek dobiju hrvatski.
+
+Nazivi gradova, općina, dobavljača i EU projekata te službeni nazivi skupova podataka ostaju
+izvorni. Uvjeti EU poziva („Tko se može prijaviti”) prikazuju se kako pišu u planu, na
+hrvatskom.
 
 ## Mobitel
 

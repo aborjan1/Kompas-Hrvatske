@@ -4,22 +4,23 @@
   import { view } from '../state.js';
   import { euProjekti } from '../data/euProjekti.js';
   import { brojProjekata, formatVrijednost } from '../data/format.js';
+  import { t } from '../jezik.js';
 
   const jls = $derived($euProjekti.poJls?.[$view.podrucje] ?? null);
 </script>
 
 {#if $euProjekti.prikazano}
   <section class="eu">
-    <h3>EU projekti 2014.–2020.</h3>
+    <h3>{t('EU projekti 2014.–2020.', 'EU projects 2014–2020')}</h3>
     {#if $euProjekti.greska}
       <p class="blago">{$euProjekti.greska}</p>
     {:else if !$euProjekti.poJls}
-      <p class="blago">Učitavanje…</p>
+      <p class="blago">{t('Učitavanje…', 'Loading…')}</p>
     {:else if !jls}
-      <p class="blago">Nema EU projekata u ovom razdoblju.</p>
+      <p class="blago">{t('Nema EU projekata u ovom razdoblju.', 'No EU projects in this period.')}</p>
     {:else}
       <p class="ukupno">
-        <strong>{formatVrijednost(jls.esif_eur, 'EUR', 0)}</strong> iz EU · {brojProjekata(jls.broj)}
+        <strong>{formatVrijednost(jls.esif_eur, 'EUR', 0)}</strong> {t('iz EU', 'from the EU')} · {brojProjekata(jls.broj)}
       </p>
       <ol>
         {#each jls.najveci as p}
@@ -29,7 +30,7 @@
           </li>
         {/each}
       </ol>
-      <p class="blago izvor">Stanje {$euProjekti.presjek}</p>
+      <p class="blago izvor">{t('Stanje', 'As of')} {$euProjekti.presjek}</p>
     {/if}
   </section>
 {/if}

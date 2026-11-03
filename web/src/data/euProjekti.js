@@ -4,6 +4,7 @@
 // (about 3.6 MB), since most visits never switch the layer on.
 
 import { get, writable } from 'svelte/store';
+import { t } from '../jezik.js';
 
 const ADRESA = `${import.meta.env.BASE_URL}data/tocke/eu-projekti.geojson`;
 const NAJVECIH = 5;
@@ -55,7 +56,7 @@ export function prikaziEuProjekte(prikazano) {
     .catch((error) => {
       console.error(error);
       zatrazeno = false;
-      store.update((s) => ({ ...s, greska: 'EU projekti se nisu učitali.' }));
+      store.update((s) => ({ ...s, greska: t('EU projekti se nisu učitali.', 'EU projects did not load.') }));
     });
 }
 

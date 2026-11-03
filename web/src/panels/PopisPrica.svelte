@@ -1,11 +1,12 @@
 <script>
   // The stories on offer, in the country view of the info panel. Choosing one plays it
   // (src/stories/player.js); the card at the bottom takes it from there.
-  import { pokreni, price, reprodukcija } from '../stories/player.js';
+  import { pokreni, price, reprodukcija, tekstPrice } from '../stories/player.js';
+  import { t } from '../jezik.js';
 </script>
 
 <section class="price" aria-labelledby="price-naslov">
-  <h3 id="price-naslov">Priče</h3>
+  <h3 id="price-naslov">{t('Priče', 'Stories')}</h3>
   <ul>
     {#each price as prica (prica.id)}
       <li>
@@ -14,8 +15,8 @@
           aria-current={$reprodukcija?.prica.id === prica.id ? 'true' : undefined}
           onclick={() => pokreni(prica.id)}
         >
-          <span class="naziv">{prica.naslov}</span>
-          <span class="opis">{prica.opis} · {prica.scene.length} koraka</span>
+          <span class="naziv">{tekstPrice(prica).naslov}</span>
+          <span class="opis">{tekstPrice(prica).opis} · {prica.scene.length} {t('koraka', 'steps')}</span>
         </button>
       </li>
     {/each}

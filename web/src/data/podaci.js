@@ -1,9 +1,12 @@
 // Loads the exported data files (docs/format-podataka.md) once and exposes them as a
 // store. Cities and municipalities (jls.json) load only after the user first leaves
-// country level, since most visits never need them.
+// country level, since most visits never need them. In English the texts in meta.json
+// and the county names come from en.json (prijevod.js); the numbers are the same.
 
 import { derived, writable } from 'svelte/store';
 import { view } from '../state.js';
+import { t } from '../jezik.js';
+import { prevediMeta, prevediZupanije, prijevod } from './prijevod.js';
 
 const BASE_URL = `${import.meta.env.BASE_URL}data/`;
 
@@ -48,7 +51,14 @@ const BASE_URL = `${import.meta.env.BASE_URL}data/`;
 const store = writable({ meta: null, drzava: null, zupanije: null, jls: null, greska: null });
 
 /** @type {import('svelte/store').Readable<Podaci>} */
-export const podaci = { subscribe: store.subscribe };
+export const podaci = derived([store, prijevod], ([p, en]) =>
+  !en ? p : {
+    ...p,
+    meta: p.meta && prevediMeta(p.meta, en),
+    drzava: p.drzava && { ...p.drzava, naziv: en.drzava },
+    zupanije: p.zupanije && prevediZupanije(p.zupanije, en),
+  },
+);
 
 Promise.all([dohvati('meta'), dohvati('drzava'), dohvati('zupanije')])
   .then(([meta, drzava, zupanije]) =>
@@ -98,7 +108,7 @@ async function dohvati(naziv) {
 
 function prijaviGresku(error) {
   console.error(error);
-  store.update((p) => ({ ...p, greska: 'Podaci se nisu učitali. Osvježite stranicu.' }));
+  store.update((p) => ({ ...p, greska: t('Podaci se nisu učitali. Osvježite stranicu.', 'The data did not load. Please refresh the page.') }));
 }
 
 /**

@@ -12,6 +12,8 @@ const PRAG_IZLAZA = 0.5;
 
 const ogranici = (x, min, max) => Math.min(Math.max(x, min), max);
 
+import { t } from '../jezik.js';
+
 /**
  * @param {mapboxgl.Map} map
  * @param {{ okvir: () => import('./createMap.js').Okvir | null, idiGore: () => void }} opcije
@@ -60,8 +62,8 @@ export class ZoomKontrola {
     this.map = map;
     this.container = document.createElement('div');
     this.container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
-    this.plus = gumb('mapboxgl-ctrl-zoom-in', 'Približi', (e) => map.zoomIn({}, { originalEvent: e }));
-    this.minus = gumb('mapboxgl-ctrl-zoom-out', 'Udalji', (e) => map.zoomOut({}, { originalEvent: e }));
+    this.plus = gumb('mapboxgl-ctrl-zoom-in', t('Približi', 'Zoom in'), (e) => map.zoomIn({}, { originalEvent: e }));
+    this.minus = gumb('mapboxgl-ctrl-zoom-out', t('Udalji', 'Zoom out'), (e) => map.zoomOut({}, { originalEvent: e }));
     this.container.append(this.plus, this.minus);
 
     // After the move: the camera lock sets the new limits on the same moveend.
@@ -76,6 +78,14 @@ export class ZoomKontrola {
     this.map.off('zoom', this.osvjezi);
     this.map.off('moveend', this.osvjezi);
     this.container.remove();
+  }
+
+  /** Button names in the current language (MapView calls this on a switch). */
+  prevedi() {
+    for (const [b, naziv] of [[this.plus, t('Približi', 'Zoom in')], [this.minus, t('Udalji', 'Zoom out')]]) {
+      b.title = naziv;
+      b.setAttribute('aria-label', naziv);
+    }
   }
 
   azuriraj() {

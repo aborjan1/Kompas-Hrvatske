@@ -6,6 +6,7 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './controls.css';
 import { BASEMAP_STYLE, INTRO_START, LABEL_LANGUAGE, MAPBOX_TOKEN, MAX_ZOOM } from './config.js';
+import { engleski } from '../jezik.js';
 
 mapboxgl.accessToken = MAPBOX_TOKEN;
 
@@ -142,10 +143,11 @@ export function setUserInput(map, enabled) {
 }
 
 // The style shows English names ("Croatia"); show the Croatian name where the tiles
-// have one and the local name everywhere else. Only labels that are names, so road
-// numbers on shields stay.
-function useLocalLabels(map) {
-  const label = ['coalesce', ['get', `name_${LABEL_LANGUAGE}`], ['get', 'name']];
+// have one and the local name everywhere else, or the English name when the interface
+// is in English (MapView calls this again on a switch). Only labels that are names, so
+// road numbers on shields stay.
+export function useLocalLabels(map) {
+  const label = ['coalesce', ['get', `name_${engleski() ? 'en' : LABEL_LANGUAGE}`], ['get', 'name']];
   for (const layer of map.getStyle().layers) {
     const field = layer.type === 'symbol' && layer.layout?.['text-field'];
     if (field && JSON.stringify(field).includes('name')) {

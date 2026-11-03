@@ -17,7 +17,8 @@
   import { view } from '../state.js';
   import { nadjiPodrucje, podaci } from '../data/podaci.js';
   import { nizovi } from '../data/nizovi.js';
-  import { formatVrijednost } from '../data/format.js';
+  import { formatVrijednost, postotak } from '../data/format.js';
+  import { god, raspon, t } from '../jezik.js';
   import { TEME_POKAZATELJI } from '../data/teme.js';
 
   Chart.register(CategoryScale, LinearScale, LineController, LineElement, PointElement, Tooltip, Filler);
@@ -29,7 +30,6 @@
   const bojaTeksta = (ime) => getComputedStyle(document.documentElement).getPropertyValue(ime).trim();
   const smanjenoKretanje =
     typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const postotak = new Intl.NumberFormat('hr-HR', { maximumFractionDigits: 0, signDisplay: 'always' });
 
   const podrucje = $derived(nadjiPodrucje($podaci, $view.razina, $view.podrucje));
 
@@ -56,19 +56,21 @@
     const zadnji = vrijednosti[zadnjiI];
     let promjena = '';
     if (zadnjiI > prviI) {
-      const od = `od ${s.godine[prviI]}.`;
-      if (s.jedinica === '%') promjena = `S ${tekst(prvi)} na ${tekst(zadnji)} (${s.godine[prviI]}.–${s.godine[zadnjiI]}.)`;
-      else if (prvi) promjena = `${postotak.format((zadnji / prvi - 1) * 100)} % ${od}`;
+      const od = t(`od ${god(s.godine[prviI])}`, `since ${s.godine[prviI]}`);
+      const razdoblje = raspon(s.godine[prviI], s.godine[zadnjiI]);
+      if (s.jedinica === '%') {
+        promjena = t(`S ${tekst(prvi)} na ${tekst(zadnji)} (${razdoblje})`, `From ${tekst(prvi)} to ${tekst(zadnji)} (${razdoblje})`);
+      } else if (prvi) promjena = `${postotak((zadnji / prvi - 1) * 100, { predznak: true })} ${od}`;
     }
     const izvor = $podaci.meta?.izvori[s.izvor];
     return {
-      naslov: s.naziv + (poStanovniku ? ` – ${s.po_stanovniku.jedinica}` : ''),
+      naslov: s.naziv + (poStanovniku ? ` – ${t(s.po_stanovniku.jedinica, s.po_stanovniku.jedinica === 'EUR po stanovniku' ? 'EUR per resident' : 'per 1,000 residents')}` : ''),
       godine: s.godine.map(String),
       vrijednosti,
       tekst,
       kratko: (/** @type {number} */ v) =>
         formatVrijednost(v, jedinica.startsWith('EUR') ? 'EUR' : jedinica === '%' ? '%' : 'broj', 0),
-      raspon: `${s.godine[prviI]}.–${s.godine[zadnjiI]}.`,
+      raspon: raspon(s.godine[prviI], s.godine[zadnjiI]),
       zadnji: tekst(zadnji),
       promjena,
       napomena: s.napomena,
@@ -125,7 +127,7 @@
         legend: { display: false },
         tooltip: {
           callbacks: {
-            title: (items) => `${items[0].label}.`,
+            title: (items) => god(items[0].label),
             label: (item) => ` ${trenutni.tekst(item.parsed.y)}`,
           },
         },
@@ -167,13 +169,13 @@
         <tbody>
           {#each prikaz.godine as g, i (g)}
             {#if prikaz.vrijednosti[i] !== null}
-              <tr><th scope="row">{g}.</th><td>{prikaz.tekst(prikaz.vrijednosti[i])}</td></tr>
+              <tr><th scope="row">{god(g)}</th><td>{prikaz.tekst(prikaz.vrijednosti[i])}</td></tr>
             {/if}
           {/each}
         </tbody>
       </table>
     </div>
-    <p class="napomena">{prikaz.napomena}{prikaz.izvor ? ` Izvor: ${prikaz.izvor}.` : ''}</p>
+    <p class="napomena">{prikaz.napomena}{prikaz.izvor ? ` ${t('Izvor', 'Source')}: ${prikaz.izvor}.` : ''}</p>
   </section>
 {/if}
 

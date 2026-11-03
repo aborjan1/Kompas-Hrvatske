@@ -3,7 +3,8 @@
   // scene's sentence and the controls. Arrow keys step through scenes, Esc ends the
   // story. "Automatski" steps on its own, for recording a video; it is not offered
   // when the system asks for reduced motion.
-  import { dalje, natrag, reprodukcija, zavrsi } from '../stories/player.js';
+  import { dalje, natrag, reprodukcija, tekstPrice, zavrsi } from '../stories/player.js';
+  import { t } from '../jezik.js';
 
   const TRAJANJE_SCENE = 7000; // ms, long enough to read the sentence after the camera lands
 
@@ -14,6 +15,7 @@
 
   const r = $derived($reprodukcija);
   const ukupno = $derived(r?.prica.scene.length ?? 0);
+  const naslov = $derived(r ? tekstPrice(r.prica).naslov : '');
   const zadnja = $derived(r ? r.indeks === ukupno - 1 : false);
 
   $effect(() => {
@@ -43,30 +45,36 @@
 <svelte:window {onkeydown} />
 
 {#if r}
-  <section class="kh-panel prica" aria-label="Priča: {r.prica.naslov}">
+  <section class="kh-panel prica" aria-label="{t('Priča', 'Story')}: {naslov}">
     <div class="vrh">
-      <p class="naslov">{r.prica.naslov}</p>
-      <span class="brojac" aria-label="Scena {r.indeks + 1} od {ukupno}">{r.indeks + 1} / {ukupno}</span>
-      <button type="button" class="zatvori" aria-label="Završi priču" title="Završi priču (Esc)" onclick={zavrsi}>
+      <p class="naslov">{naslov}</p>
+      <span class="brojac" aria-label={t(`Scena ${r.indeks + 1} od ${ukupno}`, `Scene ${r.indeks + 1} of ${ukupno}`)}>{r.indeks + 1} / {ukupno}</span>
+      <button
+        type="button"
+        class="zatvori"
+        aria-label={t('Završi priču', 'End story')}
+        title={t('Završi priču (Esc)', 'End story (Esc)')}
+        onclick={zavrsi}
+      >
         <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
           <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
         </svg>
       </button>
     </div>
 
-    <p class="tekst" aria-live="polite">{r.tekst ?? 'Učitavanje…'}</p>
+    <p class="tekst" aria-live="polite">{r.tekst ?? t('Učitavanje…', 'Loading…')}</p>
 
     <div class="kontrole">
-      <button type="button" onclick={natrag} disabled={r.indeks === 0}>‹ Natrag</button>
+      <button type="button" onclick={natrag} disabled={r.indeks === 0}>‹ {t('Natrag', 'Back')}</button>
       {#if !smanjenoKretanje}
         <button type="button" aria-pressed={automatski} onclick={() => (automatski = !automatski)}>
-          Automatski
+          {t('Automatski', 'Auto-play')}
         </button>
       {/if}
       {#if zadnja}
-        <button type="button" class="glavni" onclick={zavrsi}>Završi</button>
+        <button type="button" class="glavni" onclick={zavrsi}>{t('Završi', 'Finish')}</button>
       {:else}
-        <button type="button" class="glavni" onclick={dalje}>Dalje ›</button>
+        <button type="button" class="glavni" onclick={dalje}>{t('Dalje', 'Next')} ›</button>
       {/if}
     </div>
   </section>

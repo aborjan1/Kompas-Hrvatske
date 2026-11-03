@@ -1,0 +1,426 @@
+{
+  "generirano": "2026-11-03T19:44:49+00:00",
+  "verzija_formata": 1,
+  "teme": {
+    "ljudi": "People",
+    "novac": "Money",
+    "porezi": "Taxes",
+    "imovina": "Property",
+    "nabava": "Procurement"
+  },
+  "pokazatelji": {
+    "stanovnistvo": {
+      "naziv": "Population",
+      "objasnjenje": "How many people live here according to the 2021 Census. All per-resident amounts are divided by this number.",
+      "godina": "2021"
+    },
+    "stanovnistvo_procjena": {
+      "naziv": "Population (Croatian Bureau of Statistics estimate)",
+      "objasnjenje": "How many people live here in mid-2025 according to the estimate of the Croatian Bureau of Statistics, counting migration, births and deaths since the census.",
+      "napomena": "Mid-year estimate. Per-resident amounts are still based on the 2021 Census, because there is no newer estimate for cities and municipalities.",
+      "godina": "mid-2025"
+    },
+    "promjena_stanovnistva": {
+      "naziv": "Population change",
+      "objasnjenje": "By what percentage the population changed from 2021 to 2025. A minus means more people died or moved away than were born or moved in.",
+      "napomena": "Change of the mid-year estimate compared with mid-2021 (migration, births and deaths).",
+      "godina": "2021→2025"
+    },
+    "gustoca_naseljenosti": {
+      "naziv": "Population density",
+      "objasnjenje": "How many people live on one square kilometre on average. A high number means a densely populated area, a low one a sparsely populated area.",
+      "godina": "2021"
+    },
+    "prosjecna_starost": {
+      "naziv": "Average age",
+      "objasnjenje": "Average age of all residents. A higher number means an older community, with more pensioners and fewer children.",
+      "godina": "2021"
+    },
+    "prosjecna_neto_placa": {
+      "naziv": "Average net salary",
+      "objasnjenje": "How much employees of companies and institutions take home per month on average, after tax and contributions. Sole traders are not included.",
+      "napomena": "Monthly average in legal entities, based on the JOPPD tax form.",
+      "godina": "2025"
+    },
+    "zaposleni": {
+      "naziv": "Employed persons",
+      "objasnjenje": "How many people have a job. Per resident shows the number of employed per 1,000 residents.",
+      "napomena": "As of 31 March, administrative sources.",
+      "godina": "2024"
+    },
+    "stopa_nezaposlenosti": {
+      "naziv": "Registered unemployment rate",
+      "objasnjenje": "Out of 100 people who work or are looking for work, how many are registered as unemployed with the Croatian Employment Service.",
+      "godina": "Sep 2026"
+    },
+    "neto_dohodak": {
+      "naziv": "Net income of residents",
+      "objasnjenje": "How much all residents together received in the year after tax and contributions: salaries, pensions and other income. Per resident it is the average per person, children included.",
+      "napomena": "Salaries, pensions and other income after tax and contributions, for the whole year.",
+      "godina": "2025"
+    },
+    "bdp": {
+      "naziv": "Gross domestic product (GDP)",
+      "objasnjenje": "The value of everything produced in Croatia in a year. The most common measure of the size of an economy.",
+      "godina": "2023"
+    },
+    "bruto_dodana_vrijednost": {
+      "naziv": "Gross value added",
+      "objasnjenje": "How much value companies, sole traders and public services in the county create in a year. Similar to GDP, but without taxes on products such as VAT.",
+      "napomena": "Value of production in the county; GDP without taxes on products. The Croatian Bureau of Statistics does not publish GDP by county.",
+      "godina": "2023"
+    },
+    "eu_ugovoreno": {
+      "naziv": "Contracted EU funds (OPCC 2014–2020)",
+      "objasnjenje": "How much EU money was contracted for projects here in the 2014–2020 period. Contracted does not mean paid out.",
+      "napomena": "ESIF share of contracted projects, by place of implementation.",
+      "godina": "as of 31 May 2023"
+    },
+    "eu_projekti": {
+      "naziv": "Number of EU projects (OPCC 2014–2020)",
+      "objasnjenje": "How many projects with EU funding were contracted here in the 2014–2020 period.",
+      "godina": "as of 31 May 2023"
+    },
+    "eu_2127_ugovoreno": {
+      "naziv": "Contracted EU funds 2021–2027",
+      "objasnjenje": "How much EU money has been contracted so far for projects here in the 2021–2027 period. The period is still running, and contracted does not mean paid out.",
+      "napomena": "EU share of contracted projects from the Competitiveness and Cohesion, Integrated Territorial and Efficient Human Resources programmes. Counties by project location (Efficient Human Resources by the beneficiary's seat); cities and municipalities by the beneficiary's seat. Projects of state bodies and projects without a location count only in the national total.",
+      "godina": "as of 30 Sep 2026"
+    },
+    "eu_2127_projekti": {
+      "naziv": "Number of EU projects 2021–2027",
+      "objasnjenje": "How many projects with EU funding have been contracted here so far in the 2021–2027 period.",
+      "napomena": "A project carried out in several counties counts in each of them.",
+      "godina": "as of 30 Sep 2026"
+    },
+    "hbor_krediti": {
+      "naziv": "HBOR loans from EU funds",
+      "objasnjenje": "How much companies, farmers and the public sector received in favourable loans from HBOR (the Croatian development bank) financed from EU funds.",
+      "napomena": "Five ESIF programmes of HBOR, by county of investment.",
+      "godina": "2018–2023"
+    },
+    "inflacija": {
+      "naziv": "Inflation (annual, HICP)",
+      "objasnjenje": "How much prices rose in a year. For example, 4% means that what cost €100 a year ago now costs €104.",
+      "godina": "2026-09"
+    },
+    "saldo_proracuna": {
+      "naziv": "General government balance",
+      "objasnjenje": "The difference between revenue and expenditure of the whole state, including cities, municipalities and funds. A minus means the state spends more than it collects and borrows the difference.",
+      "napomena": "Negative = deficit (net borrowing), ESA 2010.",
+      "godina": "2025"
+    },
+    "javni_dug": {
+      "naziv": "General government debt",
+      "objasnjenje": "How much the state owes in total through loans and bonds, together with cities, municipalities and public funds.",
+      "godina": "2026-06"
+    },
+    "lokalni_prihodi": {
+      "naziv": "Local budget revenue",
+      "objasnjenje": "All the money the city or municipality received in the year: taxes, fees, grants from the state and the EU, and sales of assets. For a county we add up all its cities and municipalities too.",
+      "napomena": "Budget outturn (not plan), latest year. For a county: the county budget and the budgets of all its cities and municipalities; for the country: the sum of all local budgets.",
+      "godina": "2025"
+    },
+    "lokalni_rashodi": {
+      "naziv": "Local budget expenditure",
+      "objasnjenje": "All the money the city or municipality spent in the year: salaries, materials, services, support to residents and investment.",
+      "napomena": "Budget outturn (not plan), latest year. For a county: the county budget and the budgets of all its cities and municipalities; for the country: the sum of all local budgets.",
+      "godina": "2025"
+    },
+    "lokalna_ulaganja": {
+      "naziv": "Local budget investment",
+      "objasnjenje": "The part of expenditure that went into lasting assets: roads, buildings, kindergartens, equipment. It shows how much is being built, not just spent.",
+      "napomena": "Expenditure on non-financial assets (roads, buildings, equipment).",
+      "godina": "2025"
+    },
+    "saldo_lokalnog_proracuna": {
+      "naziv": "Local budget surplus or deficit",
+      "objasnjenje": "Revenue minus expenditure in the year. A plus is a surplus; a minus means more was spent than received, and the difference is covered by a loan or savings.",
+      "napomena": "Revenue minus expenditure in the year (without borrowing and surplus carried over).",
+      "godina": "2025"
+    },
+    "udio_pomoci_u_prihodima": {
+      "naziv": "Share of grants in budget revenue",
+      "objasnjenje": "Out of every €100 of revenue, how much the city or municipality received from the state, the EU or other budgets instead of collecting it itself. A high share means more dependence on others' money, but it also includes EU money for projects.",
+      "napomena": "Grants from the state budget, the EU and other budgets (group 63) in total revenue (groups 6 and 7).",
+      "godina": "2025"
+    },
+    "porez_na_dohodak": {
+      "naziv": "Income tax paid",
+      "objasnjenje": "How much tax residents paid on salaries, pensions and other income. This tax belongs to the city or municipality they live in and is its main own revenue.",
+      "napomena": "Belongs to cities and municipalities; by the taxpayer's place of residence.",
+      "godina": "2025"
+    },
+    "stopa_poreza_dohodak_niza": {
+      "naziv": "Lower income tax rate",
+      "objasnjenje": "The tax rate on income up to the threshold of the higher bracket, paid by most employees. It is set by the city or municipality, so a lower rate means more take-home pay.",
+      "napomena": "The rate is set by the city or municipality. For a county and the country: average of cities and municipalities weighted by population.",
+      "godina": "2026"
+    },
+    "stopa_poreza_dohodak_visa": {
+      "naziv": "Higher income tax rate",
+      "objasnjenje": "The tax rate on the part of income above the higher-bracket threshold, i.e. on higher salaries. It is also set by the city or municipality.",
+      "napomena": "The rate is set by the city or municipality. For a county and the country: average of cities and municipalities weighted by population.",
+      "godina": "2026"
+    },
+    "promjena_stope_niza": {
+      "naziv": "Change of the lower income tax rate",
+      "objasnjenje": "Whether the city or municipality changed its lower income tax rate this year, and by how many percentage points. A minus means the tax was cut.",
+      "napomena": "Difference from last year, in percentage points.",
+      "godina": "2025→2026"
+    },
+    "porez_na_potrosnju": {
+      "naziv": "Consumption tax",
+      "objasnjenje": "A local tax on drinks sold in cafés and restaurants. The money goes to the city or municipality.",
+      "napomena": "Local tax on drinks in hospitality; the highest rate where a range is set.",
+      "godina": "2026"
+    },
+    "porez_na_nekretnine": {
+      "naziv": "Property tax",
+      "objasnjenje": "How much an owner pays per square metre a year for a flat or house where nobody lives permanently and which is not let long-term, e.g. a holiday home.",
+      "napomena": "Annual amount per m²; the highest amount where a range is set.",
+      "godina": "2026"
+    },
+    "kupoprodaje_nekretnina": {
+      "naziv": "Property sales",
+      "objasnjenje": "How many properties (flats, houses, land) were sold in the year. It shows how active the property market is.",
+      "godina": "2025"
+    },
+    "porez_na_promet_nekretnina": {
+      "naziv": "Real estate transfer tax (budget revenue)",
+      "objasnjenje": "How much the city or municipality received from the tax the buyer of a property in its area pays. The more properties are sold and the dearer they are, the higher the amount.",
+      "napomena": "Budget outturn, account 6134 (occasional property taxes), which for cities and municipalities is the real estate transfer tax. For a county: the county and all its cities and municipalities.",
+      "godina": "2025"
+    },
+    "prihodi_od_imovine": {
+      "naziv": "Revenue from non-financial assets",
+      "objasnjenje": "How much the city or municipality earns from its property: renting out premises and land, concessions and fees for use.",
+      "napomena": "Budget outturn, group 642: concession fees, lease and rent of property, fees for the use of property and other. For a county: the county and all its cities and municipalities.",
+      "godina": "2025"
+    },
+    "pravne_osobe_aktivne": {
+      "naziv": "Active legal entities",
+      "objasnjenje": "How many active companies, associations, institutions and other legal entities there are. Sole traders are not included.",
+      "godina": "31 Jan 2022"
+    },
+    "javna_nabava": {
+      "naziv": "Public procurement contracts (5 years)",
+      "objasnjenje": "How much the city or municipality contracted through public procurement in five years: works, goods and services such as roads, buildings, energy and maintenance.",
+      "napomena": "Total value of contracts signed in five years by the administration of the city, municipality or county (EOJN RH contract register), without its institutions and companies; kuna converted at 7.5345. For a county: the county administration and all its cities and municipalities.",
+      "godina": "2019–2023"
+    },
+    "nabava_najveci_dobavljac": {
+      "naziv": "Share of the largest supplier in public procurement",
+      "objasnjenje": "What share of public procurement money went to one company, the one that received the most. A high share means reliance on one supplier; in small municipalities with few contracts this is more common and is not an irregularity in itself.",
+      "napomena": "Value of contracts with the supplier with the most contracted money, divided by the total value of contracts in the same five years.",
+      "godina": "2019–2023"
+    },
+    "nabava_bez_objave": {
+      "naziv": "Contracts awarded without prior publication",
+      "objasnjenje": "What share of contracts was awarded without a public call to all bidders. The law allows this only in special cases, e.g. urgency or when only one bidder can do the job.",
+      "napomena": "Share of the value of contracts from the negotiated procedure without prior publication in the total value of contracts in the same five years.",
+      "godina": "2019–2023"
+    }
+  },
+  "napomene": [
+    "Boundaries are simplified for display (counties ~400 m, municipalities ~80 m).",
+    "EU projects are assigned to cities and municipalities by project coordinates, and to counties by the county named in the source."
+  ],
+  "tipologija": {
+    "naziv": "Type of city or municipality",
+    "metoda": "Machine learning (k-means, 5 groups) on five features of all cities and municipalities: population (log), net income per resident (log), share of grants in budget revenue, budget revenue per resident (log) and average age of residents. Features are standardised; the most similar by profile are the five nearest in the same space.",
+    "obiljezja": {
+      "velicina": "population (log)",
+      "dohodak": "net income per resident (log)",
+      "pomoci": "share of grants in budget revenue",
+      "prihodi": "budget revenue per resident (log)",
+      "dob": "average age of residents"
+    },
+    "tipovi": {
+      "sredista": {
+        "naziv": "Larger cities and regional centres",
+        "opis": "The largest communities with higher income; the budget is mostly funded by own revenue."
+      },
+      "mali-stariji": {
+        "naziv": "Small municipalities with an older population",
+        "opis": "Very small and the oldest communities; with few residents the budget per resident is high, but a large part comes from grants."
+      },
+      "samostalni": {
+        "naziv": "Financially self-reliant communities",
+        "opis": "High income and high own budget revenue, with grants only a small part."
+      },
+      "ovisni": {
+        "naziv": "Lower-income communities dependent on grants",
+        "opis": "The lowest income of residents; more than half of the budget comes from the state budget, the EU and other grants."
+      },
+      "prosjecni": {
+        "naziv": "Average smaller cities and municipalities",
+        "opis": "Close to the Croatian average in income and dependence on grants, with the lowest budget revenue per resident."
+      }
+    }
+  },
+  "drzava": "Croatia",
+  "zupanije": {
+    "01": "Zagreb County",
+    "02": "Krapina-Zagorje County",
+    "03": "Sisak-Moslavina County",
+    "04": "Karlovac County",
+    "05": "Varaždin County",
+    "06": "Koprivnica-Križevci County",
+    "07": "Bjelovar-Bilogora County",
+    "08": "Primorje-Gorski Kotar County",
+    "09": "Lika-Senj County",
+    "10": "Virovitica-Podravina County",
+    "11": "Požega-Slavonia County",
+    "12": "Brod-Posavina County",
+    "13": "Zadar County",
+    "14": "Osijek-Baranja County",
+    "15": "Šibenik-Knin County",
+    "16": "Vukovar-Srijem County",
+    "17": "Split-Dalmatia County",
+    "18": "Istria County",
+    "19": "Dubrovnik-Neretva County",
+    "20": "Međimurje County",
+    "21": "City of Zagreb"
+  },
+  "izdavatelji": {
+    "Državna geodetska uprava": "State Geodetic Administration",
+    "Državni zavod za statistiku": "Croatian Bureau of Statistics",
+    "HBOR": "HBOR (Croatian Bank for Reconstruction and Development)",
+    "Hrvatska narodna banka": "Croatian National Bank",
+    "Ministarstvo financija": "Ministry of Finance",
+    "Ministarstvo regionalnoga razvoja i fondova Europske unije": "Ministry of Regional Development and EU Funds",
+    "Narodne novine d.d. – Elektronički oglasnik javne nabave RH (objava: Open Contracting Data Registry)": "Narodne novine – Electronic Public Procurement Classifieds of Croatia (published by the Open Contracting Data Registry)",
+    "Porezna uprava": "Tax Administration"
+  },
+  "serije": {
+    "stanovnistvo": {
+      "naziv": "Population (Croatian Bureau of Statistics estimate)",
+      "napomena": "Mid-year estimate; includes migration, births and deaths."
+    },
+    "nezaposlenost": {
+      "naziv": "Registered unemployment rate",
+      "napomena": "Annual average of monthly rates."
+    },
+    "neto_dohodak": {
+      "naziv": "Total income of residents",
+      "napomena": "Net income (salaries, pensions and other, after tax and contributions); 2022 converted from kuna at the fixed rate of 7.5345."
+    },
+    "porez_na_dohodak": {
+      "naziv": "Income tax paid",
+      "napomena": "Income tax by the taxpayer's place of residence; it belongs to the city or municipality."
+    },
+    "kupoprodaje_nekretnina": {
+      "naziv": "Properties sold",
+      "napomena": "Number of sales per year (full years)."
+    },
+    "porez_na_promet_nekretnina": {
+      "naziv": "Tax on property sales",
+      "napomena": "Real estate transfer tax in the budget (account 6134). For a county: the county and its cities and municipalities together."
+    },
+    "prihodi_od_imovine": {
+      "naziv": "Revenue from leases and concessions",
+      "napomena": "Revenue from non-financial assets in the budget (group 642). For a county: the county and its cities and municipalities together."
+    },
+    "javna_nabava": {
+      "naziv": "Public procurement contracts",
+      "napomena": "Value of contracts of the city, municipality or county administration by year of signing (EOJN RH contract register)."
+    }
+  },
+  "funkcije": {
+    "01": "General public services",
+    "02": "Defence",
+    "03": "Public order and safety",
+    "04": "Economic affairs",
+    "05": "Environmental protection",
+    "06": "Housing and community amenities",
+    "07": "Health",
+    "08": "Recreation, culture and religion",
+    "09": "Education",
+    "10": "Social protection"
+  },
+  "proracuni_napomena": "Outturn (not plan). County = the county budget and the budgets of all its cities and municipalities; country = the sum of all. Functions are for the latest year and exclude transfers to other budgets, so their sum is lower than total expenditure.",
+  "nabava": {
+    "napomena": "Contracts of the city, municipality or county administration from the EOJN RH contract register (without their institutions and companies). County: the county administration and all its cities and municipalities. Amounts in EUR, kuna converted at 7.5345.",
+    "razdoblje": "2019–2023"
+  },
+  "eu_pozivi": {
+    "napomena": "Indicative plans of calls for 2026 (Competitiveness and Cohesion, Integrated Territorial Programme: October 2026; Efficient Human Resources: 3rd amendment). Eligibility is inferred from the text of the plan; the exact conditions are in the call.",
+    "programi": {
+      "PKK": "Competitiveness and Cohesion Programme 2021–2027",
+      "ITP": "Integrated Territorial Programme 2021–2027",
+      "ULJP": "Efficient Human Resources Programme 2021–2027"
+    },
+    "vrste": {
+      "Otvoreni (privremeni)": "Open (time-limited)",
+      "Otvoreni (trajni)": "Open (rolling)",
+      "Ograničeni (trajni)": "Restricted (rolling)",
+      "Ograničeni (privremeni)": "Restricted (time-limited)",
+      "Ograničeni": "Restricted",
+      "Otvoreni": "Open",
+      "Izravna dodjela": "Direct award"
+    },
+    "pozivi": {
+      "ULJP-3": {
+        "naziv": "Continued support for integrating health and social care by improving access to long-term care services in the community",
+        "napomena": null
+      },
+      "ULJP-1": {
+        "naziv": "Support for primary schools running the experimental full-day school programme, II",
+        "napomena": null
+      },
+      "ULJP-2": {
+        "naziv": "Support for work with gifted children and pupils",
+        "napomena": null
+      },
+      "PKK-2": {
+        "naziv": "Sustainable tourism through investment in public tourism infrastructure",
+        "napomena": null
+      },
+      "ITP-3": {
+        "naziv": "ITI – CIFood",
+        "napomena": null
+      },
+      "ULJP-5": {
+        "naziv": "Thematic networks for socio-economic development",
+        "napomena": null
+      },
+      "PKK-4": {
+        "naziv": "Modernising primary schools for the full-day school programme",
+        "napomena": null
+      },
+      "ULJP-17": {
+        "naziv": "Strengthening targeted community interventions to prevent sudden death",
+        "napomena": null
+      },
+      "ULJP-10": {
+        "naziv": "Equality, inclusion, participation and integration of Roma – pilot project of community services (JUPI PILOT)",
+        "napomena": null
+      },
+      "ITP-4": {
+        "naziv": "ITI – BIKE UP! Expanding the public bike system with cycling infrastructure",
+        "napomena": "Only for cities and municipalities within the Zadar urban area."
+      },
+      "ITP-9": {
+        "naziv": "ITI – “Preloška” project",
+        "napomena": null
+      },
+      "ITP-11": {
+        "naziv": "ITI – Reconstruction of the Mornar bathing area",
+        "napomena": null
+      },
+      "ITP-10": {
+        "naziv": "ITI – Investment in sports, recreation and green infrastructure of the Vukovar urban area",
+        "napomena": "Only for cities and municipalities within the Vukovar urban area."
+      },
+      "ITP-8": {
+        "naziv": "ITI – GREEN UPLOAD! Green infrastructure of the Zadar urban area",
+        "napomena": "Only for cities and municipalities within the Zadar urban area."
+      },
+      "ITP-6": {
+        "naziv": "ITI – Cultural heritage of the Osijek urban agglomeration",
+        "napomena": "Only for cities and municipalities within the Osijek urban agglomeration."
+      }
+    }
+  }
+}

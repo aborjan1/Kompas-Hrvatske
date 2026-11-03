@@ -42,7 +42,7 @@ flowchart LR
 | Izvori | CKAN Action API (data.gov.hr), izravne poveznice, DGU ATOM | 45 korištenih skupova: 35 s Portala, 10 dopunskih izvora tijela javne vlasti |
 | Preuzimanje | `pipeline/download.py`, `requests` | čita `data/sources.csv`, za skupove s Portala pita CKAN API (`package_show`), preuzima samo nove datoteke, vodi dnevnik |
 | Obrada | pandas, GeoPandas, python-calamine, pdfplumber, scikit-learn | čitači za XLSX/XLS/CSV/PDF/ZIP/GML, usklađivanje naziva i šifri, prostorni spojevi, geokodiranje, 37 pokazatelja, javna nabava (OCDS) i graf veza, EU pozivi, vremenski nizovi, rangovi, tipologija (k-means) |
-| Kontrola kvalitete | provjere u `build.py`, pytest (69 testova), ruff, GitHub Actions | obrada staje ako zbrojevi ne odgovaraju izvoru; testovi provjeravaju kod i oblik izlaznih datoteka kod svakog pull requesta |
+| Kontrola kvalitete | provjere u `build.py`, pytest (83 testa), ruff, GitHub Actions | obrada staje ako zbrojevi ne odgovaraju izvoru; testovi provjeravaju kod i oblik izlaznih datoteka kod svakog pull requesta |
 | Podatkovni sloj | statične datoteke u `web/public/data/` (≈18 MB, većina se učitava tek po potrebi) | ugovor između obrade i sučelja, opisan u [format-podataka.md](format-podataka.md) |
 | Sučelje | Svelte 5, Vite, Mapbox GL JS, Chart.js, Fuse.js | karta s razinama Država → Županija → Grad, paneli, grafovi, pretraga, priče |
 | Objava | GitHub Actions + GitHub Pages | svaki spoj u `main` automatski gradi i objavljuje demo |
@@ -55,7 +55,7 @@ repozitorija daju sve izlazne datoteke (provjereno na svježem klonu):
 ```powershell
 python pipeline/download.py   # ~1 GB sirovih podataka u data/raw/
 python pipeline/build.py      # 1–2 minute, s provjerama
-python -m pytest              # 69 testova
+python -m pytest              # 83 testa
 ```
 
 Ključne odluke:
@@ -94,6 +94,7 @@ Detaljan opis svih koraka, izvora i provjera: [podaci-dokumentacija.md](podaci-d
 | `nizovi.json` | vremenski nizovi za grafove ostalih tema (stanovništvo, nezaposlenost, dohodak, porez, kupoprodaje, imovina) | uz temu Ljudi, Porezi ili Imovina |
 | `nabava.json` | najveći dobavljači i veze prema drugim gradovima i općinama (graf veza) | uz temu Nabava |
 | `eu-pozivi.json` | planirani EU pozivi za 2026. s ulogom gradova, općina i županija | uz temu Novac |
+| `en.json` | engleski tekstovi podataka (pokazatelji, teme, tipologija, nizovi, županije, napomene) | kad korisnik odabere EN |
 | `tocke/eu-projekti.geojson` | EU projekti po gradovima i općinama | uz gumb „EU projekti” |
 | `gradovi/…` | Zagreb po četvrtima (pokazatelji, slojevi, 3D zgrade) i Rijeka | pri otvaranju gradskog prikaza Zagreba ili Rijeke |
 | `svemir.geojson` | maska oko hrvatskog kopna za prikaz „Hrvatska u svemiru” | na početku |

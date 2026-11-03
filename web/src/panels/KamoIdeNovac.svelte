@@ -5,24 +5,25 @@
   import { view } from '../state.js';
   import { nadjiPodrucje, podaci } from '../data/podaci.js';
   import { proracuni, ucitajProracune } from '../data/proracuni.js';
-  import { formatVrijednost } from '../data/format.js';
+  import { formatVrijednost, postotak } from '../data/format.js';
   import { TEME_POKAZATELJI } from '../data/teme.js';
+  import { god, t } from '../jezik.js';
 
   $effect(() => ucitajProracune());
 
   // Everyday names with what most of the money pays for at local level; the official
   // COFOG name is in the tooltip.
   const NAZIVI = {
-    '01': 'Uprava i opće usluge',
-    '02': 'Obrana',
-    '03': 'Vatrogasci i sigurnost',
-    '04': 'Promet, ceste i gospodarstvo',
-    '05': 'Okoliš i otpad',
-    '06': 'Komunalno i uređenje',
-    '07': 'Zdravstvo',
-    '08': 'Sport, kultura i religija',
-    '09': 'Vrtići i škole',
-    '10': 'Socijalne pomoći',
+    '01': t('Uprava i opće usluge', 'Administration and general services'),
+    '02': t('Obrana', 'Defence'),
+    '03': t('Vatrogasci i sigurnost', 'Fire service and safety'),
+    '04': t('Promet, ceste i gospodarstvo', 'Transport, roads and economy'),
+    '05': t('Okoliš i otpad', 'Environment and waste'),
+    '06': t('Komunalno i uređenje', 'Utilities and public spaces'),
+    '07': t('Zdravstvo', 'Health'),
+    '08': t('Sport, kultura i religija', 'Sport, culture and religion'),
+    '09': t('Vrtići i škole', 'Kindergartens and schools'),
+    '10': t('Socijalne pomoći', 'Social support'),
   };
   // Functions under this share go into one "Ostalo" row, so tiny bars don't crowd the list.
   const PRAG_OSTALO = 1.5; // %
@@ -61,7 +62,7 @@
       const v = mali.reduce((a, s) => a + s.v, 0);
       redovi.push({
         kljuc: 'ostalo',
-        naziv: 'Ostalo',
+        naziv: t('Ostalo', 'Other'),
         opis: mali.map((s) => NAZIVI[s.f] ?? p.funkcije[s.f]).join(', '),
         udio: (v / ukupno) * 100,
         iznos: iznos(v),
@@ -77,31 +78,31 @@
       ),
       redovi: redovi.map((r) => ({ ...r, sirina: (r.udio / najveci) * 100 })),
       tko:
-        $view.razina !== 'jls' ? 'lokalna samouprava' : podrucje.vrsta === 'grad' ? 'grad' : 'općina',
+        $view.razina !== 'jls' ? t('lokalna samouprava', 'local government')
+        : podrucje.vrsta === 'grad' ? t('grad', 'the city')
+        : t('općina', 'the municipality'),
       zbirno:
-        $view.razina === 'drzava' ? 'Zbroj svih županija, gradova i općina. '
-        : $view.razina === 'zupanija' ? 'Zbroj županije i svih njezinih gradova i općina. '
+        $view.razina === 'drzava' ? t('Zbroj svih županija, gradova i općina. ', 'Sum of all counties, cities and municipalities. ')
+        : $view.razina === 'zupanija' ? t('Zbroj županije i svih njezinih gradova i općina. ', 'Sum of the county and all its cities and municipalities. ')
         : '',
     };
   });
 
   const boja = $derived(TEME_POKAZATELJI[$view.tema].boje[3]);
-  const cijeli = new Intl.NumberFormat('hr-HR', { maximumFractionDigits: 0 });
-  const udio = (/** @type {number} */ u) => (u < 1 ? '<1' : cijeli.format(u));
+  const udio = (/** @type {number} */ u) => (u < 1 ? `<${postotak(1)}` : postotak(u));
 </script>
 
 {#if prikaz}
   <section class="graf" aria-labelledby="kamo-ide-novac-naslov">
-    <h3 id="kamo-ide-novac-naslov">Kamo ide novac <span class="godina">{prikaz.godina}.</span></h3>
+    <h3 id="kamo-ide-novac-naslov">{t('Kamo ide novac', 'Where the money goes')} <span class="godina">{god(prikaz.godina)}</span></h3>
     <p class="podnaslov">
-      Na što je {prikaz.tko} potrošila
-      {prikaz.ukupno}, po namjeni.
+      {t(`Na što je ${prikaz.tko} potrošila ${prikaz.ukupno}, po namjeni.`, `What ${prikaz.tko} spent ${prikaz.ukupno} on, by purpose.`)}
     </p>
     <ul>
       {#each prikaz.redovi as r (r.kljuc)}
         <li title={r.opis}>
           <span class="naziv">{r.naziv}</span>
-          <span class="brojke"><span class="iznos">{r.iznos}</span> <strong>{udio(r.udio)} %</strong></span>
+          <span class="brojke"><span class="iznos">{r.iznos}</span> <strong>{udio(r.udio)}</strong></span>
           <span class="traka" aria-hidden="true">
             <span style:width="{r.sirina}%" style:background={boja}></span>
           </span>
@@ -109,8 +110,10 @@
       {/each}
     </ul>
     <p class="napomena">
-      {prikaz.zbirno}Ostvarenje, bez
-      prijenosa drugim proračunima. Izvor: Ministarstvo financija.
+      {prikaz.zbirno}{t(
+        'Ostvarenje, bez prijenosa drugim proračunima. Izvor: Ministarstvo financija.',
+        'Outturn, excluding transfers to other budgets. Source: Ministry of Finance.',
+      )}
     </p>
   </section>
 {/if}

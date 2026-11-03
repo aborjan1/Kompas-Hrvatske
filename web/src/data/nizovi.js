@@ -4,6 +4,7 @@
 // tema stay in proracuni.json.
 
 import { writable } from 'svelte/store';
+import { sPrijevodom } from './prijevod.js';
 
 /**
  * @typedef {object} Serija
@@ -38,7 +39,10 @@ export const SERIJE_TEME = {
 const store = writable({ podaci: null, greska: false });
 
 /** @type {import('svelte/store').Readable<{ podaci: Nizovi | null, greska: boolean }>} */
-export const nizovi = { subscribe: store.subscribe };
+export const nizovi = sPrijevodom(store, (n, en) => ({
+  ...n,
+  serije: Object.fromEntries(Object.entries(n.serije).map(([k, s]) => [k, { ...s, ...(en.serije[k] ?? {}) }])),
+}));
 
 let zatrazeno = false;
 

@@ -6,26 +6,34 @@ import { writable } from 'svelte/store';
 
 /** @typedef {'ekonomska' | 'zone' | 'ulaganja' | 'imovina'} Filtar */
 
-/** @type {Record<Filtar, { naziv: string, opis: string, boja: string }>} */
+/** @type {Record<Filtar, { naziv: string, opis: string, naziv_en: string, opis_en: string, boja: string }>} */
 export const FILTRI = {
   ekonomska: {
     naziv: 'Ekonomska područja',
     opis: 'Gradske četvrti po udjelu gospodarske površine (2020.)',
+    naziv_en: 'Economic areas',
+    opis_en: 'City districts by share of commercial land (2020)',
     boja: '#b45309',
   },
   zone: {
     naziv: 'Poslovne zone',
     opis: 'Gospodarske zone iz prostornih planova (iscrtkano: neizgrađeno) i napuštene površine',
+    naziv_en: 'Business zones',
+    opis_en: 'Business zones from spatial plans (dashed: not built yet) and abandoned sites',
     boja: '#7c3aed',
   },
   ulaganja: {
     naziv: 'Javna ulaganja',
     opis: 'Planirana kapitalna ulaganja Grada 2023. i 2024., krug po iznosu',
+    naziv_en: 'Public investment',
+    opis_en: 'Planned capital investment of the City in 2023 and 2024, circle by amount',
     boja: '#0f766e',
   },
   imovina: {
     naziv: 'Gradska imovina',
     opis: 'Prazni gradski prostori i garaže, tržnice i gradska društva',
+    naziv_en: 'City property',
+    opis_en: 'Vacant city premises and garages, markets and city-owned companies',
     boja: '#be185d',
   },
 };

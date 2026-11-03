@@ -3,6 +3,7 @@
 //   #/?tema=novac&mjera=ukupno
 //   #/zupanija/05?tema=novac&mjera=po-stanovniku
 //   #/jls/<sifra>?tema=porezi&mjera=ukupno
+//   #/?tema=novac&mjera=ukupno&lang=en     (English, src/jezik.js; Croatian has no lang)
 // A new area adds a history entry; a new tema or mjera replaces the current one, so
 // Back steps through areas rather than through every tema click. A hash, not a path,
 // so GitHub Pages needs no server setup.
@@ -10,6 +11,7 @@
 import { derived, get } from 'svelte/store';
 import { MJERE, TEME, selectArea, setView, view } from './state.js';
 import { podaci } from './data/podaci.js';
+import { engleski, jezik } from './jezik.js';
 
 /**
  * Reads a view from a hash. Unknown or missing tema and mjera keep `fallback`'s values;
@@ -39,7 +41,7 @@ export function parseHash(hash, fallback) {
  */
 export function formatHash({ razina, podrucje, tema, mjera }) {
   const path = razina === 'drzava' ? '/' : `/${razina}/${encodeURIComponent(podrucje)}`;
-  return `#${path}?tema=${tema}&mjera=${mjera}`;
+  return `#${path}?tema=${tema}&mjera=${mjera}${engleski() ? '&lang=en' : ''}`;
 }
 
 // When set, the next URL write replaces the current history entry instead of adding one.
@@ -88,9 +90,20 @@ export function startUrlSync() {
     replaceNext = false;
   });
 
+  // A language switch rewrites the link in place, so it can be shared in that language.
+  jezik.subscribe(() => {
+    const hash = formatHash(get(view));
+    if (hash !== location.hash) history.replaceState(history.state, '', hash);
+  });
+
   // Back, Forward and a hash typed into the address bar. The browser has already made
-  // the history entry, so a link that needs normalising is fixed in place.
-  addEventListener('popstate', () => bezNovogZapisa(() => setView(parseHash(location.hash, get(view)))));
+  // the history entry, so a link that needs normalising is fixed in place. The language
+  // stays as chosen.
+  addEventListener('popstate', () => {
+    bezNovogZapisa(() => setView(parseHash(location.hash, get(view))));
+    const hash = formatHash(get(view));
+    if (hash !== location.hash) history.replaceState(history.state, '', hash);
+  });
 
   // A code the data doesn't know (a stale or mistyped link) falls back to the country,
   // once the file that could have it has loaded. It replaces the bad entry, so Back

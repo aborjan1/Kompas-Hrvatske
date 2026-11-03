@@ -4,6 +4,7 @@
   import { selectArea } from '../state.js';
   import { podaci, ucitajJls } from '../data/podaci.js';
   import { napraviIndeks, trazi } from '../data/pretraga.js';
+  import { t } from '../jezik.js';
 
   let upit = $state('');
   let otvoreno = $state(false);
@@ -50,12 +51,12 @@
     bind:value={upit}
     type="search"
     role="combobox"
-    aria-label="Pretraga županija, gradova i općina"
+    aria-label={t('Pretraga županija, gradova i općina', 'Search counties, cities and municipalities')}
     aria-autocomplete="list"
     aria-controls="pretraga-rezultati"
     aria-expanded={prikazi}
     aria-activedescendant={prikazi ? `pretraga-${aktivni}` : undefined}
-    placeholder="Traži županiju, grad ili općinu…"
+    placeholder={t('Traži županiju, grad ili općinu…', 'Search for a county, city or municipality…')}
     autocomplete="off"
     spellcheck="false"
     onfocus={() => {
@@ -70,7 +71,7 @@
     {onkeydown}
   />
 
-  <ul id="pretraga-rezultati" role="listbox" aria-label="Rezultati pretrage" hidden={!prikazi}>
+  <ul id="pretraga-rezultati" role="listbox" aria-label={t('Rezultati pretrage', 'Search results')} hidden={!prikazi}>
     {#each rezultati as r, i (r.razina + r.sifra)}
       <!-- Mouse only: the keyboard moves through the list from the input (aria-activedescendant). -->
       <!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -89,10 +90,10 @@
   </ul>
 
   {#if traziSe && !rezultati.length}
-    <p class="poruka">Nema rezultata.</p>
+    <p class="poruka">{t('Nema rezultata.', 'No results.')}</p>
   {/if}
   {#if traziSe && !$podaci.jls}
-    <p class="poruka">Učitavanje gradova i općina…</p>
+    <p class="poruka">{t('Učitavanje gradova i općina…', 'Loading cities and municipalities…')}</p>
   {/if}
 </div>
 

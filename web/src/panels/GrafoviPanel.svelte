@@ -6,6 +6,7 @@
   import { nadjiPodrucje, podaci } from '../data/podaci.js';
   import { TEME_POKAZATELJI } from '../data/teme.js';
   import { siroko } from './ekran.js';
+  import { t } from '../jezik.js';
   import EuPozivi from './EuPozivi.svelte';
   import GrafoviTeme from './GrafoviTeme.svelte';
   import GrafVeza from './GrafVeza.svelte';
@@ -19,8 +20,8 @@
 </script>
 
 {#if vidljivo}
-  <aside class="kh-panel grafovi" aria-label="Grafovi: {podrucje.naziv}">
-    <p class="oznaka" style:color={TEME_POKAZATELJI[$view.tema].boje[3]}>Grafovi</p>
+  <aside class="kh-panel grafovi" aria-label="{t('Grafovi', 'Charts')}: {podrucje.naziv}">
+    <p class="oznaka" style:color={TEME_POKAZATELJI[$view.tema].boje[3]}>{t('Grafovi', 'Charts')}</p>
     <h2>{podrucje.naziv}</h2>
     {#if $view.tema === 'novac'}
       <EuPozivi />

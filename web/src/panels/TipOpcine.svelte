@@ -6,6 +6,7 @@
   import { selectArea, view } from '../state.js';
   import { podaci } from '../data/podaci.js';
   import { formatVrijednost } from '../data/format.js';
+  import { t as tr } from '../jezik.js';
 
   const prikaz = $derived.by(() => {
     const p = $podaci;
@@ -18,12 +19,13 @@
       naziv: tip.naziv,
       opis: tip.opis,
       broj: tip.broj,
+      ukupno: Object.keys(p.jls).length,
       metoda: tipologija.metoda,
       tipicno: [
-        `${formatVrijednost(t.stanovnika, 'osoba', 0)} stanovnika`,
-        `prosječna dob ${formatVrijednost(t.prosjecna_dob, 'godina', 1)}`,
-        `dohodak ${formatVrijednost(t.dohodak_po_stanovniku, 'EUR po stanovniku', 0)}`,
-        `${formatVrijednost(t.udio_pomoci, '%', 0)} prihoda iz pomoći`,
+        `${formatVrijednost(t.stanovnika, 'osoba', 0)} ${tr('stanovnika', 'residents')}`,
+        `${tr('prosječna dob', 'average age')} ${formatVrijednost(t.prosjecna_dob, 'godina', 1)}`,
+        `${tr('dohodak', 'income')} ${formatVrijednost(t.dohodak_po_stanovniku, 'EUR po stanovniku', 0)}`,
+        `${formatVrijednost(t.udio_pomoci, '%', 0)} ${tr('prihoda iz pomoći', 'of revenue from grants')}`,
       ].join(' · '),
       slicni: (grad.slicni_profil ?? [])
         .map((s) => p.jls[s])
@@ -42,21 +44,26 @@
       class="naziv"
       aria-expanded={otvoreno}
       aria-controls="tip-objasnjenje"
-      title={otvoreno ? 'Sakrij objašnjenje' : 'Što znači ovaj tip?'}
+      title={otvoreno ? tr('Sakrij objašnjenje', 'Hide explanation') : tr('Što znači ovaj tip?', 'What does this type mean?')}
       onclick={() => (otvoreno = !otvoreno)}
     >
-      <span class="oznaka">Tip:</span>
+      <span class="oznaka">{tr('Tip:', 'Type:')}</span>
       {prikaz.naziv}
       <span class="ikona" aria-hidden="true">i</span>
     </button>
     <div class="objasnjenje" id="tip-objasnjenje" hidden={!otvoreno}>
       <p>{prikaz.opis}</p>
-      <p class="sitno">Tipično: {prikaz.tipicno}. Ovom tipu pripada {prikaz.broj} od 556 gradova i općina.</p>
-      <p class="sitno"><strong>Kako je izračunato:</strong> {prikaz.metoda}</p>
+      <p class="sitno">
+        {tr('Tipično', 'Typically')}: {prikaz.tipicno}. {tr(
+          `Ovom tipu pripada ${prikaz.broj} od ${prikaz.ukupno} gradova i općina.`,
+          `${prikaz.broj} of ${prikaz.ukupno} cities and municipalities are of this type.`,
+        )}
+      </p>
+      <p class="sitno"><strong>{tr('Kako je izračunato:', 'How it is calculated:')}</strong> {prikaz.metoda}</p>
     </div>
     {#if prikaz.slicni.length}
       <p class="slicni">
-        <span class="oznaka">Najsličniji po profilu:</span>
+        <span class="oznaka">{tr('Najsličniji po profilu:', 'Most similar by profile:')}</span>
         {#each prikaz.slicni as s, i (s.sifra)}<button
             type="button"
             class="poveznica"
