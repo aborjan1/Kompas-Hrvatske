@@ -1,6 +1,6 @@
 {
   "verzija_formata": 1,
-  "generirano": "2026-10-29T14:05:30+00:00",
+  "generirano": "2026-11-03T16:24:52+00:00",
   "probni_podaci": false,
   "probne_granice": false,
   "napomene": [
@@ -732,6 +732,85 @@
       "licenca": "Otvorena dozvola (OD)",
       "preuzeto": "2026-10-27",
       "dopunski": false
+    }
+  },
+  "tipologija": {
+    "naziv": "Tip grada ili općine",
+    "metoda": "Strojno učenje (k-means, 5 skupina) nad pet obilježja svih gradova i općina: broj stanovnika (log), neto dohodak po stanovniku (log), udio pomoći u prihodima proračuna, prihodi proračuna po stanovniku (log), prosječna dob stanovnika. Obilježja su standardizirana; slični po profilu su pet najbližih u istom prostoru.",
+    "obiljezja": {
+      "velicina": "broj stanovnika (log)",
+      "dohodak": "neto dohodak po stanovniku (log)",
+      "pomoci": "udio pomoći u prihodima proračuna",
+      "prihodi": "prihodi proračuna po stanovniku (log)",
+      "dob": "prosječna dob stanovnika"
+    },
+    "silhouette": 0.224,
+    "tipovi": {
+      "sredista": {
+        "naziv": "Veći gradovi i središta",
+        "opis": "Najveće sredine s višim dohotkom; proračun se većinom puni vlastitim prihodima.",
+        "broj": 58,
+        "tipicno": {
+          "stanovnika": 18585,
+          "dohodak_po_stanovniku": 9820,
+          "udio_pomoci": 17.6,
+          "prihodi_po_stanovniku": 1270,
+          "prosjecna_dob": 44.2,
+          "udio_u_obalnim_zupanijama": 41
+        }
+      },
+      "mali-stariji": {
+        "naziv": "Male općine sa starijim stanovništvom",
+        "opis": "Vrlo male i najstarije sredine; zbog malo stanovnika proračun po stanovniku je visok, ali velik dio dolazi iz pomoći.",
+        "broj": 52,
+        "tipicno": {
+          "stanovnika": 950,
+          "dohodak_po_stanovniku": 7710,
+          "udio_pomoci": 53.5,
+          "prihodi_po_stanovniku": 1890,
+          "prosjecna_dob": 50.7,
+          "udio_u_obalnim_zupanijama": 71
+        }
+      },
+      "samostalni": {
+        "naziv": "Financijski samostalne sredine",
+        "opis": "Visok dohodak i visoki vlastiti prihodi proračuna, a pomoći su mali dio.",
+        "broj": 109,
+        "tipicno": {
+          "stanovnika": 2590,
+          "dohodak_po_stanovniku": 9590,
+          "udio_pomoci": 11.0,
+          "prihodi_po_stanovniku": 1960,
+          "prosjecna_dob": 46.6,
+          "udio_u_obalnim_zupanijama": 94
+        }
+      },
+      "ovisni": {
+        "naziv": "Sredine nižeg dohotka, ovisne o pomoćima",
+        "opis": "Najniži dohodak stanovnika; više od polovice proračuna dolazi iz državnog proračuna, EU i drugih pomoći.",
+        "broj": 185,
+        "tipicno": {
+          "stanovnika": 2016,
+          "dohodak_po_stanovniku": 6270,
+          "udio_pomoci": 59.9,
+          "prihodi_po_stanovniku": 1100,
+          "prosjecna_dob": 44.6,
+          "udio_u_obalnim_zupanijama": 10
+        }
+      },
+      "prosjecni": {
+        "naziv": "Prosječni manji gradovi i općine",
+        "opis": "Blizu hrvatskog prosjeka po dohotku i ovisnosti o pomoćima, s najnižim prihodima proračuna po stanovniku.",
+        "broj": 152,
+        "tipicno": {
+          "stanovnika": 3457,
+          "dohodak_po_stanovniku": 7970,
+          "udio_pomoci": 35.6,
+          "prihodi_po_stanovniku": 1010,
+          "prosjecna_dob": 44.2,
+          "udio_u_obalnim_zupanijama": 24
+        }
+      }
     }
   }
 }

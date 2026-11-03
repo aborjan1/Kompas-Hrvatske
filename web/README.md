@@ -58,6 +58,9 @@ preglednika na 30 dana, pa se tijekom prezentacije ništa ne čeka s interneta.
   - `PopisPrica.svelte` i `PricaKartica.svelte` – popis priča (u panelu za Hrvatsku) i kartica priče koja za vrijeme priče zamjenjuje traku s temama
   - `EuProjektiPopis.svelte` – broj, iznos i 5 najvećih EU projekata odabranog grada, dok je sloj uključen
   - `GradskiFiltri.svelte` – gumbi za 4 filtra gradskog prikaza u profilu Zagreba ili Rijeke
+  - `GrafoviPanel.svelte` – lijeva bočna traka s grafovima za županiju, grad ili općinu (tema Novac); na užem ekranu isti grafovi su u info panelu (`ekran.js`)
+  - `TipOpcine.svelte` – u profilu grada ili općine: tip iz tipologije (strojno učenje, `pipeline/tipologija.py`) s objašnjenjem i 5 najsličnijih po profilu
+  - `KamoIdeNovac.svelte` i `ProracunKrozGodine.svelte` – rashodi po namjeni (COFOG) i prihodi, rashodi i ulaganja 2019.–2025. iz `proracuni.json` (`src/data/proracuni.js`)
 - `src/stories/` – priče (vidi dolje): `price.json` (scene), `scene.js` (scena → pogled i tekst), `player.js` (reprodukcija)
 - `public/data/` – gotove GeoJSON/JSON datoteke iz `pipeline/` (format: `docs/format-podataka.md`)
 
