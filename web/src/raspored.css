@@ -270,7 +270,8 @@
    and the temas as a sliding row sit on top; the legend under them. */
 @media (max-width: 640px) {
   html:root {
-    --kh-karta-gore: 150px;
+    /* Header (breadcrumb, search, two tema rows, source) ends ~220 px down. */
+    --kh-karta-gore: 190px;
     --kh-karta-dolje: 120px;
     --kh-tekst: #e6e8ee;
     --kh-tekst-blago: #8b93a7;
@@ -306,36 +307,60 @@
     filter: invert(1);
   }
 
-  /* Temas and measure: one row under the search that slides sideways. */
+  /* Temas and measure: two rows under the search that always fit, no sideways
+     scrolling (a hidden scroll cut off "Po stanovniku" and "EU projekti"):
+     the four temas, then total / per capita next to EU projekti. */
   html:root .sloj .dolje {
     top: 100px;
     bottom: auto;
     left: 0;
     width: 100%;
-    gap: 4px;
+    gap: 6px;
+    justify-items: stretch;
     transform: none;
   }
 
   html:root .sloj .dolje .traka {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px;
     width: 100%;
     max-width: none;
     padding: 0 12px;
-    overflow-x: auto;
-    scrollbar-width: none;
     background: transparent;
     border: 0;
     box-shadow: none;
   }
 
-  html:root .sloj .dolje .traka > * {
-    flex: none;
+  html:root .sloj .dolje .traka > .grupa {
     background: var(--kh-ploca);
     border: 1px solid var(--kh-rub);
   }
 
+  html:root .sloj .dolje .traka > .grupa:first-child {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  html:root .sloj .dolje .traka > .mjera {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  html:root .sloj .dolje .traka button {
+    min-height: 36px;
+    padding: 6px 8px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  /* Inside the screen with the same gutters; long sources end in "…". */
   html:root .sloj .dolje .izvor {
+    box-sizing: border-box;
+    width: auto;
+    max-width: calc(100% - 24px);
     margin: 0 12px;
     font-size: 10px;
   }
@@ -384,7 +409,7 @@
 
   /* Legend under the temas, map logo and credits just above the low sheet. */
   html:root .kh-legend {
-    top: 160px;
+    top: 228px;
   }
 
   /* Just above the low sheet; a taller sheet covers them, as in phone map apps. */
