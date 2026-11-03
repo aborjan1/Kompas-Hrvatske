@@ -33,6 +33,7 @@
   import { hidePlacesOutside } from './labels.js';
   import { createJlsLayer, JLS_FILL_LAYER, JLS_SOURCE } from './jlsLayer.js';
   import { LegendControl } from './legend.js';
+  import { pratiPinch, pratiTipkovnicu, ZoomKontrola } from './odzumiravanje.js';
   import { createSpaceMask } from './spaceMask.js';
   import { shouldWarmUp, warmUp } from './warmUp.js';
 
@@ -83,8 +84,18 @@
     };
   }
 
+  // One level up, like the breadcrumb: city → county → country. Zooming out past the
+  // framed view does this (scroll wheel, pinch, "−" button and key).
+  const imaGore = () => get(odabir).razina !== 'drzava';
+  function idiGore() {
+    const { razina, zupanija } = get(odabir);
+    if (razina === 'jls' && zupanija) selectArea('zupanija', zupanija);
+    else if (razina !== 'drzava') selectArea('drzava');
+  }
+
   onMount(() => {
     const map = createMap(container);
+    map.addControl(new ZoomKontrola({ idiGore, imaGore }), 'top-right');
     const legend = new LegendControl();
     map.addControl(legend, 'bottom-left');
     const onLayout = () => refocus();
@@ -232,10 +243,11 @@
         pull += originalEvent.deltaY;
         if (pull < PULL_TO_LEAVE) return;
         pull = 0;
-        const { razina, zupanija } = get(odabir);
-        if (razina === 'jls' && zupanija) selectArea('zupanija', zupanija);
-        else if (razina !== 'drzava') selectArea('drzava');
+        idiGore();
       });
+      // The same for a pinch and the "−" key (the button is ZoomKontrola above).
+      pratiPinch(map, idiGore);
+      pratiTipkovnicu(map, idiGore);
 
       // Start the intro only once the globe is drawn, not over a blank sphere.
       await new Promise((resolve) => map.once('idle', resolve));

@@ -32,7 +32,8 @@ export function createMap(container) {
 
   map.touchZoomRotate.disableRotation();
   map.keyboard.disableRotation();
-  map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right');
+  // The zoom buttons are added by MapView.svelte (ZoomKontrola in odzumiravanje.js): its
+  // "−" also goes up a level, which Mapbox's own control can't.
   setDataAttribution(map, '');
   map.on('style.load', () => useLocalLabels(map));
 
