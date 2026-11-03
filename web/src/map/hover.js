@@ -5,9 +5,9 @@ import mapboxgl from 'mapbox-gl';
 import './hover.css';
 
 /**
- * @param {import('maplibre-gl').MapLibreMap} map
+ * @param {import('mapbox-gl').Map} map
  * @param {{ layerId: string, source: string,
- *   describe: (feature: import('maplibre-gl').MapGeoJSONFeature) => { title: string, detail: string },
+ *   describe: (feature: import('mapbox-gl').MapboxGeoJSONFeature) => { title: string, detail: string },
  *   yieldTo?: string[] }} options `yieldTo`: layers drawn above this one that own the
  *   hover where they have features (a county yields to its cities and municipalities).
  */

@@ -10,7 +10,7 @@ const MIN_RADIUS = 3;
 // The largest amount (Zagreb) gets this radius; area, not radius, follows the amount.
 const MAX_RADIUS = 30;
 
-/** @param {import('maplibre-gl').MapLibreMap} map */
+/** @param {import('mapbox-gl').Map} map */
 export function createEuLayer(map) {
   map.addSource(EU_SOURCE, { type: 'geojson', data: EMPTY, promoteId: 'sifra' });
   // Above the area fills and outlines, below roads' and places' labels.

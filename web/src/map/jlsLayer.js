@@ -20,7 +20,7 @@ const EMPTY = { type: 'FeatureCollection', features: [] };
 const isSelected = ['boolean', ['feature-state', 'selected'], false];
 const isHovered = ['boolean', ['feature-state', 'hover'], false];
 
-/** @param {import('maplibre-gl').MapLibreMap} map */
+/** @param {import('mapbox-gl').Map} map */
 export function createJlsLayer(map) {
   map.addSource(JLS_SOURCE, { type: 'geojson', data: EMPTY, promoteId: 'sifra' });
 
@@ -63,7 +63,7 @@ export function createJlsLayer(map) {
   let loaded = Promise.resolve();
   /** @type {string[]} */
   let codes = [];
-  /** @type {Map<string, import('maplibre-gl').LngLatBounds>} */
+  /** @type {Map<string, import('mapbox-gl').LngLatBounds>} */
   let boundsByCode = new Map();
   let selected = null;
   /** @type {Record<string, number | null> | null} */
@@ -167,7 +167,7 @@ export function createJlsLayer(map) {
 
     /**
      * @param {string} code
-     * @returns {import('maplibre-gl').LngLatBounds | undefined}
+     * @returns {import('mapbox-gl').LngLatBounds | undefined}
      */
     bounds: (code) => boundsByCode.get(code),
   };
