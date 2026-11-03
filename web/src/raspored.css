@@ -262,3 +262,166 @@
     }
   }
 }
+
+/* ---------------------------------------------------------------- phones */
+/* Map over the whole screen, the same dark look as the columns, and one bottom sheet
+   (the info panel, with charts) at three heights: InfoPanel.svelte sets .sklopljeno
+   (name and first number), nothing (half) or .puna (almost all). Breadcrumb, search
+   and the temas as a sliding row sit on top; the legend under them. */
+@media (max-width: 640px) {
+  html:root {
+    /* Header (breadcrumb, search, two tema rows, source) ends ~220 px down. */
+    --kh-karta-gore: 190px;
+    --kh-karta-dolje: 120px;
+    --kh-tekst: #e6e8ee;
+    --kh-tekst-blago: #8b93a7;
+    --kh-naglasak: #4fd1c5;
+    --kh-rub: #262b36;
+    --kh-pozadina-blaga: #1d212b;
+    --kh-ploca: #14161b;
+    color-scheme: dark;
+  }
+
+  html:root .kh-panel,
+  html:root .kh-legend,
+  html:root .kh-tooltip .mapboxgl-popup-content,
+  html:root .mapboxgl-ctrl-group:not(:empty) {
+    background: var(--kh-ploca);
+    border: 1px solid var(--kh-rub);
+    color: var(--kh-tekst);
+  }
+
+  html:root .kh-panel input,
+  html:root .kh-legend__title,
+  html:root .kh-tooltip strong,
+  html:root .kh-tooltip__value {
+    color: var(--kh-tekst);
+  }
+
+  html:root .kh-tooltip .mapboxgl-popup-tip {
+    border-top-color: var(--kh-ploca);
+    border-bottom-color: var(--kh-ploca);
+  }
+
+  html:root .mapboxgl-ctrl-group button .mapboxgl-ctrl-icon {
+    filter: invert(1);
+  }
+
+  /* Temas and measure: two rows under the search that always fit, no sideways
+     scrolling (a hidden scroll cut off "Po stanovniku" and "EU projekti"):
+     the four temas, then total / per capita next to EU projekti. */
+  html:root .sloj .dolje {
+    top: 100px;
+    bottom: auto;
+    left: 0;
+    width: 100%;
+    gap: 6px;
+    justify-items: stretch;
+    transform: none;
+  }
+
+  html:root .sloj .dolje .traka {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px;
+    width: 100%;
+    max-width: none;
+    padding: 0 12px;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
+  html:root .sloj .dolje .traka > .grupa {
+    background: var(--kh-ploca);
+    border: 1px solid var(--kh-rub);
+  }
+
+  html:root .sloj .dolje .traka > .grupa:first-child {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  html:root .sloj .dolje .traka > .mjera {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  html:root .sloj .dolje .traka button {
+    min-height: 36px;
+    padding: 6px 8px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  /* Inside the screen with the same gutters; long sources end in "…". */
+  html:root .sloj .dolje .izvor {
+    box-sizing: border-box;
+    width: auto;
+    max-width: calc(100% - 24px);
+    margin: 0 12px;
+    font-size: 10px;
+  }
+
+  /* The bottom sheet. */
+  html:root .sloj .desno {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-height: 52%;
+    overflow: visible;
+    /* Over the tema row and source line when pulled up. */
+    z-index: 2;
+    transition: max-height 240ms ease;
+  }
+
+  html:root .sloj .desno:has(.puna) {
+    max-height: calc(100% - 60px);
+  }
+
+  html:root .sloj .desno .info {
+    box-sizing: border-box;
+    max-height: inherit;
+    overflow-y: auto;
+    border-width: 1px 0 0;
+    border-radius: 16px 16px 0 0;
+    padding-bottom: calc(14px + env(safe-area-inset-bottom));
+  }
+
+  /* Grab handle on top of the sheet. */
+  html:root .sloj .desno .info::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 4px;
+    margin: -6px auto 8px;
+    border-radius: 2px;
+    background: var(--kh-rub);
+  }
+
+  html:root .sloj .desno .zaglavlje {
+    background: var(--kh-ploca);
+  }
+
+  /* Legend under the temas, map logo and credits just above the low sheet. */
+  html:root .kh-legend {
+    top: 228px;
+  }
+
+  /* Just above the low sheet; a taller sheet covers them, as in phone map apps. */
+  html:root .mapboxgl-ctrl-bottom-left,
+  html:root .mapboxgl-ctrl-bottom-right {
+    bottom: 112px;
+    z-index: 0;
+  }
+}
+
+@media (max-width: 640px) and (prefers-reduced-motion: reduce) {
+  html:root .sloj .desno {
+    transition: none;
+  }
+}

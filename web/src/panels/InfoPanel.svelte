@@ -1,7 +1,6 @@
 <script>
   // Info panel: the selected area, up to four numbers for the current tema and one
   // sentence about them (templates in src/data/recenice.js).
-  import { get } from 'svelte/store';
   import { view } from '../state.js';
   import { nadjiPodrucje, ocitaj, podaci } from '../data/podaci.js';
   import { formatVrijednost } from '../data/format.js';
@@ -67,15 +66,19 @@
   /** @type {string | null} */
   let otvoreno = $state(null);
 
-  // Phones only (the button is hidden on wider screens): the panel drops down to its
-  // title so the map is visible, and the arrow brings it back. Kept while browsing,
-  // so tapping around the map doesn't keep covering it.
-  // On a phone the country view starts dropped down, so the map is the first thing seen.
-  const mobitel = typeof matchMedia === 'function' && matchMedia('(max-width: 640px)').matches;
-  let sklopljeno = $state(mobitel && get(view).razina === 'drzava');
+  // Phones only (the button is hidden on wider screens): the panel is a bottom sheet
+  // with three heights, like phone map apps: `mala` (name and the first number, the map
+  // free), `pola` (half the screen) and `puna` (almost all, with the charts). Kept while
+  // browsing, so tapping around the map doesn't keep covering it.
+  const VISINE = /** @type {const} */ (['mala', 'pola', 'puna']);
+  let visina = $state(/** @type {(typeof VISINE)[number]} */ ('mala'));
+  const sklopljeno = $derived(visina === 'mala');
+  const korak = (smjer) => {
+    visina = VISINE[Math.min(Math.max(VISINE.indexOf(visina) + smjer, 0), VISINE.length - 1)];
+  };
 
-  // A swipe on the title row drops the panel (down) or brings it back (up), next to the
-  // arrow. Touch and pen only: a mouse has the arrow.
+  // A swipe on the title row moves the sheet a step up or down, next to the arrow.
+  // Touch and pen only: a mouse has the arrow.
   const PRAG_POVLACENJA = 30; // px
   let pocetakY = null;
 
@@ -87,12 +90,12 @@
     if (pocetakY === null) return;
     const pomak = e.clientY - pocetakY;
     pocetakY = null;
-    if (pomak > PRAG_POVLACENJA) sklopljeno = true;
-    else if (pomak < -PRAG_POVLACENJA) sklopljeno = false;
+    if (pomak > PRAG_POVLACENJA) korak(-1);
+    else if (pomak < -PRAG_POVLACENJA) korak(1);
   }
 </script>
 
-<aside class="kh-panel info" class:sklopljeno aria-live="polite">
+<aside class="kh-panel info" class:sklopljeno class:puna={visina === 'puna'} aria-live="polite">
   {#if $podaci.greska}
     <p class="poruka">{$podaci.greska}</p>
   {:else if !podrucje}
@@ -112,7 +115,7 @@
         aria-controls="info-detalji"
         aria-label={sklopljeno ? 'Prikaži podatke' : 'Sakrij podatke'}
         title={sklopljeno ? 'Prikaži podatke' : 'Sakrij podatke'}
-        onclick={() => (sklopljeno = !sklopljeno)}
+        onclick={() => (visina = sklopljeno ? 'pola' : 'mala')}
       >
         <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
           <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
@@ -408,8 +411,16 @@
       font-size: 16px;
     }
 
-    .sklopljeno .detalji {
+    /* The lowest height still shows the first number under the name. */
+    /* :global, because charts and lists are other components with their own scope. */
+    .sklopljeno .detalji > :global(:not(dl)),
+    .sklopljeno dl > :not(:first-child),
+    .sklopljeno dd.godina {
       display: none;
+    }
+
+    .sklopljeno dl {
+      margin-top: 6px;
     }
   }
 
