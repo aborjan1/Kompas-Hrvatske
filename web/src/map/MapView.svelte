@@ -9,7 +9,7 @@
   import {
     CITY_MAX_ZOOM,
     COUNTY_BOUNDARIES_URL,
-    CROATIA_OUTLINE_URL,
+    SPACE_MASK_URL,
     CROATIA_BOUNDS,
     FOCUS_PADDING,
     INTRO_DURATION,
@@ -107,9 +107,9 @@
       hidePlacesOutside(map, outline);
       const jls = createJlsLayer(map);
       // Everything outside Croatia turns to space once the intro lands (focusOn below).
-      const space = await fetch(CROATIA_OUTLINE_URL)
-        .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${CROATIA_OUTLINE_URL}: HTTP ${r.status}`))))
-        .then((croatia) => createSpaceMask(map, croatia))
+      const space = await fetch(SPACE_MASK_URL)
+        .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${SPACE_MASK_URL}: HTTP ${r.status}`))))
+        .then((mask) => createSpaceMask(map, mask))
         .catch((error) => {
           // Without the outline the map simply keeps its neighbours.
           console.error(error);

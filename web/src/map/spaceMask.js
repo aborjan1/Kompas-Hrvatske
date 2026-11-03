@@ -1,7 +1,8 @@
-// Croatia alone in space: once the intro has landed, everything outside the country
-// (neighbours, sea, foreign names) fades into a starfield, with a soft glow along the
-// coast and borders. The outline is the counties' union (public/data/hrvatska.geojson),
-// so the sea between the islands is space too.
+// Croatia alone in space: once the intro has landed, everything outside its land
+// (neighbours, the sea, foreign names) fades into a starfield, with a soft glow along
+// the coast and borders. The mask (public/data/svemir.geojson) is the region around
+// Croatia with its mainland and islands cut out, precomputed as one valid polygon:
+// a world-sized polygon with Croatia's rings as holes broke Mapbox's triangulation.
 
 const SOURCE = 'svemir';
 const MASK_LAYER = 'svemir-maska';
@@ -13,24 +14,20 @@ const FADE_MS = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 150
 
 /**
  * @param {mapboxgl.Map} map
- * @param {GeoJSON.FeatureCollection<GeoJSON.MultiPolygon>} croatia
+ * @param {GeoJSON.FeatureCollection<GeoJSON.MultiPolygon>} mask
  */
-export function createSpaceMask(map, croatia) {
+export function createSpaceMask(map, mask) {
   map.addImage(STARS, starfield(256), { pixelRatio: 2 });
 
-  const outerRings = croatia.features.flatMap((f) => f.geometry.coordinates.map((polygon) => polygon[0]));
+  // The holes are Croatia; their edges get the glow.
+  const croatiaRings = mask.features.flatMap((f) => f.geometry.coordinates.flatMap((polygon) => polygon.slice(1)));
   map.addSource(SOURCE, {
     type: 'geojson',
     data: {
       type: 'FeatureCollection',
       features: [
-        // The whole world with Croatia cut out of it.
-        {
-          type: 'Feature',
-          properties: { uloga: 'maska' },
-          geometry: { type: 'Polygon', coordinates: [[[-180, -85], [180, -85], [180, 85], [-180, 85], [-180, -85]], ...outerRings] },
-        },
-        { type: 'Feature', properties: { uloga: 'obris' }, geometry: { type: 'MultiLineString', coordinates: outerRings } },
+        { ...mask.features[0], properties: { uloga: 'maska' } },
+        { type: 'Feature', properties: { uloga: 'obris' }, geometry: { type: 'MultiLineString', coordinates: croatiaRings } },
       ],
     },
   });
@@ -43,7 +40,9 @@ export function createSpaceMask(map, croatia) {
     type: 'fill',
     source: SOURCE,
     filter: ['==', ['get', 'uloga'], 'maska'],
-    paint: { 'fill-pattern': STARS, 'fill-opacity': 0, 'fill-opacity-transition': fade },
+    // No antialiased outline: its colour comes from fill-color, which a pattern fill
+    // lacks, and Mapbox threw while fading it in. The glow draws the edge instead.
+    paint: { 'fill-pattern': STARS, 'fill-antialias': false, 'fill-opacity': 0, 'fill-opacity-transition': fade },
   });
   map.addLayer({
     id: GLOW_LAYER,
