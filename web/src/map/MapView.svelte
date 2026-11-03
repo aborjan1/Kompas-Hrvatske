@@ -54,6 +54,9 @@
     };
   }
   let skipIntro = () => {};
+  // Frames the current area again, e.g. when a docked column opens or closes
+  // ('kh:raspored' from Paneli.svelte) and the free part of the map changes.
+  let refocus = () => {};
 
   // Legend rows carry short units ("563 mil. €", "3,3 %"); a long one such as
   // "na 1.000 stanovnika" or "po stanovniku" goes once into the title instead.
@@ -83,6 +86,8 @@
     const map = createMap(container);
     const legend = new LegendControl();
     map.addControl(legend, 'bottom-left');
+    const onLayout = () => refocus();
+    addEventListener('kh:raspored', onLayout);
 
     /** @type {import('../data/indicator.js').Indicator | null} */
     let shown = null;
@@ -238,6 +243,7 @@
         introRunning = intro;
         // „Preskoči”: the same landing as the intro's, without the flight.
         skipIntro = () => focusOn(bounds, { croatia, duration: 0 });
+        refocus = () => focusOn(bounds, { croatia });
         unlockCamera(map);
         // A scroll or drag mid-flight would cancel it before the lock applies and leave
         // the camera free to zoom out to space, so input waits for the landing.
@@ -378,6 +384,7 @@
       unsubscribeEu();
       unsubscribeCity();
       unsubscribeMeta();
+      removeEventListener('kh:raspored', onLayout);
       map.remove();
     };
   });

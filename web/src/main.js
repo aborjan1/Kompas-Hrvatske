@@ -6,7 +6,7 @@ import App from './App.svelte'
 import { startUrlSync } from './url.js'
 
 // Panel design experiment (#79): ?dizajn=staklo|minimal|kartice (colours, dizajn.css)
-// or traka|pucina|prica|hud (layouts, dizajn-raspored.css).
+// or traka|traka2|pucina|prica|hud (layouts, dizajn-raspored.css).
 const dizajn = new URLSearchParams(location.search).get('dizajn')
 if (dizajn) document.documentElement.dataset.dizajn = dizajn
 
