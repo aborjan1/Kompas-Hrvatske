@@ -1,4 +1,4 @@
-// Choropleth legend as a MapLibre control, so it sits in the map's corner layout
+// Choropleth legend as a Mapbox control, so it sits in the map's corner layout
 // without the UI framework having to place it.
 
 import { NO_DATA_COLOR } from './countyLayer.js';

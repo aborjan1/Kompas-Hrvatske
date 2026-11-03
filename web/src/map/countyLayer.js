@@ -19,7 +19,7 @@ export const NO_DATA_COLOR = '#d6d5d1';
 export const FILL_OPACITY = 0.8;
 
 /**
- * @param {import('maplibre-gl').MapLibreMap} map
+ * @param {import('mapbox-gl').Map} map
  * @param {GeoJSON.FeatureCollection} geojson
  */
 export function createCountyLayer(map, geojson) {
@@ -74,7 +74,7 @@ export function createCountyLayer(map, geojson) {
   return {
     /**
      * @param {string} code
-     * @returns {import('maplibre-gl').LngLatBounds | undefined}
+     * @returns {import('mapbox-gl').LngLatBounds | undefined}
      */
     bounds: (code) => boundsByCode.get(code),
 
@@ -148,7 +148,7 @@ export function colorExpression(classes) {
   if (classes.length === 0) return ['case', ['==', value, null], NO_DATA_COLOR, NO_DATA_COLOR];
 
   // One class (Grad Zagreb has a single city): a `step` needs at least one stop, so
-  // MapLibre would reject it and leave the area uncoloured.
+  // Mapbox would reject it and leave the area uncoloured.
   if (classes.length === 1) return ['case', ['==', value, null], NO_DATA_COLOR, classes[0].color];
 
   const step = ['step', value, classes[0].color];

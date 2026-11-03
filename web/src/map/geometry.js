@@ -8,9 +8,9 @@ const TOLERANCE = 0.005; // degrees
 const MIN_RING_AREA = 1e-5; // square degrees, ~0.08 km²
 
 /**
- * Outer rings of all counties, simplified. MapLibre's `within` converts its whole
- * polygon to tile coordinates for every label it tests, so the full boundaries
- * (12k points) made tiles load slowly.
+ * Outer rings of all counties, simplified. `within` converts its whole polygon to tile
+ * coordinates for every label it tests, so the full boundaries (12k points) made
+ * tiles load slowly (measured with MapLibre, before the switch to Mapbox).
  * @param {GeoJSON.FeatureCollection<GeoJSON.Polygon | GeoJSON.MultiPolygon>} counties
  * @returns {GeoJSON.MultiPolygon}
  */
