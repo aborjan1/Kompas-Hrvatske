@@ -1,5 +1,5 @@
 {
-  "generirano": "2026-11-03T16:24:52+00:00",
+  "generirano": "2026-11-03T16:56:55+00:00",
   "sifra": "HR",
   "naziv": "Republika Hrvatska",
   "vrsta": "drzava",
@@ -33,6 +33,8 @@
     "stopa_poreza_dohodak_niza": 20.63,
     "stopa_poreza_dohodak_visa": 30.48,
     "kupoprodaje_nekretnina": 117795,
+    "porez_na_promet_nekretnina": 220487683.99,
+    "prihodi_od_imovine": 328423725.89,
     "pravne_osobe_aktivne": 169209
   },
   "po_stanovniku": {
@@ -53,6 +55,8 @@
     "saldo_lokalnog_proracuna": -151.9,
     "porez_na_dohodak": 1076.56,
     "kupoprodaje_nekretnina": 30.42,
+    "porez_na_promet_nekretnina": 56.95,
+    "prihodi_od_imovine": 84.82,
     "pravne_osobe_aktivne": 43.7
   },
   "rang": {},

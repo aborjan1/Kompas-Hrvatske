@@ -128,8 +128,16 @@ const PREDLOSCI = {
     zupanija: (h) =>
       spoji(
         ako(h.v('kupoprodaje_nekretnina'), `Broj prodanih nekretnina je ${h.v('kupoprodaje_nekretnina')}${h.rang('kupoprodaje_nekretnina')}`),
+        ako(h.v('porez_na_promet_nekretnina'), `porez od prodaje nekretnina donio je ${h.v('porez_na_promet_nekretnina')}`),
       ),
-    // No property indicators exist below county level.
-    jls: () => 'Podaci o imovini postoje samo za županije i cijelu Hrvatsku.',
+    // Below county level property is seen through the local budget (Ministry of Finance).
+    jls: (h) =>
+      spoji(
+        ako(
+          h.v('porez_na_promet_nekretnina'),
+          `Porez od prodaje nekretnina donio je ${h.v('porez_na_promet_nekretnina')}${h.rang('porez_na_promet_nekretnina')}`,
+        ),
+        ako(h.v('prihodi_od_imovine'), `zakup i koncesije ${h.v('prihodi_od_imovine')}`),
+      ),
   },
 };

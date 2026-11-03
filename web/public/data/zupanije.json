@@ -1,5 +1,5 @@
 {
-  "generirano": "2026-11-03T16:24:52+00:00",
+  "generirano": "2026-11-03T16:56:55+00:00",
   "podrucja": {
     "01": {
       "sifra": "01",
@@ -30,7 +30,9 @@
         "porez_na_dohodak": 326931638.29,
         "stopa_poreza_dohodak_niza": 19.67,
         "stopa_poreza_dohodak_visa": 29.55,
-        "kupoprodaje_nekretnina": 8595
+        "kupoprodaje_nekretnina": 8595,
+        "porez_na_promet_nekretnina": 13893829.45,
+        "prihodi_od_imovine": 10304704.36
       },
       "po_stanovniku": {
         "zaposleni": 366.2,
@@ -46,7 +48,9 @@
         "lokalna_ulaganja": 574.73,
         "saldo_lokalnog_proracuna": -147.2,
         "porez_na_dohodak": 1089.83,
-        "kupoprodaje_nekretnina": 28.65
+        "kupoprodaje_nekretnina": 28.65,
+        "porez_na_promet_nekretnina": 46.32,
+        "prihodi_od_imovine": 34.35
       },
       "rang": {
         "stanovnistvo": 3,
@@ -73,6 +77,8 @@
         "stopa_poreza_dohodak_niza": 19,
         "stopa_poreza_dohodak_visa": 19,
         "kupoprodaje_nekretnina": 4,
+        "porez_na_promet_nekretnina": 6,
+        "prihodi_od_imovine": 9,
         "zaposleni_po_stanovniku": 9,
         "neto_dohodak_po_stanovniku": 4,
         "bruto_dodana_vrijednost_po_stanovniku": 5,
@@ -86,7 +92,9 @@
         "lokalna_ulaganja_po_stanovniku": 10,
         "saldo_lokalnog_proracuna_po_stanovniku": 8,
         "porez_na_dohodak_po_stanovniku": 4,
-        "kupoprodaje_nekretnina_po_stanovniku": 14
+        "kupoprodaje_nekretnina_po_stanovniku": 14,
+        "porez_na_promet_nekretnina_po_stanovniku": 9,
+        "prihodi_od_imovine_po_stanovniku": 20
       },
       "slicni": [
         "08",
@@ -125,7 +133,9 @@
         "porez_na_dohodak": 107340584.93,
         "stopa_poreza_dohodak_niza": 20.09,
         "stopa_poreza_dohodak_visa": 30.09,
-        "kupoprodaje_nekretnina": 2591
+        "kupoprodaje_nekretnina": 2591,
+        "porez_na_promet_nekretnina": 1852323.25,
+        "prihodi_od_imovine": 2139135.16
       },
       "po_stanovniku": {
         "zaposleni": 315.7,
@@ -141,7 +151,9 @@
         "lokalna_ulaganja": 664.27,
         "saldo_lokalnog_proracuna": -205.69,
         "porez_na_dohodak": 889.3,
-        "kupoprodaje_nekretnina": 21.47
+        "kupoprodaje_nekretnina": 21.47,
+        "porez_na_promet_nekretnina": 15.35,
+        "prihodi_od_imovine": 17.72
       },
       "rang": {
         "stanovnistvo": 12,
@@ -168,6 +180,8 @@
         "stopa_poreza_dohodak_niza": 7,
         "stopa_poreza_dohodak_visa": 7,
         "kupoprodaje_nekretnina": 18,
+        "porez_na_promet_nekretnina": 19,
+        "prihodi_od_imovine": 21,
         "zaposleni_po_stanovniku": 16,
         "neto_dohodak_po_stanovniku": 9,
         "bruto_dodana_vrijednost_po_stanovniku": 16,
@@ -181,7 +195,9 @@
         "lokalna_ulaganja_po_stanovniku": 4,
         "saldo_lokalnog_proracuna_po_stanovniku": 13,
         "porez_na_dohodak_po_stanovniku": 8,
-        "kupoprodaje_nekretnina_po_stanovniku": 20
+        "kupoprodaje_nekretnina_po_stanovniku": 20,
+        "porez_na_promet_nekretnina_po_stanovniku": 21,
+        "prihodi_od_imovine_po_stanovniku": 21
       },
       "slicni": [
         "19",
@@ -220,7 +236,9 @@
         "porez_na_dohodak": 99446527.15,
         "stopa_poreza_dohodak_niza": 20.46,
         "stopa_poreza_dohodak_visa": 30.46,
-        "kupoprodaje_nekretnina": 4771
+        "kupoprodaje_nekretnina": 4771,
+        "porez_na_promet_nekretnina": 3038856.96,
+        "prihodi_od_imovine": 9383335.86
       },
       "po_stanovniku": {
         "zaposleni": 288.25,
@@ -236,7 +254,9 @@
         "lokalna_ulaganja": 1057.21,
         "saldo_lokalnog_proracuna": -432.41,
         "porez_na_dohodak": 712.35,
-        "kupoprodaje_nekretnina": 34.18
+        "kupoprodaje_nekretnina": 34.18,
+        "porez_na_promet_nekretnina": 21.77,
+        "prihodi_od_imovine": 67.21
       },
       "rang": {
         "stanovnistvo": 10,
@@ -263,6 +283,8 @@
         "stopa_poreza_dohodak_niza": 3,
         "stopa_poreza_dohodak_visa": 5,
         "kupoprodaje_nekretnina": 9,
+        "porez_na_promet_nekretnina": 13,
+        "prihodi_od_imovine": 11,
         "zaposleni_po_stanovniku": 21,
         "neto_dohodak_po_stanovniku": 14,
         "bruto_dodana_vrijednost_po_stanovniku": 15,
@@ -276,7 +298,9 @@
         "lokalna_ulaganja_po_stanovniku": 1,
         "saldo_lokalnog_proracuna_po_stanovniku": 21,
         "porez_na_dohodak_po_stanovniku": 16,
-        "kupoprodaje_nekretnina_po_stanovniku": 11
+        "kupoprodaje_nekretnina_po_stanovniku": 11,
+        "porez_na_promet_nekretnina_po_stanovniku": 16,
+        "prihodi_od_imovine_po_stanovniku": 12
       },
       "slicni": [
         "16",
@@ -315,7 +339,9 @@
         "porez_na_dohodak": 93730972.54,
         "stopa_poreza_dohodak_niza": 19.65,
         "stopa_poreza_dohodak_visa": 29.65,
-        "kupoprodaje_nekretnina": 3423
+        "kupoprodaje_nekretnina": 3423,
+        "porez_na_promet_nekretnina": 3097982.67,
+        "prihodi_od_imovine": 4450545.23
       },
       "po_stanovniku": {
         "zaposleni": 336.69,
@@ -331,7 +357,9 @@
         "lokalna_ulaganja": 630.58,
         "saldo_lokalnog_proracuna": -267.11,
         "porez_na_dohodak": 835.43,
-        "kupoprodaje_nekretnina": 30.51
+        "kupoprodaje_nekretnina": 30.51,
+        "porez_na_promet_nekretnina": 27.61,
+        "prihodi_od_imovine": 39.67
       },
       "rang": {
         "stanovnistvo": 14,
@@ -358,6 +386,8 @@
         "stopa_poreza_dohodak_niza": 20,
         "stopa_poreza_dohodak_visa": 18,
         "kupoprodaje_nekretnina": 15,
+        "porez_na_promet_nekretnina": 12,
+        "prihodi_od_imovine": 19,
         "zaposleni_po_stanovniku": 12,
         "neto_dohodak_po_stanovniku": 6,
         "bruto_dodana_vrijednost_po_stanovniku": 14,
@@ -371,7 +401,9 @@
         "lokalna_ulaganja_po_stanovniku": 5,
         "saldo_lokalnog_proracuna_po_stanovniku": 17,
         "porez_na_dohodak_po_stanovniku": 10,
-        "kupoprodaje_nekretnina_po_stanovniku": 12
+        "kupoprodaje_nekretnina_po_stanovniku": 12,
+        "porez_na_promet_nekretnina_po_stanovniku": 12,
+        "prihodi_od_imovine_po_stanovniku": 17
       },
       "slicni": [
         "19",
@@ -410,7 +442,9 @@
         "porez_na_dohodak": 143240736.74,
         "stopa_poreza_dohodak_niza": 20.43,
         "stopa_poreza_dohodak_visa": 30.64,
-        "kupoprodaje_nekretnina": 6925
+        "kupoprodaje_nekretnina": 6925,
+        "porez_na_promet_nekretnina": 4811729.4,
+        "prihodi_od_imovine": 6613290.54
       },
       "po_stanovniku": {
         "zaposleni": 412.85,
@@ -426,7 +460,9 @@
         "lokalna_ulaganja": 465.34,
         "saldo_lokalnog_proracuna": -153.25,
         "porez_na_dohodak": 898.13,
-        "kupoprodaje_nekretnina": 43.42
+        "kupoprodaje_nekretnina": 43.42,
+        "porez_na_promet_nekretnina": 30.17,
+        "prihodi_od_imovine": 41.47
       },
       "rang": {
         "stanovnistvo": 8,
@@ -453,6 +489,8 @@
         "stopa_poreza_dohodak_niza": 4,
         "stopa_poreza_dohodak_visa": 2,
         "kupoprodaje_nekretnina": 7,
+        "porez_na_promet_nekretnina": 10,
+        "prihodi_od_imovine": 13,
         "zaposleni_po_stanovniku": 4,
         "neto_dohodak_po_stanovniku": 10,
         "bruto_dodana_vrijednost_po_stanovniku": 6,
@@ -466,7 +504,9 @@
         "lokalna_ulaganja_po_stanovniku": 13,
         "saldo_lokalnog_proracuna_po_stanovniku": 9,
         "porez_na_dohodak_po_stanovniku": 7,
-        "kupoprodaje_nekretnina_po_stanovniku": 5
+        "kupoprodaje_nekretnina_po_stanovniku": 5,
+        "porez_na_promet_nekretnina_po_stanovniku": 10,
+        "prihodi_od_imovine_po_stanovniku": 16
       },
       "slicni": [
         "13",
@@ -505,7 +545,9 @@
         "porez_na_dohodak": 75564028.04,
         "stopa_poreza_dohodak_niza": 19.91,
         "stopa_poreza_dohodak_visa": 29.91,
-        "kupoprodaje_nekretnina": 4684
+        "kupoprodaje_nekretnina": 4684,
+        "porez_na_promet_nekretnina": 2402608.56,
+        "prihodi_od_imovine": 9951066.74
       },
       "po_stanovniku": {
         "zaposleni": 323.71,
@@ -521,7 +563,9 @@
         "lokalna_ulaganja": 748.16,
         "saldo_lokalnog_proracuna": -414.62,
         "porez_na_dohodak": 746.53,
-        "kupoprodaje_nekretnina": 46.27
+        "kupoprodaje_nekretnina": 46.27,
+        "porez_na_promet_nekretnina": 23.74,
+        "prihodi_od_imovine": 98.31
       },
       "rang": {
         "stanovnistvo": 17,
@@ -548,6 +592,8 @@
         "stopa_poreza_dohodak_niza": 17,
         "stopa_poreza_dohodak_visa": 14,
         "kupoprodaje_nekretnina": 10,
+        "porez_na_promet_nekretnina": 16,
+        "prihodi_od_imovine": 10,
         "zaposleni_po_stanovniku": 14,
         "neto_dohodak_po_stanovniku": 15,
         "bruto_dodana_vrijednost_po_stanovniku": 11,
@@ -561,7 +607,9 @@
         "lokalna_ulaganja_po_stanovniku": 2,
         "saldo_lokalnog_proracuna_po_stanovniku": 20,
         "porez_na_dohodak_po_stanovniku": 14,
-        "kupoprodaje_nekretnina_po_stanovniku": 4
+        "kupoprodaje_nekretnina_po_stanovniku": 4,
+        "porez_na_promet_nekretnina_po_stanovniku": 13,
+        "prihodi_od_imovine_po_stanovniku": 6
       },
       "slicni": [
         "07",
@@ -600,7 +648,9 @@
         "porez_na_dohodak": 60932702.87,
         "stopa_poreza_dohodak_niza": 19.18,
         "stopa_poreza_dohodak_visa": 28.01,
-        "kupoprodaje_nekretnina": 3572
+        "kupoprodaje_nekretnina": 3572,
+        "porez_na_promet_nekretnina": 2303251.17,
+        "prihodi_od_imovine": 5111462.6
       },
       "po_stanovniku": {
         "zaposleni": 309.43,
@@ -616,7 +666,9 @@
         "lokalna_ulaganja": 723.62,
         "saldo_lokalnog_proracuna": -322.5,
         "porez_na_dohodak": 598.09,
-        "kupoprodaje_nekretnina": 35.06
+        "kupoprodaje_nekretnina": 35.06,
+        "porez_na_promet_nekretnina": 22.61,
+        "prihodi_od_imovine": 50.17
       },
       "rang": {
         "stanovnistvo": 16,
@@ -643,6 +695,8 @@
         "stopa_poreza_dohodak_niza": 21,
         "stopa_poreza_dohodak_visa": 20,
         "kupoprodaje_nekretnina": 13,
+        "porez_na_promet_nekretnina": 17,
+        "prihodi_od_imovine": 15,
         "zaposleni_po_stanovniku": 17,
         "neto_dohodak_po_stanovniku": 18,
         "bruto_dodana_vrijednost_po_stanovniku": 17,
@@ -656,7 +710,9 @@
         "lokalna_ulaganja_po_stanovniku": 3,
         "saldo_lokalnog_proracuna_po_stanovniku": 19,
         "porez_na_dohodak_po_stanovniku": 19,
-        "kupoprodaje_nekretnina_po_stanovniku": 8
+        "kupoprodaje_nekretnina_po_stanovniku": 8,
+        "porez_na_promet_nekretnina_po_stanovniku": 14,
+        "prihodi_od_imovine_po_stanovniku": 14
       },
       "slicni": [
         "06",
@@ -695,7 +751,9 @@
         "porez_na_dohodak": 318952964.63,
         "stopa_poreza_dohodak_niza": 19.94,
         "stopa_poreza_dohodak_visa": 27.99,
-        "kupoprodaje_nekretnina": 9970
+        "kupoprodaje_nekretnina": 9970,
+        "porez_na_promet_nekretnina": 27294666.07,
+        "prihodi_od_imovine": 33414865.65
       },
       "po_stanovniku": {
         "zaposleni": 439.79,
@@ -711,7 +769,9 @@
         "lokalna_ulaganja": 426.39,
         "saldo_lokalnog_proracuna": -108.86,
         "porez_na_dohodak": 1201.7,
-        "kupoprodaje_nekretnina": 37.56
+        "kupoprodaje_nekretnina": 37.56,
+        "porez_na_promet_nekretnina": 102.84,
+        "prihodi_od_imovine": 125.89
       },
       "rang": {
         "stanovnistvo": 4,
@@ -738,6 +798,8 @@
         "stopa_poreza_dohodak_niza": 16,
         "stopa_poreza_dohodak_visa": 21,
         "kupoprodaje_nekretnina": 2,
+        "porez_na_promet_nekretnina": 3,
+        "prihodi_od_imovine": 4,
         "zaposleni_po_stanovniku": 3,
         "neto_dohodak_po_stanovniku": 3,
         "bruto_dodana_vrijednost_po_stanovniku": 3,
@@ -751,7 +813,9 @@
         "lokalna_ulaganja_po_stanovniku": 15,
         "saldo_lokalnog_proracuna_po_stanovniku": 6,
         "porez_na_dohodak_po_stanovniku": 2,
-        "kupoprodaje_nekretnina_po_stanovniku": 7
+        "kupoprodaje_nekretnina_po_stanovniku": 7,
+        "porez_na_promet_nekretnina_po_stanovniku": 3,
+        "prihodi_od_imovine_po_stanovniku": 4
       },
       "slicni": [
         "14",
@@ -790,7 +854,9 @@
         "porez_na_dohodak": 35649092.7,
         "stopa_poreza_dohodak_niza": 20.08,
         "stopa_poreza_dohodak_visa": 30.11,
-        "kupoprodaje_nekretnina": 2498
+        "kupoprodaje_nekretnina": 2498,
+        "porez_na_promet_nekretnina": 3815864,
+        "prihodi_od_imovine": 5539399.91
       },
       "po_stanovniku": {
         "zaposleni": 361.28,
@@ -806,7 +872,9 @@
         "lokalna_ulaganja": 582.2,
         "saldo_lokalnog_proracuna": -301.27,
         "porez_na_dohodak": 833.94,
-        "kupoprodaje_nekretnina": 58.44
+        "kupoprodaje_nekretnina": 58.44,
+        "porez_na_promet_nekretnina": 89.26,
+        "prihodi_od_imovine": 129.58
       },
       "rang": {
         "stanovnistvo": 21,
@@ -833,6 +901,8 @@
         "stopa_poreza_dohodak_niza": 9,
         "stopa_poreza_dohodak_visa": 6,
         "kupoprodaje_nekretnina": 19,
+        "porez_na_promet_nekretnina": 11,
+        "prihodi_od_imovine": 14,
         "zaposleni_po_stanovniku": 10,
         "neto_dohodak_po_stanovniku": 11,
         "bruto_dodana_vrijednost_po_stanovniku": 7,
@@ -846,7 +916,9 @@
         "lokalna_ulaganja_po_stanovniku": 6,
         "saldo_lokalnog_proracuna_po_stanovniku": 18,
         "porez_na_dohodak_po_stanovniku": 11,
-        "kupoprodaje_nekretnina_po_stanovniku": 1
+        "kupoprodaje_nekretnina_po_stanovniku": 1,
+        "porez_na_promet_nekretnina_po_stanovniku": 5,
+        "prihodi_od_imovine_po_stanovniku": 3
       },
       "slicni": [
         "11",
@@ -885,7 +957,9 @@
         "porez_na_dohodak": 37130160.46,
         "stopa_poreza_dohodak_niza": 20,
         "stopa_poreza_dohodak_visa": 29.89,
-        "kupoprodaje_nekretnina": 2416
+        "kupoprodaje_nekretnina": 2416,
+        "porez_na_promet_nekretnina": 1118999.92,
+        "prihodi_od_imovine": 4824904.21
       },
       "po_stanovniku": {
         "zaposleni": 302.14,
@@ -901,7 +975,9 @@
         "lokalna_ulaganja": 459.8,
         "saldo_lokalnog_proracuna": -108.38,
         "porez_na_dohodak": 527.66,
-        "kupoprodaje_nekretnina": 34.33
+        "kupoprodaje_nekretnina": 34.33,
+        "porez_na_promet_nekretnina": 15.9,
+        "prihodi_od_imovine": 68.57
       },
       "rang": {
         "stanovnistvo": 19,
@@ -928,6 +1004,8 @@
         "stopa_poreza_dohodak_niza": 11,
         "stopa_poreza_dohodak_visa": 15,
         "kupoprodaje_nekretnina": 20,
+        "porez_na_promet_nekretnina": 20,
+        "prihodi_od_imovine": 16,
         "zaposleni_po_stanovniku": 19,
         "neto_dohodak_po_stanovniku": 21,
         "bruto_dodana_vrijednost_po_stanovniku": 20,
@@ -941,7 +1019,9 @@
         "lokalna_ulaganja_po_stanovniku": 14,
         "saldo_lokalnog_proracuna_po_stanovniku": 5,
         "porez_na_dohodak_po_stanovniku": 21,
-        "kupoprodaje_nekretnina_po_stanovniku": 9
+        "kupoprodaje_nekretnina_po_stanovniku": 9,
+        "porez_na_promet_nekretnina_po_stanovniku": 20,
+        "prihodi_od_imovine_po_stanovniku": 11
       },
       "slicni": [
         "11",
@@ -980,7 +1060,9 @@
         "porez_na_dohodak": 38742741.46,
         "stopa_poreza_dohodak_niza": 20,
         "stopa_poreza_dohodak_visa": 30,
-        "kupoprodaje_nekretnina": 1949
+        "kupoprodaje_nekretnina": 1949,
+        "porez_na_promet_nekretnina": 1089829.41,
+        "prihodi_od_imovine": 2392931.68
       },
       "po_stanovniku": {
         "zaposleni": 297.78,
@@ -996,7 +1078,9 @@
         "lokalna_ulaganja": 426.08,
         "saldo_lokalnog_proracuna": -258.48,
         "porez_na_dohodak": 604.56,
-        "kupoprodaje_nekretnina": 30.41
+        "kupoprodaje_nekretnina": 30.41,
+        "porez_na_promet_nekretnina": 17.01,
+        "prihodi_od_imovine": 37.34
       },
       "rang": {
         "stanovnistvo": 20,
@@ -1023,6 +1107,8 @@
         "stopa_poreza_dohodak_niza": 12,
         "stopa_poreza_dohodak_visa": 9,
         "kupoprodaje_nekretnina": 21,
+        "porez_na_promet_nekretnina": 21,
+        "prihodi_od_imovine": 20,
         "zaposleni_po_stanovniku": 20,
         "neto_dohodak_po_stanovniku": 19,
         "bruto_dodana_vrijednost_po_stanovniku": 21,
@@ -1036,7 +1122,9 @@
         "lokalna_ulaganja_po_stanovniku": 16,
         "saldo_lokalnog_proracuna_po_stanovniku": 16,
         "porez_na_dohodak_po_stanovniku": 18,
-        "kupoprodaje_nekretnina_po_stanovniku": 13
+        "kupoprodaje_nekretnina_po_stanovniku": 13,
+        "porez_na_promet_nekretnina_po_stanovniku": 19,
+        "prihodi_od_imovine_po_stanovniku": 18
       },
       "slicni": [
         "10",
@@ -1075,7 +1163,9 @@
         "porez_na_dohodak": 79688567.78,
         "stopa_poreza_dohodak_niza": 20.09,
         "stopa_poreza_dohodak_visa": 30.09,
-        "kupoprodaje_nekretnina": 2801
+        "kupoprodaje_nekretnina": 2801,
+        "porez_na_promet_nekretnina": 2405398.61,
+        "prihodi_od_imovine": 4747258.48
       },
       "po_stanovniku": {
         "zaposleni": 304.77,
@@ -1091,7 +1181,9 @@
         "lokalna_ulaganja": 578.02,
         "saldo_lokalnog_proracuna": -158.14,
         "porez_na_dohodak": 611.73,
-        "kupoprodaje_nekretnina": 21.5
+        "kupoprodaje_nekretnina": 21.5,
+        "porez_na_promet_nekretnina": 18.47,
+        "prihodi_od_imovine": 36.44
       },
       "rang": {
         "stanovnistvo": 11,
@@ -1118,6 +1210,8 @@
         "stopa_poreza_dohodak_niza": 8,
         "stopa_poreza_dohodak_visa": 8,
         "kupoprodaje_nekretnina": 16,
+        "porez_na_promet_nekretnina": 15,
+        "prihodi_od_imovine": 17,
         "zaposleni_po_stanovniku": 18,
         "neto_dohodak_po_stanovniku": 20,
         "bruto_dodana_vrijednost_po_stanovniku": 18,
@@ -1131,7 +1225,9 @@
         "lokalna_ulaganja_po_stanovniku": 8,
         "saldo_lokalnog_proracuna_po_stanovniku": 11,
         "porez_na_dohodak_po_stanovniku": 17,
-        "kupoprodaje_nekretnina_po_stanovniku": 19
+        "kupoprodaje_nekretnina_po_stanovniku": 19,
+        "porez_na_promet_nekretnina_po_stanovniku": 18,
+        "prihodi_od_imovine_po_stanovniku": 19
       },
       "slicni": [
         "03",
@@ -1170,7 +1266,9 @@
         "porez_na_dohodak": 141037725.14,
         "stopa_poreza_dohodak_niza": 19.83,
         "stopa_poreza_dohodak_visa": 29.97,
-        "kupoprodaje_nekretnina": 8569
+        "kupoprodaje_nekretnina": 8569,
+        "porez_na_promet_nekretnina": 21275262.64,
+        "prihodi_od_imovine": 17602699.27
       },
       "po_stanovniku": {
         "zaposleni": 367.89,
@@ -1186,7 +1284,9 @@
         "lokalna_ulaganja": 504.02,
         "saldo_lokalnog_proracuna": -186.32,
         "porez_na_dohodak": 882.78,
-        "kupoprodaje_nekretnina": 53.63
+        "kupoprodaje_nekretnina": 53.63,
+        "porez_na_promet_nekretnina": 133.17,
+        "prihodi_od_imovine": 110.18
       },
       "rang": {
         "stanovnistvo": 7,
@@ -1213,6 +1313,8 @@
         "stopa_poreza_dohodak_niza": 18,
         "stopa_poreza_dohodak_visa": 10,
         "kupoprodaje_nekretnina": 5,
+        "porez_na_promet_nekretnina": 5,
+        "prihodi_od_imovine": 6,
         "zaposleni_po_stanovniku": 8,
         "neto_dohodak_po_stanovniku": 7,
         "bruto_dodana_vrijednost_po_stanovniku": 9,
@@ -1226,7 +1328,9 @@
         "lokalna_ulaganja_po_stanovniku": 12,
         "saldo_lokalnog_proracuna_po_stanovniku": 12,
         "porez_na_dohodak_po_stanovniku": 9,
-        "kupoprodaje_nekretnina_po_stanovniku": 2
+        "kupoprodaje_nekretnina_po_stanovniku": 2,
+        "porez_na_promet_nekretnina_po_stanovniku": 1,
+        "prihodi_od_imovine_po_stanovniku": 5
       },
       "slicni": [
         "05",
@@ -1265,7 +1369,9 @@
         "porez_na_dohodak": 191104518.34,
         "stopa_poreza_dohodak_niza": 20.07,
         "stopa_poreza_dohodak_visa": 29.87,
-        "kupoprodaje_nekretnina": 6204
+        "kupoprodaje_nekretnina": 6204,
+        "porez_na_promet_nekretnina": 7708145.78,
+        "prihodi_od_imovine": 13277746.94
       },
       "po_stanovniku": {
         "zaposleni": 344.98,
@@ -1281,7 +1387,9 @@
         "lokalna_ulaganja": 398.74,
         "saldo_lokalnog_proracuna": -92.19,
         "porez_na_dohodak": 740.64,
-        "kupoprodaje_nekretnina": 24.04
+        "kupoprodaje_nekretnina": 24.04,
+        "porez_na_promet_nekretnina": 29.87,
+        "prihodi_od_imovine": 51.46
       },
       "rang": {
         "stanovnistvo": 5,
@@ -1308,6 +1416,8 @@
         "stopa_poreza_dohodak_niza": 10,
         "stopa_poreza_dohodak_visa": 16,
         "kupoprodaje_nekretnina": 8,
+        "porez_na_promet_nekretnina": 9,
+        "prihodi_od_imovine": 7,
         "zaposleni_po_stanovniku": 11,
         "neto_dohodak_po_stanovniku": 13,
         "bruto_dodana_vrijednost_po_stanovniku": 13,
@@ -1321,7 +1431,9 @@
         "lokalna_ulaganja_po_stanovniku": 18,
         "saldo_lokalnog_proracuna_po_stanovniku": 4,
         "porez_na_dohodak_po_stanovniku": 15,
-        "kupoprodaje_nekretnina_po_stanovniku": 16
+        "kupoprodaje_nekretnina_po_stanovniku": 16,
+        "porez_na_promet_nekretnina_po_stanovniku": 11,
+        "prihodi_od_imovine_po_stanovniku": 13
       },
       "slicni": [
         "08",
@@ -1360,7 +1472,9 @@
         "porez_na_dohodak": 79771382.14,
         "stopa_poreza_dohodak_niza": 20.11,
         "stopa_poreza_dohodak_visa": 29.67,
-        "kupoprodaje_nekretnina": 3999
+        "kupoprodaje_nekretnina": 3999,
+        "porez_na_promet_nekretnina": 9760290.35,
+        "prihodi_od_imovine": 8151194.62
       },
       "po_stanovniku": {
         "zaposleni": 336.69,
@@ -1376,7 +1490,9 @@
         "lokalna_ulaganja": 335.35,
         "saldo_lokalnog_proracuna": 25.15,
         "porez_na_dohodak": 827.67,
-        "kupoprodaje_nekretnina": 41.49
+        "kupoprodaje_nekretnina": 41.49,
+        "porez_na_promet_nekretnina": 101.27,
+        "prihodi_od_imovine": 84.57
       },
       "rang": {
         "stanovnistvo": 18,
@@ -1403,6 +1519,8 @@
         "stopa_poreza_dohodak_niza": 6,
         "stopa_poreza_dohodak_visa": 17,
         "kupoprodaje_nekretnina": 11,
+        "porez_na_promet_nekretnina": 7,
+        "prihodi_od_imovine": 12,
         "zaposleni_po_stanovniku": 13,
         "neto_dohodak_po_stanovniku": 12,
         "bruto_dodana_vrijednost_po_stanovniku": 12,
@@ -1416,7 +1534,9 @@
         "lokalna_ulaganja_po_stanovniku": 21,
         "saldo_lokalnog_proracuna_po_stanovniku": 1,
         "porez_na_dohodak_po_stanovniku": 12,
-        "kupoprodaje_nekretnina_po_stanovniku": 6
+        "kupoprodaje_nekretnina_po_stanovniku": 6,
+        "porez_na_promet_nekretnina_po_stanovniku": 4,
+        "prihodi_od_imovine_po_stanovniku": 9
       },
       "slicni": [
         "06",
@@ -1455,7 +1575,9 @@
         "porez_na_dohodak": 76474835.79,
         "stopa_poreza_dohodak_niza": 19.95,
         "stopa_poreza_dohodak_visa": 29.95,
-        "kupoprodaje_nekretnina": 3486
+        "kupoprodaje_nekretnina": 3486,
+        "porez_na_promet_nekretnina": 2934680.44,
+        "prihodi_od_imovine": 11283394.89
       },
       "po_stanovniku": {
         "zaposleni": 316.25,
@@ -1471,7 +1593,9 @@
         "lokalna_ulaganja": 423.54,
         "saldo_lokalnog_proracuna": -154.22,
         "porez_na_dohodak": 534.37,
-        "kupoprodaje_nekretnina": 24.36
+        "kupoprodaje_nekretnina": 24.36,
+        "porez_na_promet_nekretnina": 20.51,
+        "prihodi_od_imovine": 78.84
       },
       "rang": {
         "stanovnistvo": 9,
@@ -1498,6 +1622,8 @@
         "stopa_poreza_dohodak_niza": 14,
         "stopa_poreza_dohodak_visa": 12,
         "kupoprodaje_nekretnina": 14,
+        "porez_na_promet_nekretnina": 14,
+        "prihodi_od_imovine": 8,
         "zaposleni_po_stanovniku": 15,
         "neto_dohodak_po_stanovniku": 17,
         "bruto_dodana_vrijednost_po_stanovniku": 19,
@@ -1511,7 +1637,9 @@
         "lokalna_ulaganja_po_stanovniku": 17,
         "saldo_lokalnog_proracuna_po_stanovniku": 10,
         "porez_na_dohodak_po_stanovniku": 20,
-        "kupoprodaje_nekretnina_po_stanovniku": 15
+        "kupoprodaje_nekretnina_po_stanovniku": 15,
+        "porez_na_promet_nekretnina_po_stanovniku": 17,
+        "prihodi_od_imovine_po_stanovniku": 10
       },
       "slicni": [
         "03",
@@ -1550,7 +1678,9 @@
         "porez_na_dohodak": 403483189.22,
         "stopa_poreza_dohodak_niza": 20.29,
         "stopa_poreza_dohodak_visa": 30.61,
-        "kupoprodaje_nekretnina": 8391
+        "kupoprodaje_nekretnina": 8391,
+        "porez_na_promet_nekretnina": 27674124.44,
+        "prihodi_od_imovine": 35840716.08
       },
       "po_stanovniku": {
         "zaposleni": 371.37,
@@ -1566,7 +1696,9 @@
         "lokalna_ulaganja": 369.87,
         "saldo_lokalnog_proracuna": -257.25,
         "porez_na_dohodak": 952.94,
-        "kupoprodaje_nekretnina": 19.82
+        "kupoprodaje_nekretnina": 19.82,
+        "porez_na_promet_nekretnina": 65.36,
+        "prihodi_od_imovine": 84.65
       },
       "rang": {
         "stanovnistvo": 2,
@@ -1593,6 +1725,8 @@
         "stopa_poreza_dohodak_niza": 5,
         "stopa_poreza_dohodak_visa": 3,
         "kupoprodaje_nekretnina": 6,
+        "porez_na_promet_nekretnina": 2,
+        "prihodi_od_imovine": 3,
         "zaposleni_po_stanovniku": 7,
         "neto_dohodak_po_stanovniku": 8,
         "bruto_dodana_vrijednost_po_stanovniku": 10,
@@ -1606,7 +1740,9 @@
         "lokalna_ulaganja_po_stanovniku": 19,
         "saldo_lokalnog_proracuna_po_stanovniku": 15,
         "porez_na_dohodak_po_stanovniku": 6,
-        "kupoprodaje_nekretnina_po_stanovniku": 21
+        "kupoprodaje_nekretnina_po_stanovniku": 21,
+        "porez_na_promet_nekretnina_po_stanovniku": 7,
+        "prihodi_od_imovine_po_stanovniku": 8
       },
       "slicni": [
         "01",
@@ -1645,7 +1781,9 @@
         "porez_na_dohodak": 233244343.31,
         "stopa_poreza_dohodak_niza": 20.65,
         "stopa_poreza_dohodak_visa": 30.59,
-        "kupoprodaje_nekretnina": 9807
+        "kupoprodaje_nekretnina": 9807,
+        "porez_na_promet_nekretnina": 24630099.39,
+        "prihodi_od_imovine": 26603437.95
       },
       "po_stanovniku": {
         "zaposleni": 469.3,
@@ -1661,7 +1799,9 @@
         "lokalna_ulaganja": 574.87,
         "saldo_lokalnog_proracuna": -65.56,
         "porez_na_dohodak": 1194.67,
-        "kupoprodaje_nekretnina": 50.23
+        "kupoprodaje_nekretnina": 50.23,
+        "porez_na_promet_nekretnina": 126.15,
+        "prihodi_od_imovine": 136.26
       },
       "rang": {
         "stanovnistvo": 6,
@@ -1688,6 +1828,8 @@
         "stopa_poreza_dohodak_niza": 2,
         "stopa_poreza_dohodak_visa": 4,
         "kupoprodaje_nekretnina": 3,
+        "porez_na_promet_nekretnina": 4,
+        "prihodi_od_imovine": 5,
         "zaposleni_po_stanovniku": 2,
         "neto_dohodak_po_stanovniku": 2,
         "bruto_dodana_vrijednost_po_stanovniku": 2,
@@ -1701,7 +1843,9 @@
         "lokalna_ulaganja_po_stanovniku": 9,
         "saldo_lokalnog_proracuna_po_stanovniku": 3,
         "porez_na_dohodak_po_stanovniku": 3,
-        "kupoprodaje_nekretnina_po_stanovniku": 3
+        "kupoprodaje_nekretnina_po_stanovniku": 3,
+        "porez_na_promet_nekretnina_po_stanovniku": 2,
+        "prihodi_od_imovine_po_stanovniku": 2
       },
       "slicni": [
         "13",
@@ -1740,7 +1884,9 @@
         "porez_na_dohodak": 113596479.01,
         "stopa_poreza_dohodak_niza": 20,
         "stopa_poreza_dohodak_visa": 29.97,
-        "kupoprodaje_nekretnina": 2770
+        "kupoprodaje_nekretnina": 2770,
+        "porez_na_promet_nekretnina": 9125054.91,
+        "prihodi_od_imovine": 38230714.88
       },
       "po_stanovniku": {
         "zaposleni": 387.92,
@@ -1756,7 +1902,9 @@
         "lokalna_ulaganja": 517.91,
         "saldo_lokalnog_proracuna": -116.73,
         "porez_na_dohodak": 982.97,
-        "kupoprodaje_nekretnina": 23.97
+        "kupoprodaje_nekretnina": 23.97,
+        "porez_na_promet_nekretnina": 78.96,
+        "prihodi_od_imovine": 330.82
       },
       "rang": {
         "stanovnistvo": 13,
@@ -1783,6 +1931,8 @@
         "stopa_poreza_dohodak_niza": 13,
         "stopa_poreza_dohodak_visa": 11,
         "kupoprodaje_nekretnina": 17,
+        "porez_na_promet_nekretnina": 8,
+        "prihodi_od_imovine": 2,
         "zaposleni_po_stanovniku": 6,
         "neto_dohodak_po_stanovniku": 5,
         "bruto_dodana_vrijednost_po_stanovniku": 4,
@@ -1796,7 +1946,9 @@
         "lokalna_ulaganja_po_stanovniku": 11,
         "saldo_lokalnog_proracuna_po_stanovniku": 7,
         "porez_na_dohodak_po_stanovniku": 5,
-        "kupoprodaje_nekretnina_po_stanovniku": 17
+        "kupoprodaje_nekretnina_po_stanovniku": 17,
+        "porez_na_promet_nekretnina_po_stanovniku": 6,
+        "prihodi_od_imovine_po_stanovniku": 1
       },
       "slicni": [
         "04",
@@ -1835,7 +1987,9 @@
         "porez_na_dohodak": 83704880.2,
         "stopa_poreza_dohodak_niza": 19.95,
         "stopa_poreza_dohodak_visa": 29.95,
-        "kupoprodaje_nekretnina": 3610
+        "kupoprodaje_nekretnina": 3610,
+        "porez_na_promet_nekretnina": 2292880.44,
+        "prihodi_od_imovine": 4575252.44
       },
       "po_stanovniku": {
         "zaposleni": 389.43,
@@ -1851,7 +2005,9 @@
         "lokalna_ulaganja": 579.88,
         "saldo_lokalnog_proracuna": -245.24,
         "porez_na_dohodak": 795.3,
-        "kupoprodaje_nekretnina": 34.3
+        "kupoprodaje_nekretnina": 34.3,
+        "porez_na_promet_nekretnina": 21.79,
+        "prihodi_od_imovine": 43.47
       },
       "rang": {
         "stanovnistvo": 15,
@@ -1878,6 +2034,8 @@
         "stopa_poreza_dohodak_niza": 15,
         "stopa_poreza_dohodak_visa": 13,
         "kupoprodaje_nekretnina": 12,
+        "porez_na_promet_nekretnina": 18,
+        "prihodi_od_imovine": 18,
         "zaposleni_po_stanovniku": 5,
         "neto_dohodak_po_stanovniku": 16,
         "bruto_dodana_vrijednost_po_stanovniku": 8,
@@ -1891,7 +2049,9 @@
         "lokalna_ulaganja_po_stanovniku": 7,
         "saldo_lokalnog_proracuna_po_stanovniku": 14,
         "porez_na_dohodak_po_stanovniku": 13,
-        "kupoprodaje_nekretnina_po_stanovniku": 10
+        "kupoprodaje_nekretnina_po_stanovniku": 10,
+        "porez_na_promet_nekretnina_po_stanovniku": 15,
+        "prihodi_od_imovine_po_stanovniku": 15
       },
       "slicni": [
         "07",
@@ -1930,7 +2090,9 @@
         "porez_na_dohodak": 1428504663.15,
         "stopa_poreza_dohodak_niza": 23,
         "stopa_poreza_dohodak_visa": 33,
-        "kupoprodaje_nekretnina": 16764
+        "kupoprodaje_nekretnina": 16764,
+        "porez_na_promet_nekretnina": 47961806.13,
+        "prihodi_od_imovine": 73985668.4
       },
       "po_stanovniku": {
         "zaposleni": 616.06,
@@ -1946,7 +2108,9 @@
         "lokalna_ulaganja": 368.44,
         "saldo_lokalnog_proracuna": -11.42,
         "porez_na_dohodak": 1862.14,
-        "kupoprodaje_nekretnina": 21.85
+        "kupoprodaje_nekretnina": 21.85,
+        "porez_na_promet_nekretnina": 62.52,
+        "prihodi_od_imovine": 96.44
       },
       "rang": {
         "stanovnistvo": 1,
@@ -1973,6 +2137,8 @@
         "stopa_poreza_dohodak_niza": 1,
         "stopa_poreza_dohodak_visa": 1,
         "kupoprodaje_nekretnina": 1,
+        "porez_na_promet_nekretnina": 1,
+        "prihodi_od_imovine": 1,
         "zaposleni_po_stanovniku": 1,
         "neto_dohodak_po_stanovniku": 1,
         "bruto_dodana_vrijednost_po_stanovniku": 1,
@@ -1986,7 +2152,9 @@
         "lokalna_ulaganja_po_stanovniku": 20,
         "saldo_lokalnog_proracuna_po_stanovniku": 2,
         "porez_na_dohodak_po_stanovniku": 1,
-        "kupoprodaje_nekretnina_po_stanovniku": 18
+        "kupoprodaje_nekretnina_po_stanovniku": 18,
+        "porez_na_promet_nekretnina_po_stanovniku": 8,
+        "prihodi_od_imovine_po_stanovniku": 7
       },
       "slicni": [
         "17",

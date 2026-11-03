@@ -417,6 +417,34 @@ POKAZATELJI: dict[str, dict] = {
         "objasnjenje": "Koliko je nekretnina (stanova, kuća, zemljišta) prodano u godini. "
         "Pokazuje koliko je živo tržište nekretnina.",
     },
+    "porez_na_promet_nekretnina": {
+        "naziv": "Porez na promet nekretnina (prihod proračuna)",
+        "tema": "imovina",
+        "jedinica": "EUR",
+        "decimale": 0,
+        "po_stanovniku": _PO_ST_EUR,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "mfin-lokalni-proracuni",
+        "napomena": "Ostvarenje proračuna, račun 6134 (povremeni porezi na imovinu), koji kod "
+        "gradova i općina čini porez na promet nekretnina. Za županiju: županija i svi njezini "
+        "gradovi i općine.",
+        "objasnjenje": "Koliko je grad ili općina dobila od poreza koji plaća kupac nekretnine "
+        "na njezinu području. Što se više nekretnina proda i što su skuplje, to je iznos veći.",
+    },
+    "prihodi_od_imovine": {
+        "naziv": "Prihodi od nefinancijske imovine",
+        "tema": "imovina",
+        "jedinica": "EUR",
+        "decimale": 0,
+        "po_stanovniku": _PO_ST_EUR,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "mfin-lokalni-proracuni",
+        "napomena": "Ostvarenje proračuna, skupina 642: naknade za koncesije, zakup i najam "
+        "imovine, naknade za korištenje imovine i ostalo. Za županiju: županija i svi njezini "
+        "gradovi i općine.",
+        "objasnjenje": "Koliko grad ili općina zaradi od svoje imovine: zakupa i najma prostora i "
+        "zemljišta, koncesija i naknada za korištenje.",
+    },
     "pravne_osobe_aktivne": {
         "naziv": "Aktivne pravne osobe",
         "tema": "imovina",

@@ -196,6 +196,22 @@ def nezaposlenost_zupanije() -> tuple[pd.DataFrame, str]:
     return _tablica_zupanija(t, zag + 1, {"stopa_nezaposlenosti": j}), razdoblje
 
 
+def nezaposlenost_po_godinama() -> pd.DataFrame:
+    """Prosječna godišnja stopa registrirane nezaposlenosti (%), RH i županije × godina.
+
+    List 9.4.14. ima stupce "Ø <godina>. ukupno" za svaku cijelu godinu."""
+    t = excel(nadji("dzs-place", "pregled-po-zupanijama"), "9.4.14.")
+    zag = red_s(t, "Županija")
+    stupci = {}
+    for j, v in enumerate(t.iloc[zag]):
+        m = re.match(r"Ø\s*(\d{4})\.?\s*ukupno", v.strip())
+        if m:
+            stupci[m[1]] = j
+    if not stupci:
+        raise ValueError("9.4.14.: nema stupaca Ø <godina>. ukupno")
+    return _tablica_zupanija(t, zag + 1, stupci).set_index("zupanija")
+
+
 # --------------------------------------------------------------------------- Porezna uprava
 
 
@@ -220,28 +236,67 @@ def kupoprodaje_zupanije() -> tuple[pd.DataFrame, str]:
     return df, _godina(god)
 
 
-def dohodak_jls() -> tuple[pd.DataFrame, pd.DataFrame, str]:
-    """Neto dohodak stanovništva i porez na dohodak po gradovima/općinama (EUR).
+KUNA_PO_EURU = 7.5345  # fiksni tečaj konverzije
 
-    Vraća (jls, zupanije_i_drzava, godina). JLS: zupanija, kljuc, naziv, posloprimci,
-    dohodak, porez, neto. Uzima najnoviji list "<godina> EUR".
-    """
+
+def _dohodak_datoteka() -> Path:
     put = nadji("pu-porez-dohodak", "neto-dohodak")
     for p in sorted((RAW / "pu-porez-dohodak").glob("*neto-dohodak*")):
         if "2022_2025" in p.name or p.stat().st_size > put.stat().st_size:
             put = p
-    listovi = pd.ExcelFile(put, engine="calamine").sheet_names
-    eur = sorted((s for s in listovi if s.strip().endswith("EUR")), key=_godina)
-    list_ = eur[-1]
+    return put
+
+
+def dohodak_listovi() -> list[str]:
+    """Listovi s godinama ("2025 EUR", …, "2022 HRK"), od najstarije do najnovije."""
+    listovi = pd.ExcelFile(_dohodak_datoteka(), engine="calamine").sheet_names
+    return sorted((s for s in listovi if re.fullmatch(r"\d{4} (EUR|HRK)", s.strip())), key=_godina)
+
+
+def kupoprodaje_po_godinama() -> pd.DataFrame:
+    """Broj kupoprodaja nekretnina, RH i županije × svaka cijela godina (2016.–…)."""
+    t = excel(nadji("pu-kupoprodaje"), 0)
+    zag = red_s(t, "NAZIV ŽUPANIJE")
+    godine = {
+        _godina(v): j for j, v in enumerate(t.iloc[zag]) if re.fullmatch(r"\d{4}\.?", v.strip())
+    }
+    redovi = {}
+    for i in range(zag + 1, len(t)):
+        naziv = t.iloc[i, 0].strip()
+        sif = "HR" if naziv.upper().startswith("UKUPNO") else sifra_zupanije(naziv)
+        if sif:
+            redovi[sif] = {g: broj(t.iloc[i, j]) for g, j in godine.items()}
+        if sif == "HR":
+            break
+    df = pd.DataFrame(redovi).T
+    if len(df) != 22:
+        raise ValueError(f"Kupoprodaje po godinama: očekivano 22 retka, pronađeno {len(df)}")
+    return df
+
+
+def dohodak_jls(list_: str | None = None) -> tuple[pd.DataFrame, pd.DataFrame, str]:
+    """Neto dohodak stanovništva i porez na dohodak po gradovima/općinama (EUR).
+
+    Vraća (jls, zupanije_i_drzava, godina). JLS: zupanija, kljuc, naziv, posloprimci,
+    dohodak, porez, neto. Bez `list_` uzima najnoviji list "<godina> EUR"; listovi u kunama
+    ("2022 HRK") preračunavaju se u eure fiksnim tečajem.
+    """
+    put = _dohodak_datoteka()
+    if list_ is None:
+        list_ = [s for s in dohodak_listovi() if s.strip().endswith("EUR")][-1]
     t = excel(put, list_)
     zag = red_s(t, "Naziv županije")
     t = t.iloc[zag + 1 :]
     t = t[t[2].str.strip().str.startswith("UKUPNO")]
     stupci = {"posloprimci": 3, "dohodak": 6, "porez": 7, "neto": 8}
+    tecaj = KUNA_PO_EURU if list_.strip().endswith("HRK") else 1
     jls, vise = [], []
     for _, r in t.iterrows():
         vrsta = r[2].strip()
         vr = {k: broj(r[j]) for k, j in stupci.items()}
+        for k in ("dohodak", "porez", "neto"):
+            if vr[k] is not None:
+                vr[k] /= tecaj
         if vrsta == "UKUPNO OPĆINA":
             jls.append(
                 {
@@ -731,7 +786,10 @@ STAVKE_PRORACUNA = {
     "6": "prihodi poslovanja",
     "7": "prihodi od prodaje nefinancijske imovine",
     "61": "porezi",
+    "611": "porez i prirez na dohodak",
+    "6134": "povremeni porezi na imovinu (porez na promet nekretnina)",
     "63": "pomoći",
+    "642": "prihodi od nefinancijske imovine (zakup, koncesije, naknade)",
     "3": "rashodi poslovanja",
     "31": "rashodi za zaposlene",
     "4": "rashodi za nabavu nefinancijske imovine",

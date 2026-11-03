@@ -19,6 +19,8 @@ Sve datoteke nalaze se u `web/public/data/` i nastaju naredbom `python pipeline/
 | `jls.json` | Brojke, rangovi i slična područja za svih 556 gradova i općina | Boro, Rafael |
 | `jls/<šifra županije>.geojson` | Granice gradova i općina jedne županije (21 datoteka, DGU) | Boro |
 | `tocke/eu-projekti.geojson` | 8.355 EU projekata (OPKK 2014.–2020.) kao točke | Boro |
+| `proracuni.json` | Proračuni 2019.–2025. i rashodi po namjeni (grafovi teme Novac) | Rafael |
+| `nizovi.json` | Vremenski nizovi za grafove tema Ljudi, Porezi i Imovina | Rafael |
 | `gradovi/…` | Prikaz Zagreba (17 gradskih četvrti, slojevi točaka) i Rijeke (proračun, prostori) | Boro, Rafael |
 
 Granice i brojke su **namjerno odvojene**: granice se rijetko mijenjaju i preglednik ih
@@ -219,14 +221,14 @@ Rezultat grupiranja svih 556 gradova i općina strojnim učenjem (k-means,
   "naziv": "Tip grada ili općine",
   "metoda": "Strojno učenje (k-means, 5 skupina) nad pet obilježja …",
   "obiljezja": {"velicina": "broj stanovnika (log)", "...": "..."},
-  "silhouette": 0.221,
+  "silhouette": 0.224,
   "tipovi": {
     "ovisni": {
       "naziv": "Sredine nižeg dohotka, ovisne o pomoćima",
       "opis": "Najniži dohodak stanovnika; više od polovice proračuna …",
-      "broj": 187,
-      "tipicno": {"stanovnika": 2020, "dohodak_po_stanovniku": 6270, "udio_pomoci": 60.1,
-                  "prihodi_po_stanovniku": 1110, "prosjecna_dob": 44.7,
+      "broj": 185,
+      "tipicno": {"stanovnika": 2016, "dohodak_po_stanovniku": 6270, "udio_pomoci": 59.9,
+                  "prihodi_po_stanovniku": 1100, "prosjecna_dob": 44.6,
                   "udio_u_obalnim_zupanijama": 10}
     }
   }
@@ -261,6 +263,40 @@ sve gradove i općine (službena šifra):
 `prihodi`, `rashodi` i `ulaganja` imaju po jednu vrijednost za svaku godinu iz `godine`
 (EUR, ostvarenje). `funkcije` su rashodi po namjeni za zadnju godinu; ne uključuju prijenose
 drugim proračunima, pa je njihov zbroj manji od rashoda. Datoteka ima oko 220 KB.
+
+## `nizovi.json`
+
+Vremenski nizovi za grafove u panelu (tema Ljudi, Porezi i Imovina; Novac ima
+`proracuni.json`). Nastaje u `pipeline/nizovi.py`.
+
+```json
+{
+  "serije": {
+    "neto_dohodak": {
+      "naziv": "Ukupna primanja stanovnika",
+      "tema": "ljudi",
+      "jedinica": "EUR",
+      "decimale": 0,
+      "po_stanovniku": {"mnozitelj": 1, "jedinica": "EUR po stanovniku"},
+      "izvor": "pu-porez-dohodak",
+      "godine": [2022, 2023, 2024, 2025],
+      "razine": ["drzava", "zupanija", "jls"],
+      "napomena": "Neto dohodak …"
+    }
+  },
+  "podrucja": {
+    "HR": {"neto_dohodak": [24711629936.0, 28507594409.0, 33199537497.0, 37588902858.79]},
+    "00337": {"neto_dohodak": [...], "porez_na_promet_nekretnina": [...]}
+  }
+}
+```
+
+- Vrijednosti su **ukupni iznosi**, jedna po godini iz `godine` (`null` ako za tu godinu
+  nema podatka). Po stanovniku: vrijednost ÷ stanovništvo iz Popisa 2021. × `mnozitelj`,
+  kao kod pokazatelja; `po_stanovniku: null` znači da preračun nema smisla (stope, broj
+  stanovnika).
+- Područje ima samo nizove koji postoje na njegovoj razini (`razine`).
+- `izvor` je ključ u `meta.json` → `izvori`.
 
 ## `zupanije.geojson`
 

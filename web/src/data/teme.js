@@ -30,6 +30,8 @@ export const JEDNOSTAVNI_NAZIVI = {
   porez_na_potrosnju: 'Porez na piće u kafićima i restoranima',
   porez_na_nekretnine: 'Porez na nekretnine',
   kupoprodaje_nekretnina: 'Prodane nekretnine',
+  porez_na_promet_nekretnina: 'Porez od prodaje nekretnina',
+  prihodi_od_imovine: 'Prihodi od zakupa i koncesija',
   pravne_osobe_aktivne: 'Aktivne tvrtke i udruge',
 };
 
@@ -70,11 +72,11 @@ export const TEME_POKAZATELJI = {
   },
   imovina: {
     boje: ['#e7e2fa', '#b8acf0', '#8a78e2', '#5d48bd', '#34257f'],
-    karta: { zupanija: 'kupoprodaje_nekretnina', jls: null },
+    karta: { zupanija: 'kupoprodaje_nekretnina', jls: 'porez_na_promet_nekretnina' },
     panel: {
-      drzava: ['kupoprodaje_nekretnina', 'pravne_osobe_aktivne'],
-      zupanija: ['kupoprodaje_nekretnina'],
-      jls: [],
+      drzava: ['kupoprodaje_nekretnina', 'pravne_osobe_aktivne', 'porez_na_promet_nekretnina', 'prihodi_od_imovine'],
+      zupanija: ['kupoprodaje_nekretnina', 'porez_na_promet_nekretnina', 'prihodi_od_imovine'],
+      jls: ['porez_na_promet_nekretnina', 'prihodi_od_imovine'],
     },
   },
 };

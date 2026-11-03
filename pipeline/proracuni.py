@@ -19,13 +19,15 @@ FUNKCIJE = [f"{i:02d}" for i in range(1, 11)]
 
 
 def _pokazatelji(p: pd.DataFrame) -> pd.DataFrame:
-    """Iz stavki (stupci '6', '7', '3', '4', '63') u pokazatelje."""
+    """Iz stavki (stupci '6', '7', '3', '4', '63', '6134', '642') u pokazatelje."""
     out = pd.DataFrame(index=p.index)
     out["lokalni_prihodi"] = p["6"] + p["7"]
     out["lokalni_rashodi"] = p["3"] + p["4"]
     out["lokalna_ulaganja"] = p["4"]
     out["saldo_lokalnog_proracuna"] = out["lokalni_prihodi"] - out["lokalni_rashodi"]
     out["udio_pomoci_u_prihodima"] = p["63"] / out["lokalni_prihodi"] * 100
+    out["porez_na_promet_nekretnina"] = p["6134"]
+    out["prihodi_od_imovine"] = p["642"]
     return out
 
 
@@ -83,7 +85,7 @@ def provjeri(r: dict) -> list[str]:
     )
     nasi = r["nizovi"]["zupanije"].xs(r["godina"], level="godina")
     nasi.loc["HR"] = r["nizovi"]["drzava"].loc[r["godina"]]
-    for stavka in ("6", "7", "3", "4", *FUNKCIJE):
+    for stavka in ("6", "7", "3", "4", "6134", "642", *FUNKCIJE):
         for oznaka in z.index:
             a, b = nasi.loc[oznaka, stavka], z.loc[oznaka, stavka]
             if b and abs(a - b) / abs(b) > 0.01:

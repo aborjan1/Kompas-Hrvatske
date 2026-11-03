@@ -9,6 +9,7 @@
   import EuProjektiPopis from './EuProjektiPopis.svelte';
   import GradskiFiltri from './GradskiFiltri.svelte';
   import GrafUsporedbe from './GrafUsporedbe.svelte';
+  import GrafoviTeme from './GrafoviTeme.svelte';
   import KamoIdeNovac from './KamoIdeNovac.svelte';
   import ProracunKrozGodine from './ProracunKrozGodine.svelte';
   import TipOpcine from './TipOpcine.svelte';
@@ -165,10 +166,14 @@
 
       {#if recenica}<p class="recenica">{recenica}</p>{/if}
 
-      <!-- Wide screens show these in the chart panel in the top-left corner (GrafoviPanel). -->
-      {#if $view.tema === 'novac' && $view.razina !== 'drzava' && !$siroko}
-        <KamoIdeNovac />
-        <ProracunKrozGodine />
+      <!-- Wide screens show these in the chart panel in the left column (GrafoviPanel). -->
+      {#if $view.razina !== 'drzava' && !$siroko}
+        {#if $view.tema === 'novac'}
+          <KamoIdeNovac />
+          <ProracunKrozGodine />
+        {:else}
+          <GrafoviTeme />
+        {/if}
       {/if}
 
       {#if $view.razina === 'drzava'}<PopisPrica />{/if}
