@@ -14,16 +14,17 @@ dokumentiraju njihovi dijelovi; dogovoreni oblik datoteka između nas opisan je 
 
 | | |
 | --- | --- |
-| Korišteni skupovi podataka | **41** (35 s Portala otvorenih podataka, 6 dopunskih izvora tijela javne vlasti) |
-| Izdavatelji | 10 (DZS, DGU, Porezna uprava, HNB, HBOR, Ministarstvo financija, Ministarstvo regionalnoga razvoja i fondova EU, MPUDT, Grad Zagreb, Grad Rijeka) |
+| Korišteni skupovi podataka | **45** (35 s Portala otvorenih podataka, 10 dopunskih izvora tijela javne vlasti) |
+| Izdavatelji | 11 (DZS, DGU, Porezna uprava, HNB, HBOR, Ministarstvo financija, Ministarstvo regionalnoga razvoja i fondova EU, MPUDT, Narodne novine – EOJN RH, Grad Zagreb, Grad Rijeka) |
 | Pregledani skupovi ukupno | 71 (ostali su pregledani i opisani, ali se ne koriste ili su neispravni na izvoru) |
-| Pokazatelji na karti | **34** na razinama Država, Županija i Grad/općina, u 4 teme (Ljudi, Novac, Porezi, Imovina) |
+| Pokazatelji na karti | **37** na razinama Država, Županija i Grad/općina, u 5 tema (Ljudi, Novac, Porezi, Imovina, Nabava) |
 | Područja | Hrvatska, 21 županija, **556 gradova i općina** (svi), 17 gradskih četvrti Zagreba |
 | Gradski prikaz | Zagreb: 13 pokazatelja po četvrtima, 8 slojeva na karti, 3D zgrade; Rijeka: proračun, 1.295 prostora u zakupu na karti |
 | Granice | službene granice Državne geodetske uprave (INSPIRE), pojednostavljene za web |
-| Kontrola kvalitete | automatske provjere u svakom pokretanju obrade, 49 testova, provjera na GitHubu kod svakog pull requesta |
+| Kontrola kvalitete | automatske provjere u svakom pokretanju obrade, 69 testova, provjera na GitHubu kod svakog pull requesta |
 | Strojno učenje | tipologija svih 556 gradova i općina (k-means, 5 tipova) i „najsličniji po profilu” |
-| Vremenski nizovi | 7 pokazatelja kroz godine za grafove (stanovništvo, nezaposlenost, dohodak, porez na dohodak, kupoprodaje, porez na promet nekretnina, prihodi od imovine) uz proračune 2019.–2025. |
+| Javna nabava i EU pozivi | 25.840 ugovora gradova, općina i županija iz registra EOJN RH (2018.–2023.) s grafom veza prema dobavljačima; 15 planiranih EU poziva za 2026. otvorenih lokalnoj i regionalnoj samoupravi |
+| Vremenski nizovi | 8 pokazatelja kroz godine za grafove (stanovništvo, nezaposlenost, dohodak, porez na dohodak, kupoprodaje, porez na promet nekretnina, prihodi od imovine, javna nabava) uz proračune 2019.–2025. |
 | Ponovljivost | cijela obrada iz praznog repozitorija s tri naredbe; provjereno na svježem klonu |
 
 Sve je napisano u Pythonu (3.12) isključivo s alatima otvorenog koda: pandas, geopandas,
@@ -74,16 +75,18 @@ flowchart LR
 | `pipeline/izvoz.py` | zajednički oblik zapisa područja, rangovi, slična područja |
 | `pipeline/tipologija.py` | tipologija gradova i općina strojnim učenjem (k-means) |
 | `pipeline/nizovi.py` | vremenski nizovi za grafove (`nizovi.json`) |
+| `pipeline/nabava.py` | javna nabava iz registra ugovora EOJN RH (OCDS): pokazatelji, dobavljači, graf veza |
+| `pipeline/eu_pozivi.py` | planirani EU pozivi za 2026. i prihvatljivost lokalne i regionalne samouprave |
 | `pipeline/build.py` | glavna skripta: redoslijed koraka i provjere |
 | `pipeline/popis_izvora.py` | generira `docs/izvori-podataka.md` iz `sources.csv` |
-| `tests/` | 49 testova (38 za kod, 11 za izlazne datoteke) |
+| `tests/` | 69 testova (57 za kod, 12 za izlazne datoteke) |
 
 ## 3. Izvori podataka i dozvole
 
 ### 3.1. Korišteni skupovi
 
-Od 41 korištenih skupova 27 je pod [Otvorenom dozvolom](https://data.gov.hr/otvorena-dozvola),
-6 pod CC BY 4.0, a 8 nema navedenu dozvolu¹. Potpun popis svih 71 pregledanih skupova,
+Od 45 korištenih skupova 27 je pod [Otvorenom dozvolom](https://data.gov.hr/otvorena-dozvola),
+6 pod CC BY 4.0, a 12 nema navedenu dozvolu¹. Potpun popis svih 75 pregledanih skupova,
 uključujući one koji se ne koriste i neispravne, je u [izvori-podataka.md](izvori-podataka.md).
 
 **A. Portal otvorenih podataka (data.gov.hr)**
@@ -137,6 +140,10 @@ dopuštaju uz jasno navođenje izvora)
 | [Popis operacija – Integrirani teritorijalni program 2021.–2027.](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-ITP-30.9.2026.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | nije navedena¹ | 2026-10-28 | EU sredstva 2021.–2027. |
 | [Popis operacija – Program Učinkoviti ljudski potencijali 2021.–2027.](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-u-okviru-PULJP-2021.-2027-final-table_30092026.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | nije navedena¹ | 2026-10-28 | EU sredstva 2021.–2027. |
 | [Financijski izvještaji JLP(R)S: PR-RAS i RAS-funkcijski 2019.–2025. (EUR)](https://mfin.gov.hr/UserDocsImages//dokumenti/o-ministarstvu/lokalna-samouprava/financijski-izvjestaji-jlp-r-s//Lokalci%20FINALI%202019%202024%20EURO.zip) | Ministarstvo financija | nije navedena¹ | 2026-10-29 | proračuni svih JLS i županija 2019.–2025. |
+| [Registar ugovora EOJN RH (OCDS), 2018.–2026.](https://data.open-contracting.org/en/publication/80) | Narodne novine d.d. – Elektronički oglasnik javne nabave RH (objava: Open Contracting Data Registry) | nije navedena¹ | 2026-11-03 | javna nabava gradova, općina i županija, graf veza |
+| [Raspored planiranih poziva – PKK, 2026. (listopad 2026.)](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Raspored-planiranih-poziva_PKK_za-objavu-2026-listopad-2026.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | nije navedena¹ | 2026-11-03 | planirani EU pozivi |
+| [Raspored planiranih poziva – ITP, 2026. (listopad 2026.)](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Raspored-planiranih-poziva_ITP_za-objavu_2026-listopad-2026.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | nije navedena¹ | 2026-11-03 | planirani EU pozivi |
+| [Godišnji plan objave poziva – ULJP, 2026. (III. izmjena)](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Godisnji-plan-objave-PDP-a-za-2026_III.-izmjena.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | nije navedena¹ | 2026-11-03 | planirani EU pozivi |
 
 ¹ *Dozvola nije navedena* kod izdavatelja. Prema odgovoru organizatora (vidi 3.3.) takve
 skupove koristimo uz navođenje izvora i napomenu da su javno objavljeni, a ne navodimo
@@ -211,6 +218,9 @@ korisnika je u `web/public/data/meta.json`.
 | Kupoprodaje nekretnina (`kupoprodaje_nekretnina`) | Imovina | broj | D, Ž | 2025. | `pu-kupoprodaje` |
 | Porez na promet nekretnina (prihod proračuna) (`porez_na_promet_nekretnina`) | Imovina | EUR | D, Ž, G | 2025. | `mfin-lokalni-proracuni` |
 | Prihodi od nefinancijske imovine (`prihodi_od_imovine`) | Imovina | EUR | D, Ž, G | 2025. | `mfin-lokalni-proracuni` |
+| Ugovori javne nabave (5 godina) (`javna_nabava`) | Nabava | EUR | D, Ž, G | 2019.–2023. | `eojn-ugovori` |
+| Udio najvećeg dobavljača u javnoj nabavi (`nabava_najveci_dobavljac`) | Nabava | % | D, Ž, G | 2019.–2023. | `eojn-ugovori` |
+| Ugovori sklopljeni bez prethodne objave (`nabava_bez_objave`) | Nabava | % | D, Ž, G | 2019.–2023. | `eojn-ugovori` |
 | Aktivne pravne osobe (`pravne_osobe_aktivne`) | Imovina | broj | D | I. 2022. | `dzs-rps` |
 
 **Po stanovniku.** Svi iznosi po stanovniku dijele se sa stanovništvom iz Popisa 2021.,
@@ -301,7 +311,45 @@ zapisuju na različite načine.
 | Projekti u više županija | udjeli iz izvora („Grad Zagreb (90 %), Zadarska (10 %)”) | iznos se dijeli po udjelima |
 | Državni projekti | ministarstva, HZZ i državne agencije prepoznaju se po nazivu korisnika | 1,74 mlrd. EUR ulazi samo u zbroj države, ne u Zagreb |
 
-### 6.1. Tipologija gradova i općina (strojno učenje)
+### 6.1. Javna nabava i graf veza (registar ugovora EOJN RH)
+
+Registar ugovora Elektroničkog oglasnika javne nabave objavljen je u međunarodnom standardu
+**OCDS** (Open Contracting Data Standard): 302.465 postupaka od 2018., s naručiteljem,
+dobavljačima, vrijednošću ugovora i vrstom postupka (`pipeline/nabava.py`).
+
+- **Naručitelj → šifra.** Uzimamo samo upravu grada, općine ili županije („Grad Karlovac”,
+  „Općina Fažana”, „Zagrebačka županija”), ne njihove ustanove i trgovačka društva. Naziv se
+  svodi na ključ, pa na službenu šifru; istoimene jedinice (Otok, Privlaka, Sveta Nedelja,
+  Novigrad) razlikuju se po vrsti (grad/općina) i poštanskom broju. Spojeno je 547
+  naručitelja: 526 gradova i općina i 21 županija.
+- **Iznosi** u eurima (kune tečajem 7,5345), po godini potpisivanja ugovora; vrijednost
+  postupka s više dobavljača dijeli se na jednake dijelove.
+- **Razdoblje 2019.–2023.** Od listopada 2024. (prelazak na novi EOJN) registar u ovoj objavi
+  nije potpun: mjesečni broj ugovora pada na četvrtinu i manje, pa noviji podaci nisu
+  usporedivi. Pet godina zajedno je usporedivije od jedne, jer mnoge male općine nemaju
+  ugovor svake godine.
+- **Pokazatelji:** vrijednost ugovora u pet godina, udio najvećeg dobavljača i udio
+  vrijednosti sklopljen pregovaračkim postupkom bez prethodne objave. 25 općina nema
+  nijedan ugovor u registru (manje nabave ne moraju se ondje objavljivati), pa imaju nulu.
+- **Graf veza** (`nabava.json`): za svako područje 8 najvećih dobavljača s udjelom i popisom
+  drugih gradova i općina kod kojih isti dobavljač ima ugovore. Tako se vidi da npr. HEP
+  opskrbljuje 250 gradova i općina, a da neki dobavljači rade samo za jednog naručitelja.
+  Isti dobavljač kod više naručitelja sam po sebi nije nepravilnost, što sučelje i navodi.
+
+### 6.2. Planirani EU pozivi za grad, općinu ili županiju
+
+Indikativni planovi objave poziva za 2026. (PKK i ITP iz listopada 2026., ULJP III. izmjena)
+sadrže 48 poziva (`pipeline/eu_pozivi.py`). Iz teksta o prihvatljivim prijaviteljima čita se
+smiju li se prijaviti gradovi i općine i/ili županije, kao prijavitelji ili partneri
+(„JLPRS”, „jedinica lokalne ili regionalne (područne) samouprave”, „Osnivači osnovnih
+škola”), je li poziv namijenjen imenovanom gradu („Grad Zadar”) ili jedinicama iz obuhvata
+urbanog područja, te područje (cijela Hrvatska, županije ili NUTS 2 regije). Lokalnoj ili
+regionalnoj samoupravi otvoreno je 15 poziva. U panelu grada ili općine prikazuju se pozivi
+koji su otvoreni ili tek dolaze, s rokom, ulogom, iznosom i izvornim tekstom o prijaviteljima,
+uz usporedbu: koliko su slični gradovi i općine (po tipologiji) već ugovorili iz EU fondova
+2021.–2027. po stanovniku. Prihvatljivost je tumačenje teksta plana, a ne službena odluka.
+
+### 6.3. Tipologija gradova i općina (strojno učenje)
 
 Povezani podaci omogućuju nešto što nijedan izvor sam ne daje: **koji su gradovi i općine
 stvarno slični**. Svih 556 jedinica grupirano je algoritmom k-means (scikit-learn) prema pet
@@ -418,7 +466,9 @@ uređuju se ručno. Oblik je opisan u [format-podataka.md](format-podataka.md).
 | `zupanije.geojson`, `jls/01–21.geojson` | DGU granice |
 | `tocke/eu-projekti.geojson` | 8.355 EU projekata 2014.–2020. |
 | `proracuni.json` | proračuni 2019.–2025. i rashodi po namjeni za sva područja |
-| `nizovi.json` | 7 vremenskih nizova za grafove (stanovništvo, nezaposlenost, dohodak, porez, kupoprodaje, imovina) |
+| `nizovi.json` | 8 vremenskih nizova za grafove (stanovništvo, nezaposlenost, dohodak, porez, kupoprodaje, imovina, nabava) |
+| `nabava.json` | najveći dobavljači i veze prema drugim gradovima i općinama, po području |
+| `eu-pozivi.json` | planirani EU pozivi za 2026. s ulogom gradova, općina i županija |
 | `gradovi/meta.json` | slojevi i pokazatelji gradskog prikaza |
 | `gradovi/zagreb/…` | četvrti, pokazatelji, 8 slojeva, 3D zgrade, proračun, EU projekti |
 | `gradovi/rijeka/…` | proračun, poslovni prostori (zbrojevi i točke), EU projekti |
@@ -437,7 +487,7 @@ pip install -r pipeline/requirements.txt
 
 python pipeline/download.py   # preuzimanje svih izvora u data/raw/ (oko 1 GB, 10–20 min)
 python pipeline/build.py      # obrada i provjere (1–2 min) → web/public/data/
-python -m pytest              # 49 testova
+python -m pytest              # 69 testova
 ```
 
 Korisne opcije: `download.py --samo <id>` (jedan skup), `--ponovno` (ponovno preuzimanje),
@@ -455,7 +505,7 @@ Korisne opcije: `download.py --samo <id>` (jedan skup), `--ponovno` (ponovno pre
 | #8 | Provjera stupaca, razine i godine | ✔ [provjera-skupova.md](provjera-skupova.md) |
 | #9 | Šifrarnik i usklađivanje naziva | ✔ |
 | #10 | Spajanje skupova po šifri | ✔ |
-| #11 | Izvedeni pokazatelji | ✔ 34 pokazatelja, rangovi, slična područja, vremenski nizovi |
+| #11 | Izvedeni pokazatelji | ✔ 37 pokazatelja, rangovi, slična područja, vremenski nizovi |
 | #12 | Granice u WGS84 | ✔ službene DGU granice |
 | #13 | Izvoz i provjere 21/556 | ✔ |
 | #14 | Poslovne zone, EU točke, porezne stope | ✔ (poslovne zone samo za Zagreb: nacionalni izvor AIK-a je ugašen) |

@@ -91,6 +91,24 @@ def test_nizovi(meta):
             assert len(vrijednosti) == len(n["serije"][sid]["godine"]), f"{sid} {sifra}"
 
 
+def test_nabava_i_eu_pozivi(meta):
+    jls = ucitaj("jls.json")["podrucja"]
+    n = ucitaj("nabava.json")["podrucja"]
+    assert set(jls) <= set(n) and "HR" in n, "nabava.json mora imati sve JLS i državu"
+    for sifra, z in n.items():
+        for d in z["dobavljaci"]:
+            assert d["naziv"] and d["iznos"] > 0, sifra
+            assert all(s in jls for s in d["drugi"]), f"{sifra}: nepostojeća veza"
+    e = ucitaj("eu-pozivi.json")
+    assert e["pozivi"], "nema EU poziva za lokalnu samoupravu"
+    for p in e["pozivi"]:
+        assert p["jls"] in (None, "prijavitelj", "partner"), p["id"]
+        assert p["zupanija"] in (None, "prijavitelj", "partner"), p["id"]
+        assert p["jls"] or p["zupanija"] or p["imenovani"], p["id"]
+        assert all(s in jls for s in p["imenovani"]), p["id"]
+        assert p["zupanije"] is None or all(re.fullmatch(r"\d\d", z) for z in p["zupanije"])
+
+
 def test_tipologija(meta):
     j = ucitaj("jls.json")["podrucja"]
     tipovi = meta["tipologija"]["tipovi"]
@@ -150,6 +168,6 @@ def test_izvori_u_sources_csv(meta):
         redovi = list(csv.DictReader(f))
     ids = [r["id"] for r in redovi]
     assert len(ids) == len(set(ids)), "dupli id u sources.csv"
-    zbirni = {"hbor-esif", "eu-2021-2027", "natural-earth-admin1"}
+    zbirni = {"hbor-esif", "eu-2021-2027", "eu-pozivi-2026", "natural-earth-admin1"}
     for sid in meta["izvori"]:
         assert sid in ids or sid in zbirni, f"izvor {sid} nije u sources.csv"

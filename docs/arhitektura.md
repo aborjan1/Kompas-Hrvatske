@@ -14,7 +14,7 @@ ih na karti.
 
 ```mermaid
 flowchart LR
-  subgraph Izvori["Izvori (41 skup, 10 izdavatelja)"]
+  subgraph Izvori["Izvori (45 skupova, 11 izdavatelja)"]
     P[data.gov.hr<br>CKAN API]
     D[službene stranice<br>DZS, MFIN, MRRFEU]
     G[DGU INSPIRE<br>ATOM: granice, adrese]
@@ -39,10 +39,10 @@ flowchart LR
 
 | Sloj | Tehnologija | Što radi |
 | --- | --- | --- |
-| Izvori | CKAN Action API (data.gov.hr), izravne poveznice, DGU ATOM | 41 korišteni skup: 35 s Portala, 6 dopunskih izvora tijela javne vlasti |
+| Izvori | CKAN Action API (data.gov.hr), izravne poveznice, DGU ATOM | 45 korištenih skupova: 35 s Portala, 10 dopunskih izvora tijela javne vlasti |
 | Preuzimanje | `pipeline/download.py`, `requests` | čita `data/sources.csv`, za skupove s Portala pita CKAN API (`package_show`), preuzima samo nove datoteke, vodi dnevnik |
-| Obrada | pandas, GeoPandas, python-calamine, pdfplumber, scikit-learn | čitači za XLSX/XLS/CSV/PDF/ZIP/GML, usklađivanje naziva i šifri, prostorni spojevi, geokodiranje, 34 pokazatelja, vremenski nizovi, rangovi, tipologija (k-means) |
-| Kontrola kvalitete | provjere u `build.py`, pytest (49 testova), ruff, GitHub Actions | obrada staje ako zbrojevi ne odgovaraju izvoru; testovi provjeravaju kod i oblik izlaznih datoteka kod svakog pull requesta |
+| Obrada | pandas, GeoPandas, python-calamine, pdfplumber, scikit-learn | čitači za XLSX/XLS/CSV/PDF/ZIP/GML, usklađivanje naziva i šifri, prostorni spojevi, geokodiranje, 37 pokazatelja, javna nabava (OCDS) i graf veza, EU pozivi, vremenski nizovi, rangovi, tipologija (k-means) |
+| Kontrola kvalitete | provjere u `build.py`, pytest (69 testova), ruff, GitHub Actions | obrada staje ako zbrojevi ne odgovaraju izvoru; testovi provjeravaju kod i oblik izlaznih datoteka kod svakog pull requesta |
 | Podatkovni sloj | statične datoteke u `web/public/data/` (≈18 MB, većina se učitava tek po potrebi) | ugovor između obrade i sučelja, opisan u [format-podataka.md](format-podataka.md) |
 | Sučelje | Svelte 5, Vite, Mapbox GL JS, Chart.js, Fuse.js | karta s razinama Država → Županija → Grad, paneli, grafovi, pretraga, priče |
 | Objava | GitHub Actions + GitHub Pages | svaki spoj u `main` automatski gradi i objavljuje demo |
@@ -55,7 +55,7 @@ repozitorija daju sve izlazne datoteke (provjereno na svježem klonu):
 ```powershell
 python pipeline/download.py   # ~1 GB sirovih podataka u data/raw/
 python pipeline/build.py      # 1–2 minute, s provjerama
-python -m pytest              # 49 testova
+python -m pytest              # 69 testova
 ```
 
 Ključne odluke:
@@ -77,7 +77,7 @@ Ključne odluke:
   predmemoriju.
 - **Strojno učenje**: tipologija svih 556 gradova i općina (k-means nad pet standardiziranih
   obilježja iz četiri izvora) i „najsličniji po profilu”. Opis u
-  [podaci-dokumentacija.md](podaci-dokumentacija.md#61-tipologija-gradova-i-općina-strojno-učenje).
+  [podaci-dokumentacija.md](podaci-dokumentacija.md#63-tipologija-gradova-i-općina-strojno-učenje).
 
 Detaljan opis svih koraka, izvora i provjera: [podaci-dokumentacija.md](podaci-dokumentacija.md).
 
@@ -92,6 +92,8 @@ Detaljan opis svih koraka, izvora i provjera: [podaci-dokumentacija.md](podaci-d
 | `jls/<šifra>.geojson` | granice gradova i općina jedne županije | pri ulasku u tu županiju |
 | `proracuni.json` | proračuni 2019.–2025. i rashodi po namjeni | uz temu Novac |
 | `nizovi.json` | vremenski nizovi za grafove ostalih tema (stanovništvo, nezaposlenost, dohodak, porez, kupoprodaje, imovina) | uz temu Ljudi, Porezi ili Imovina |
+| `nabava.json` | najveći dobavljači i veze prema drugim gradovima i općinama (graf veza) | uz temu Nabava |
+| `eu-pozivi.json` | planirani EU pozivi za 2026. s ulogom gradova, općina i županija | uz temu Novac |
 | `tocke/eu-projekti.geojson` | EU projekti po gradovima i općinama | uz gumb „EU projekti” |
 | `gradovi/…` | Zagreb po četvrtima (pokazatelji, slojevi, 3D zgrade) i Rijeka | pri otvaranju gradskog prikaza Zagreba ili Rijeke |
 | `svemir.geojson` | maska oko hrvatskog kopna za prikaz „Hrvatska u svemiru” | na početku |
@@ -122,6 +124,7 @@ Opis sučelja: [sucelje.md](sucelje.md) i [web/README.md](../web/README.md).
 | Područje | Standard | Gdje |
 | --- | --- | --- |
 | Pristup podacima | CKAN Action API (data.gov.hr), HTTP/HTTPS | `download.py` |
+| Javna nabava | Open Contracting Data Standard (OCDS), JSON Lines | `nabava.py` |
 | Prostorni podaci | INSPIRE (teme Upravne jedinice i Adrese), GML 3.2, ATOM usluga preuzimanja | granice, adrese |
 | Koordinatni sustavi | ETRS89-LAEA (EPSG:3035, sustav INSPIRE usluga DGU-a) → WGS84 (EPSG:4326) za web | `granice.py`, `adrese.py` |
 | Razmjena podataka | GeoJSON (RFC 7946), JSON, CSV (UTF-8) | `web/public/data/` |
@@ -150,10 +153,12 @@ Rješenje je napravljeno tako da se uz razumne prilagodbe uključi u postojeće 
    (npr. proračune Ministarstva financija na Portalu ili tablice DZS-a u strojno čitljivom
    obliku umjesto PDF-a), mijenja se samo jedan čitač u `citaci.py`; ostatak obrade i
    sučelje ostaju isti.
-5. **Prostorni sustavi.** Granice su službene DGU granice u WGS84 i GeoJSON-u, a šifre su
+5. **Javna nabava.** Registar ugovora čita se u standardu OCDS, koji koriste i drugi
+   europski registri; isti čitač radio bi i nad izravnim izvozom iz EOJN-a ili TED-a.
+6. **Prostorni sustavi.** Granice su službene DGU granice u WGS84 i GeoJSON-u, a šifre su
    iste kao u Registru prostornih jedinica, pa se podaci izravno spajaju s drugim INSPIRE
    uslugama (npr. WMS/WFS DGU-a) i GIS alatima.
-6. **Nove teme.** Novi pokazatelj ili izvor dodaje se jednim unosom u `sources.csv` i
+7. **Nove teme.** Novi pokazatelj ili izvor dodaje se jednim unosom u `sources.csv` i
    `pokazatelji.py` te čitačem; karta, legenda, paneli, objašnjenja i navođenje izvora rade
    automatski.
 

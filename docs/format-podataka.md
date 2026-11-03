@@ -20,7 +20,9 @@ Sve datoteke nalaze se u `web/public/data/` i nastaju naredbom `python pipeline/
 | `jls/<šifra županije>.geojson` | Granice gradova i općina jedne županije (21 datoteka, DGU) | Boro |
 | `tocke/eu-projekti.geojson` | 8.355 EU projekata (OPKK 2014.–2020.) kao točke | Boro |
 | `proracuni.json` | Proračuni 2019.–2025. i rashodi po namjeni (grafovi teme Novac) | Rafael |
-| `nizovi.json` | Vremenski nizovi za grafove tema Ljudi, Porezi i Imovina | Rafael |
+| `nizovi.json` | Vremenski nizovi za grafove tema Ljudi, Porezi, Imovina i Nabava | Rafael |
+| `nabava.json` | Najveći dobavljači i graf veza u javnoj nabavi, po području | Rafael |
+| `eu-pozivi.json` | Planirani EU pozivi za 2026. s ulogom gradova, općina i županija | Rafael |
 | `gradovi/…` | Prikaz Zagreba (17 gradskih četvrti, slojevi točaka) i Rijeke (proračun, prostori) | Boro, Rafael |
 
 Granice i brojke su **namjerno odvojene**: granice se rijetko mijenjaju i preglednik ih
@@ -297,6 +299,61 @@ Vremenski nizovi za grafove u panelu (tema Ljudi, Porezi i Imovina; Novac ima
   stanovnika).
 - Područje ima samo nizove koji postoje na njegovoj razini (`razine`).
 - `izvor` je ključ u `meta.json` → `izvori`.
+
+## `nabava.json`
+
+Za graf veza u temi Nabava (`pipeline/nabava.py`, registar ugovora EOJN RH):
+
+```json
+{
+  "razdoblje": "2019.–2023.",
+  "napomena": "Ugovori uprave grada, općine ili županije …",
+  "podrucja": {
+    "04090": {
+      "ugovora": 432,
+      "dobavljaci": [
+        {"naziv": "CESTAR d.o.o.", "iznos": 29700000.0, "udio": 20.5,
+         "drugih_jls": 6, "drugi": ["04813", "01570", "..."]}
+      ]
+    }
+  }
+}
+```
+
+- `dobavljaci`: do 8 najvećih po vrijednosti ugovora u razdoblju; `udio` u % vrijednosti
+  ugovora područja.
+- `drugi`: do 6 drugih gradova i općina kod kojih isti dobavljač ima ugovore (najveći prvi),
+  `drugih_jls` je njihov ukupan broj. Za županiju i državu `drugi` uključuje sve gradove i
+  općine.
+- Gradovi i općine bez ugovora u registru imaju `"ugovora": 0` i prazan popis.
+
+## `eu-pozivi.json`
+
+Planirani EU pozivi za 2026. u kojima mogu sudjelovati gradovi, općine ili županije
+(`pipeline/eu_pozivi.py`):
+
+```json
+{
+  "pozivi": [
+    {
+      "id": "PKK-2", "program": "PKK",
+      "naziv": "Razvoj održivog turizma kroz ulaganja u javnu turističku infrastrukturu",
+      "vrsta": "Otvoreni (privremeni)", "iznos": 40000000.0,
+      "pocetak": "2026-10-09", "kraj": "2026-12-09", "samo_mjesec": false,
+      "podrucje": "Republika Hrvatska", "zupanije": null,
+      "jls": "prijavitelj", "zupanija": "prijavitelj", "imenovani": [],
+      "prijavitelji": "JLPRS", "napomena": null, "izvor": "eu-pozivi-pkk-2026"
+    }
+  ]
+}
+```
+
+- `jls` i `zupanija`: uloga gradova i općina odnosno županija (`prijavitelj`, `partner` ili
+  `null`).
+- `imenovani`: šifre gradova i općina kojima je poziv namijenjen po imenu.
+- `zupanije`: šifre županija na koje se poziv odnosi, `null` = cijela Hrvatska.
+- `pocetak` i `kraj` su datumi (`YYYY-MM-DD`) ili samo mjesec (`YYYY-MM`, `samo_mjesec`).
+  Stanje (otvoren, uskoro, planiran) sučelje računa prema današnjem datumu.
 
 ## `zupanije.geojson`
 

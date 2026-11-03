@@ -140,4 +140,23 @@ const PREDLOSCI = {
         ako(h.v('prihodi_od_imovine'), `zakup i koncesije ${h.v('prihodi_od_imovine')}`),
       ),
   },
+  nabava: {
+    drzava: (h) =>
+      spoji(
+        ako(h.v('javna_nabava'), `Gradovi, općine i županije ugovorili su kroz javnu nabavu ${h.v('javna_nabava')} u pet godina`),
+        ako(h.v('nabava_bez_objave'), `${h.v('nabava_bez_objave')} bez javnog poziva`),
+      ),
+    zupanija: (h) =>
+      spoji(
+        ako(h.v('javna_nabava'), `Lokalna uprava ugovorila je kroz javnu nabavu ${h.v('javna_nabava')}${h.rang('javna_nabava')}`),
+        ako(h.v('nabava_najveci_dobavljac'), `najveći dobavljač dobio je ${h.v('nabava_najveci_dobavljac')} tog novca`),
+      ),
+    jls: (h, naziv) =>
+      h.v('javna_nabava')?.startsWith('0 €')
+        ? `${naziv} u pet godina nema ugovora u registru javne nabave (manje nabave ne moraju se ondje objavljivati).`
+        : spoji(
+            ako(h.v('javna_nabava'), `Kroz javnu nabavu ugovoreno je ${h.v('javna_nabava')}${h.rang('javna_nabava')}`),
+            ako(h.v('nabava_najveci_dobavljac'), `najveći dobavljač dobio je ${h.v('nabava_najveci_dobavljac')} tog novca`),
+          ),
+  },
 };

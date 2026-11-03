@@ -6,7 +6,9 @@
   import { nadjiPodrucje, podaci } from '../data/podaci.js';
   import { TEME_POKAZATELJI } from '../data/teme.js';
   import { siroko } from './ekran.js';
+  import EuPozivi from './EuPozivi.svelte';
   import GrafoviTeme from './GrafoviTeme.svelte';
+  import GrafVeza from './GrafVeza.svelte';
   import KamoIdeNovac from './KamoIdeNovac.svelte';
   import ProracunKrozGodine from './ProracunKrozGodine.svelte';
 
@@ -21,8 +23,12 @@
     <p class="oznaka" style:color={TEME_POKAZATELJI[$view.tema].boje[3]}>Grafovi</p>
     <h2>{podrucje.naziv}</h2>
     {#if $view.tema === 'novac'}
+      <EuPozivi />
       <KamoIdeNovac />
       <ProracunKrozGodine />
+    {:else if $view.tema === 'nabava'}
+      <GrafVeza />
+      <GrafoviTeme />
     {:else}
       <GrafoviTeme />
     {/if}

@@ -24,6 +24,7 @@ TEME = {
     "novac": "Novac",
     "porezi": "Porezi",
     "imovina": "Imovina",
+    "nabava": "Nabava",
 }
 
 _PO_ST_EUR = {"mnozitelj": 1, "jedinica": "EUR po stanovniku"}
@@ -455,6 +456,50 @@ POKAZATELJI: dict[str, dict] = {
         "izvor": "dzs-rps",
         "objasnjenje": "Koliko je aktivnih tvrtki, udruga, ustanova i drugih pravnih osoba. "
         "Obrti nisu uključeni.",
+    },
+    # --- Nabava (registar ugovora EOJN RH, vidi nabava.py)
+    "javna_nabava": {
+        "naziv": "Ugovori javne nabave (5 godina)",
+        "tema": "nabava",
+        "jedinica": "EUR",
+        "decimale": 0,
+        "po_stanovniku": _PO_ST_EUR,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "eojn-ugovori",
+        "napomena": "Zbroj vrijednosti ugovora koje je uprava grada, općine ili županije "
+        "sklopila u pet godina (registar ugovora EOJN RH), bez njezinih ustanova i trgovačkih "
+        "društava; kune preračunate tečajem 7,5345. Za županiju: uprava županije i svi njezini "
+        "gradovi i općine.",
+        "objasnjenje": "Koliko je grad ili općina u pet godina ugovorila kroz javnu nabavu: "
+        "radove, robu i usluge, npr. ceste, zgrade, energiju i održavanje.",
+    },
+    "nabava_najveci_dobavljac": {
+        "naziv": "Udio najvećeg dobavljača u javnoj nabavi",
+        "tema": "nabava",
+        "jedinica": "%",
+        "decimale": 1,
+        "po_stanovniku": None,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "eojn-ugovori",
+        "napomena": "Vrijednost ugovora s dobavljačem s najviše ugovorenog novca, podijeljena "
+        "ukupnom vrijednošću ugovora u istih pet godina.",
+        "objasnjenje": "Koliki je dio novca iz javne nabave otišao jednoj tvrtki, onoj koja je "
+        "dobila najviše. Visok udio znači oslanjanje na jednog dobavljača; kod malih općina s "
+        "malo ugovora to je češće i samo po sebi nije nepravilnost.",
+    },
+    "nabava_bez_objave": {
+        "naziv": "Ugovori sklopljeni bez prethodne objave",
+        "tema": "nabava",
+        "jedinica": "%",
+        "decimale": 1,
+        "po_stanovniku": None,
+        "razine": ["drzava", "zupanija", "jls"],
+        "izvor": "eojn-ugovori",
+        "napomena": "Udio vrijednosti ugovora iz pregovaračkog postupka bez prethodne objave u "
+        "ukupnoj vrijednosti ugovora u istih pet godina.",
+        "objasnjenje": "Koliki je dio ugovora sklopljen bez javnog poziva svim ponuditeljima. "
+        "Zakon to dopušta samo u posebnim slučajevima, npr. kod hitnosti ili kad posao može "
+        "obaviti samo jedan ponuditelj.",
     },
 }
 

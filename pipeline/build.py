@@ -6,7 +6,7 @@ Koraci (issues: spajanje po šifri, izvedeni pokazatelji, izvoz + provjere):
   3. izvedeni pokazatelji: po stanovniku, rang, slična područja (izvoz.py) i tipologija
      gradova i općina strojnim učenjem (tipologija.py)
   4. izvoz: meta.json, drzava.json, zupanije.json, jls.json, tocke/eu-projekti.geojson,
-     proracuni.json i nizovi.json (vremenski nizovi za grafove, nizovi.py)
+     proracuni.json, nizovi.json (vremenski nizovi, nizovi.py) i nabava.json (dobavljači)
   5. provjere: 21 županija, 556 JLS, zbroj županija = država
 
 Uredne tablice za ručnu provjeru (otvaraju se u Excelu) spremaju se u data/obrada/.
@@ -27,8 +27,10 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import citaci  # noqa: E402
+import eu_pozivi  # noqa: E402
 import gradovi  # noqa: E402
 import granice  # noqa: E402
+import nabava  # noqa: E402
 import nizovi  # noqa: E402
 import proracuni  # noqa: E402
 import sifrarnik  # noqa: E402
@@ -55,12 +57,19 @@ ZBIRNI_IZVORI = {
             "hbor-ruralni-obrtna",
         ],
     },
+    "eu-pozivi-2026": {
+        "naziv": "Indikativni planovi objave EU poziva za 2026. (PKK, ITP, ULJP)",
+        "izdavatelj": "Ministarstvo regionalnoga razvoja i fondova Europske unije",
+        "dijelovi": ["eu-pozivi-pkk-2026", "eu-pozivi-itp-2026", "eu-pozivi-uljp-2026"],
+    },
     "eu-2021-2027": {
         "naziv": "Popisi operacija EU programa 2021.–2027. (PKK, ITP, ULJP)",
         "izdavatelj": "Ministarstvo regionalnoga razvoja i fondova Europske unije",
         "dijelovi": ["eu-pkk-2021-2027", "eu-itp-2021-2027", "eu-uljp-2021-2027"],
     },
 }
+
+NABAVA_POKAZATELJI = ["javna_nabava", "nabava_najveci_dobavljac", "nabava_bez_objave"]
 
 PRORACUN_POKAZATELJI = [
     "lokalni_prihodi",
@@ -483,8 +492,29 @@ def main() -> None:
 
     provjere(t, jls)
 
+    korak("2. Javna nabava (registar ugovora EOJN RH)")
+    nab = nabava.izracunaj(jls)
+    nabava.provjeri(nab, len(jls))
+    for p in NABAVA_POKAZATELJI:
+        jls[p] = jls["sifra"].map({s: v[p] for s, v in nab["pokazatelji"].items()})
+        for z in SVE:
+            t.loc[z, p] = nab["pokazatelji"][z][p]
+        godine[p] = nab["razdoblje"]
+    print(
+        f"  {nab['broj_ugovora']} ugovora, {nab['broj_narucitelja']} naručitelja "
+        f"(gradovi, općine, županije), {nab['razdoblje']}"
+    )
+
+    korak("2. Planirani EU pozivi za 2026.")
+    pozivi = eu_pozivi.izracunaj(jls)
+    eu_pozivi.provjeri(pozivi)
+    print(
+        f"  {len(pozivi['pozivi'])} od {pozivi['ukupno_poziva']} poziva otvoreno je gradovima, "
+        "općinama ili županijama"
+    )
+
     korak("2. Vremenski nizovi za grafove")
-    nz = nizovi.izracunaj(jls, pr)
+    nz = nizovi.izracunaj(jls, pr, nab)
     nizovi.provjeri(nz, len(jls))
     for s in nz["serije"].values():
         print(f"  {s['naziv']}: {s['godine'][0]}.–{s['godine'][-1]}. ({', '.join(s['razine'])})")
@@ -532,6 +562,8 @@ def main() -> None:
 
     spremi_json("tocke/eu-projekti.geojson", eu_tocke(eu_jls), uvlaka=None)
     spremi_json("proracuni.json", proracuni.json_nizovi(pr), uvlaka=None)
+    spremi_json("nabava.json", nabava.json_veze(nab), uvlaka=None)
+    spremi_json("eu-pozivi.json", pozivi)
     spremi_json("nizovi.json", {"generirano": sada, **nz}, uvlaka=None)
 
     pokazatelji = {p: {**d, "godina": godine.get(p)} for p, d in POKAZATELJI.items()}
@@ -554,7 +586,7 @@ def main() -> None:
         ),
         "teme": TEME,
         "pokazatelji": pokazatelji,
-        "izvori": meta_izvori({d["izvor"] for d in POKAZATELJI.values()}, dgu),
+        "izvori": meta_izvori({d["izvor"] for d in POKAZATELJI.values()} | {"eu-pozivi-2026"}, dgu),
         "tipologija": tip["meta"],
     }
     spremi_json("meta.json", meta)

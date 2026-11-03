@@ -44,8 +44,9 @@ def _sifre_dohotka(dj: pd.DataFrame, jls: pd.DataFrame) -> pd.Series:
     return pd.Series(sifre)
 
 
-def izracunaj(jls: pd.DataFrame, pr: dict) -> dict:
-    """jls: gradovi i općine (sifra, zupanija, kljuc); pr: rezultat proracuni.ucitaj().
+def izracunaj(jls: pd.DataFrame, pr: dict, nab: dict | None = None) -> dict:
+    """jls: gradovi i općine (sifra, zupanija, kljuc); pr: rezultat proracuni.ucitaj();
+    nab: rezultat nabava.izracunaj() (neobavezno).
 
     Vraća {"serije": {id: opis}, "podrucja": {sifra: {id: [vrijednost po godini]}}}."""
     serije: dict[str, dict] = {}
@@ -140,6 +141,16 @@ def izracunaj(jls: pd.DataFrame, pr: dict) -> dict:
             razine_sve, napomena,
         )  # fmt: skip
         upisi(sid, proracunski(stavka))
+
+    # --- Nabava
+    if nab is not None:
+        serije["javna_nabava"] = _serija(
+            "Ugovori javne nabave", "nabava", "EUR", 0, _PO_ST_EUR, "eojn-ugovori",
+            nab["godine"], razine_sve,
+            "Vrijednost ugovora uprave grada, općine ili županije po godini potpisivanja "
+            "(registar ugovora EOJN RH).",
+        )  # fmt: skip
+        upisi("javna_nabava", pd.DataFrame(nab["nizovi"]).T)
 
     return {"serije": serije, "podrucja": podrucja}
 

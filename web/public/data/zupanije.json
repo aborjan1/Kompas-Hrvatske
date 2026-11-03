@@ -1,5 +1,5 @@
 {
-  "generirano": "2026-11-03T16:56:55+00:00",
+  "generirano": "2026-11-03T18:05:28+00:00",
   "podrucja": {
     "01": {
       "sifra": "01",
@@ -32,7 +32,10 @@
         "stopa_poreza_dohodak_visa": 29.55,
         "kupoprodaje_nekretnina": 8595,
         "porez_na_promet_nekretnina": 13893829.45,
-        "prihodi_od_imovine": 10304704.36
+        "prihodi_od_imovine": 10304704.36,
+        "javna_nabava": 467329107.93,
+        "nabava_najveci_dobavljac": 6.88,
+        "nabava_bez_objave": 8.94
       },
       "po_stanovniku": {
         "zaposleni": 366.2,
@@ -50,7 +53,8 @@
         "porez_na_dohodak": 1089.83,
         "kupoprodaje_nekretnina": 28.65,
         "porez_na_promet_nekretnina": 46.32,
-        "prihodi_od_imovine": 34.35
+        "prihodi_od_imovine": 34.35,
+        "javna_nabava": 1557.84
       },
       "rang": {
         "stanovnistvo": 3,
@@ -79,6 +83,9 @@
         "kupoprodaje_nekretnina": 4,
         "porez_na_promet_nekretnina": 6,
         "prihodi_od_imovine": 9,
+        "javna_nabava": 3,
+        "nabava_najveci_dobavljac": 21,
+        "nabava_bez_objave": 4,
         "zaposleni_po_stanovniku": 9,
         "neto_dohodak_po_stanovniku": 4,
         "bruto_dodana_vrijednost_po_stanovniku": 5,
@@ -94,7 +101,8 @@
         "porez_na_dohodak_po_stanovniku": 4,
         "kupoprodaje_nekretnina_po_stanovniku": 14,
         "porez_na_promet_nekretnina_po_stanovniku": 9,
-        "prihodi_od_imovine_po_stanovniku": 20
+        "prihodi_od_imovine_po_stanovniku": 20,
+        "javna_nabava_po_stanovniku": 12
       },
       "slicni": [
         "08",
@@ -135,7 +143,10 @@
         "stopa_poreza_dohodak_visa": 30.09,
         "kupoprodaje_nekretnina": 2591,
         "porez_na_promet_nekretnina": 1852323.25,
-        "prihodi_od_imovine": 2139135.16
+        "prihodi_od_imovine": 2139135.16,
+        "javna_nabava": 192059244.47,
+        "nabava_najveci_dobavljac": 12.2,
+        "nabava_bez_objave": 23.2
       },
       "po_stanovniku": {
         "zaposleni": 315.7,
@@ -153,7 +164,8 @@
         "porez_na_dohodak": 889.3,
         "kupoprodaje_nekretnina": 21.47,
         "porez_na_promet_nekretnina": 15.35,
-        "prihodi_od_imovine": 17.72
+        "prihodi_od_imovine": 17.72,
+        "javna_nabava": 1591.19
       },
       "rang": {
         "stanovnistvo": 12,
@@ -182,6 +194,9 @@
         "kupoprodaje_nekretnina": 18,
         "porez_na_promet_nekretnina": 19,
         "prihodi_od_imovine": 21,
+        "javna_nabava": 12,
+        "nabava_najveci_dobavljac": 10,
+        "nabava_bez_objave": 1,
         "zaposleni_po_stanovniku": 16,
         "neto_dohodak_po_stanovniku": 9,
         "bruto_dodana_vrijednost_po_stanovniku": 16,
@@ -197,7 +212,8 @@
         "porez_na_dohodak_po_stanovniku": 8,
         "kupoprodaje_nekretnina_po_stanovniku": 20,
         "porez_na_promet_nekretnina_po_stanovniku": 21,
-        "prihodi_od_imovine_po_stanovniku": 21
+        "prihodi_od_imovine_po_stanovniku": 21,
+        "javna_nabava_po_stanovniku": 10
       },
       "slicni": [
         "19",
@@ -238,7 +254,10 @@
         "stopa_poreza_dohodak_visa": 30.46,
         "kupoprodaje_nekretnina": 4771,
         "porez_na_promet_nekretnina": 3038856.96,
-        "prihodi_od_imovine": 9383335.86
+        "prihodi_od_imovine": 9383335.86,
+        "javna_nabava": 508419478.28,
+        "nabava_najveci_dobavljac": 7.13,
+        "nabava_bez_objave": 17.29
       },
       "po_stanovniku": {
         "zaposleni": 288.25,
@@ -256,7 +275,8 @@
         "porez_na_dohodak": 712.35,
         "kupoprodaje_nekretnina": 34.18,
         "porez_na_promet_nekretnina": 21.77,
-        "prihodi_od_imovine": 67.21
+        "prihodi_od_imovine": 67.21,
+        "javna_nabava": 3641.9
       },
       "rang": {
         "stanovnistvo": 10,
@@ -285,6 +305,9 @@
         "kupoprodaje_nekretnina": 9,
         "porez_na_promet_nekretnina": 13,
         "prihodi_od_imovine": 11,
+        "javna_nabava": 2,
+        "nabava_najveci_dobavljac": 19,
+        "nabava_bez_objave": 2,
         "zaposleni_po_stanovniku": 21,
         "neto_dohodak_po_stanovniku": 14,
         "bruto_dodana_vrijednost_po_stanovniku": 15,
@@ -300,7 +323,8 @@
         "porez_na_dohodak_po_stanovniku": 16,
         "kupoprodaje_nekretnina_po_stanovniku": 11,
         "porez_na_promet_nekretnina_po_stanovniku": 16,
-        "prihodi_od_imovine_po_stanovniku": 12
+        "prihodi_od_imovine_po_stanovniku": 12,
+        "javna_nabava_po_stanovniku": 2
       },
       "slicni": [
         "16",
@@ -341,7 +365,10 @@
         "stopa_poreza_dohodak_visa": 29.65,
         "kupoprodaje_nekretnina": 3423,
         "porez_na_promet_nekretnina": 3097982.67,
-        "prihodi_od_imovine": 4450545.23
+        "prihodi_od_imovine": 4450545.23,
+        "javna_nabava": 194570946.18,
+        "nabava_najveci_dobavljac": 13.59,
+        "nabava_bez_objave": 12.67
       },
       "po_stanovniku": {
         "zaposleni": 336.69,
@@ -359,7 +386,8 @@
         "porez_na_dohodak": 835.43,
         "kupoprodaje_nekretnina": 30.51,
         "porez_na_promet_nekretnina": 27.61,
-        "prihodi_od_imovine": 39.67
+        "prihodi_od_imovine": 39.67,
+        "javna_nabava": 1734.22
       },
       "rang": {
         "stanovnistvo": 14,
@@ -388,6 +416,9 @@
         "kupoprodaje_nekretnina": 15,
         "porez_na_promet_nekretnina": 12,
         "prihodi_od_imovine": 19,
+        "javna_nabava": 11,
+        "nabava_najveci_dobavljac": 7,
+        "nabava_bez_objave": 3,
         "zaposleni_po_stanovniku": 12,
         "neto_dohodak_po_stanovniku": 6,
         "bruto_dodana_vrijednost_po_stanovniku": 14,
@@ -403,7 +434,8 @@
         "porez_na_dohodak_po_stanovniku": 10,
         "kupoprodaje_nekretnina_po_stanovniku": 12,
         "porez_na_promet_nekretnina_po_stanovniku": 12,
-        "prihodi_od_imovine_po_stanovniku": 17
+        "prihodi_od_imovine_po_stanovniku": 17,
+        "javna_nabava_po_stanovniku": 8
       },
       "slicni": [
         "19",
@@ -444,7 +476,10 @@
         "stopa_poreza_dohodak_visa": 30.64,
         "kupoprodaje_nekretnina": 6925,
         "porez_na_promet_nekretnina": 4811729.4,
-        "prihodi_od_imovine": 6613290.54
+        "prihodi_od_imovine": 6613290.54,
+        "javna_nabava": 172008469.33,
+        "nabava_najveci_dobavljac": 16.72,
+        "nabava_bez_objave": 0.11
       },
       "po_stanovniku": {
         "zaposleni": 412.85,
@@ -462,7 +497,8 @@
         "porez_na_dohodak": 898.13,
         "kupoprodaje_nekretnina": 43.42,
         "porez_na_promet_nekretnina": 30.17,
-        "prihodi_od_imovine": 41.47
+        "prihodi_od_imovine": 41.47,
+        "javna_nabava": 1078.51
       },
       "rang": {
         "stanovnistvo": 8,
@@ -491,6 +527,9 @@
         "kupoprodaje_nekretnina": 7,
         "porez_na_promet_nekretnina": 10,
         "prihodi_od_imovine": 13,
+        "javna_nabava": 14,
+        "nabava_najveci_dobavljac": 3,
+        "nabava_bez_objave": 18,
         "zaposleni_po_stanovniku": 4,
         "neto_dohodak_po_stanovniku": 10,
         "bruto_dodana_vrijednost_po_stanovniku": 6,
@@ -506,7 +545,8 @@
         "porez_na_dohodak_po_stanovniku": 7,
         "kupoprodaje_nekretnina_po_stanovniku": 5,
         "porez_na_promet_nekretnina_po_stanovniku": 10,
-        "prihodi_od_imovine_po_stanovniku": 16
+        "prihodi_od_imovine_po_stanovniku": 16,
+        "javna_nabava_po_stanovniku": 19
       },
       "slicni": [
         "13",
@@ -547,7 +587,10 @@
         "stopa_poreza_dohodak_visa": 29.91,
         "kupoprodaje_nekretnina": 4684,
         "porez_na_promet_nekretnina": 2402608.56,
-        "prihodi_od_imovine": 9951066.74
+        "prihodi_od_imovine": 9951066.74,
+        "javna_nabava": 137008246.71,
+        "nabava_najveci_dobavljac": 14.1,
+        "nabava_bez_objave": 0.26
       },
       "po_stanovniku": {
         "zaposleni": 323.71,
@@ -565,7 +608,8 @@
         "porez_na_dohodak": 746.53,
         "kupoprodaje_nekretnina": 46.27,
         "porez_na_promet_nekretnina": 23.74,
-        "prihodi_od_imovine": 98.31
+        "prihodi_od_imovine": 98.31,
+        "javna_nabava": 1353.56
       },
       "rang": {
         "stanovnistvo": 17,
@@ -594,6 +638,9 @@
         "kupoprodaje_nekretnina": 10,
         "porez_na_promet_nekretnina": 16,
         "prihodi_od_imovine": 10,
+        "javna_nabava": 15,
+        "nabava_najveci_dobavljac": 6,
+        "nabava_bez_objave": 16,
         "zaposleni_po_stanovniku": 14,
         "neto_dohodak_po_stanovniku": 15,
         "bruto_dodana_vrijednost_po_stanovniku": 11,
@@ -609,7 +656,8 @@
         "porez_na_dohodak_po_stanovniku": 14,
         "kupoprodaje_nekretnina_po_stanovniku": 4,
         "porez_na_promet_nekretnina_po_stanovniku": 13,
-        "prihodi_od_imovine_po_stanovniku": 6
+        "prihodi_od_imovine_po_stanovniku": 6,
+        "javna_nabava_po_stanovniku": 17
       },
       "slicni": [
         "07",
@@ -650,7 +698,10 @@
         "stopa_poreza_dohodak_visa": 28.01,
         "kupoprodaje_nekretnina": 3572,
         "porez_na_promet_nekretnina": 2303251.17,
-        "prihodi_od_imovine": 5111462.6
+        "prihodi_od_imovine": 5111462.6,
+        "javna_nabava": 127406636.22,
+        "nabava_najveci_dobavljac": 20.12,
+        "nabava_bez_objave": 0.08
       },
       "po_stanovniku": {
         "zaposleni": 309.43,
@@ -668,7 +719,8 @@
         "porez_na_dohodak": 598.09,
         "kupoprodaje_nekretnina": 35.06,
         "porez_na_promet_nekretnina": 22.61,
-        "prihodi_od_imovine": 50.17
+        "prihodi_od_imovine": 50.17,
+        "javna_nabava": 1250.57
       },
       "rang": {
         "stanovnistvo": 16,
@@ -697,6 +749,9 @@
         "kupoprodaje_nekretnina": 13,
         "porez_na_promet_nekretnina": 17,
         "prihodi_od_imovine": 15,
+        "javna_nabava": 17,
+        "nabava_najveci_dobavljac": 1,
+        "nabava_bez_objave": 19,
         "zaposleni_po_stanovniku": 17,
         "neto_dohodak_po_stanovniku": 18,
         "bruto_dodana_vrijednost_po_stanovniku": 17,
@@ -712,7 +767,8 @@
         "porez_na_dohodak_po_stanovniku": 19,
         "kupoprodaje_nekretnina_po_stanovniku": 8,
         "porez_na_promet_nekretnina_po_stanovniku": 14,
-        "prihodi_od_imovine_po_stanovniku": 14
+        "prihodi_od_imovine_po_stanovniku": 14,
+        "javna_nabava_po_stanovniku": 18
       },
       "slicni": [
         "06",
@@ -753,7 +809,10 @@
         "stopa_poreza_dohodak_visa": 27.99,
         "kupoprodaje_nekretnina": 9970,
         "porez_na_promet_nekretnina": 27294666.07,
-        "prihodi_od_imovine": 33414865.65
+        "prihodi_od_imovine": 33414865.65,
+        "javna_nabava": 369797704.84,
+        "nabava_najveci_dobavljac": 14.97,
+        "nabava_bez_objave": 0.81
       },
       "po_stanovniku": {
         "zaposleni": 439.79,
@@ -771,7 +830,8 @@
         "porez_na_dohodak": 1201.7,
         "kupoprodaje_nekretnina": 37.56,
         "porez_na_promet_nekretnina": 102.84,
-        "prihodi_od_imovine": 125.89
+        "prihodi_od_imovine": 125.89,
+        "javna_nabava": 1393.26
       },
       "rang": {
         "stanovnistvo": 4,
@@ -800,6 +860,9 @@
         "kupoprodaje_nekretnina": 2,
         "porez_na_promet_nekretnina": 3,
         "prihodi_od_imovine": 4,
+        "javna_nabava": 6,
+        "nabava_najveci_dobavljac": 4,
+        "nabava_bez_objave": 11,
         "zaposleni_po_stanovniku": 3,
         "neto_dohodak_po_stanovniku": 3,
         "bruto_dodana_vrijednost_po_stanovniku": 3,
@@ -815,7 +878,8 @@
         "porez_na_dohodak_po_stanovniku": 2,
         "kupoprodaje_nekretnina_po_stanovniku": 7,
         "porez_na_promet_nekretnina_po_stanovniku": 3,
-        "prihodi_od_imovine_po_stanovniku": 4
+        "prihodi_od_imovine_po_stanovniku": 4,
+        "javna_nabava_po_stanovniku": 15
       },
       "slicni": [
         "14",
@@ -856,7 +920,10 @@
         "stopa_poreza_dohodak_visa": 30.11,
         "kupoprodaje_nekretnina": 2498,
         "porez_na_promet_nekretnina": 3815864,
-        "prihodi_od_imovine": 5539399.91
+        "prihodi_od_imovine": 5539399.91,
+        "javna_nabava": 99599380.77,
+        "nabava_najveci_dobavljac": 14.25,
+        "nabava_bez_objave": 1.54
       },
       "po_stanovniku": {
         "zaposleni": 361.28,
@@ -874,7 +941,8 @@
         "porez_na_dohodak": 833.94,
         "kupoprodaje_nekretnina": 58.44,
         "porez_na_promet_nekretnina": 89.26,
-        "prihodi_od_imovine": 129.58
+        "prihodi_od_imovine": 129.58,
+        "javna_nabava": 2329.92
       },
       "rang": {
         "stanovnistvo": 21,
@@ -903,6 +971,9 @@
         "kupoprodaje_nekretnina": 19,
         "porez_na_promet_nekretnina": 11,
         "prihodi_od_imovine": 14,
+        "javna_nabava": 20,
+        "nabava_najveci_dobavljac": 5,
+        "nabava_bez_objave": 8,
         "zaposleni_po_stanovniku": 10,
         "neto_dohodak_po_stanovniku": 11,
         "bruto_dodana_vrijednost_po_stanovniku": 7,
@@ -918,7 +989,8 @@
         "porez_na_dohodak_po_stanovniku": 11,
         "kupoprodaje_nekretnina_po_stanovniku": 1,
         "porez_na_promet_nekretnina_po_stanovniku": 5,
-        "prihodi_od_imovine_po_stanovniku": 3
+        "prihodi_od_imovine_po_stanovniku": 3,
+        "javna_nabava_po_stanovniku": 3
       },
       "slicni": [
         "11",
@@ -959,7 +1031,10 @@
         "stopa_poreza_dohodak_visa": 29.89,
         "kupoprodaje_nekretnina": 2416,
         "porez_na_promet_nekretnina": 1118999.92,
-        "prihodi_od_imovine": 4824904.21
+        "prihodi_od_imovine": 4824904.21,
+        "javna_nabava": 123472440.26,
+        "nabava_najveci_dobavljac": 11.53,
+        "nabava_bez_objave": 0.08
       },
       "po_stanovniku": {
         "zaposleni": 302.14,
@@ -977,7 +1052,8 @@
         "porez_na_dohodak": 527.66,
         "kupoprodaje_nekretnina": 34.33,
         "porez_na_promet_nekretnina": 15.9,
-        "prihodi_od_imovine": 68.57
+        "prihodi_od_imovine": 68.57,
+        "javna_nabava": 1754.67
       },
       "rang": {
         "stanovnistvo": 19,
@@ -1006,6 +1082,9 @@
         "kupoprodaje_nekretnina": 20,
         "porez_na_promet_nekretnina": 20,
         "prihodi_od_imovine": 16,
+        "javna_nabava": 18,
+        "nabava_najveci_dobavljac": 11,
+        "nabava_bez_objave": 20,
         "zaposleni_po_stanovniku": 19,
         "neto_dohodak_po_stanovniku": 21,
         "bruto_dodana_vrijednost_po_stanovniku": 20,
@@ -1021,7 +1100,8 @@
         "porez_na_dohodak_po_stanovniku": 21,
         "kupoprodaje_nekretnina_po_stanovniku": 9,
         "porez_na_promet_nekretnina_po_stanovniku": 20,
-        "prihodi_od_imovine_po_stanovniku": 11
+        "prihodi_od_imovine_po_stanovniku": 11,
+        "javna_nabava_po_stanovniku": 7
       },
       "slicni": [
         "11",
@@ -1062,7 +1142,10 @@
         "stopa_poreza_dohodak_visa": 30,
         "kupoprodaje_nekretnina": 1949,
         "porez_na_promet_nekretnina": 1089829.41,
-        "prihodi_od_imovine": 2392931.68
+        "prihodi_od_imovine": 2392931.68,
+        "javna_nabava": 107943846.66,
+        "nabava_najveci_dobavljac": 19.11,
+        "nabava_bez_objave": 0.2
       },
       "po_stanovniku": {
         "zaposleni": 297.78,
@@ -1080,7 +1163,8 @@
         "porez_na_dohodak": 604.56,
         "kupoprodaje_nekretnina": 30.41,
         "porez_na_promet_nekretnina": 17.01,
-        "prihodi_od_imovine": 37.34
+        "prihodi_od_imovine": 37.34,
+        "javna_nabava": 1684.41
       },
       "rang": {
         "stanovnistvo": 20,
@@ -1109,6 +1193,9 @@
         "kupoprodaje_nekretnina": 21,
         "porez_na_promet_nekretnina": 21,
         "prihodi_od_imovine": 20,
+        "javna_nabava": 19,
+        "nabava_najveci_dobavljac": 2,
+        "nabava_bez_objave": 17,
         "zaposleni_po_stanovniku": 20,
         "neto_dohodak_po_stanovniku": 19,
         "bruto_dodana_vrijednost_po_stanovniku": 21,
@@ -1124,7 +1211,8 @@
         "porez_na_dohodak_po_stanovniku": 18,
         "kupoprodaje_nekretnina_po_stanovniku": 13,
         "porez_na_promet_nekretnina_po_stanovniku": 19,
-        "prihodi_od_imovine_po_stanovniku": 18
+        "prihodi_od_imovine_po_stanovniku": 18,
+        "javna_nabava_po_stanovniku": 9
       },
       "slicni": [
         "10",
@@ -1165,7 +1253,10 @@
         "stopa_poreza_dohodak_visa": 30.09,
         "kupoprodaje_nekretnina": 2801,
         "porez_na_promet_nekretnina": 2405398.61,
-        "prihodi_od_imovine": 4747258.48
+        "prihodi_od_imovine": 4747258.48,
+        "javna_nabava": 250882178.2,
+        "nabava_najveci_dobavljac": 9.97,
+        "nabava_bez_objave": 0.36
       },
       "po_stanovniku": {
         "zaposleni": 304.77,
@@ -1183,7 +1274,8 @@
         "porez_na_dohodak": 611.73,
         "kupoprodaje_nekretnina": 21.5,
         "porez_na_promet_nekretnina": 18.47,
-        "prihodi_od_imovine": 36.44
+        "prihodi_od_imovine": 36.44,
+        "javna_nabava": 1925.91
       },
       "rang": {
         "stanovnistvo": 11,
@@ -1212,6 +1304,9 @@
         "kupoprodaje_nekretnina": 16,
         "porez_na_promet_nekretnina": 15,
         "prihodi_od_imovine": 17,
+        "javna_nabava": 9,
+        "nabava_najveci_dobavljac": 13,
+        "nabava_bez_objave": 15,
         "zaposleni_po_stanovniku": 18,
         "neto_dohodak_po_stanovniku": 20,
         "bruto_dodana_vrijednost_po_stanovniku": 18,
@@ -1227,7 +1322,8 @@
         "porez_na_dohodak_po_stanovniku": 17,
         "kupoprodaje_nekretnina_po_stanovniku": 19,
         "porez_na_promet_nekretnina_po_stanovniku": 18,
-        "prihodi_od_imovine_po_stanovniku": 19
+        "prihodi_od_imovine_po_stanovniku": 19,
+        "javna_nabava_po_stanovniku": 4
       },
       "slicni": [
         "03",
@@ -1268,7 +1364,10 @@
         "stopa_poreza_dohodak_visa": 29.97,
         "kupoprodaje_nekretnina": 8569,
         "porez_na_promet_nekretnina": 21275262.64,
-        "prihodi_od_imovine": 17602699.27
+        "prihodi_od_imovine": 17602699.27,
+        "javna_nabava": 285469947.64,
+        "nabava_najveci_dobavljac": 9.72,
+        "nabava_bez_objave": 0.51
       },
       "po_stanovniku": {
         "zaposleni": 367.89,
@@ -1286,7 +1385,8 @@
         "porez_na_dohodak": 882.78,
         "kupoprodaje_nekretnina": 53.63,
         "porez_na_promet_nekretnina": 133.17,
-        "prihodi_od_imovine": 110.18
+        "prihodi_od_imovine": 110.18,
+        "javna_nabava": 1786.8
       },
       "rang": {
         "stanovnistvo": 7,
@@ -1315,6 +1415,9 @@
         "kupoprodaje_nekretnina": 5,
         "porez_na_promet_nekretnina": 5,
         "prihodi_od_imovine": 6,
+        "javna_nabava": 8,
+        "nabava_najveci_dobavljac": 14,
+        "nabava_bez_objave": 14,
         "zaposleni_po_stanovniku": 8,
         "neto_dohodak_po_stanovniku": 7,
         "bruto_dodana_vrijednost_po_stanovniku": 9,
@@ -1330,7 +1433,8 @@
         "porez_na_dohodak_po_stanovniku": 9,
         "kupoprodaje_nekretnina_po_stanovniku": 2,
         "porez_na_promet_nekretnina_po_stanovniku": 1,
-        "prihodi_od_imovine_po_stanovniku": 5
+        "prihodi_od_imovine_po_stanovniku": 5,
+        "javna_nabava_po_stanovniku": 6
       },
       "slicni": [
         "05",
@@ -1371,7 +1475,10 @@
         "stopa_poreza_dohodak_visa": 29.87,
         "kupoprodaje_nekretnina": 6204,
         "porez_na_promet_nekretnina": 7708145.78,
-        "prihodi_od_imovine": 13277746.94
+        "prihodi_od_imovine": 13277746.94,
+        "javna_nabava": 408638714.04,
+        "nabava_najveci_dobavljac": 10.0,
+        "nabava_bez_objave": 1.47
       },
       "po_stanovniku": {
         "zaposleni": 344.98,
@@ -1389,7 +1496,8 @@
         "porez_na_dohodak": 740.64,
         "kupoprodaje_nekretnina": 24.04,
         "porez_na_promet_nekretnina": 29.87,
-        "prihodi_od_imovine": 51.46
+        "prihodi_od_imovine": 51.46,
+        "javna_nabava": 1583.71
       },
       "rang": {
         "stanovnistvo": 5,
@@ -1418,6 +1526,9 @@
         "kupoprodaje_nekretnina": 8,
         "porez_na_promet_nekretnina": 9,
         "prihodi_od_imovine": 7,
+        "javna_nabava": 4,
+        "nabava_najveci_dobavljac": 12,
+        "nabava_bez_objave": 9,
         "zaposleni_po_stanovniku": 11,
         "neto_dohodak_po_stanovniku": 13,
         "bruto_dodana_vrijednost_po_stanovniku": 13,
@@ -1433,7 +1544,8 @@
         "porez_na_dohodak_po_stanovniku": 15,
         "kupoprodaje_nekretnina_po_stanovniku": 16,
         "porez_na_promet_nekretnina_po_stanovniku": 11,
-        "prihodi_od_imovine_po_stanovniku": 13
+        "prihodi_od_imovine_po_stanovniku": 13,
+        "javna_nabava_po_stanovniku": 11
       },
       "slicni": [
         "08",
@@ -1474,7 +1586,10 @@
         "stopa_poreza_dohodak_visa": 29.67,
         "kupoprodaje_nekretnina": 3999,
         "porez_na_promet_nekretnina": 9760290.35,
-        "prihodi_od_imovine": 8151194.62
+        "prihodi_od_imovine": 8151194.62,
+        "javna_nabava": 133145923.74,
+        "nabava_najveci_dobavljac": 7.16,
+        "nabava_bez_objave": 0.06
       },
       "po_stanovniku": {
         "zaposleni": 336.69,
@@ -1492,7 +1607,8 @@
         "porez_na_dohodak": 827.67,
         "kupoprodaje_nekretnina": 41.49,
         "porez_na_promet_nekretnina": 101.27,
-        "prihodi_od_imovine": 84.57
+        "prihodi_od_imovine": 84.57,
+        "javna_nabava": 1381.45
       },
       "rang": {
         "stanovnistvo": 18,
@@ -1521,6 +1637,9 @@
         "kupoprodaje_nekretnina": 11,
         "porez_na_promet_nekretnina": 7,
         "prihodi_od_imovine": 12,
+        "javna_nabava": 16,
+        "nabava_najveci_dobavljac": 18,
+        "nabava_bez_objave": 21,
         "zaposleni_po_stanovniku": 13,
         "neto_dohodak_po_stanovniku": 12,
         "bruto_dodana_vrijednost_po_stanovniku": 12,
@@ -1536,7 +1655,8 @@
         "porez_na_dohodak_po_stanovniku": 12,
         "kupoprodaje_nekretnina_po_stanovniku": 6,
         "porez_na_promet_nekretnina_po_stanovniku": 4,
-        "prihodi_od_imovine_po_stanovniku": 9
+        "prihodi_od_imovine_po_stanovniku": 9,
+        "javna_nabava_po_stanovniku": 16
       },
       "slicni": [
         "06",
@@ -1577,7 +1697,10 @@
         "stopa_poreza_dohodak_visa": 29.95,
         "kupoprodaje_nekretnina": 3486,
         "porez_na_promet_nekretnina": 2934680.44,
-        "prihodi_od_imovine": 11283394.89
+        "prihodi_od_imovine": 11283394.89,
+        "javna_nabava": 214530492.74,
+        "nabava_najveci_dobavljac": 8.43,
+        "nabava_bez_objave": 1.76
       },
       "po_stanovniku": {
         "zaposleni": 316.25,
@@ -1595,7 +1718,8 @@
         "porez_na_dohodak": 534.37,
         "kupoprodaje_nekretnina": 24.36,
         "porez_na_promet_nekretnina": 20.51,
-        "prihodi_od_imovine": 78.84
+        "prihodi_od_imovine": 78.84,
+        "javna_nabava": 1499.03
       },
       "rang": {
         "stanovnistvo": 9,
@@ -1624,6 +1748,9 @@
         "kupoprodaje_nekretnina": 14,
         "porez_na_promet_nekretnina": 14,
         "prihodi_od_imovine": 8,
+        "javna_nabava": 10,
+        "nabava_najveci_dobavljac": 17,
+        "nabava_bez_objave": 7,
         "zaposleni_po_stanovniku": 15,
         "neto_dohodak_po_stanovniku": 17,
         "bruto_dodana_vrijednost_po_stanovniku": 19,
@@ -1639,7 +1766,8 @@
         "porez_na_dohodak_po_stanovniku": 20,
         "kupoprodaje_nekretnina_po_stanovniku": 15,
         "porez_na_promet_nekretnina_po_stanovniku": 17,
-        "prihodi_od_imovine_po_stanovniku": 10
+        "prihodi_od_imovine_po_stanovniku": 10,
+        "javna_nabava_po_stanovniku": 14
       },
       "slicni": [
         "03",
@@ -1680,7 +1808,10 @@
         "stopa_poreza_dohodak_visa": 30.61,
         "kupoprodaje_nekretnina": 8391,
         "porez_na_promet_nekretnina": 27674124.44,
-        "prihodi_od_imovine": 35840716.08
+        "prihodi_od_imovine": 35840716.08,
+        "javna_nabava": 402449026.87,
+        "nabava_najveci_dobavljac": 8.7,
+        "nabava_bez_objave": 0.79
       },
       "po_stanovniku": {
         "zaposleni": 371.37,
@@ -1698,7 +1829,8 @@
         "porez_na_dohodak": 952.94,
         "kupoprodaje_nekretnina": 19.82,
         "porez_na_promet_nekretnina": 65.36,
-        "prihodi_od_imovine": 84.65
+        "prihodi_od_imovine": 84.65,
+        "javna_nabava": 950.5
       },
       "rang": {
         "stanovnistvo": 2,
@@ -1727,6 +1859,9 @@
         "kupoprodaje_nekretnina": 6,
         "porez_na_promet_nekretnina": 2,
         "prihodi_od_imovine": 3,
+        "javna_nabava": 5,
+        "nabava_najveci_dobavljac": 16,
+        "nabava_bez_objave": 12,
         "zaposleni_po_stanovniku": 7,
         "neto_dohodak_po_stanovniku": 8,
         "bruto_dodana_vrijednost_po_stanovniku": 10,
@@ -1742,7 +1877,8 @@
         "porez_na_dohodak_po_stanovniku": 6,
         "kupoprodaje_nekretnina_po_stanovniku": 21,
         "porez_na_promet_nekretnina_po_stanovniku": 7,
-        "prihodi_od_imovine_po_stanovniku": 8
+        "prihodi_od_imovine_po_stanovniku": 8,
+        "javna_nabava_po_stanovniku": 20
       },
       "slicni": [
         "01",
@@ -1783,7 +1919,10 @@
         "stopa_poreza_dohodak_visa": 30.59,
         "kupoprodaje_nekretnina": 9807,
         "porez_na_promet_nekretnina": 24630099.39,
-        "prihodi_od_imovine": 26603437.95
+        "prihodi_od_imovine": 26603437.95,
+        "javna_nabava": 353969364.57,
+        "nabava_najveci_dobavljac": 13.03,
+        "nabava_bez_objave": 0.74
       },
       "po_stanovniku": {
         "zaposleni": 469.3,
@@ -1801,7 +1940,8 @@
         "porez_na_dohodak": 1194.67,
         "kupoprodaje_nekretnina": 50.23,
         "porez_na_promet_nekretnina": 126.15,
-        "prihodi_od_imovine": 136.26
+        "prihodi_od_imovine": 136.26,
+        "javna_nabava": 1813.02
       },
       "rang": {
         "stanovnistvo": 6,
@@ -1830,6 +1970,9 @@
         "kupoprodaje_nekretnina": 3,
         "porez_na_promet_nekretnina": 4,
         "prihodi_od_imovine": 5,
+        "javna_nabava": 7,
+        "nabava_najveci_dobavljac": 8,
+        "nabava_bez_objave": 13,
         "zaposleni_po_stanovniku": 2,
         "neto_dohodak_po_stanovniku": 2,
         "bruto_dodana_vrijednost_po_stanovniku": 2,
@@ -1845,7 +1988,8 @@
         "porez_na_dohodak_po_stanovniku": 3,
         "kupoprodaje_nekretnina_po_stanovniku": 3,
         "porez_na_promet_nekretnina_po_stanovniku": 2,
-        "prihodi_od_imovine_po_stanovniku": 2
+        "prihodi_od_imovine_po_stanovniku": 2,
+        "javna_nabava_po_stanovniku": 5
       },
       "slicni": [
         "13",
@@ -1886,7 +2030,10 @@
         "stopa_poreza_dohodak_visa": 29.97,
         "kupoprodaje_nekretnina": 2770,
         "porez_na_promet_nekretnina": 9125054.91,
-        "prihodi_od_imovine": 38230714.88
+        "prihodi_od_imovine": 38230714.88,
+        "javna_nabava": 173400819.16,
+        "nabava_najveci_dobavljac": 9.09,
+        "nabava_bez_objave": 1.15
       },
       "po_stanovniku": {
         "zaposleni": 387.92,
@@ -1904,7 +2051,8 @@
         "porez_na_dohodak": 982.97,
         "kupoprodaje_nekretnina": 23.97,
         "porez_na_promet_nekretnina": 78.96,
-        "prihodi_od_imovine": 330.82
+        "prihodi_od_imovine": 330.82,
+        "javna_nabava": 1500.47
       },
       "rang": {
         "stanovnistvo": 13,
@@ -1933,6 +2081,9 @@
         "kupoprodaje_nekretnina": 17,
         "porez_na_promet_nekretnina": 8,
         "prihodi_od_imovine": 2,
+        "javna_nabava": 13,
+        "nabava_najveci_dobavljac": 15,
+        "nabava_bez_objave": 10,
         "zaposleni_po_stanovniku": 6,
         "neto_dohodak_po_stanovniku": 5,
         "bruto_dodana_vrijednost_po_stanovniku": 4,
@@ -1948,7 +2099,8 @@
         "porez_na_dohodak_po_stanovniku": 5,
         "kupoprodaje_nekretnina_po_stanovniku": 17,
         "porez_na_promet_nekretnina_po_stanovniku": 6,
-        "prihodi_od_imovine_po_stanovniku": 1
+        "prihodi_od_imovine_po_stanovniku": 1,
+        "javna_nabava_po_stanovniku": 13
       },
       "slicni": [
         "04",
@@ -1989,7 +2141,10 @@
         "stopa_poreza_dohodak_visa": 29.95,
         "kupoprodaje_nekretnina": 3610,
         "porez_na_promet_nekretnina": 2292880.44,
-        "prihodi_od_imovine": 4575252.44
+        "prihodi_od_imovine": 4575252.44,
+        "javna_nabava": 94348940.17,
+        "nabava_najveci_dobavljac": 12.32,
+        "nabava_bez_objave": 2.54
       },
       "po_stanovniku": {
         "zaposleni": 389.43,
@@ -2007,7 +2162,8 @@
         "porez_na_dohodak": 795.3,
         "kupoprodaje_nekretnina": 34.3,
         "porez_na_promet_nekretnina": 21.79,
-        "prihodi_od_imovine": 43.47
+        "prihodi_od_imovine": 43.47,
+        "javna_nabava": 896.43
       },
       "rang": {
         "stanovnistvo": 15,
@@ -2036,6 +2192,9 @@
         "kupoprodaje_nekretnina": 12,
         "porez_na_promet_nekretnina": 18,
         "prihodi_od_imovine": 18,
+        "javna_nabava": 21,
+        "nabava_najveci_dobavljac": 9,
+        "nabava_bez_objave": 6,
         "zaposleni_po_stanovniku": 5,
         "neto_dohodak_po_stanovniku": 16,
         "bruto_dodana_vrijednost_po_stanovniku": 8,
@@ -2051,7 +2210,8 @@
         "porez_na_dohodak_po_stanovniku": 13,
         "kupoprodaje_nekretnina_po_stanovniku": 10,
         "porez_na_promet_nekretnina_po_stanovniku": 15,
-        "prihodi_od_imovine_po_stanovniku": 15
+        "prihodi_od_imovine_po_stanovniku": 15,
+        "javna_nabava_po_stanovniku": 21
       },
       "slicni": [
         "07",
@@ -2092,7 +2252,10 @@
         "stopa_poreza_dohodak_visa": 33,
         "kupoprodaje_nekretnina": 16764,
         "porez_na_promet_nekretnina": 47961806.13,
-        "prihodi_od_imovine": 73985668.4
+        "prihodi_od_imovine": 73985668.4,
+        "javna_nabava": 3968130091.18,
+        "nabava_najveci_dobavljac": 7.08,
+        "nabava_bez_objave": 3.47
       },
       "po_stanovniku": {
         "zaposleni": 616.06,
@@ -2110,7 +2273,8 @@
         "porez_na_dohodak": 1862.14,
         "kupoprodaje_nekretnina": 21.85,
         "porez_na_promet_nekretnina": 62.52,
-        "prihodi_od_imovine": 96.44
+        "prihodi_od_imovine": 96.44,
+        "javna_nabava": 5172.69
       },
       "rang": {
         "stanovnistvo": 1,
@@ -2139,6 +2303,9 @@
         "kupoprodaje_nekretnina": 1,
         "porez_na_promet_nekretnina": 1,
         "prihodi_od_imovine": 1,
+        "javna_nabava": 1,
+        "nabava_najveci_dobavljac": 20,
+        "nabava_bez_objave": 5,
         "zaposleni_po_stanovniku": 1,
         "neto_dohodak_po_stanovniku": 1,
         "bruto_dodana_vrijednost_po_stanovniku": 1,
@@ -2154,7 +2321,8 @@
         "porez_na_dohodak_po_stanovniku": 1,
         "kupoprodaje_nekretnina_po_stanovniku": 18,
         "porez_na_promet_nekretnina_po_stanovniku": 8,
-        "prihodi_od_imovine_po_stanovniku": 7
+        "prihodi_od_imovine_po_stanovniku": 7,
+        "javna_nabava_po_stanovniku": 1
       },
       "slicni": [
         "17",
