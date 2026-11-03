@@ -270,8 +270,9 @@
    and the temas as a sliding row sit on top; the legend under them. */
 @media (max-width: 640px) {
   html:root {
-    /* Header (breadcrumb, search, two tema rows, source) ends ~220 px down. */
-    --kh-karta-gore: 190px;
+    /* Header (breadcrumb, search, tema pill, source) ends at 164 px, the legend strip
+       under it at ~198 px; areas are framed below that. */
+    --kh-karta-gore: 170px;
     --kh-karta-dolje: 120px;
     --kh-tekst: #e6e8ee;
     --kh-tekst-blago: #8b93a7;
@@ -307,50 +308,86 @@
     filter: invert(1);
   }
 
-  /* Temas and measure: two rows under the search that always fit, no sideways
-     scrolling (a hidden scroll cut off "Po stanovniku" and "EU projekti"):
-     the four temas, then total / per capita next to EU projekti. */
+  /* Temas and measure fold into a menu behind one pill showing the current choice
+     ("Porezi · Ukupno ▾", TemeBar.svelte), so the map stays clear. The menu opens
+     as a card under the pill: the four temas, then total / per capita and EU. */
   html:root .sloj .dolje {
     top: 100px;
     bottom: auto;
     left: 0;
     width: 100%;
     gap: 6px;
-    justify-items: stretch;
+    justify-items: start;
     transform: none;
   }
 
   html:root .sloj .dolje .traka {
-    box-sizing: border-box;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 6px;
-    width: 100%;
+    position: relative;
+    display: block;
+    width: auto;
     max-width: none;
-    padding: 0 12px;
+    margin: 0 12px;
+    padding: 0;
     background: transparent;
     border: 0;
     box-shadow: none;
   }
 
-  html:root .sloj .dolje .traka > .grupa {
+  html:root .sloj .dolje .pilula {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 36px;
+    padding: 6px 14px;
+    border: 1px solid var(--boja-teme);
+    border-radius: 999px;
     background: var(--kh-ploca);
-    border: 1px solid var(--kh-rub);
+    color: var(--kh-tekst);
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
   }
 
-  html:root .sloj .dolje .traka > .grupa:first-child {
+  html:root .sloj .dolje .pilula[aria-expanded='true'] span {
+    display: inline-block;
+    transform: rotate(180deg);
+  }
+
+  html:root .sloj .dolje .izbornik {
+    display: none;
+  }
+
+  html:root .sloj .dolje .izbornik.otvoreno {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 3;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px;
+    width: calc(100vw - 24px);
+    padding: 8px;
+    background: var(--kh-ploca);
+    border: 1px solid var(--kh-rub);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    animation: kh-pojava 180ms ease-out both;
+  }
+
+  html:root .sloj .dolje .izbornik .grupa:first-child {
     grid-column: 1 / -1;
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  html:root .sloj .dolje .traka > .mjera {
+  html:root .sloj .dolje .izbornik .mjera {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  html:root .sloj .dolje .traka button {
-    min-height: 36px;
+  html:root .sloj .dolje .izbornik button {
+    min-height: 38px;
     padding: 6px 8px;
     font-size: 13px;
     white-space: nowrap;
@@ -407,9 +444,9 @@
     background: var(--kh-ploca);
   }
 
-  /* Legend under the temas, map logo and credits just above the low sheet. */
+  /* Legend strip just under the source line, map logo and credits above the low sheet. */
   html:root .kh-legend {
-    top: 228px;
+    top: 172px;
   }
 
   /* Just above the low sheet; a taller sheet covers them, as in phone map apps. */
