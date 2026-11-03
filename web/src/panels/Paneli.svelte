@@ -9,6 +9,37 @@
   import Putanja from './Putanja.svelte';
   import TemeBar from './TemeBar.svelte';
   import { reprodukcija } from '../stories/player.js';
+  import { onMount } from 'svelte';
+
+  // Docked columns on wide screens (src/raspored.css): either column can
+  // be closed with its tab. The map frames areas in the free part between the columns,
+  // so it is told ('kh:raspored') whenever that part changes, once the columns have
+  // finished moving.
+  const zatvoreno = $state({ lijevo: false, desno: false });
+  const javiRaspored = () => setTimeout(() => dispatchEvent(new Event('kh:raspored')), 280);
+
+  /** @param {'lijevo' | 'desno'} strana */
+  function prebaci(strana) {
+    zatvoreno[strana] = !zatvoreno[strana];
+    const kljuc = strana === 'lijevo' ? 'trakaLijevo' : 'trakaDesno';
+    if (zatvoreno[strana]) document.documentElement.dataset[kljuc] = 'zatvorena';
+    else delete document.documentElement.dataset[kljuc];
+    javiRaspored();
+  }
+
+  // The charts column comes and goes with the tema and area (GrafoviPanel), which
+  // changes the free part too.
+  let grafovi;
+  onMount(() => {
+    let ima = Boolean(grafovi.querySelector('.kh-panel'));
+    const promatrac = new MutationObserver(() => {
+      const sada = Boolean(grafovi.querySelector('.kh-panel'));
+      if (sada !== ima) javiRaspored();
+      ima = sada;
+    });
+    promatrac.observe(grafovi, { childList: true, subtree: true });
+    return () => promatrac.disconnect();
+  });
 </script>
 
 <div class="sloj" class:u-prici={$reprodukcija}>
@@ -16,13 +47,30 @@
     <Putanja />
     <Pretraga />
   </div>
-  <div class="lijevo"><GrafoviPanel /></div>
+  <div class="lijevo" bind:this={grafovi}><GrafoviPanel /></div>
   <div class="desno"><InfoPanel /></div>
   <div class="dolje">
     <!-- A story sets the tema itself, so its card takes the tema bar's place. -->
     {#if $reprodukcija}<PricaKartica />{:else}<TemeBar />{/if}
     <IzvorPodatka />
   </div>
+  <!-- Column tabs, shown on wide screens only (raspored.css). -->
+  <button
+    type="button"
+    class="kh-sklopi kh-sklopi-lijevo"
+    aria-expanded={!zatvoreno.lijevo}
+    aria-label={zatvoreno.lijevo ? 'Otvori podatke' : 'Zatvori podatke'}
+    title={zatvoreno.lijevo ? 'Otvori podatke' : 'Zatvori podatke'}
+    onclick={() => prebaci('lijevo')}
+  >{zatvoreno.lijevo ? '›' : '‹'}</button>
+  <button
+    type="button"
+    class="kh-sklopi kh-sklopi-desno"
+    aria-expanded={!zatvoreno.desno}
+    aria-label={zatvoreno.desno ? 'Otvori grafove' : 'Zatvori grafove'}
+    title={zatvoreno.desno ? 'Otvori grafove' : 'Zatvori grafove'}
+    onclick={() => prebaci('desno')}
+  >{zatvoreno.desno ? '‹' : '›'}</button>
 </div>
 
 <style>
@@ -37,6 +85,10 @@
 
   .sloj :global(.kh-panel) {
     pointer-events: auto;
+  }
+
+  .kh-sklopi {
+    display: none;
   }
 
   .gore {

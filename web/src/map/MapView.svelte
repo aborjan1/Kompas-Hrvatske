@@ -40,7 +40,24 @@
   // The intro flight from space can be skipped (button or Esc); under
   // prefers-reduced-motion it is a jump anyway, so the button never shows.
   let introRunning = false;
+
+  // The docked columns (src/raspored.css) cover part of the map; they say how
+  // much in --kh-karta-lijevo / --kh-karta-desno / --kh-karta-gore, so areas land in
+  // the free part.
+  function focusPadding() {
+    const style = getComputedStyle(document.documentElement);
+    const side = (name) => parseFloat(style.getPropertyValue(name)) || 0;
+    return {
+      top: FOCUS_PADDING + side('--kh-karta-gore'),
+      bottom: FOCUS_PADDING,
+      left: FOCUS_PADDING + side('--kh-karta-lijevo'),
+      right: FOCUS_PADDING + side('--kh-karta-desno'),
+    };
+  }
   let skipIntro = () => {};
+  // Frames the current area again, e.g. when a docked column opens or closes
+  // ('kh:raspored' from Paneli.svelte) and the free part of the map changes.
+  let refocus = () => {};
 
   // Legend rows carry short units ("563 mil. €", "3,3 %"); a long one such as
   // "na 1.000 stanovnika" or "po stanovniku" goes once into the title instead.
@@ -70,6 +87,8 @@
     const map = createMap(container);
     const legend = new LegendControl();
     map.addControl(legend, 'bottom-left');
+    const onLayout = () => refocus();
+    addEventListener('kh:raspored', onLayout);
 
     /** @type {import('../data/indicator.js').Indicator | null} */
     let shown = null;
@@ -225,6 +244,7 @@
         introRunning = intro;
         // „Preskoči”: the same landing as the intro's, without the flight.
         skipIntro = () => focusOn(bounds, { croatia, duration: 0 });
+        refocus = () => focusOn(bounds, { croatia });
         unlockCamera(map);
         // A scroll or drag mid-flight would cancel it before the lock applies and leave
         // the camera free to zoom out to space, so input waits for the landing.
@@ -246,7 +266,7 @@
         map.on('moveend', arrived);
         // Not `essential`, so Mapbox jumps instead of flying under prefers-reduced-motion.
         map.fitBounds(bounds, {
-          padding: FOCUS_PADDING,
+          padding: focusPadding(),
           pitch: map.getPitch(),
           ...(intro && { duration: INTRO_DURATION }),
           ...(duration !== undefined && { duration }),
@@ -365,6 +385,7 @@
       unsubscribeEu();
       unsubscribeCity();
       unsubscribeMeta();
+      removeEventListener('kh:raspored', onLayout);
       map.remove();
     };
   });

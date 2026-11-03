@@ -1,0 +1,264 @@
+/* Main layout on wide screens (#79): dark columns on both sides of the map.
+     left   tema bar, data source, the area's numbers, sentence, comparison
+     right  charts (only when the area has any, i.e. Novac)
+     centre the map, with breadcrumb and search over its top
+   Each column closes with its tab (Paneli.svelte). The columns tell the map how much
+   they cover (--kh-karta-lijevo / -desno / -gore, read by MapView.svelte), so areas
+   land in the free part. Phones keep the layout from Paneli.svelte.
+   Selectors start with html:root to outrank the panels' own scoped styles and the
+   :root colours in app.css. */
+
+/* Panels slide in instead of popping. */
+@keyframes kh-pojava {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+.kh-panel,
+.kh-legend {
+  animation: kh-pojava 280ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kh-panel,
+  .kh-legend {
+    animation: none;
+  }
+}
+
+@media (min-width: 900px) {
+  html:root {
+    --kh-karta-lijevo: 360px;
+    --kh-karta-desno: 0px;
+    /* Breadcrumb and search sit over the top of the map. */
+    --kh-karta-gore: 90px;
+    --kh-tekst: #e6e8ee;
+    --kh-tekst-blago: #8b93a7;
+    --kh-naglasak: #4fd1c5;
+    --kh-rub: #262b36;
+    --kh-pozadina-blaga: #1d212b;
+    color-scheme: dark;
+  }
+
+  html:root:has(.sloj .lijevo .kh-panel) {
+    --kh-karta-desno: 360px;
+  }
+
+  html:root[data-traka-lijevo='zatvorena'] {
+    --kh-karta-lijevo: 0px;
+  }
+
+  /* As specific as the rule above that opens it, so closing wins. */
+  html:root[data-traka-desno='zatvorena']:has(.sloj .lijevo .kh-panel) {
+    --kh-karta-desno: 0px;
+  }
+
+  html:root .sloj {
+    display: grid;
+    grid-template-columns: var(--kh-karta-lijevo) minmax(0, 1fr) var(--kh-karta-desno);
+    grid-template-rows: auto minmax(0, 1fr);
+    transition: grid-template-columns 260ms ease;
+  }
+
+  /* Column backgrounds. */
+  html:root .sloj::before,
+  html:root .sloj::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: #14161b;
+    pointer-events: auto;
+    transition: width 260ms ease;
+    /* Under the panels: ::after comes after them and would cover the charts. */
+    z-index: -1;
+  }
+
+  html:root .sloj::before {
+    left: 0;
+    width: var(--kh-karta-lijevo);
+    border-right: 1px solid #262b36;
+  }
+
+  html:root .sloj::after {
+    right: 0;
+    width: var(--kh-karta-desno);
+    border-left: 1px solid #262b36;
+  }
+
+  html:root .sloj > div {
+    position: relative;
+    inset: auto;
+    transform: none;
+    width: auto;
+    max-width: none;
+    max-height: none;
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+  }
+
+  /* Left column: temas on top, then the area's numbers. */
+  html:root .sloj .dolje {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 12px 14px 0;
+    justify-items: stretch;
+  }
+
+  html:root .sloj .desno {
+    grid-column: 1;
+    grid-row: 2;
+    margin: 4px 14px 12px;
+    overflow-y: auto;
+  }
+
+  /* Right column: charts. */
+  html:root .sloj .lijevo {
+    grid-column: 3;
+    grid-row: 1 / 3;
+    margin: 12px 14px;
+    overflow-y: auto;
+  }
+
+  /* Centre: breadcrumb and search over the map. */
+  html:root .sloj .gore {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    /* Own height, not the height of the left column's first row. */
+    align-self: start;
+    margin-top: 12px;
+    width: min(420px, calc(100% - 24px));
+  }
+
+  /* A closed column's content stays out of sight while the column shrinks. */
+  html:root[data-traka-lijevo='zatvorena'] .sloj .dolje,
+  html:root[data-traka-lijevo='zatvorena'] .sloj .desno,
+  html:root[data-traka-desno='zatvorena'] .sloj .lijevo {
+    visibility: hidden;
+  }
+
+  /* Panels inside a column are its sections, not separate cards. */
+  html:root .sloj .dolje .kh-panel,
+  html:root .sloj .desno .kh-panel,
+  html:root .sloj .lijevo .kh-panel {
+    background: transparent;
+    box-shadow: none;
+    border: 0;
+    border-radius: 0;
+    width: auto;
+    max-width: none;
+  }
+
+  html:root .sloj .desno .kh-panel {
+    border-top: 1px solid var(--kh-rub);
+  }
+
+  /* Breadcrumb and search over the map keep a dark card of their own. */
+  html:root .sloj .gore .kh-panel {
+    background: rgba(20, 22, 27, 0.88);
+    backdrop-filter: blur(10px);
+    border: 1px solid #262b36;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  }
+
+  /* Tabs on each column's inner edge. */
+  html:root .sloj .kh-sklopi {
+    display: grid;
+    place-items: center;
+    position: absolute;
+    top: 50%;
+    width: 18px;
+    height: 56px;
+    margin-top: -28px;
+    padding: 0;
+    border: 1px solid #262b36;
+    background: #14161b;
+    color: var(--kh-tekst-blago);
+    font-size: 16px;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: left 260ms ease, right 260ms ease, color 150ms ease;
+  }
+
+  html:root .sloj .kh-sklopi:hover {
+    color: var(--kh-tekst);
+  }
+
+  html:root .sloj .kh-sklopi:focus-visible {
+    outline: 2px solid var(--kh-naglasak);
+    outline-offset: 2px;
+  }
+
+  html:root .sloj .kh-sklopi-lijevo {
+    left: var(--kh-karta-lijevo);
+    border-left: 0;
+    border-radius: 0 8px 8px 0;
+  }
+
+  html:root .sloj .kh-sklopi-desno {
+    right: var(--kh-karta-desno);
+    border-right: 0;
+    border-radius: 8px 0 0 8px;
+  }
+
+  /* No charts for this area or tema: no right column, so no tab either. */
+  html:root:not(:has(.sloj .lijevo .kh-panel)) .sloj .kh-sklopi-desno {
+    display: none;
+  }
+
+  /* Map controls move with the columns. */
+  html:root .mapboxgl-ctrl-bottom-left {
+    left: var(--kh-karta-lijevo);
+    transition: left 260ms ease;
+  }
+
+  html:root .mapboxgl-ctrl-top-right,
+  html:root .mapboxgl-ctrl-bottom-right {
+    right: var(--kh-karta-desno);
+    transition: right 260ms ease;
+  }
+
+  html:root .kh-legend,
+  html:root .kh-tooltip .mapboxgl-popup-content,
+  html:root .mapboxgl-ctrl-group:not(:empty) {
+    background: #14161b;
+    border: 1px solid #262b36;
+    color: var(--kh-tekst);
+  }
+
+  html:root .kh-legend__title,
+  html:root .kh-tooltip strong,
+  html:root .kh-tooltip__value {
+    color: var(--kh-tekst);
+  }
+
+  html:root .kh-tooltip .mapboxgl-popup-tip {
+    border-top-color: #14161b;
+    border-bottom-color: #14161b;
+  }
+
+  html:root .mapboxgl-ctrl-group button .mapboxgl-ctrl-icon {
+    filter: invert(1);
+  }
+
+  html:root .kh-panel input {
+    color: var(--kh-tekst);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html:root .sloj,
+    html:root .sloj::before,
+    html:root .sloj::after,
+    html:root .sloj .kh-sklopi,
+    html:root .mapboxgl-ctrl-bottom-left,
+    html:root .mapboxgl-ctrl-top-right,
+    html:root .mapboxgl-ctrl-bottom-right {
+      transition: none;
+    }
+  }
+}

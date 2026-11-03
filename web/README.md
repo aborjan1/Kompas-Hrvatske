@@ -49,7 +49,7 @@ preglednika na 30 dana, pa se tijekom prezentacije ništa ne čeka s interneta.
   - `euProjekti.js` – EU projekti (2014.–2020.) zbrojeni po gradu ili općini, učitavaju se tek kad se uključi gumb „EU projekti”
   - `gradskiPrikaz.js` – koji grad ima koje filtre i koji su uključeni; gradski prikaz se otvara sam kad se odabere Zagreb ili Rijeka
   - `recenice.js` – rečenica info panela za svaku temu i razinu, od stvarnih brojeva; dio bez podatka se izostavlja
-- `src/panels/` – lebdeći paneli: putanja, info panel, teme i prekidač ukupno / po stanovniku
+- `src/panels/` – paneli: putanja, info panel, teme i prekidač ukupno / po stanovniku; na širokom ekranu u dvije bočne trake koje se zatvaraju (`src/raspored.css`)
   - `GrafUsporedbe.svelte` – u profilu županije: položaj među svih 21 županija (Chart.js), klik na stupac odabire županiju
   - `UsporedbaSlicnih.svelte` – u profilu grada ili općine: usporedba s 5 najsličnijih po broju stanovnika (`slicni` iz `jls.json`), klik odabire taj grad
   - `GrafStupci.svelte` – zajednički vodoravni stupčasti graf (Chart.js) za obje usporedbe
