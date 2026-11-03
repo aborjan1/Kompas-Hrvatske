@@ -1,5 +1,5 @@
 {
-  "generirano": "2026-11-03T16:56:55+00:00",
+  "generirano": "2026-11-03T18:05:28+00:00",
   "sifra": "HR",
   "naziv": "Republika Hrvatska",
   "vrsta": "drzava",
@@ -35,7 +35,10 @@
     "kupoprodaje_nekretnina": 117795,
     "porez_na_promet_nekretnina": 220487683.99,
     "prihodi_od_imovine": 328423725.89,
-    "pravne_osobe_aktivne": 169209
+    "pravne_osobe_aktivne": 169209,
+    "javna_nabava": 8784580999.97,
+    "nabava_najveci_dobavljac": 5.1,
+    "nabava_bez_objave": 4.15
   },
   "po_stanovniku": {
     "zaposleni": 413.53,
@@ -57,7 +60,8 @@
     "kupoprodaje_nekretnina": 30.42,
     "porez_na_promet_nekretnina": 56.95,
     "prihodi_od_imovine": 84.82,
-    "pravne_osobe_aktivne": 43.7
+    "pravne_osobe_aktivne": 43.7,
+    "javna_nabava": 2268.84
   },
   "rang": {},
   "slicni": []

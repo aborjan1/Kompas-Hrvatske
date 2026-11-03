@@ -2,13 +2,13 @@
 
 Ova datoteka nastaje automatski iz `data/sources.csv` (`python pipeline/popis_izvora.py`). Ne uređuj je ručno.
 
-Broj skupova: **71**. Skripta `pipeline/download.py` preuzima njih **41**, a ostali se preuzimaju ručno, koriste kao servis izravno na karti ili traže API registraciju.
+Broj skupova: **75**. Skripta `pipeline/download.py` preuzima njih **45**, a ostali se preuzimaju ručno, koriste kao servis izravno na karti ili traže API registraciju.
 
 Mapa u koju se skup sprema je `data/raw/<id>/`.
 
 ## Korišteni skupovi
 
-Obrada (`pipeline/build.py`) koristi **41** skupova: **35** s Portala otvorenih podataka i **6** dopunskih izvora tijela javne vlasti. Sve ih preuzima `python pipeline/download.py`.
+Obrada (`pipeline/build.py`) koristi **45** skupova: **35** s Portala otvorenih podataka i **10** dopunskih izvora tijela javne vlasti. Sve ih preuzima `python pipeline/download.py`.
 
 **Kako navoditi izvor.** Za skupove pod Otvorenom dozvolom navodi se izdavatelj, naziv skupa, datum preuzimanja i poveznica na [Otvorenu dozvolu](https://data.gov.hr/otvorena-dozvola). Za skupove bez navedene dozvole (npr. dio skupova DZS-a) navodi se samo izvor uz napomenu da su javno objavljeni na Portalu (prema odgovoru organizatora datathona, 29. 10. 2026.).
 
@@ -64,6 +64,10 @@ Pravila datathona dopuštaju dopunu podacima iz drugih javno dostupnih izvora ti
 | [Popis operacija – Integrirani teritorijalni program 2021.–2027.](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-ITP-30.9.2026.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | Nije navedena (eufondovi.gov.hr) | 2026-10-28 | `eu-itp-2021-2027` |
 | [Popis operacija – Program Učinkoviti ljudski potencijali 2021.–2027.](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Popis-operacija-u-okviru-PULJP-2021.-2027-final-table_30092026.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | Nije navedena (eufondovi.gov.hr) | 2026-10-28 | `eu-uljp-2021-2027` |
 | [Financijski izvještaji JLP(R)S: PR-RAS i RAS-funkcijski 2019.–2025. (EUR)](https://mfin.gov.hr/UserDocsImages//dokumenti/o-ministarstvu/lokalna-samouprava/financijski-izvjestaji-jlp-r-s//Lokalci%20FINALI%202019%202024%20EURO.zip) | Ministarstvo financija | Nije navedena (mfin.gov.hr) | 2026-10-29 | `mfin-lokalni-proracuni` |
+| [Registar ugovora EOJN RH (OCDS), 2018.–2026.](https://data.open-contracting.org/en/publication/80/download?name=full.jsonl.gz) | Narodne novine d.d. – Elektronički oglasnik javne nabave RH (objava: Open Contracting Data Registry) | Nije navedena (data.open-contracting.org) | 2026-11-03 | `eojn-ugovori` |
+| [Raspored planiranih poziva – Program Konkurentnost i kohezija, 2026. (listopad 2026.)](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Raspored-planiranih-poziva_PKK_za-objavu-2026-listopad-2026.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | Nije navedena (eufondovi.gov.hr) | 2026-11-03 | `eu-pozivi-pkk-2026` |
+| [Raspored planiranih poziva – Integrirani teritorijalni program, 2026. (listopad 2026.)](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Raspored-planiranih-poziva_ITP_za-objavu_2026-listopad-2026.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | Nije navedena (eufondovi.gov.hr) | 2026-11-03 | `eu-pozivi-itp-2026` |
+| [Godišnji plan objave poziva – Program Učinkoviti ljudski potencijali, 2026. (III. izmjena)](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Godisnji-plan-objave-PDP-a-za-2026_III.-izmjena.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | Nije navedena (eufondovi.gov.hr) | 2026-11-03 | `eu-pozivi-uljp-2026` |
 
 ## Svi pregledani skupovi po fazama
 
@@ -129,6 +133,10 @@ Uključuje i skupove koji su pregledani, ali se ne koriste, te neispravne izvore
 | `komunalni-projekti` | [Financiranje projekata za poticanje razvoja komunalnog gospodarstva i komunalnog standarda](https://data.gov.hr/ckan/dataset/financiranje-projekata-komunalnog-gospodarstva-i-standarda) | Ministarstvo graditeljstva i prostornoga uređenja (NEAKTIVAN) | CSV | skripta | #14 | NEISPRAVAN: datoteke su na staroj domeni www.mgipu.hr koja prekida vezu (2014.–2017.). |
 | `turisticki-objekti` | [Popis kategoriziranih turističkih objekata u Republici Hrvatskoj](https://data.gov.hr/ckan/dataset/popis-kategoriziranih-turistickih-objekata) | Ministarstvo turizma i sporta | XLSX | skripta | #14 | Samo zbirni podaci iz 2019. bez adresa; zasad se ne koristi. Pregledano, ne koristi se (preuzimanje: --samo turisticki-objekti). |
 | `popis2021-jls` | [Stanovništvo po dobi i spolu po gradovima/općinama (Popis 2021.) INSPIRE](https://data.gov.hr/ckan/dataset/raspodjela-stanovnitva-prema-dobnim-skupinama-i-spolu-na-razni-gradova-opina-iz-popisa-stanovni) | Državna geodetska uprava | WFS, WMS | servis (WMS/WFS) | #8 | Samo WFS; koristimo dzs-popis2021 |
+| `eojn-ugovori` | [Registar ugovora EOJN RH (OCDS), 2018.–2026.](https://data.open-contracting.org/en/publication/80/download?name=full.jsonl.gz) | Narodne novine d.d. – Elektronički oglasnik javne nabave RH (objava: Open Contracting Data Registry) | JSONL | skripta (izravna poveznica) | #94 | Dopunski izvor: svi ugovori iz registra ugovora EOJN RH u standardu OCDS, mjesečno ažurirano. Naručitelji i dobavljači s OIB-om. |
+| `eu-pozivi-pkk-2026` | [Raspored planiranih poziva – Program Konkurentnost i kohezija, 2026. (listopad 2026.)](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Raspored-planiranih-poziva_PKK_za-objavu-2026-listopad-2026.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | XLSX | skripta (izravna poveznica) | #95 | Dopunski izvor: indikativni plan objave poziva PKK za 2026. |
+| `eu-pozivi-itp-2026` | [Raspored planiranih poziva – Integrirani teritorijalni program, 2026. (listopad 2026.)](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Raspored-planiranih-poziva_ITP_za-objavu_2026-listopad-2026.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | XLSX | skripta (izravna poveznica) | #95 | Dopunski izvor: indikativni plan objave poziva ITP za 2026. |
+| `eu-pozivi-uljp-2026` | [Godišnji plan objave poziva – Program Učinkoviti ljudski potencijali, 2026. (III. izmjena)](https://eufondovi.gov.hr/wp-content/uploads/2026/10/Godisnji-plan-objave-PDP-a-za-2026_III.-izmjena.xlsx) | Ministarstvo regionalnoga razvoja i fondova Europske unije | XLSX | skripta (izravna poveznica) | #95 | Dopunski izvor: godišnji plan objave poziva ULJP za 2026. |
 
 ### 5. Gradski prikaz: Zagreb
 

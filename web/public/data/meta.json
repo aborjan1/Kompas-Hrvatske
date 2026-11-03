@@ -1,6 +1,6 @@
 {
   "verzija_formata": 1,
-  "generirano": "2026-11-03T16:56:55+00:00",
+  "generirano": "2026-11-03T18:05:28+00:00",
   "probni_podaci": false,
   "probne_granice": false,
   "napomene": [
@@ -11,7 +11,8 @@
     "ljudi": "Ljudi",
     "novac": "Novac",
     "porezi": "Porezi",
-    "imovina": "Imovina"
+    "imovina": "Imovina",
+    "nabava": "Nabava"
   },
   "pokazatelji": {
     "stanovnistvo": {
@@ -582,6 +583,57 @@
       "izvor": "dzs-rps",
       "objasnjenje": "Koliko je aktivnih tvrtki, udruga, ustanova i drugih pravnih osoba. Obrti nisu uključeni.",
       "godina": "31. siječnja 2022"
+    },
+    "javna_nabava": {
+      "naziv": "Ugovori javne nabave (5 godina)",
+      "tema": "nabava",
+      "jedinica": "EUR",
+      "decimale": 0,
+      "po_stanovniku": {
+        "mnozitelj": 1,
+        "jedinica": "EUR po stanovniku"
+      },
+      "razine": [
+        "drzava",
+        "zupanija",
+        "jls"
+      ],
+      "izvor": "eojn-ugovori",
+      "napomena": "Zbroj vrijednosti ugovora koje je uprava grada, općine ili županije sklopila u pet godina (registar ugovora EOJN RH), bez njezinih ustanova i trgovačkih društava; kune preračunate tečajem 7,5345. Za županiju: uprava županije i svi njezini gradovi i općine.",
+      "objasnjenje": "Koliko je grad ili općina u pet godina ugovorila kroz javnu nabavu: radove, robu i usluge, npr. ceste, zgrade, energiju i održavanje.",
+      "godina": "2019.–2023."
+    },
+    "nabava_najveci_dobavljac": {
+      "naziv": "Udio najvećeg dobavljača u javnoj nabavi",
+      "tema": "nabava",
+      "jedinica": "%",
+      "decimale": 1,
+      "po_stanovniku": null,
+      "razine": [
+        "drzava",
+        "zupanija",
+        "jls"
+      ],
+      "izvor": "eojn-ugovori",
+      "napomena": "Vrijednost ugovora s dobavljačem s najviše ugovorenog novca, podijeljena ukupnom vrijednošću ugovora u istih pet godina.",
+      "objasnjenje": "Koliki je dio novca iz javne nabave otišao jednoj tvrtki, onoj koja je dobila najviše. Visok udio znači oslanjanje na jednog dobavljača; kod malih općina s malo ugovora to je češće i samo po sebi nije nepravilnost.",
+      "godina": "2019.–2023."
+    },
+    "nabava_bez_objave": {
+      "naziv": "Ugovori sklopljeni bez prethodne objave",
+      "tema": "nabava",
+      "jedinica": "%",
+      "decimale": 1,
+      "po_stanovniku": null,
+      "razine": [
+        "drzava",
+        "zupanija",
+        "jls"
+      ],
+      "izvor": "eojn-ugovori",
+      "napomena": "Udio vrijednosti ugovora iz pregovaračkog postupka bez prethodne objave u ukupnoj vrijednosti ugovora u istih pet godina.",
+      "objasnjenje": "Koliki je dio ugovora sklopljen bez javnog poziva svim ponuditeljima. Zakon to dopušta samo u posebnim slučajevima, npr. kod hitnosti ili kad posao može obaviti samo jedan ponuditelj.",
+      "godina": "2019.–2023."
     }
   },
   "izvori": {
@@ -625,6 +677,14 @@
       "preuzeto": "2026-10-27",
       "dopunski": false
     },
+    "eojn-ugovori": {
+      "naziv": "Registar ugovora EOJN RH (OCDS), 2018.–2026.",
+      "izdavatelj": "Narodne novine d.d. – Elektronički oglasnik javne nabave RH (objava: Open Contracting Data Registry)",
+      "poveznica": "https://data.open-contracting.org/en/publication/80/download?name=full.jsonl.gz",
+      "licenca": "Nije navedena (data.open-contracting.org)",
+      "preuzeto": "2026-11-03",
+      "dopunski": true
+    },
     "eu-2021-2027": {
       "naziv": "Popisi operacija EU programa 2021.–2027. (PKK, ITP, ULJP)",
       "izdavatelj": "Ministarstvo regionalnoga razvoja i fondova Europske unije",
@@ -665,6 +725,39 @@
       "licenca": "Otvorena dozvola (OD)",
       "preuzeto": "2026-10-27",
       "dopunski": false
+    },
+    "eu-pozivi-2026": {
+      "naziv": "Indikativni planovi objave EU poziva za 2026. (PKK, ITP, ULJP)",
+      "izdavatelj": "Ministarstvo regionalnoga razvoja i fondova Europske unije",
+      "poveznica": "https://eufondovi.gov.hr/wp-content/uploads/2026/10/Raspored-planiranih-poziva_PKK_za-objavu-2026-listopad-2026.xlsx",
+      "licenca": "Nije navedena (eufondovi.gov.hr)",
+      "dopunski": true,
+      "dijelovi": [
+        {
+          "naziv": "Raspored planiranih poziva – Program Konkurentnost i kohezija, 2026. (listopad 2026.)",
+          "izdavatelj": "Ministarstvo regionalnoga razvoja i fondova Europske unije",
+          "poveznica": "https://eufondovi.gov.hr/wp-content/uploads/2026/10/Raspored-planiranih-poziva_PKK_za-objavu-2026-listopad-2026.xlsx",
+          "licenca": "Nije navedena (eufondovi.gov.hr)",
+          "preuzeto": "2026-11-03",
+          "dopunski": true
+        },
+        {
+          "naziv": "Raspored planiranih poziva – Integrirani teritorijalni program, 2026. (listopad 2026.)",
+          "izdavatelj": "Ministarstvo regionalnoga razvoja i fondova Europske unije",
+          "poveznica": "https://eufondovi.gov.hr/wp-content/uploads/2026/10/Raspored-planiranih-poziva_ITP_za-objavu_2026-listopad-2026.xlsx",
+          "licenca": "Nije navedena (eufondovi.gov.hr)",
+          "preuzeto": "2026-11-03",
+          "dopunski": true
+        },
+        {
+          "naziv": "Godišnji plan objave poziva – Program Učinkoviti ljudski potencijali, 2026. (III. izmjena)",
+          "izdavatelj": "Ministarstvo regionalnoga razvoja i fondova Europske unije",
+          "poveznica": "https://eufondovi.gov.hr/wp-content/uploads/2026/10/Godisnji-plan-objave-PDP-a-za-2026_III.-izmjena.xlsx",
+          "licenca": "Nije navedena (eufondovi.gov.hr)",
+          "preuzeto": "2026-11-03",
+          "dopunski": true
+        }
+      ]
     },
     "hbor-esif": {
       "naziv": "HBOR – korisnici ESIF kredita (5 skupova)",

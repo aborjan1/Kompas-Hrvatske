@@ -9,7 +9,9 @@
   import EuProjektiPopis from './EuProjektiPopis.svelte';
   import GradskiFiltri from './GradskiFiltri.svelte';
   import GrafUsporedbe from './GrafUsporedbe.svelte';
+  import EuPozivi from './EuPozivi.svelte';
   import GrafoviTeme from './GrafoviTeme.svelte';
+  import GrafVeza from './GrafVeza.svelte';
   import KamoIdeNovac from './KamoIdeNovac.svelte';
   import ProracunKrozGodine from './ProracunKrozGodine.svelte';
   import TipOpcine from './TipOpcine.svelte';
@@ -169,8 +171,12 @@
       <!-- Wide screens show these in the chart panel in the left column (GrafoviPanel). -->
       {#if $view.razina !== 'drzava' && !$siroko}
         {#if $view.tema === 'novac'}
+          <EuPozivi />
           <KamoIdeNovac />
           <ProracunKrozGodine />
+        {:else if $view.tema === 'nabava'}
+          <GrafVeza />
+          <GrafoviTeme />
         {:else}
           <GrafoviTeme />
         {/if}
