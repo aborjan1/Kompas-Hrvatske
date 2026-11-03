@@ -320,6 +320,8 @@
   html[data-dizajn='traka2'] {
     --kh-karta-lijevo: 360px;
     --kh-karta-desno: 0px;
+    /* Breadcrumb and search sit over the top of the map. */
+    --kh-karta-gore: 90px;
     --kh-tekst: #e6e8ee;
     --kh-tekst-blago: #8b93a7;
     --kh-naglasak: #4fd1c5;
