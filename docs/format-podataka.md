@@ -200,12 +200,43 @@ Svako područje ima isti oblik. `drzava.json` je jedan takav zapis, a `zupanije.
 | `po_stanovniku` | Vrijednosti po stanovniku, samo za pokazatelje kojima to ima smisla |
 | `rang` | Mjesto među područjima iste razine (21 županija ili 556 JLS); **1 = najveća vrijednost**. Za mjeru po stanovniku ključ ima nastavak `_po_stanovniku`. `null` ako nema podatka |
 | `slicni` | 5 šifri područja iste razine najsličnijih po broju stanovnika |
+| `tip` | samo `jls.json`: id tipa iz tipologije (`sredista`, `mali-stariji`, `samostalni`, `ovisni`, `prosjecni`), opis u `meta.json` → `tipologija.tipovi` |
+| `slicni_profil` | samo `jls.json`: 5 šifri gradova i općina najsličnijih po cijelom profilu (veličina, dohodak, pomoći, prihodi proračuna, dob) |
 
 Rang je samo poredak, ne ocjena. Je li veća vrijednost bolja (plaća) ili lošija
 (nezaposlenost), odlučuje rečenica u sučelju.
 
 `jls.json` je spremljen bez uvlaka (282 KB), pa ga ne treba otvarati ručno. Za pregled
 postoji `data/obrada/jls.csv`, koji se otvara u Excelu.
+
+## Tipologija gradova i općina (`meta.json` → `tipologija`)
+
+Rezultat grupiranja svih 556 gradova i općina strojnim učenjem (k-means,
+`pipeline/tipologija.py`). Svaki grad ili općina u `jls.json` ima `tip` i `slicni_profil`.
+
+```json
+"tipologija": {
+  "naziv": "Tip grada ili općine",
+  "metoda": "Strojno učenje (k-means, 5 skupina) nad pet obilježja …",
+  "obiljezja": {"velicina": "broj stanovnika (log)", "...": "..."},
+  "silhouette": 0.221,
+  "tipovi": {
+    "ovisni": {
+      "naziv": "Sredine nižeg dohotka, ovisne o pomoćima",
+      "opis": "Najniži dohodak stanovnika; više od polovice proračuna …",
+      "broj": 187,
+      "tipicno": {"stanovnika": 2020, "dohodak_po_stanovniku": 6270, "udio_pomoci": 60.1,
+                  "prihodi_po_stanovniku": 1110, "prosjecna_dob": 44.7,
+                  "udio_u_obalnim_zupanijama": 10}
+    }
+  }
+}
+```
+
+- `tipicno` su medijani obilježja unutar tipa (iznosi u EUR, udjeli u %).
+- `silhouette` (−1 do 1) govori koliko su skupine odvojene; oko 0,2 je uobičajeno za
+  društveno-gospodarske podatke, gdje prijelazi između tipova nisu oštri.
+- Id-ovi tipova su stalni; nazivi se dodjeljuju prema profilu skupine, ne redoslijedu.
 
 ## `proracuni.json`
 

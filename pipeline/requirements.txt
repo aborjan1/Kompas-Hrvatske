@@ -8,6 +8,7 @@ geopandas>=1.0       # granice i točke (povlači shapely, pyproj, pyogrio)
 requests>=2.32       # preuzimanje s portala i API-ja
 python-dotenv>=1.0   # API ključevi iz datoteke .env
 pdfplumber>=0.11     # čitanje tablica iz PDF priopćenja DZS-a
+scikit-learn>=1.5    # tipologija gradova i općina (k-means)
 
 # Alati za razvoj
 ruff>=0.6            # provjera i formatiranje koda

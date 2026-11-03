@@ -12,6 +12,7 @@
   import GrafUsporedbe from './GrafUsporedbe.svelte';
   import KamoIdeNovac from './KamoIdeNovac.svelte';
   import ProracunKrozGodine from './ProracunKrozGodine.svelte';
+  import TipOpcine from './TipOpcine.svelte';
   import { siroko } from './ekran.js';
   import PopisPrica from './PopisPrica.svelte';
   import UsporedbaSlicnih from './UsporedbaSlicnih.svelte';
@@ -121,6 +122,7 @@
 
     <div id="info-detalji" class="detalji">
       {#if podnaslov}<p class="podnaslov">{podnaslov}</p>{/if}
+      {#if $view.razina === 'jls'}<TipOpcine />{/if}
 
       {#if brojevi.length}
         <dl>

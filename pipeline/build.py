@@ -3,7 +3,8 @@
 Koraci (issues: spajanje po šifri, izvedeni pokazatelji, izvoz + provjere):
   1. šifrarnik područja (sifrarnik.py) → data/areas.csv
   2. čitanje svakog izvora (citaci.py) i spajanje po šifri županije / grada
-  3. izvedeni pokazatelji: po stanovniku, rang, slična područja (izvoz.py)
+  3. izvedeni pokazatelji: po stanovniku, rang, slična područja (izvoz.py) i tipologija
+     gradova i općina strojnim učenjem (tipologija.py)
   4. izvoz: meta.json, drzava.json, zupanije.json, jls.json, tocke/eu-projekti.geojson
   5. provjere: 21 županija, 556 JLS, zbroj županija = država
 
@@ -29,6 +30,7 @@ import gradovi  # noqa: E402
 import granice  # noqa: E402
 import proracuni  # noqa: E402
 import sifrarnik  # noqa: E402
+import tipologija  # noqa: E402
 from izvoz import IZLAZ, dodaj_rang, dodaj_slicne, spremi_json, zapis_podrucja  # noqa: E402
 from nazivi import kljuc, uskladi  # noqa: E402
 from pokazatelji import POKAZATELJI, TEME  # noqa: E402
@@ -477,6 +479,13 @@ def main() -> None:
 
     provjere(t, jls)
 
+    korak("2. Tipologija gradova i općina (k-means)")
+    tip = tipologija.izracunaj(jls)
+    tipologija.provjeri(tip, len(jls))
+    for t_id, d in tip["meta"]["tipovi"].items():
+        print(f"  {d['broj']:>3}  {d['naziv']} ({t_id})")
+    print(f"  silhouette {tip['meta']['silhouette']}")
+
     OBRADA.mkdir(parents=True, exist_ok=True)
     t.round(2).to_csv(OBRADA / "zupanije.csv", encoding="utf-8-sig")
     jls.drop(columns=["stanovnistvo_2021"]).round(2).to_csv(
@@ -505,6 +514,8 @@ def main() -> None:
     pj = {}
     for _, r in jls.sort_values("sifra").iterrows():
         pj[r.sifra] = zapis_podrucja(r.sifra, r.naziv, r.vrsta, r.zupanija, vrijednosti(r, "jls"))
+        pj[r.sifra]["tip"] = tip["tip"].get(r.sifra)
+        pj[r.sifra]["slicni_profil"] = tip["slicni"].get(r.sifra, [])
     dodaj_rang(pj)
     dodaj_slicne(pj)
     spremi_json("jls.json", {"generirano": sada, "podrucja": pj}, uvlaka=None)
@@ -533,6 +544,7 @@ def main() -> None:
         "teme": TEME,
         "pokazatelji": pokazatelji,
         "izvori": meta_izvori({d["izvor"] for d in POKAZATELJI.values()}, dgu),
+        "tipologija": tip["meta"],
     }
     spremi_json("meta.json", meta)
 

@@ -21,11 +21,12 @@ dokumentiraju njihovi dijelovi; dogovoreni oblik datoteka između nas opisan je 
 | Područja | Hrvatska, 21 županija, **556 gradova i općina** (svi), 17 gradskih četvrti Zagreba |
 | Gradski prikaz | Zagreb: 13 pokazatelja po četvrtima, 8 slojeva na karti, 3D zgrade; Rijeka: proračun, 1.295 prostora u zakupu na karti |
 | Granice | službene granice Državne geodetske uprave (INSPIRE), pojednostavljene za web |
-| Kontrola kvalitete | automatske provjere u svakom pokretanju obrade, 44 testa, provjera na GitHubu kod svakog pull requesta |
+| Kontrola kvalitete | automatske provjere u svakom pokretanju obrade, 48 testova, provjera na GitHubu kod svakog pull requesta |
+| Strojno učenje | tipologija svih 556 gradova i općina (k-means, 5 tipova) i „najsličniji po profilu” |
 | Ponovljivost | cijela obrada iz praznog repozitorija s tri naredbe; provjereno na svježem klonu |
 
 Sve je napisano u Pythonu (3.12) isključivo s alatima otvorenog koda: pandas, geopandas,
-shapely, python-calamine, pdfplumber, requests, pytest i ruff.
+shapely, python-calamine, pdfplumber, scikit-learn, requests, pytest i ruff.
 
 ## 2. Kako obrada radi
 
@@ -70,9 +71,10 @@ flowchart LR
 | `pipeline/adrese.py` | DGU adrese i pretvaranje adresa u točke |
 | `pipeline/pokazatelji.py` | katalog svih pokazatelja (naziv, tema, jedinica, razine, izvor) |
 | `pipeline/izvoz.py` | zajednički oblik zapisa područja, rangovi, slična područja |
+| `pipeline/tipologija.py` | tipologija gradova i općina strojnim učenjem (k-means) |
 | `pipeline/build.py` | glavna skripta: redoslijed koraka i provjere |
 | `pipeline/popis_izvora.py` | generira `docs/izvori-podataka.md` iz `sources.csv` |
-| `tests/` | 44 testa (35 za kod, 9 za izlazne datoteke) |
+| `tests/` | 48 testova (38 za kod, 10 za izlazne datoteke) |
 
 ## 3. Izvori podataka i dozvole
 
@@ -273,6 +275,39 @@ zapisuju na različite načine.
 | Projekti u više županija | udjeli iz izvora („Grad Zagreb (90 %), Zadarska (10 %)”) | iznos se dijeli po udjelima |
 | Državni projekti | ministarstva, HZZ i državne agencije prepoznaju se po nazivu korisnika | 1,74 mlrd. EUR ulazi samo u zbroj države, ne u Zagreb |
 
+### 6.1. Tipologija gradova i općina (strojno učenje)
+
+Povezani podaci omogućuju nešto što nijedan izvor sam ne daje: **koji su gradovi i općine
+stvarno slični**. Svih 556 jedinica grupirano je algoritmom k-means (scikit-learn) prema pet
+obilježja iz četiri izvora:
+
+| Obilježje | Izvor |
+| --- | --- |
+| broj stanovnika (log) | DZS, Popis 2021. |
+| neto dohodak po stanovniku (log) | Porezna uprava |
+| udio pomoći u prihodima proračuna | Ministarstvo financija |
+| prihodi proračuna po stanovniku (log) | Ministarstvo financija |
+| prosječna dob | DZS, Popis 2021. |
+
+Obilježja se standardiziraju (prosjek 0, standardna devijacija 1), a broj skupina je 5
+(50 pokretanja, fiksno sjeme, pa je rezultat ponovljiv). Nazivi se dodjeljuju iz središta
+skupina prema pravilima (najveća, najstarija, najmanje ovisna o pomoćima…), pa ne ovise o
+redoslijedu skupina; ako pravila ne daju pet različitih tipova, obrada staje.
+
+| Tip | Broj | Tipično (medijan) |
+| --- | --- | --- |
+| Veći gradovi i središta | 61 | 17.700 st., dohodak 9.830 €, 18 % iz pomoći |
+| Financijski samostalne sredine | 110 | 2.500 st., dohodak 9.610 €, 11 % iz pomoći (95 % u obalnim županijama) |
+| Prosječni manji gradovi i općine | 149 | 3.400 st., dohodak 7.960 €, 36 % iz pomoći |
+| Sredine nižeg dohotka, ovisne o pomoćima | 187 | 2.000 st., dohodak 6.270 €, 60 % iz pomoći |
+| Male općine sa starijim stanovništvom | 49 | 940 st., prosječna dob 50,7, 51 % iz pomoći |
+
+Uz tip se za svaku jedinicu računa **pet najsličnijih po cijelom profilu** (najbliži u istom
+standardiziranom prostoru), pa se npr. Brckovljani uspoređuju s Pregradom i Rugvicom, a ne
+samo s općinama slične veličine. EU sredstva i ulaganja namjerno ne ulaze u grupiranje: jedan
+veliki projekt preokrene sliku jedne godine. Silhouette je 0,22, što je uobičajeno za
+društveno-gospodarske podatke (granice između tipova nisu oštre), pa je tip opis, a ne ocjena.
+
 ## 7. Kontrola kvalitete
 
 ### 7.1. Provjere u svakom pokretanju
@@ -308,11 +343,11 @@ novog preuzimanja.
 
 ### 7.3. Testovi i automatska provjera
 
-- **35 testova koda**: čitanje brojeva („0.216” nije 216), usklađivanje naziva, adrese,
-  preračun kuna, udjeli lokacija.
-- **9 testova izlaznih datoteka**: nema probnih podataka, sve šifre i pokazatelji postoje
+- **38 testova koda**: čitanje brojeva („0.216” nije 216), usklađivanje naziva, adrese,
+  preračun kuna, udjeli lokacija, tipologija (pet poznatih profila dobiva pet pravih naziva).
+- **10 testova izlaznih datoteka**: nema probnih podataka, sve šifre i pokazatelji postoje
   za sva područja, granice i brojke imaju iste šifre, koordinate su u Hrvatskoj, svi izvori
-  postoje u `sources.csv`.
+  postoje u `sources.csv`, svaki grad i općina ima tip i pet sličnih.
 - **GitHub Actions** pokreće ruff i sve testove kod svakog pull requesta, pa promjena koja
   pokvari podatke dobiva crveni ✗ prije spajanja.
 
@@ -375,7 +410,7 @@ pip install -r pipeline/requirements.txt
 
 python pipeline/download.py   # preuzimanje svih izvora u data/raw/ (oko 1 GB, 10–20 min)
 python pipeline/build.py      # obrada i provjere (1–2 min) → web/public/data/
-python -m pytest              # 44 testa
+python -m pytest              # 48 testova
 ```
 
 Korisne opcije: `download.py --samo <id>` (jedan skup), `--ponovno` (ponovno preuzimanje),
@@ -403,11 +438,13 @@ Korisne opcije: `download.py --samo <id>` (jedan skup), `--ponovno` (ponovno pre
 | #18 | Dokumentacija | ✔ ovaj dokument |
 
 Dodatno, izvan početnog plana: proračuni svih 556 gradova i općina (Ministarstvo
-financija), procjena stanovništva 2021.–2025., gospodarske zone Zagreba, testovi i
-automatska provjera na GitHubu te provjera ponovljivosti.
+financija), procjena stanovništva 2021.–2025., gospodarske zone Zagreba, tipologija gradova
+i općina strojnim učenjem, objašnjenja svih pokazatelja za sučelje, testovi i automatska
+provjera na GitHubu te provjera ponovljivosti.
 
 ## Povezani dokumenti
 
 - [izvori-podataka.md](izvori-podataka.md) – svi pregledani skupovi s poveznicama i dozvolama
 - [provjera-skupova.md](provjera-skupova.md) – detaljan pregled svakog skupa, greške i pretpostavke
 - [format-podataka.md](format-podataka.md) – oblik izlaznih datoteka (dogovor s kartom i sučeljem)
+- [arhitektura.md](arhitektura.md) – tehnička arhitektura, standardi, integracija i preduvjeti

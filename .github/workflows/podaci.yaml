@@ -11,7 +11,7 @@ on:
       - "data/sources.csv"
       - "web/public/data/**"
       - "ruff.toml"
-      - ".github/workflows/podaci.yml"
+      - ".github/workflows/podaci.yaml"
 
 jobs:
   provjera:

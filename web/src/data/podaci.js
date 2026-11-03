@@ -17,6 +17,8 @@ const BASE_URL = `${import.meta.env.BASE_URL}data/`;
  * @property {Record<string, number | null>} po_stanovniku
  * @property {Record<string, number>} rang 1 = largest value; per-capita ranks use the `<key>_po_stanovniku` key.
  * @property {string[]} slicni
+ * @property {string} [tip] Type from the typology (jls.json only; meta.json `tipologija`).
+ * @property {string[]} [slicni_profil] Five most similar by whole profile (jls.json only).
  */
 
 /**
@@ -35,7 +37,7 @@ const BASE_URL = `${import.meta.env.BASE_URL}data/`;
 
 /**
  * @typedef {object} Podaci Each field is null until its file has loaded.
- * @property {{ teme: Record<string, string>, pokazatelji: Record<string, Pokazatelj>, izvori: Record<string, any>, napomene: string[] } | null} meta
+ * @property {{ teme: Record<string, string>, pokazatelji: Record<string, Pokazatelj>, izvori: Record<string, any>, napomene: string[], tipologija?: any } | null} meta
  * @property {Podrucje | null} drzava
  * @property {Record<string, Podrucje> | null} zupanije
  * @property {Record<string, Podrucje> | null} jls

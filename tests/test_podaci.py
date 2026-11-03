@@ -73,6 +73,18 @@ def test_gradovi_i_opcine(meta):
     assert sum(v["pokazatelji"]["stanovnistvo"] for v in j.values()) == 3871833
 
 
+def test_tipologija(meta):
+    j = ucitaj("jls.json")["podrucja"]
+    tipovi = meta["tipologija"]["tipovi"]
+    for s, v in j.items():
+        assert v["tip"] in tipovi, f"{s}: nepoznat tip {v['tip']}"
+        assert len(v["slicni_profil"]) == 5 and s not in v["slicni_profil"]
+        assert all(o in j for o in v["slicni_profil"]), f"{s}: nepostojeće slično područje"
+    assert sum(t["broj"] for t in tipovi.values()) == len(j)
+    for t_id, t in tipovi.items():
+        assert t["broj"] == sum(v["tip"] == t_id for v in j.values()), t_id
+
+
 def test_granice_odgovaraju_brojkama():
     zg = ucitaj("zupanije.geojson")
     assert {f["properties"]["sifra"] for f in zg["features"]} == {f"{i:02d}" for i in range(1, 22)}
