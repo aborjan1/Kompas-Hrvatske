@@ -23,6 +23,7 @@ Sve datoteke nalaze se u `web/public/data/` i nastaju naredbom `python pipeline/
 | `nizovi.json` | Vremenski nizovi za grafove tema Ljudi, Porezi, Imovina i Nabava | Rafael |
 | `nabava.json` | Najveći dobavljači i graf veza u javnoj nabavi, po području | Rafael |
 | `eu-pozivi.json` | Planirani EU pozivi za 2026. s ulogom gradova, općina i županija | Rafael |
+| `en.json` | Engleski tekstovi za sučelje (prekidač HR / EN) | Rafael |
 | `gradovi/…` | Prikaz Zagreba (17 gradskih četvrti, slojevi točaka) i Rijeke (proračun, prostori) | Boro, Rafael |
 
 Granice i brojke su **namjerno odvojene**: granice se rijetko mijenjaju i preglednik ih
@@ -354,6 +355,41 @@ Planirani EU pozivi za 2026. u kojima mogu sudjelovati gradovi, općine ili žup
 - `zupanije`: šifre županija na koje se poziv odnosi, `null` = cijela Hrvatska.
 - `pocetak` i `kraj` su datumi (`YYYY-MM-DD`) ili samo mjesec (`YYYY-MM`, `samo_mjesec`).
   Stanje (otvoren, uskoro, planiran) sučelje računa prema današnjem datumu.
+
+## `en.json`
+
+Engleski tekstovi za sučelje (`pipeline/prijevodi.py`). Hrvatski ostaje izvorni jezik svih
+ostalih datoteka; sučelje ovu datoteku učitava tek kad korisnik odabere EN i njome zamijeni
+tekstove, dok brojke ostaju iste. Ključevi su isti kao u izvornim datotekama:
+
+```json
+{
+  "teme": { "novac": "Money" },
+  "pokazatelji": {
+    "javna_nabava": {
+      "naziv": "Public procurement contracts (5 years)",
+      "objasnjenje": "How much the city or municipality contracted …",
+      "napomena": "Total value of contracts …",
+      "godina": "2019–2023"
+    }
+  },
+  "napomene": ["Boundaries are simplified for display …"],
+  "tipologija": { "naziv": "…", "metoda": "…", "obiljezja": {}, "tipovi": { "sredista": { "naziv": "…", "opis": "…" } } },
+  "drzava": "Croatia",
+  "zupanije": { "17": "Split-Dalmatia County" },
+  "izdavatelji": { "Porezna uprava": "Tax Administration" },
+  "serije": { "javna_nabava": { "naziv": "…", "napomena": "…" } },
+  "funkcije": { "09": "Education" },
+  "proracuni_napomena": "…",
+  "nabava": { "napomena": "…", "razdoblje": "2019–2023" },
+  "eu_pozivi": { "napomena": "…", "programi": {}, "vrste": {}, "pozivi": { "PKK-2": { "naziv": "…", "napomena": null } } }
+}
+```
+
+- Nazivi gradova, općina, dobavljača i EU projekata te službeni nazivi skupova podataka nisu
+  prevedeni. Tko se može prijaviti na EU poziv prikazuje se kako piše u planu (na hrvatskom).
+- Build staje ako novi pokazatelj, tema, tip, niz ili funkcija nemaju engleski tekst.
+  Planirani EU poziv bez prijevoda prikazuje se pod hrvatskim nazivom (build to ispiše).
 
 ## `zupanije.geojson`
 

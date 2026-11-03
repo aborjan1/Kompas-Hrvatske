@@ -1,5 +1,5 @@
-const numberFormat = new Intl.NumberFormat('hr-HR', { maximumFractionDigits: 1 });
+import { lokal } from '../jezik.js';
 
 export function formatNumber(value) {
-  return numberFormat.format(value);
+  return new Intl.NumberFormat(lokal(), { maximumFractionDigits: 1 }).format(value);
 }

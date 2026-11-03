@@ -2,13 +2,16 @@
   {
     "id": "ulaganja",
     "naslov": "Gdje gradovi najviše ulažu",
+    "naslov_en": "Where cities invest the most",
     "opis": "Ulaganja gradova i općina po stanovniku",
+    "opis_en": "Investment by cities and municipalities per resident",
     "scene": [
       {
         "razina": "drzava",
         "tema": "novac",
         "mjera": "po-stanovniku",
-        "tekst": "Gradovi i općine iz svojih proračuna grade ceste, škole i vrtiće. Gledamo iznos po stanovniku, da se mali i veliki mogu usporediti."
+        "tekst": "Gradovi i općine iz svojih proračuna grade ceste, škole i vrtiće. Gledamo iznos po stanovniku, da se mali i veliki mogu usporediti.",
+        "tekst_en": "Cities and municipalities build roads, schools and kindergartens from their budgets. We look at the amount per resident, so small and large places can be compared."
       },
       {
         "razina": "zupanija",
@@ -16,7 +19,8 @@
         "pokazatelj": "lokalna_ulaganja",
         "tema": "novac",
         "mjera": "po-stanovniku",
-        "tekst": "Županija u kojoj gradovi i općine najviše ulažu po stanovniku je {naziv}: {vrijednost}."
+        "tekst": "Županija u kojoj gradovi i općine najviše ulažu po stanovniku je {naziv}: {vrijednost}.",
+        "tekst_en": "The county whose cities and municipalities invest the most per resident is {naziv}: {vrijednost}."
       },
       {
         "razina": "jls",
@@ -24,7 +28,8 @@
         "pokazatelj": "lokalna_ulaganja",
         "tema": "novac",
         "mjera": "po-stanovniku",
-        "tekst": "U cijeloj Hrvatskoj po stanovniku najviše ulaže {naziv} ({zupanija}): {vrijednost}."
+        "tekst": "U cijeloj Hrvatskoj po stanovniku najviše ulaže {naziv} ({zupanija}): {vrijednost}.",
+        "tekst_en": "In all of Croatia, {naziv} ({zupanija}) invests the most per resident: {vrijednost}."
       },
       {
         "razina": "jls",
@@ -32,21 +37,25 @@
         "pokazatelj": "lokalna_ulaganja",
         "tema": "novac",
         "mjera": "po-stanovniku",
-        "tekst": "Na drugom kraju je {naziv} ({zupanija}): {vrijednost}. Ista država, vrlo različite mogućnosti."
+        "tekst": "Na drugom kraju je {naziv} ({zupanija}): {vrijednost}. Ista država, vrlo različite mogućnosti.",
+        "tekst_en": "At the other end is {naziv} ({zupanija}): {vrijednost}. The same country, very different means."
       }
     ]
   },
   {
     "id": "eu",
     "naslov": "Kamo ide EU novac",
+    "naslov_en": "Where EU money goes",
     "opis": "EU projekti po gradovima i novac 2021.–2027.",
+    "opis_en": "EU projects by town and money for 2021–2027",
     "scene": [
       {
         "razina": "drzava",
         "tema": "novac",
         "mjera": "ukupno",
         "eu": true,
-        "tekst": "Krugovi pokazuju koliko je EU novca 2014.–2020. stiglo u pojedini grad ili općinu: što veći krug, to više novca."
+        "tekst": "Krugovi pokazuju koliko je EU novca 2014.–2020. stiglo u pojedini grad ili općinu: što veći krug, to više novca.",
+        "tekst_en": "The circles show how much EU money from 2014–2020 reached each city or municipality: the bigger the circle, the more money."
       },
       {
         "razina": "zupanija",
@@ -55,7 +64,8 @@
         "tema": "novac",
         "mjera": "po-stanovniku",
         "eu": true,
-        "tekst": "Najviše ugovorenog EU novca po stanovniku u razdoblju 2021.–2027. ima {naziv}: {vrijednost}."
+        "tekst": "Najviše ugovorenog EU novca po stanovniku u razdoblju 2021.–2027. ima {naziv}: {vrijednost}.",
+        "tekst_en": "The most contracted EU money per resident in the 2021–2027 period is in {naziv}: {vrijednost}."
       },
       {
         "razina": "jls",
@@ -64,20 +74,24 @@
         "tema": "novac",
         "mjera": "ukupno",
         "eu": true,
-        "tekst": "Od svih gradova i općina najviše je EU novca 2021.–2027. ugovoreno za {naziv}: {vrijednost}."
+        "tekst": "Od svih gradova i općina najviše je EU novca 2021.–2027. ugovoreno za {naziv}: {vrijednost}.",
+        "tekst_en": "Of all cities and municipalities, the most EU money for 2021–2027 has been contracted for {naziv}: {vrijednost}."
       }
     ]
   },
   {
     "id": "porezi",
     "naslov": "Porez na plaću nije svugdje isti",
+    "naslov_en": "Income tax is not the same everywhere",
     "opis": "Stope poreza na dohodak po gradovima i općinama",
+    "opis_en": "Income tax rates by city and municipality",
     "scene": [
       {
         "razina": "drzava",
         "tema": "porezi",
         "mjera": "ukupno",
-        "tekst": "Gradovi i općine sami biraju stopu poreza na plaću, unutar granica koje propisuje zakon. Zato ista plaća nije svugdje jednako oporezovana."
+        "tekst": "Gradovi i općine sami biraju stopu poreza na plaću, unutar granica koje propisuje zakon. Zato ista plaća nije svugdje jednako oporezovana.",
+        "tekst_en": "Cities and municipalities set their own income tax rate, within limits set by law. So the same salary is not taxed the same everywhere."
       },
       {
         "razina": "jls",
@@ -85,7 +99,8 @@
         "pokazatelj": "stopa_poreza_dohodak_niza",
         "tema": "porezi",
         "mjera": "ukupno",
-        "tekst": "Među najvišim stopama je {naziv} ({zupanija}): {vrijednost}."
+        "tekst": "Među najvišim stopama je {naziv} ({zupanija}): {vrijednost}.",
+        "tekst_en": "Among the highest rates is {naziv} ({zupanija}): {vrijednost}."
       },
       {
         "razina": "jls",
@@ -93,21 +108,25 @@
         "pokazatelj": "stopa_poreza_dohodak_niza",
         "tema": "porezi",
         "mjera": "ukupno",
-        "tekst": "Među najnižima je {naziv} ({zupanija}): {vrijednost}."
+        "tekst": "Među najnižima je {naziv} ({zupanija}): {vrijednost}.",
+        "tekst_en": "Among the lowest is {naziv} ({zupanija}): {vrijednost}."
       }
     ]
   },
   {
     "id": "place",
     "naslov": "Plaće i nezaposlenost",
+    "naslov_en": "Salaries and unemployment",
     "opis": "Razlike među županijama",
+    "opis_en": "Differences between counties",
     "scene": [
       {
         "razina": "drzava",
         "pokazatelj": "prosjecna_neto_placa",
         "tema": "ljudi",
         "mjera": "ukupno",
-        "tekst": "Prosječna plaća na ruke u Hrvatskoj je {vrijednost}. Među županijama su razlike velike."
+        "tekst": "Prosječna plaća na ruke u Hrvatskoj je {vrijednost}. Među županijama su razlike velike.",
+        "tekst_en": "The average take-home salary in Croatia is {vrijednost}. The differences between counties are large."
       },
       {
         "razina": "zupanija",
@@ -115,7 +134,8 @@
         "pokazatelj": "prosjecna_neto_placa",
         "tema": "ljudi",
         "mjera": "ukupno",
-        "tekst": "Najveću prosječnu plaću ima {naziv}: {vrijednost}."
+        "tekst": "Najveću prosječnu plaću ima {naziv}: {vrijednost}.",
+        "tekst_en": "The highest average salary is in {naziv}: {vrijednost}."
       },
       {
         "razina": "zupanija",
@@ -123,7 +143,8 @@
         "pokazatelj": "prosjecna_neto_placa",
         "tema": "ljudi",
         "mjera": "ukupno",
-        "tekst": "Najmanju ima {naziv}: {vrijednost}."
+        "tekst": "Najmanju ima {naziv}: {vrijednost}.",
+        "tekst_en": "The lowest is in {naziv}: {vrijednost}."
       },
       {
         "razina": "zupanija",
@@ -131,7 +152,8 @@
         "pokazatelj": "stopa_nezaposlenosti",
         "tema": "ljudi",
         "mjera": "ukupno",
-        "tekst": "Najveću nezaposlenost ima {naziv}: {vrijednost}."
+        "tekst": "Najveću nezaposlenost ima {naziv}: {vrijednost}.",
+        "tekst_en": "The highest unemployment is in {naziv}: {vrijednost}."
       }
     ]
   }

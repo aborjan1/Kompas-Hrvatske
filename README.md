@@ -3,6 +3,7 @@
 Interaktivna karta Hrvatske koja na jednom mjestu prikazuje gospodarske i javne podatke po razinama Država → Županija → Grad. Rješenje za Datathon Portala otvorenih podataka, izazov C: Gospodarstvo i učinkovito upravljanje.
 
 **Demo:** <https://aborjan1.github.io/Kompas-Hrvatske/>
+· **English version** (for EU readers and investors): <https://aborjan1.github.io/Kompas-Hrvatske/#/?tema=novac&mjera=ukupno&lang=en>
 
 ## Kako odgovaramo na izazov C
 
@@ -18,7 +19,7 @@ uz izvor i objašnjenje svakog broja.
 | Razvoj analitičkih alata i stvaranje nove vrijednosti | Rangovi, usporedbe sa sličnima, grafovi proračuna kroz godine i **tipologija gradova i općina strojnim učenjem** (k-means), **graf veza u javnoj nabavi** (koji dobavljači rade za koji grad i za koga još) i **EU pozivi za svaku općinu** uz usporedbu sa sličnima: informacije koje ne postoje ni u jednom izvornom skupu. |
 | Poboljšanje postojećih dobara i usluga | Isti otvoreni podaci s Portala, ali povezani, objašnjeni jednostavnim riječima i s navedenim izvorom; izlazne datoteke su gotov izvedeni skup podataka za ponovnu uporabu. |
 | Snižavanje operativnih troškova i administrativnog opterećenja | Gradovi, županije i ministarstva dobivaju usporedbu s drugima bez ručnog prikupljanja podataka. Statička arhitektura bez poslužitelja znači gotovo nulti trošak rada. |
-| Povećanje produktivnosti u javnom sektoru i gospodarstvu | Analitičari, novinari, poduzetnici i investitori dobivaju profil bilo kojeg mjesta (dohodak, porezi, proračun, EU novac) za nekoliko sekundi, s poveznicom koja se može poslati. |
+| Povećanje produktivnosti u javnom sektoru i gospodarstvu | Analitičari, novinari, poduzetnici i investitori dobivaju profil bilo kojeg mjesta (dohodak, porezi, proračun, EU novac) za nekoliko sekundi, s poveznicom koja se može poslati, **na hrvatskom ili engleskom** (prekidač HR / EN), pa ga mogu koristiti i strani ulagači i EU partneri. |
 
 **Korisnici:** građani i lokalni vijećnici (kako stoji moj grad), službenici gradova i
 općina (usporedba sa sličnima), ministarstva i agencije (regionalne razlike, učinak EU

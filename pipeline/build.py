@@ -6,7 +6,8 @@ Koraci (issues: spajanje po šifri, izvedeni pokazatelji, izvoz + provjere):
   3. izvedeni pokazatelji: po stanovniku, rang, slična područja (izvoz.py) i tipologija
      gradova i općina strojnim učenjem (tipologija.py)
   4. izvoz: meta.json, drzava.json, zupanije.json, jls.json, tocke/eu-projekti.geojson,
-     proracuni.json, nizovi.json (vremenski nizovi, nizovi.py) i nabava.json (dobavljači)
+     proracuni.json, nizovi.json (vremenski nizovi, nizovi.py), nabava.json (dobavljači),
+     eu-pozivi.json i en.json (engleski tekstovi, prijevodi.py)
   5. provjere: 21 županija, 556 JLS, zbroj županija = država
 
 Uredne tablice za ručnu provjeru (otvaraju se u Excelu) spremaju se u data/obrada/.
@@ -32,6 +33,7 @@ import gradovi  # noqa: E402
 import granice  # noqa: E402
 import nabava  # noqa: E402
 import nizovi  # noqa: E402
+import prijevodi  # noqa: E402
 import proracuni  # noqa: E402
 import sifrarnik  # noqa: E402
 import tipologija  # noqa: E402
@@ -561,8 +563,10 @@ def main() -> None:
     spremi_json("jls.json", {"generirano": sada, "podrucja": pj}, uvlaka=None)
 
     spremi_json("tocke/eu-projekti.geojson", eu_tocke(eu_jls), uvlaka=None)
-    spremi_json("proracuni.json", proracuni.json_nizovi(pr), uvlaka=None)
-    spremi_json("nabava.json", nabava.json_veze(nab), uvlaka=None)
+    pr_json = proracuni.json_nizovi(pr)
+    nab_json = nabava.json_veze(nab)
+    spremi_json("proracuni.json", pr_json, uvlaka=None)
+    spremi_json("nabava.json", nab_json, uvlaka=None)
     spremi_json("eu-pozivi.json", pozivi)
     spremi_json("nizovi.json", {"generirano": sada, **nz}, uvlaka=None)
 
@@ -590,6 +594,11 @@ def main() -> None:
         "tipologija": tip["meta"],
     }
     spremi_json("meta.json", meta)
+
+    # Engleski tekstovi za sučelje (prekidač HR/EN); build staje ako nekom tekstu fali prijevod.
+    en = prijevodi.izracunaj(meta, nz, pr_json, pozivi, nab_json)
+    prijevodi.provjeri(en, meta)
+    spremi_json("en.json", {"generirano": sada, **en})
 
     korak("4. Gradovi: Zagreb (četvrti) i Rijeka")
     gradovi.main(sada)

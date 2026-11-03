@@ -3,6 +3,7 @@
 // only the Novac tema needs it.
 
 import { writable } from 'svelte/store';
+import { sPrijevodom } from './prijevod.js';
 
 /**
  * @typedef {object} ProracunPodrucja
@@ -24,7 +25,11 @@ import { writable } from 'svelte/store';
 const store = writable({ podaci: null, greska: false });
 
 /** @type {import('svelte/store').Readable<{ podaci: Proracuni | null, greska: boolean }>} */
-export const proracuni = { subscribe: store.subscribe };
+export const proracuni = sPrijevodom(store, (p, en) => ({
+  ...p,
+  napomena: en.proracuni_napomena,
+  funkcije: { ...p.funkcije, ...en.funkcije },
+}));
 
 let zatrazeno = false;
 

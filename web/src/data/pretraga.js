@@ -3,6 +3,7 @@
 // Đakovo) and tolerates small typos. Pure functions over the loaded data.
 
 import Fuse from 'fuse.js';
+import { t } from '../jezik.js';
 
 /**
  * @typedef {object} Rezultat
@@ -26,10 +27,10 @@ export function normaliziraj(tekst, dj = 'd') {
     .replace(/\p{Diacritic}/gu, '');
 }
 
-function varijante(naziv) {
-  const d = normaliziraj(naziv, 'd');
-  const dj = normaliziraj(naziv, 'dj');
-  return d === dj ? [d] : [d, dj];
+/** @param {...(string | undefined)} nazivi The name, and in English also the Croatian one. */
+function varijante(...nazivi) {
+  const sve = nazivi.filter(Boolean).flatMap((n) => [normaliziraj(n, 'd'), normaliziraj(n, 'dj')]);
+  return [...new Set(sve)];
 }
 
 /**
@@ -40,10 +41,16 @@ function varijante(naziv) {
 export function napraviIndeks(zupanije, jls) {
   const stavke = [];
   for (const z of Object.values(zupanije ?? {})) {
-    stavke.push({ razina: 'zupanija', sifra: z.sifra, naziv: z.naziv, opis: 'Županija', trazi: varijante(z.naziv) });
+    stavke.push({
+      razina: 'zupanija',
+      sifra: z.sifra,
+      naziv: z.naziv,
+      opis: t('Županija', 'County'),
+      trazi: varijante(z.naziv, z.naziv_hr),
+    });
   }
   for (const j of Object.values(jls ?? {})) {
-    const vrsta = j.vrsta === 'grad' ? 'Grad' : 'Općina';
+    const vrsta = j.vrsta === 'grad' ? t('Grad', 'City') : t('Općina', 'Municipality');
     const zupanija = zupanije?.[j.nadredeno]?.naziv;
     stavke.push({
       razina: 'jls',

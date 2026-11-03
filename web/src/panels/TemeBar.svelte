@@ -7,8 +7,9 @@
   import { podaci } from '../data/podaci.js';
   import { indicator } from '../data/indicator.js';
   import { TEME_POKAZATELJI } from '../data/teme.js';
+  import { t } from '../jezik.js';
 
-  const MJERE_NAZIVI = { ukupno: 'Ukupno', 'po-stanovniku': 'Po stanovniku' };
+  const MJERE_NAZIVI = { ukupno: t('Ukupno', 'Total'), 'po-stanovniku': t('Po stanovniku', 'Per resident') };
 
   // The switch only means something when the mapped indicator has a per-capita value.
   const mjeraMoguca = $derived($indicator?.imaPoStanovniku ?? false);
@@ -62,7 +63,7 @@
   </button>
 
   <div id="tema-izbornik" class="izbornik" class:otvoreno>
-  <div class="grupa" role="group" aria-label="Tema">
+  <div class="grupa" role="group" aria-label={t('Tema', 'Theme')}>
     {#each TEME as tema}
       <button
         type="button"
@@ -78,8 +79,8 @@
   <div
     class="grupa mjera"
     role="group"
-    aria-label="Mjera"
-    title={mjeraMoguca ? undefined : 'Ovaj pokazatelj nema vrijednost po stanovniku'}
+    aria-label={t('Mjera', 'Measure')}
+    title={mjeraMoguca ? undefined : t('Ovaj pokazatelj nema vrijednost po stanovniku', 'This indicator has no per-resident value')}
   >
     {#each MJERE as mjera}
       <button
@@ -99,10 +100,10 @@
       class="eu"
       aria-pressed={$euProjekti.prikazano}
       aria-busy={$euProjekti.prikazano && !$euProjekti.poJls}
-      title="Krugovi po gradu: koliko EU novca je dobio (2014.–2020.)"
+      title={t('Krugovi po gradu: koliko EU novca je dobio (2014.–2020.)', 'Circles per town: how much EU money it received (2014–2020)')}
       onclick={() => odaberi(prebaciEuProjekte)}
     >
-      EU projekti
+      {t('EU projekti', 'EU projects')}
     </button>
   </div>
   </div>
@@ -146,6 +147,13 @@
     font: inherit;
     font-size: 14px;
     cursor: pointer;
+  }
+
+  /* English tema names are longer ("Procurement"): tighter, so the five still fit the
+     left column in one row. */
+  :global(html[lang='en']) .grupa button {
+    padding: 6px 8px;
+    font-size: 13px;
   }
 
   button:hover:not(:disabled) {

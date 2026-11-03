@@ -4,8 +4,9 @@
   import { view } from '../state.js';
   import { nadjiPodrucje, ocitaj, podaci } from '../data/podaci.js';
   import { formatVrijednost } from '../data/format.js';
+  import { t } from '../jezik.js';
   import { napraviRecenicu } from '../data/recenice.js';
-  import { JEDNOSTAVNI_NAZIVI, TEME_POKAZATELJI } from '../data/teme.js';
+  import { TEME_POKAZATELJI, jednostavniNaziv } from '../data/teme.js';
   import EuProjektiPopis from './EuProjektiPopis.svelte';
   import GradskiFiltri from './GradskiFiltri.svelte';
   import GrafUsporedbe from './GrafUsporedbe.svelte';
@@ -34,7 +35,7 @@
         const o = ocitaj(podrucje, kljuc, pokazatelj, $view.mjera);
         return {
           kljuc,
-          naziv: JEDNOSTAVNI_NAZIVI[kljuc] ?? pokazatelj.naziv,
+          naziv: jednostavniNaziv(kljuc, pokazatelj),
           vrijednost: formatVrijednost(o.value, o.jedinica, o.decimale),
           nedostaje: o.value === null,
           godina: pokazatelj.godina,
@@ -55,9 +56,9 @@
     if ($view.razina !== 'jls' || !podrucje) return '';
     const stanovnika = podrucje.pokazatelji.stanovnistvo;
     return [
-      podrucje.vrsta === 'grad' ? 'Grad' : 'Općina',
+      podrucje.vrsta === 'grad' ? t('Grad', 'City') : t('Općina', 'Municipality'),
       $podaci.zupanije?.[podrucje.nadredeno]?.naziv,
-      stanovnika != null && `${formatVrijednost(stanovnika, 'osoba', 0)} stanovnika`,
+      stanovnika != null && `${formatVrijednost(stanovnika, 'osoba', 0)} ${t('stanovnika', 'residents')}`,
     ]
       .filter(Boolean)
       .join(' · ');
@@ -102,7 +103,7 @@
   {#if $podaci.greska}
     <p class="poruka">{$podaci.greska}</p>
   {:else if !podrucje}
-    <p class="poruka">Učitavanje…</p>
+    <p class="poruka">{t('Učitavanje…', 'Loading…')}</p>
   {:else}
     <!-- The swipe only adds to the arrow button, which keyboards and screen readers use. -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -116,8 +117,8 @@
         class="ladica"
         aria-expanded={!sklopljeno}
         aria-controls="info-detalji"
-        aria-label={sklopljeno ? 'Prikaži podatke' : 'Sakrij podatke'}
-        title={sklopljeno ? 'Prikaži podatke' : 'Sakrij podatke'}
+        aria-label={sklopljeno ? t('Prikaži podatke', 'Show data') : t('Sakrij podatke', 'Hide data')}
+        title={sklopljeno ? t('Prikaži podatke', 'Show data') : t('Sakrij podatke', 'Hide data')}
         onclick={() => (visina = sklopljeno ? 'pola' : 'mala')}
       >
         <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
@@ -140,7 +141,7 @@
                   class="pitanje"
                   aria-expanded={otvoreno === b.kljuc}
                   aria-controls="objasnjenje-{b.kljuc}"
-                  title={otvoreno === b.kljuc ? 'Sakrij objašnjenje' : 'Što znači ovaj broj?'}
+                  title={otvoreno === b.kljuc ? t('Sakrij objašnjenje', 'Hide explanation') : t('Što znači ovaj broj?', 'What does this number mean?')}
                   onclick={() => (otvoreno = otvoreno === b.kljuc ? null : b.kljuc)}
                 >
                   {b.naziv}
@@ -152,18 +153,18 @@
               <dd class="objasnjenje" id="objasnjenje-{b.kljuc}" hidden={otvoreno !== b.kljuc}>
                 {#if b.objasnjenje}<p>{b.objasnjenje}</p>{/if}
                 {#if b.poStanovniku}
-                  <p class="kako">Po stanovniku: ukupni iznos podijeljen brojem stanovnika iz Popisa 2021.</p>
+                  <p class="kako">{t('Po stanovniku: ukupni iznos podijeljen brojem stanovnika iz Popisa 2021.', 'Per resident: the total divided by the population from the 2021 Census.')}</p>
                 {/if}
                 {#if b.napomena}
-                  <p class="kako"><strong>Kako je izračunato:</strong> {b.napomena}</p>
+                  <p class="kako"><strong>{t('Kako je izračunato:', 'How it is calculated:')}</strong> {b.napomena}</p>
                 {/if}
-                <p class="kako"><strong>Službeni naziv:</strong> {b.sluzbeniNaziv}</p>
+                <p class="kako"><strong>{t('Službeni naziv:', 'Official name:')}</strong> {b.sluzbeniNaziv}</p>
               </dd>
             </div>
           {/each}
         </dl>
       {:else}
-        <p class="poruka">Za ovu temu nema podataka na ovoj razini.</p>
+        <p class="poruka">{t('Za ovu temu nema podataka na ovoj razini.', 'There is no data for this theme at this level.')}</p>
       {/if}
 
       {#if recenica}<p class="recenica">{recenica}</p>{/if}

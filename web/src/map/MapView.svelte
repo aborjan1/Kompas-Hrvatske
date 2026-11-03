@@ -23,9 +23,11 @@
     setDataAttribution,
     setUserInput,
     unlockCamera,
+    useLocalLabels,
   } from './createMap.js';
+  import { jezik, t } from '../jezik.js';
   import { datumPreuzimanja } from '../data/indicator.js';
-  import { brojProjekata, formatVrijednost } from '../data/format.js';
+  import { brojProjekata, formatVrijednost, nazivJedinice } from '../data/format.js';
   import { CITY_AREA_LAYERS, CITY_POINT_LAYERS, createCityLayers } from './cityLayers.js';
   import { createEuLayer, EU_LAYER, EU_SOURCE } from './euLayer.js';
   import { addHoverTooltip } from './hover.js';
@@ -76,7 +78,7 @@
     const eur = ind.unit.startsWith('EUR');
     const short = eur || ['%', 'osoba', 'broj', 'godina'].includes(ind.unit);
     const rowUnit = eur ? 'EUR' : short ? ind.unit : 'broj';
-    const titleUnit = eur ? ind.unit.slice(3) : short ? '' : ` (${ind.unit})`;
+    const titleUnit = eur ? nazivJedinice(ind.unit.slice(3)) : short ? '' : ` (${nazivJedinice(ind.unit)})`;
     return {
       title: `${ind.title}${titleUnit}`,
       opis: prvaRecenica(ind.objasnjenje),
@@ -94,7 +96,8 @@
 
   onMount(() => {
     const map = createMap(container);
-    map.addControl(new ZoomKontrola(), 'top-right');
+    const zoom = new ZoomKontrola();
+    map.addControl(zoom, 'top-right');
     // Where the camera landed and how far it may go (lockToArea / lockToCroatia); null
     // during a flight.
     /** @type {import('./createMap.js').Okvir | null} */
@@ -124,18 +127,25 @@
     let unsubscribeCity = () => {};
 
     // Boundaries: Državna geodetska uprava under the Open Licence (source, date, licence).
-    let granicePripisane = false;
+    // Rebuilt when the language changes (podaci then carries the English publisher name).
+    let pripisano = '';
     const unsubscribeMeta = podaci.subscribe((p) => {
       const izvor = p.meta?.izvori['granice-upravne-jedinice'];
-      if (!izvor || granicePripisane) return;
-      granicePripisane = true;
+      if (!izvor) return;
       const datum = datumPreuzimanja(izvor);
-      setDataAttribution(
-        map,
-        `Granice: <a href="${izvor.poveznica}" target="_blank" rel="noopener">${izvor.izdavatelj}</a>` +
-          `${datum ? `, preuzeto ${datum}` : ''}, ` +
-          '<a href="https://data.gov.hr/otvorena-dozvola" target="_blank" rel="noopener">Otvorena dozvola</a>',
-      );
+      const html =
+        `${t('Granice', 'Boundaries')}: <a href="${izvor.poveznica}" target="_blank" rel="noopener">${izvor.izdavatelj}</a>` +
+        `${datum ? `, ${t('preuzeto', 'downloaded')} ${datum}` : ''}, ` +
+        `<a href="https://data.gov.hr/otvorena-dozvola" target="_blank" rel="noopener">${t('Otvorena dozvola', 'Open Licence')}</a>`;
+      if (html === pripisano) return;
+      pripisano = html;
+      setDataAttribution(map, html);
+    });
+
+    // Place names on the basemap and the zoom buttons follow the language.
+    const unsubscribeJezik = jezik.subscribe(() => {
+      zoom.prevedi?.();
+      if (map.isStyleLoaded()) useLocalLabels(map);
     });
 
     map.on('load', async () => {
@@ -330,7 +340,7 @@
           title: f.properties.naziv,
           detail: Number.isFinite(f.state.value)
             ? formatVrijednost(f.state.value, shown.unit, shown.decimale)
-            : 'nema podatka',
+            : t('nema podatka', 'no data'),
         }),
       });
       addHoverTooltip(map, {
@@ -340,16 +350,16 @@
         describe: (f) => ({
           title: f.properties.naziv,
           detail:
-            !shownJls ? 'nema podatka za ovu temu'
+            !shownJls ? t('nema podatka za ovu temu', 'no data for this theme')
             : Number.isFinite(f.state.value) ? formatVrijednost(f.state.value, shownJls.unit, shownJls.decimale)
-            : 'nema podatka',
+            : t('nema podatka', 'no data'),
         }),
       });
       addHoverTooltip(map, {
         layerId: EU_LAYER,
         source: EU_SOURCE,
         describe: (f) => ({
-          title: `${f.properties.mjesto}: EU projekti`,
+          title: `${f.properties.mjesto}: ${t('EU projekti', 'EU projects')}`,
           detail: `${brojProjekata(f.properties.broj)} · ${formatVrijednost(f.properties.esif_eur, 'EUR', 0)}`,
         }),
       });
@@ -357,23 +367,29 @@
       // City view: one tooltip per layer, points before areas.
       const m2 = (v) => formatVrijednost(v, 'm²', 0);
       const cityTooltips = {
-        'grad-ulaganja': (p) => ({ title: p.naziv, detail: `${formatVrijednost(p.iznos, 'EUR', 0)} · plan ${p.godina}.` }),
+        // Names and kinds of places stay as the City publishes them (Croatian).
+        'grad-ulaganja': (p) => ({ title: p.naziv, detail: `${formatVrijednost(p.iznos, 'EUR', 0)} · plan ${t(`${p.godina}.`, `${p.godina}`)}` }),
         'grad-prostori': (p) => ({
           title: p.adresa,
           detail: p.zakupnina_mjesecno != null
-            ? `${p.djelatnost} · ${m2(p.povrsina)} · ${formatVrijednost(p.zakupnina_mjesecno, 'EUR', 0)} mjesečno`
-            : `Prazno: ${p.vrsta} · ${m2(p.povrsina)}`,
+            ? `${p.djelatnost} · ${m2(p.povrsina)} · ${formatVrijednost(p.zakupnina_mjesecno, 'EUR', 0)} ${t('mjesečno', 'a month')}`
+            : `${t('Prazno', 'Vacant')}: ${p.vrsta} · ${m2(p.povrsina)}`,
         }),
-        'grad-trznice': (p) => ({ title: p.naziv, detail: 'Gradska tržnica' }),
-        'grad-drustva': (p) => ({ title: p.naziv, detail: `Gradsko društvo · ${p.udjeli}` }),
-        'grad-brownfield-fill': (p) => ({ title: p.naziv, detail: `Napuštena površina · ${formatVrijednost(p.povrsina_ha, 'ha', 1)}` }),
+        'grad-trznice': (p) => ({ title: p.naziv, detail: t('Gradska tržnica', 'City market') }),
+        'grad-drustva': (p) => ({ title: p.naziv, detail: `${t('Gradsko društvo', 'City-owned company')} · ${p.udjeli}` }),
+        'grad-brownfield-fill': (p) => ({
+          title: p.naziv,
+          detail: `${t('Napuštena površina', 'Abandoned site')} · ${formatVrijednost(p.povrsina_ha, 'ha', 1)}`,
+        }),
         'grad-zone-fill': (p) => ({
           title: p.namjena || p.vrsta,
-          detail: `${p.vrsta} zona · ${formatVrijednost(p.povrsina_ha, 'ha', 1)}${p.izgradjenost === 'neizgrađeno' ? ' · neizgrađeno' : ''}`,
+          detail: `${t(`${p.vrsta} zona`, `${p.vrsta} zone`)} · ${formatVrijednost(p.povrsina_ha, 'ha', 1)}${p.izgradjenost === 'neizgrađeno' ? t(' · neizgrađeno', ' · not built yet') : ''}`,
         }),
         'grad-cetvrti-fill': (p, state) => ({
           title: p.naziv,
-          detail: Number.isFinite(state.value) ? `Gospodarske površine: ${formatVrijednost(state.value, '%', 1)}` : 'nema podatka',
+          detail: Number.isFinite(state.value)
+            ? `${t('Gospodarske površine', 'Commercial land')}: ${formatVrijednost(state.value, '%', 1)}`
+            : t('nema podatka', 'no data'),
         }),
       };
       const cityLayers = [...CITY_POINT_LAYERS, ...CITY_AREA_LAYERS];
@@ -394,6 +410,7 @@
       unsubscribeEu();
       unsubscribeCity();
       unsubscribeMeta();
+      unsubscribeJezik();
       removeEventListener('kh:raspored', onLayout);
       map.remove();
     };
@@ -404,7 +421,7 @@
 
 <div class="map" bind:this={container}></div>
 {#if introRunning}
-  <button type="button" class="kh-panel preskoci" onclick={() => skipIntro()}>Preskoči uvod ›</button>
+  <button type="button" class="kh-panel preskoci" onclick={() => skipIntro()}>{$jezik === 'en' ? 'Skip intro' : 'Preskoči uvod'} ›</button>
 {/if}
 
 <style>

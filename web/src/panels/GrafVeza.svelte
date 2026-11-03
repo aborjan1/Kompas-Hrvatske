@@ -6,7 +6,8 @@
   import { selectArea, view } from '../state.js';
   import { nadjiPodrucje, podaci } from '../data/podaci.js';
   import { nabava, ucitajNabavu } from '../data/nabava.js';
-  import { formatVrijednost } from '../data/format.js';
+  import { formatVrijednost, postotak } from '../data/format.js';
+  import { engleski, t } from '../jezik.js';
   import { TEME_POKAZATELJI } from '../data/teme.js';
 
   $effect(() => ucitajNabavu());
@@ -75,16 +76,19 @@
 
 {#if prikaz}
   <section class="graf" aria-labelledby="graf-veza-naslov">
-    <h3 id="graf-veza-naslov">Graf veza: dobavljači <span class="godina">{prikaz.razdoblje}</span></h3>
+    <h3 id="graf-veza-naslov">{t('Graf veza: dobavljači', 'Link graph: suppliers')} <span class="godina">{prikaz.razdoblje}</span></h3>
     {#if !prikaz.dobavljaci.length}
       <p class="napomena">
-        U registru javne nabave nema ugovora u ovom razdoblju. Manje nabave (jednostavna nabava)
-        ne moraju se ondje objavljivati.
+        {t(
+          'U registru javne nabave nema ugovora u ovom razdoblju. Manje nabave (jednostavna nabava) ne moraju se ondje objavljivati.',
+          'The public procurement register has no contracts in this period. Small purchases (simple procurement) do not have to be published there.',
+        )}
       </p>
     {:else}
       <p class="podnaslov">
-        Najveći dobavljači i {prikaz.jls ? 'drugi gradovi i općine' : 'gradovi i općine'} s kojima
-        isti dobavljači imaju ugovore.
+        {prikaz.jls
+          ? t('Najveći dobavljači i drugi gradovi i općine s kojima isti dobavljači imaju ugovore.', 'The largest suppliers, and other cities and municipalities that have contracts with the same suppliers.')
+          : t('Najveći dobavljači i gradovi i općine s kojima isti dobavljači imaju ugovore.', 'The largest suppliers, and the cities and municipalities that have contracts with them.')}
       </p>
       <svg viewBox="0 0 300 300" class="mreza" aria-hidden="true">
         {#each prikaz.linije as l, i (i)}
@@ -118,12 +122,15 @@
           <li>
             <div class="red">
               <span class="ime">{d.naziv}</span>
-              <span class="iznos">{d.tekst}{d.udio !== null ? ` · ${Math.round(d.udio)} %` : ''}</span>
+              <span class="iznos">{d.tekst}{d.udio !== null ? ` · ${postotak(d.udio)}` : ''}</span>
             </div>
             {#if d.drugih_jls}
               <p class="drugi">
-                Ugovore ima i s još {d.drugih_jls}
-                {d.drugih_jls % 10 === 1 && d.drugih_jls % 100 !== 11 ? 'gradom ili općinom' : 'gradova i općina'}{d.drugiNazivi.length
+                {#if engleski()}
+                  Also has contracts with {d.drugih_jls}
+                  {d.drugih_jls === 1 ? 'other city or municipality' : 'other cities and municipalities'}{:else}
+                  Ugovore ima i s još {d.drugih_jls}
+                  {d.drugih_jls % 10 === 1 && d.drugih_jls % 100 !== 11 ? 'gradom ili općinom' : 'gradova i općina'}{/if}{d.drugiNazivi.length
                   ? ': '
                   : ''}{#each d.drugiNazivi.slice(0, 3) as g, i (g.sifra)}<button
                     type="button"
@@ -136,9 +143,15 @@
         {/each}
       </ol>
       <p class="napomena">
-        {prikaz.ugovora} ugovora uprave {prikaz.jls ? 'grada ili općine' : 'županije, gradova i općina'}.
-        Isti dobavljač kod više naručitelja je uobičajen (npr. opskrba strujom) i sam po sebi nije
-        nepravilnost. Izvor: registar ugovora EOJN RH.
+        {#if engleski()}
+          {prikaz.ugovora} contracts of the {prikaz.jls ? 'city or municipality' : 'county, its cities and municipalities'}
+          administration. The same supplier serving several buyers is common (e.g. electricity supply)
+          and is not an irregularity in itself. Source: EOJN RH contract register.
+        {:else}
+          {prikaz.ugovora} ugovora uprave {prikaz.jls ? 'grada ili općine' : 'županije, gradova i općina'}.
+          Isti dobavljač kod više naručitelja je uobičajen (npr. opskrba strujom) i sam po sebi nije
+          nepravilnost. Izvor: registar ugovora EOJN RH.
+        {/if}
       </p>
     {/if}
   </section>

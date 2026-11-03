@@ -28,7 +28,7 @@ export const MAX_ZOOM = 10.25;
 // projects come apart, but not single streets.
 export const CITY_MAX_ZOOM = 13;
 
-export const LABEL_LANGUAGE = 'hr';
+export const LABEL_LANGUAGE = 'hr'; // English uses name_en (src/jezik.js)
 
 // Official DGU county boundaries from pipeline/build.py (docs/format-podataka.md).
 export const COUNTY_BOUNDARIES_URL = `${import.meta.env.BASE_URL}data/zupanije.geojson`;

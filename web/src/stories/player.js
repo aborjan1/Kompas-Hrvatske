@@ -8,11 +8,21 @@ import { setView, view } from '../state.js';
 import { podaci, ucitajJls } from '../data/podaci.js';
 import { euProjekti, prikaziEuProjekte } from '../data/euProjekti.js';
 import { bezNovogZapisa } from '../url.js';
+import { engleski, jezik, t } from '../jezik.js';
 import { imaPodatke, rijesiScenu } from './scene.js';
 import PRICE from './price.json';
 
 /** @type {import('./scene.js').Prica[]} */
 export const price = PRICE;
+
+/**
+ * Title and description of a story in the current language (`naslov_en`, `opis_en`).
+ * @param {import('./scene.js').Prica} prica
+ */
+export function tekstPrice(prica) {
+  const en = engleski();
+  return { naslov: (en && prica.naslov_en) || prica.naslov, opis: (en && prica.opis_en) || prica.opis };
+}
 
 /**
  * @typedef {object} Reprodukcija
@@ -64,7 +74,8 @@ export function zavrsi() {
 
 function prikazi(prica, indeks) {
   cekanje();
-  const scena = prica.scene[indeks];
+  const izvorna = prica.scene[indeks];
+  const scena = engleski() && izvorna.tekst_en ? { ...izvorna, tekst: izvorna.tekst_en } : izvorna;
   store.set({ prica, indeks, tekst: null });
 
   // Applies the scene once its data is there: at once, or when jls.json arrives for
@@ -78,9 +89,15 @@ function prikazi(prica, indeks) {
     const rijeseno = rijesiScenu(p, scena);
     if (rijeseno) bezNovogZapisa(() => setView(rijeseno.view));
     prikaziEuProjekte(Boolean(scena.eu));
-    store.set({ prica, indeks, tekst: rijeseno?.tekst ?? 'Za ovu scenu nema podataka.' });
+    store.set({ prica, indeks, tekst: rijeseno?.tekst ?? t('Za ovu scenu nema podataka.', 'There is no data for this scene.') });
   };
   odjava = podaci.subscribe(primijeni);
   if (gotovo) odjava();
   cekanje = () => odjava();
 }
+
+// A language switch mid-story shows the same scene again, in the new language.
+jezik.subscribe(() => {
+  const r = get(store);
+  if (r) prikazi(r.prica, r.indeks);
+});

@@ -3,6 +3,7 @@
 
 import { NO_DATA_COLOR } from './countyLayer.js';
 import { formatNumber } from './format.js';
+import { t } from '../jezik.js';
 import './legend.css';
 
 export class LegendControl {
@@ -28,7 +29,7 @@ export class LegendControl {
         this.container.setAttribute('role', 'button');
         this.container.tabIndex = 0;
         this.container.setAttribute('aria-expanded', String(this.container.classList.contains('kh-legend--otvorena')));
-        this.container.setAttribute('aria-label', 'Legenda');
+        this.container.setAttribute('aria-label', t('Legenda', 'Legend'));
       } else {
         for (const a of ['role', 'tabindex', 'aria-expanded', 'aria-label']) this.container.removeAttribute(a);
       }
@@ -51,7 +52,7 @@ export class LegendControl {
   update({ title, opis = '', format = formatNumber, classes, hasMissing }) {
     const range = (min, max) => (min === max ? format(min) : `${format(min)} – ${format(max)}`);
     const rows = classes.map((c) => row(c.color, range(c.min, c.max)));
-    if (hasMissing) rows.push(row(NO_DATA_COLOR, 'nema podatka'));
+    if (hasMissing) rows.push(row(NO_DATA_COLOR, t('nema podatka', 'no data')));
 
     const head = [el('div', 'kh-legend__title', title)];
     if (opis) head.push(el('div', 'kh-legend__opis', opis));
@@ -75,7 +76,7 @@ function traka(classes, hasMissing, format) {
   if (hasMissing) {
     const s = el('span', 'kh-legend__boja kh-legend__bez');
     s.style.background = NO_DATA_COLOR;
-    s.title = 'nema podatka';
+    s.title = t('nema podatka', 'no data');
     strip.append(s);
   }
   return strip;

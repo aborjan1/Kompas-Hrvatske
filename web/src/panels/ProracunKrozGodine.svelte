@@ -15,7 +15,8 @@
   import { view } from '../state.js';
   import { nadjiPodrucje, podaci } from '../data/podaci.js';
   import { proracuni, ucitajProracune } from '../data/proracuni.js';
-  import { formatVrijednost } from '../data/format.js';
+  import { formatVrijednost, postotak } from '../data/format.js';
+  import { god, raspon, t } from '../jezik.js';
   import { TEME_POKAZATELJI } from '../data/teme.js';
 
   Chart.register(CategoryScale, LinearScale, LineController, LineElement, PointElement, Tooltip);
@@ -40,9 +41,9 @@
     const djelitelj = poStanovniku ? stanovnika : 1;
     const boja = TEME_POKAZATELJI[$view.tema].boje[3];
     const nizovi = [
-      { naziv: 'Prihodi', vrijednosti: z.prihodi, boja, crtkano: false },
-      { naziv: 'Rashodi', vrijednosti: z.rashodi, boja: SIVA, crtkano: false },
-      { naziv: 'Ulaganja', vrijednosti: z.ulaganja, boja, crtkano: true },
+      { naziv: t('Prihodi', 'Revenue'), vrijednosti: z.prihodi, boja, crtkano: false },
+      { naziv: t('Rashodi', 'Expenditure'), vrijednosti: z.rashodi, boja: SIVA, crtkano: false },
+      { naziv: t('Ulaganja', 'Investment'), vrijednosti: z.ulaganja, boja, crtkano: true },
     ].map((n) => ({ ...n, vrijednosti: n.vrijednosti.map((v) => v / djelitelj) }));
     const tekst = (/** @type {number} */ v) =>
       formatVrijednost(v, poStanovniku ? 'EUR po stanovniku' : 'EUR', 0);
@@ -61,7 +62,6 @@
     };
   });
 
-  const postotak = new Intl.NumberFormat('hr-HR', { maximumFractionDigits: 0, signDisplay: 'always' });
 
   /** @type {HTMLCanvasElement | undefined} */
   let canvas = $state();
@@ -106,7 +106,7 @@
         legend: { display: false },
         tooltip: {
           callbacks: {
-            title: (items) => `${items[0].label}.`,
+            title: (items) => god(items[0].label),
             label: (item) => ` ${item.dataset.label}: ${trenutni.tekst(item.parsed.y)}`,
           },
         },
@@ -132,13 +132,14 @@
 {#if prikaz}
   <section class="graf" aria-labelledby="proracun-godine-naslov">
     <h3 id="proracun-godine-naslov">
-      Proračun kroz godine <span class="godina">{prikaz.prvi}.–{prikaz.zadnji}.</span>
+      {t('Proračun kroz godine', 'Budget over the years')} <span class="godina">{raspon(prikaz.prvi, prikaz.zadnji)}</span>
     </h3>
     {#if prikaz.rast !== null}
       <p class="podnaslov">
-        Prihodi su {prikaz.rast >= 0 ? 'porasli' : 'pali'}
-        <strong>{postotak.format(prikaz.rast)} %</strong> od {prikaz.prvi}.{prikaz.poStanovniku
-          ? ' Iznosi su po stanovniku.'
+        {t(`Prihodi su ${prikaz.rast >= 0 ? 'porasli' : 'pali'}`, `Revenue ${prikaz.rast >= 0 ? 'grew' : 'fell'}`)}
+        <strong>{postotak(prikaz.rast, { predznak: true })}</strong>
+        {t(`od ${god(prikaz.prvi)}`, `since ${prikaz.prvi}.`)}{prikaz.poStanovniku
+          ? t(' Iznosi su po stanovniku.', ' Amounts are per resident.')
           : ''}
       </p>
     {/if}
@@ -155,21 +156,26 @@
     <!-- A table ignores a 1px width, so the visually hidden wrapper is a div. -->
     <div class="sr-only">
       <table>
-        <caption>Proračun po godinama{prikaz.poStanovniku ? ', po stanovniku' : ''}</caption>
+        <caption>{t('Proračun po godinama', 'Budget by year')}{prikaz.poStanovniku ? t(', po stanovniku', ', per resident') : ''}</caption>
         <thead>
-          <tr><th scope="col">Godina</th>{#each prikaz.nizovi as n (n.naziv)}<th scope="col">{n.naziv}</th>{/each}</tr>
+          <tr><th scope="col">{t('Godina', 'Year')}</th>{#each prikaz.nizovi as n (n.naziv)}<th scope="col">{n.naziv}</th>{/each}</tr>
         </thead>
         <tbody>
           {#each prikaz.godine as g, i (g)}
             <tr>
-              <th scope="row">{g}.</th>
+              <th scope="row">{god(g)}</th>
               {#each prikaz.nizovi as n (n.naziv)}<td>{prikaz.tekst(n.vrijednosti[i])}</td>{/each}
             </tr>
           {/each}
         </tbody>
       </table>
     </div>
-    <p class="napomena">Ulaganja su dio rashoda (ceste, zgrade, oprema). Izvor: Ministarstvo financija.</p>
+    <p class="napomena">
+      {t(
+        'Ulaganja su dio rashoda (ceste, zgrade, oprema). Izvor: Ministarstvo financija.',
+        'Investment is part of expenditure (roads, buildings, equipment). Source: Ministry of Finance.',
+      )}
+    </p>
   </section>
 {/if}
 

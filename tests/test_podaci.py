@@ -109,6 +109,19 @@ def test_nabava_i_eu_pozivi(meta):
         assert p["zupanije"] is None or all(re.fullmatch(r"\d\d", z) for z in p["zupanije"])
 
 
+def test_engleski_tekstovi(meta):
+    en = ucitaj("en.json")
+    assert set(en["pokazatelji"]) == set(meta["pokazatelji"]), "en.json ne prati meta.json"
+    for pid, p in en["pokazatelji"].items():
+        assert p["naziv"] and p["objasnjenje"], pid
+        assert not re.search(r"[čćžšđ]", p["objasnjenje"].lower()), f"{pid}: hrvatski tekst?"
+    assert set(en["teme"]) == set(meta["teme"])
+    assert set(en["tipologija"]["tipovi"]) == set(meta["tipologija"]["tipovi"])
+    assert len(en["zupanije"]) == 21
+    assert set(en["serije"]) == set(ucitaj("nizovi.json")["serije"])
+    assert set(en["eu_pozivi"]["pozivi"]) == {p["id"] for p in ucitaj("eu-pozivi.json")["pozivi"]}
+
+
 def test_tipologija(meta):
     j = ucitaj("jls.json")["podrucja"]
     tipovi = meta["tipologija"]["tipovi"]

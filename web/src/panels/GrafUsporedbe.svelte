@@ -4,7 +4,8 @@
   import { selectArea, view } from '../state.js';
   import { ocitaj, podaci } from '../data/podaci.js';
   import { formatVrijednost } from '../data/format.js';
-  import { JEDNOSTAVNI_NAZIVI, TEME_POKAZATELJI } from '../data/teme.js';
+  import { t } from '../jezik.js';
+  import { TEME_POKAZATELJI, jednostavniNaziv } from '../data/teme.js';
   import GrafStupci from './GrafStupci.svelte';
 
   const usporedba = $derived.by(() => {
@@ -27,18 +28,18 @@
       }
       redovi.push({
         id: z.sifra,
-        oznaka: z.naziv.replace(/ županija$/, ''),
+        oznaka: z.naziv.replace(/ (županija|County)$/, ''),
         naziv: z.naziv,
         value: o.value,
         tekst: formatVrijednost(o.value, o.jedinica, o.decimale),
       });
     }
     redovi.sort((a, b) => b.value - a.value);
-    redovi.forEach((r, i) => (r.detalji = [`${i + 1}. mjesto: ${r.tekst}`]));
+    redovi.forEach((r, i) => (r.detalji = [t(`${i + 1}. mjesto: ${r.tekst}`, `Rank ${i + 1}: ${r.tekst}`)]));
     const indeks = redovi.findIndex((r) => r.id === v.podrucje);
 
     return {
-      naslov: (JEDNOSTAVNI_NAZIVI[kljuc] ?? pokazatelj.naziv) + (poStanovniku ? ' po stanovniku' : ''),
+      naslov: jednostavniNaziv(kljuc, pokazatelj) + (poStanovniku ? t(' po stanovniku', ' per resident') : ''),
       godina: pokazatelj.godina,
       redovi,
       odabrani: indeks >= 0 ? redovi[indeks] : null,
@@ -57,22 +58,22 @@
     </h3>
     {#if usporedba.odabrani}
       <p class="isticanje">
-        <strong>{usporedba.mjesto}. od {usporedba.redovi.length}</strong> · {usporedba.odabrani.tekst}
+        <strong>{t(`${usporedba.mjesto}. od ${usporedba.redovi.length}`, `${usporedba.mjesto} of ${usporedba.redovi.length}`)}</strong> · {usporedba.odabrani.tekst}
       </p>
     {:else}
-      <p class="isticanje">Za ovu županiju nema podatka.</p>
+      <p class="isticanje">{t('Za ovu županiju nema podatka.', 'No data for this county.')}</p>
     {/if}
 
     <GrafStupci
       redovi={usporedba.redovi}
       odabrani={usporedba.odabrani?.id ?? null}
       boja={usporedba.boja}
-      naslov="{usporedba.naslov}, poredak županija"
+      naslov={t(`${usporedba.naslov}, poredak županija`, `${usporedba.naslov}, counties ranked`)}
       onodaberi={(red) => selectArea('zupanija', red.id)}
     />
 
     {#if usporedba.bezPodatka}
-      <p class="napomena">Bez podatka: {usporedba.bezPodatka} od {usporedba.ukupno} županija.</p>
+      <p class="napomena">{t(`Bez podatka: ${usporedba.bezPodatka} od ${usporedba.ukupno} županija.`, `No data: ${usporedba.bezPodatka} of ${usporedba.ukupno} counties.`)}</p>
     {/if}
   </section>
 {/if}

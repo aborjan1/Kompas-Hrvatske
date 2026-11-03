@@ -2,6 +2,7 @@
   // Breadcrumb: Država → Županija → Grad. Earlier steps are links back up.
   import { selectArea, view } from '../state.js';
   import { podaci } from '../data/podaci.js';
+  import { t } from '../jezik.js';
 
   const koraci = $derived.by(() => {
     const { razina, podrucje } = $view;
@@ -9,7 +10,7 @@
     const jls = razina === 'jls' ? p.jls?.[podrucje] : null;
     const sifraZupanije = razina === 'zupanija' ? podrucje : jls?.nadredeno;
 
-    const lista = [{ naziv: 'Hrvatska', odaberi: () => selectArea('drzava') }];
+    const lista = [{ naziv: t('Hrvatska', 'Croatia'), odaberi: () => selectArea('drzava') }];
     if (sifraZupanije) {
       lista.push({
         naziv: p.zupanije?.[sifraZupanije]?.naziv ?? '…',
@@ -21,7 +22,7 @@
   });
 </script>
 
-<nav class="kh-panel putanja" aria-label="Putanja">
+<nav class="kh-panel putanja" aria-label={t('Putanja', 'Breadcrumb')}>
   <ol>
     {#each koraci as korak, i}
       <li>

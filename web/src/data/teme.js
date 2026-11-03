@@ -1,3 +1,5 @@
+import { engleski } from '../jezik.js';
+
 // Which indicators (keys of meta.json `pokazatelji`) each tema shows. `karta` is the
 // one the map colours, per coloured level (counties for the country, cities and
 // municipalities inside a county); null means nothing to colour at that level.
@@ -37,6 +39,46 @@ export const JEDNOSTAVNI_NAZIVI = {
   nabava_bez_objave: 'Ugovori bez javnog poziva',
   pravne_osobe_aktivne: 'Aktivne tvrtke i udruge',
 };
+
+/** The same everyday names in English. */
+/** @type {Record<string, string>} */
+export const JEDNOSTAVNI_NAZIVI_EN = {
+  stanovnistvo: 'Population',
+  prosjecna_starost: 'Average age of residents',
+  prosjecna_neto_placa: 'Average salary (take-home)',
+  stopa_nezaposlenosti: 'Unemployment',
+  neto_dohodak: 'Total income of residents',
+  bdp: 'Size of the economy (GDP)',
+  bruto_dodana_vrijednost: 'What the economy earns',
+  eu_2127_ugovoreno: 'Money from EU funds (2021–2027)',
+  hbor_krediti: 'Loans from EU funds (HBOR)',
+  inflacija: 'Price growth (inflation)',
+  lokalni_prihodi: 'City or municipality revenue',
+  lokalna_ulaganja: 'City or municipality investment',
+  udio_pomoci_u_prihodima: 'Share of the budget from grants',
+  porez_na_dohodak: 'Income tax paid',
+  stopa_poreza_dohodak_niza: 'Income tax (lower rate)',
+  stopa_poreza_dohodak_visa: 'Income tax (higher rate)',
+  porez_na_potrosnju: 'Tax on drinks in cafés and restaurants',
+  porez_na_nekretnine: 'Property tax',
+  kupoprodaje_nekretnina: 'Properties sold',
+  porez_na_promet_nekretnina: 'Tax on property sales',
+  prihodi_od_imovine: 'Revenue from leases and concessions',
+  javna_nabava: 'Public procurement contracts (5 years)',
+  nabava_najveci_dobavljac: 'Share won by a single company',
+  nabava_bez_objave: 'Contracts without a public call',
+  pravne_osobe_aktivne: 'Active companies and associations',
+};
+
+/**
+ * Everyday name of an indicator in the current language, else its official name
+ * (already English in English, src/data/prijevod.js).
+ * @param {string} kljuc
+ * @param {{ naziv: string }} pokazatelj
+ */
+export function jednostavniNaziv(kljuc, pokazatelj) {
+  return (engleski() ? JEDNOSTAVNI_NAZIVI_EN : JEDNOSTAVNI_NAZIVI)[kljuc] ?? pokazatelj.naziv;
+}
 
 /**
  * @type {Record<import('../state.js').Tema, {

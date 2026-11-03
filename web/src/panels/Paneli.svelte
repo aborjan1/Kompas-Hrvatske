@@ -4,18 +4,26 @@
   import GrafoviPanel from './GrafoviPanel.svelte';
   import InfoPanel from './InfoPanel.svelte';
   import IzvorPodatka from './IzvorPodatka.svelte';
+  import JezikGumb from './JezikGumb.svelte';
   import Pretraga from './Pretraga.svelte';
   import PricaKartica from './PricaKartica.svelte';
   import Putanja from './Putanja.svelte';
   import TemeBar from './TemeBar.svelte';
   import { reprodukcija } from '../stories/player.js';
   import { onMount } from 'svelte';
+  import { t } from '../jezik.js';
 
   // Docked columns on wide screens (src/raspored.css): either column can
   // be closed with its tab. The map frames areas in the free part between the columns,
   // so it is told ('kh:raspored') whenever that part changes, once the columns have
   // finished moving.
-  const zatvoreno = $state({ lijevo: false, desno: false });
+  // Read back from the page, so a column stays closed when the panels are rebuilt in
+  // another language.
+  const html = document.documentElement;
+  const zatvoreno = $state({
+    lijevo: html.dataset.trakaLijevo === 'zatvorena',
+    desno: html.dataset.trakaDesno === 'zatvorena',
+  });
   const javiRaspored = () => setTimeout(() => dispatchEvent(new Event('kh:raspored')), 280);
 
   /** @param {'lijevo' | 'desno'} strana */
@@ -45,7 +53,10 @@
 <div class="sloj" class:u-prici={$reprodukcija}>
   <div class="gore">
     <Putanja />
-    <Pretraga />
+    <div class="vrh">
+      <Pretraga />
+      <JezikGumb />
+    </div>
   </div>
   <div class="lijevo" bind:this={grafovi}><GrafoviPanel /></div>
   <div class="desno"><InfoPanel /></div>
@@ -59,16 +70,16 @@
     type="button"
     class="kh-sklopi kh-sklopi-lijevo"
     aria-expanded={!zatvoreno.lijevo}
-    aria-label={zatvoreno.lijevo ? 'Otvori podatke' : 'Zatvori podatke'}
-    title={zatvoreno.lijevo ? 'Otvori podatke' : 'Zatvori podatke'}
+    aria-label={zatvoreno.lijevo ? t('Otvori podatke', 'Open data') : t('Zatvori podatke', 'Close data')}
+    title={zatvoreno.lijevo ? t('Otvori podatke', 'Open data') : t('Zatvori podatke', 'Close data')}
     onclick={() => prebaci('lijevo')}
   >{zatvoreno.lijevo ? '›' : '‹'}</button>
   <button
     type="button"
     class="kh-sklopi kh-sklopi-desno"
     aria-expanded={!zatvoreno.desno}
-    aria-label={zatvoreno.desno ? 'Otvori grafove' : 'Zatvori grafove'}
-    title={zatvoreno.desno ? 'Otvori grafove' : 'Zatvori grafove'}
+    aria-label={zatvoreno.desno ? t('Otvori grafove', 'Open charts') : t('Zatvori grafove', 'Close charts')}
+    title={zatvoreno.desno ? t('Otvori grafove', 'Open charts') : t('Zatvori grafove', 'Close charts')}
     onclick={() => prebaci('desno')}
   >{zatvoreno.desno ? '‹' : '›'}</button>
 </div>
@@ -101,6 +112,21 @@
     gap: 8px;
     width: max-content;
     max-width: calc(100% - 24px);
+  }
+
+  /* Search with the language switch beside it; the search box gives way on a phone. */
+  .vrh {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+    justify-content: center;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .vrh > :global(.pretraga) {
+    flex: 1 1 auto;
+    min-width: 0;
   }
 
   /* Charts for the selected area (wide screens only, see ekran.js). Stops above the
