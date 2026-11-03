@@ -32,7 +32,7 @@ import tempfile
 import time
 from datetime import date, datetime
 from pathlib import Path
-from urllib.parse import unquote, urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 
 import requests
 from requests.adapters import HTTPAdapter
@@ -176,7 +176,10 @@ def obradi_url(sesija, red: dict, max_mb: float, ponovno: bool) -> bool:
     print(f"\n[{sid}]")
     mapa = RAW / sid
     mapa.mkdir(parents=True, exist_ok=True)
-    ime = re.sub(r'[<>:"/\\|?*]', "_", unquote(Path(urlparse(url).path).name)) or "datoteka"
+    # Poveznica oblika ".../download?name=full.jsonl.gz": ime datoteke je u parametru `name`.
+    adresa = urlparse(url)
+    ime = parse_qs(adresa.query).get("name", [Path(adresa.path).name])[0]
+    ime = re.sub(r'[<>:"/\\|?*]', "_", unquote(ime)) or "datoteka"
     cilj = mapa / ime
     if cilj.exists() and not ponovno:
         print(f"  postoji    {cilj.name}")

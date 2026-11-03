@@ -8,7 +8,7 @@
 import { get, writable } from 'svelte/store';
 
 /** @typedef {'drzava' | 'zupanija' | 'jls'} Razina */
-/** @typedef {'ljudi' | 'novac' | 'porezi' | 'imovina'} Tema */
+/** @typedef {'ljudi' | 'novac' | 'porezi' | 'imovina' | 'nabava'} Tema */
 /** @typedef {'ukupno' | 'po-stanovniku'} Mjera */
 
 /**
@@ -22,7 +22,7 @@ import { get, writable } from 'svelte/store';
  */
 
 export const RAZINE = /** @type {const} */ (['drzava', 'zupanija', 'jls']);
-export const TEME = /** @type {const} */ (['ljudi', 'novac', 'porezi', 'imovina']);
+export const TEME = /** @type {const} */ (['ljudi', 'novac', 'porezi', 'imovina', 'nabava']);
 export const MJERE = /** @type {const} */ (['ukupno', 'po-stanovniku']);
 
 /** @type {View} */

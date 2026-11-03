@@ -1,0 +1,304 @@
+{
+  "azurirano": "2026-11-03",
+  "napomena": "Indikativni planovi objave poziva za 2026. (PKK, ITP: listopad 2026.; ULJP: III. izmjena). Prihvatljivost je zaključena iz teksta plana; točni uvjeti su u pozivu.",
+  "ukupno_poziva": 48,
+  "bez_lokalne_samouprave": 33,
+  "pozivi": [
+    {
+      "id": "ULJP-3",
+      "program": "ULJP",
+      "naziv": "Nastavak podrške integracije sustava zdravstva i socijalne skrbi kroz unaprjeđenje dostupnosti usluga dugotrajne skrbi u zajednici",
+      "vrsta": "Ograničeni (trajni)",
+      "iznos": 7742300.0,
+      "pocetak": "2026-10",
+      "kraj": null,
+      "samo_mjesec": true,
+      "podrucje": "HR0",
+      "zupanije": null,
+      "jls": null,
+      "zupanija": "prijavitelj",
+      "imenovani": [],
+      "prijavitelji": "Jedinice područne (regionalne) samouprave",
+      "napomena": null,
+      "izvor": "eu-pozivi-uljp-2026"
+    },
+    {
+      "id": "ULJP-1",
+      "program": "ULJP",
+      "naziv": "Podrška osnovnim školama za provedbu eksperimentalnog programa cjelodnevne škole, II.",
+      "vrsta": "Otvoreni (privremeni)",
+      "iznos": 20000000.0,
+      "pocetak": "2026-10",
+      "kraj": null,
+      "samo_mjesec": true,
+      "podrucje": "HR0",
+      "zupanije": null,
+      "jls": "prijavitelj",
+      "zupanija": "prijavitelj",
+      "imenovani": [],
+      "prijavitelji": "Prijavitelj: Republika Hrvatska ili jedinica lokalne ili regionalne (područne) samouprave na području Republike Hrvatske prema Zakonu o lokalnoj i područnoj (regionalnoj) samoupravi, kao osnivač osnovnoškolske/ih ustanove/a; • osnovnoškolska odgojno-obrazovna ustanova koja ima organiziranu nastavu u jednoj smjeni (u matičnoj ili barem jednoj područnoj školi).",
+      "napomena": null,
+      "izvor": "eu-pozivi-uljp-2026"
+    },
+    {
+      "id": "ULJP-2",
+      "program": "ULJP",
+      "naziv": "Podrška radu s darovitom djecom i učenicima",
+      "vrsta": "Otvoreni (privremeni)",
+      "iznos": 8500000.0,
+      "pocetak": "2026-10",
+      "kraj": null,
+      "samo_mjesec": true,
+      "podrucje": "HR0",
+      "zupanije": null,
+      "jls": "prijavitelj",
+      "zupanija": "prijavitelj",
+      "imenovani": [],
+      "prijavitelji": "Prijavitelji: osnovnoškolske odgojno-obrazovne ustanove JLP(R)S Partneri: JLP(R)S, odgojno-obrazovne ustanove (dječji vrtići, osnovnoškolske i srednjoškolske ustanove) i druge javne ustanove koje provode aktivnosti usmjerene na rad s darovitom djecom i učenicima",
+      "napomena": null,
+      "izvor": "eu-pozivi-uljp-2026"
+    },
+    {
+      "id": "PKK-2",
+      "program": "PKK",
+      "naziv": "Razvoj održivog turizma kroz ulaganja u javnu turističku infrastrukturu",
+      "vrsta": "Otvoreni (privremeni)",
+      "iznos": 40000000.0,
+      "pocetak": "2026-10-09",
+      "kraj": "2026-12-09",
+      "samo_mjesec": false,
+      "podrucje": "Republika Hrvatska",
+      "zupanije": null,
+      "jls": "prijavitelj",
+      "zupanija": "prijavitelj",
+      "imenovani": [],
+      "prijavitelji": "JLPRS",
+      "napomena": null,
+      "izvor": "eu-pozivi-pkk-2026"
+    },
+    {
+      "id": "ITP-3",
+      "program": "ITP",
+      "naziv": "ITU - CIFood",
+      "vrsta": "Izravna dodjela",
+      "iznos": 1513903.0,
+      "pocetak": "2026-10-30",
+      "kraj": "2026-11-30",
+      "samo_mjesec": false,
+      "podrucje": "Gradovi - Pazin, Istarska",
+      "zupanije": [
+        "18"
+      ],
+      "jls": null,
+      "zupanija": null,
+      "imenovani": [
+        "04332"
+      ],
+      "prijavitelji": "Općina Sv. Petar u Šumi",
+      "napomena": null,
+      "izvor": "eu-pozivi-itp-2026"
+    },
+    {
+      "id": "ULJP-5",
+      "program": "ULJP",
+      "naziv": "Tematske mreže za društveno-ekonomski razvoj",
+      "vrsta": "Otvoreni (privremeni)",
+      "iznos": 15000000.0,
+      "pocetak": "2026-11",
+      "kraj": null,
+      "samo_mjesec": true,
+      "podrucje": "HR0",
+      "zupanije": null,
+      "jls": "partner",
+      "zupanija": "partner",
+      "imenovani": [],
+      "prijavitelji": "Prijavitelji: OCD-(udruge) Partneri: OCD, znanstveni instituti i/ili visoka učilišta, JLP(R)S, ustanove",
+      "napomena": null,
+      "izvor": "eu-pozivi-uljp-2026"
+    },
+    {
+      "id": "PKK-4",
+      "program": "PKK",
+      "naziv": "Modernizacija ustanova za provedbu cjelodnevne škole (CDŠ) u osnovnoškolskom obrazovanju",
+      "vrsta": "Otvoreni (privremeni)",
+      "iznos": 143882589.0,
+      "pocetak": "2026-11-06",
+      "kraj": "2027-05-06",
+      "samo_mjesec": false,
+      "podrucje": "Republika Hrvatska",
+      "zupanije": null,
+      "jls": "prijavitelj",
+      "zupanija": null,
+      "imenovani": [],
+      "prijavitelji": "Osnivači osnovnih škola, ustanove koje obavljaju djelatnost osnovnoškolskog odgoja i obrazovanja",
+      "napomena": null,
+      "izvor": "eu-pozivi-pkk-2026"
+    },
+    {
+      "id": "ULJP-17",
+      "program": "ULJP",
+      "naziv": "Jačanje ciljanih intervencija u zajednici s ciljem prevencije iznenadne smrti",
+      "vrsta": "Izravna dodjela",
+      "iznos": 4531000.0,
+      "pocetak": "2026-12",
+      "kraj": null,
+      "samo_mjesec": true,
+      "podrucje": "HR0",
+      "zupanije": null,
+      "jls": null,
+      "zupanija": "partner",
+      "imenovani": [],
+      "prijavitelji": "Prijavitelj: Ministarstvo zdravstva Partneri: Jedinice (lokalne)regionalne samouprave",
+      "napomena": null,
+      "izvor": "eu-pozivi-uljp-2026"
+    },
+    {
+      "id": "ULJP-10",
+      "program": "ULJP",
+      "naziv": "Jednakost, uključivanje, participacija i integracija Roma - Pilot projekt pružanja usluga u zajednici - JUPI PILOT",
+      "vrsta": "Ograničeni",
+      "iznos": 10000000.0,
+      "pocetak": "2026-12",
+      "kraj": null,
+      "samo_mjesec": true,
+      "podrucje": "HR0",
+      "zupanije": null,
+      "jls": "prijavitelj",
+      "zupanija": "prijavitelj",
+      "imenovani": [],
+      "prijavitelji": "Prijavitelji: JLP(R)S Partneri: javne ustanove, (centar za pružanje usluga u zajednici), OCD",
+      "napomena": null,
+      "izvor": "eu-pozivi-uljp-2026"
+    },
+    {
+      "id": "ITP-4",
+      "program": "ITP",
+      "naziv": "ITU - BIKE UP! - Širenje sustava javnih bicikala s popratnom biciklističkom infrastrukturom",
+      "vrsta": "Izravna dodjela",
+      "iznos": 3645286.21,
+      "pocetak": "2026-12-31",
+      "kraj": "2027-01-29",
+      "samo_mjesec": false,
+      "podrucje": "Gradovi - Zadar",
+      "zupanije": [
+        "13"
+      ],
+      "jls": "prijavitelj",
+      "zupanija": null,
+      "imenovani": [
+        "05207"
+      ],
+      "prijavitelji": "Grad Zadar, JLS-ovi iz obuhvata UP Zadar",
+      "napomena": "Samo za gradove i općine iz obuhvata urbanog područja Zadar.",
+      "izvor": "eu-pozivi-itp-2026"
+    },
+    {
+      "id": "ITP-9",
+      "program": "ITP",
+      "naziv": "ITU - Projekt \"Preloška\"",
+      "vrsta": "Izravna dodjela",
+      "iznos": 924000.0,
+      "pocetak": "2026-12-31",
+      "kraj": "2027-01-29",
+      "samo_mjesec": false,
+      "podrucje": "Gradovi - Čakovec",
+      "zupanije": [
+        "20"
+      ],
+      "jls": null,
+      "zupanija": null,
+      "imenovani": [
+        "00604"
+      ],
+      "prijavitelji": "Grad Čakovec",
+      "napomena": null,
+      "izvor": "eu-pozivi-itp-2026"
+    },
+    {
+      "id": "ITP-11",
+      "program": "ITP",
+      "naziv": "ITU - Rekonstrukcije zone kupališta Mornar",
+      "vrsta": "Izravna dodjela",
+      "iznos": 2366933.54,
+      "pocetak": "2026-12-31",
+      "kraj": "2027-01-29",
+      "samo_mjesec": false,
+      "podrucje": "Gradovi - Pula",
+      "zupanije": [
+        "18"
+      ],
+      "jls": null,
+      "zupanija": null,
+      "imenovani": [
+        "03590"
+      ],
+      "prijavitelji": "Grad Pula",
+      "napomena": null,
+      "izvor": "eu-pozivi-itp-2026"
+    },
+    {
+      "id": "ITP-10",
+      "program": "ITP",
+      "naziv": "ITU - Ulaganje u sportsko-rekreacijsku i zelenu infrastrukturu UP Vukovar",
+      "vrsta": "Otvoreni (trajni)",
+      "iznos": 1017166.38,
+      "pocetak": "2026-12-31",
+      "kraj": "2027-02-26",
+      "samo_mjesec": false,
+      "podrucje": "Gradovi - Vukovar",
+      "zupanije": [
+        "16"
+      ],
+      "jls": "prijavitelj",
+      "zupanija": null,
+      "imenovani": [],
+      "prijavitelji": "JLS iz obuhvata UP Vukovar",
+      "napomena": "Samo za gradove i općine iz obuhvata urbanog područja Vukovar.",
+      "izvor": "eu-pozivi-itp-2026"
+    },
+    {
+      "id": "ITP-8",
+      "program": "ITP",
+      "naziv": "ITU-GREEN UPLOAD! - Razvoj zelene infrastrukture UP Zadar",
+      "vrsta": "Izravna dodjela",
+      "iznos": 2472831.09,
+      "pocetak": "2026-12-31",
+      "kraj": "2027-01-29",
+      "samo_mjesec": false,
+      "podrucje": "Gradovi-Zadar, Zadarska",
+      "zupanije": [
+        "13"
+      ],
+      "jls": "prijavitelj",
+      "zupanija": null,
+      "imenovani": [
+        "05207"
+      ],
+      "prijavitelji": "Grad Zadar, ostali JLS iz obuhvata UP Zadar, Nasadi d.o.o.",
+      "napomena": "Samo za gradove i općine iz obuhvata urbanog područja Zadar.",
+      "izvor": "eu-pozivi-itp-2026"
+    },
+    {
+      "id": "ITP-6",
+      "program": "ITP",
+      "naziv": "ITU-Kulturna baština UA Osijek",
+      "vrsta": "Otvoreni (trajni)",
+      "iznos": 3864531.02,
+      "pocetak": "2026-12-31",
+      "kraj": "2027-02-26",
+      "samo_mjesec": false,
+      "podrucje": "Gradovi - Osijek, Osječko-baranjska",
+      "zupanije": [
+        "14"
+      ],
+      "jls": "prijavitelj",
+      "zupanija": null,
+      "imenovani": [
+        "03123"
+      ],
+      "prijavitelji": "JLS iz obuhvata UA Osijek",
+      "napomena": "Samo za gradove i općine iz obuhvata urbane aglomeracije Osijek.",
+      "izvor": "eu-pozivi-itp-2026"
+    }
+  ]
+}

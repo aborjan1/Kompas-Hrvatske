@@ -32,6 +32,9 @@ export const JEDNOSTAVNI_NAZIVI = {
   kupoprodaje_nekretnina: 'Prodane nekretnine',
   porez_na_promet_nekretnina: 'Porez od prodaje nekretnina',
   prihodi_od_imovine: 'Prihodi od zakupa i koncesija',
+  javna_nabava: 'Ugovori javne nabave (5 godina)',
+  nabava_najveci_dobavljac: 'Dio novca koji je dobila jedna tvrtka',
+  nabava_bez_objave: 'Ugovori bez javnog poziva',
   pravne_osobe_aktivne: 'Aktivne tvrtke i udruge',
 };
 
@@ -77,6 +80,15 @@ export const TEME_POKAZATELJI = {
       drzava: ['kupoprodaje_nekretnina', 'pravne_osobe_aktivne', 'porez_na_promet_nekretnina', 'prihodi_od_imovine'],
       zupanija: ['kupoprodaje_nekretnina', 'porez_na_promet_nekretnina', 'prihodi_od_imovine'],
       jls: ['porez_na_promet_nekretnina', 'prihodi_od_imovine'],
+    },
+  },
+  nabava: {
+    boje: ['#cfeeea', '#86cfc6', '#3aa79b', '#1d776d', '#0b4a43'],
+    karta: { zupanija: 'javna_nabava', jls: 'javna_nabava' },
+    panel: {
+      drzava: ['javna_nabava', 'nabava_najveci_dobavljac', 'nabava_bez_objave'],
+      zupanija: ['javna_nabava', 'nabava_najveci_dobavljac', 'nabava_bez_objave'],
+      jls: ['javna_nabava', 'nabava_najveci_dobavljac', 'nabava_bez_objave'],
     },
   },
 };

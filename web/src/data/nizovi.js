@@ -31,6 +31,7 @@ export const SERIJE_TEME = {
   ljudi: ['stanovnistvo', 'neto_dohodak', 'nezaposlenost'],
   porezi: ['porez_na_dohodak'],
   imovina: ['kupoprodaje_nekretnina', 'porez_na_promet_nekretnina', 'prihodi_od_imovine'],
+  nabava: ['javna_nabava'],
 };
 
 /** @type {import('svelte/store').Writable<{ podaci: Nizovi | null, greska: boolean }>} */
