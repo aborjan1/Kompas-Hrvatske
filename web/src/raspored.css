@@ -445,7 +445,10 @@
     background: var(--kh-rub);
   }
 
+  /* Sticks at the sheet's very top, not below its padding (plus the 1px border), so
+     rows scrolling up can't show above the title. */
   html:root .sloj .desno .zaglavlje {
+    top: -15px;
     background: var(--kh-ploca);
   }
 
