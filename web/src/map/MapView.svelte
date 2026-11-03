@@ -41,7 +41,7 @@
   // prefers-reduced-motion it is a jump anyway, so the button never shows.
   let introRunning = false;
 
-  // A layout with a docked column (src/dizajn.css) covers part of the map; it says how
+  // The docked columns (src/raspored.css) cover part of the map; they say how
   // much in --kh-karta-lijevo / --kh-karta-desno / --kh-karta-gore, so areas land in
   // the free part.
   function focusPadding() {

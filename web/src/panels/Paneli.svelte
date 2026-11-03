@@ -11,7 +11,7 @@
   import { reprodukcija } from '../stories/player.js';
   import { onMount } from 'svelte';
 
-  // Docked-column layout (?dizajn=traka2, src/dizajn-raspored.css): either column can
+  // Docked columns on wide screens (src/raspored.css): either column can
   // be closed with its tab. The map frames areas in the free part between the columns,
   // so it is told ('kh:raspored') whenever that part changes, once the columns have
   // finished moving.
@@ -54,7 +54,7 @@
     {#if $reprodukcija}<PricaKartica />{:else}<TemeBar />{/if}
     <IzvorPodatka />
   </div>
-  <!-- Only shown in the docked-column layout (dizajn-raspored.css). -->
+  <!-- Column tabs, shown on wide screens only (raspored.css). -->
   <button
     type="button"
     class="kh-sklopi kh-sklopi-lijevo"
