@@ -43,7 +43,7 @@ broju stanovnika iz cijele Hrvatske. Klik na sličan grad odabire ga.
 
 ![Varaždin i usporedba sa sličnima po broju stanovnika](snimke/3-grad.jpg)
 
-Kamera ostaje na odabranom području: može se zumirati i malo pomicati, ali ne i odlutati.
+Kamera ostaje na odabranom području: može se zumirati i malo pomicati, a ako se odvuče predaleko, sama se vrati. Odzumiravanje ispod prikaza područja (stisak prstima, touchpad, kotačić ili „−”) vodi razinu više: s grada na županiju, sa županije na Hrvatsku.
 
 ## Teme i pokazatelji
 

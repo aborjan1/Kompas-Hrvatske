@@ -33,7 +33,7 @@
   import { hidePlacesOutside } from './labels.js';
   import { createJlsLayer, JLS_FILL_LAYER, JLS_SOURCE } from './jlsLayer.js';
   import { LegendControl } from './legend.js';
-  import { pratiPinch, pratiTipkovnicu, ZoomKontrola } from './odzumiravanje.js';
+  import { pratiOkvir, ZoomKontrola } from './odzumiravanje.js';
   import { createSpaceMask } from './spaceMask.js';
   import { shouldWarmUp, warmUp } from './warmUp.js';
 
@@ -85,8 +85,7 @@
   }
 
   // One level up, like the breadcrumb: city → county → country. Zooming out past the
-  // framed view does this (scroll wheel, pinch, "−" button and key).
-  const imaGore = () => get(odabir).razina !== 'drzava';
+  // framed view does this (odzumiravanje.js).
   function idiGore() {
     const { razina, zupanija } = get(odabir);
     if (razina === 'jls' && zupanija) selectArea('zupanija', zupanija);
@@ -95,7 +94,11 @@
 
   onMount(() => {
     const map = createMap(container);
-    map.addControl(new ZoomKontrola({ idiGore, imaGore }), 'top-right');
+    map.addControl(new ZoomKontrola(), 'top-right');
+    // Where the camera landed and how far it may go (lockToArea / lockToCroatia); null
+    // during a flight.
+    /** @type {import('./createMap.js').Okvir | null} */
+    let okvir = null;
     const legend = new LegendControl();
     map.addControl(legend, 'bottom-left');
     const onLayout = () => refocus();
@@ -229,25 +232,10 @@
       });
       map.on('click', EU_LAYER, (e) => selectArea('jls', e.features[0].properties.sifra));
 
-      // Scrolling out past a county's or city's framed view goes up a level (city →
-      // county → country), like the breadcrumb. A little extra scroll is needed first,
-      // so a trackpad's leftover momentum after landing doesn't trigger it.
-      const PULL_TO_LEAVE = 150;
-      let pull = 0;
-      map.on('wheel', ({ originalEvent }) => {
-        const atFurthest = map.getZoom() <= map.getMinZoom() + 0.01;
-        if (!map.scrollZoom.isEnabled() || !atFurthest || originalEvent.deltaY <= 0) {
-          pull = 0;
-          return;
-        }
-        pull += originalEvent.deltaY;
-        if (pull < PULL_TO_LEAVE) return;
-        pull = 0;
-        idiGore();
-      });
-      // The same for a pinch and the "−" key (the button is ZoomKontrola above).
-      pratiPinch(map, idiGore);
-      pratiTipkovnicu(map, idiGore);
+      // Zooming out below a county's or city's framed view goes up a level (city →
+      // county → country), however it is done: pinch, trackpad, wheel, "−". A camera
+      // panned off the area eases back to it.
+      pratiOkvir(map, { okvir: () => okvir, idiGore });
 
       // Start the intro only once the globe is drawn, not over a blank sphere.
       await new Promise((resolve) => map.once('idle', resolve));
@@ -255,8 +243,8 @@
       let focusToken = 0;
 
       // Flies to an area and, once there, keeps the camera on it: the user can look
-      // around inside it but not pan away or zoom out past it. The whole country keeps
-      // its own lock (lockToCroatia).
+      // around it and zoom out a little towards the level up (lockToArea), but not wander
+      // off. The whole country can't be zoomed out past (lockToCroatia).
       function focusOn(bounds, { croatia = false, intro = false, duration = undefined } = {}) {
         const token = ++focusToken;
         // End a flight still under way before listening below: its moveend would
@@ -267,6 +255,7 @@
         skipIntro = () => focusOn(bounds, { croatia, duration: 0 });
         refocus = () => focusOn(bounds, { croatia });
         unlockCamera(map);
+        okvir = null;
         // A scroll or drag mid-flight would cancel it before the lock applies and leave
         // the camera free to zoom out to space, so input waits for the landing.
         setUserInput(map, false);
@@ -278,8 +267,7 @@
           introRunning = false;
           space?.show();
           map.setMaxZoom(maxZoom);
-          if (croatia) lockToCroatia(map);
-          else lockToArea(map, bounds);
+          okvir = croatia ? lockToCroatia(map) : lockToArea(map);
           setUserInput(map, true);
         };
         // Listen first: under prefers-reduced-motion the move is a jump, whose moveend

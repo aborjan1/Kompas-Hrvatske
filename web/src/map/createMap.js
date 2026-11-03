@@ -61,28 +61,56 @@ export function setDataAttribution(map, html) {
   attributions.set(map, control);
 }
 
-// Called once the camera has landed on an area (the whole country after the intro):
-// the framed view becomes the furthest out the user can zoom and the edge they can
-// pan to, so the area stays in focus while they look around it.
-/** @param {mapboxgl.Map} map */
-function lockToView(map) {
-  // A little wider than the view: with bounds exactly the view, zooming out around a
-  // cursor off-centre got stuck short of the minimum, so scrolling out never reached
-  // the next level up (MapView.svelte).
-  const view = map.getBounds();
-  const padLng = (view.getEast() - view.getWest()) * 0.05;
-  const padLat = (view.getNorth() - view.getSouth()) * 0.05;
-  map.setMaxBounds([
-    [view.getWest() - padLng, view.getSouth() - padLat],
-    [view.getEast() + padLng, view.getNorth() + padLat],
-  ]);
-  // After the bounds: they can nudge the zoom in a hair, and the minimum must be
-  // reachable for scrolling out to a higher level.
-  map.setMinZoom(map.getZoom());
+// How far the centre may wander from where it landed, as a share of the framed view each
+// way, before the camera eases back towards the area (pratiOkvir in odzumiravanje.js).
+const PROSTOR = 0.35;
+// How far below the framed view a county or city can be zoomed out. Zooming out into it
+// is how the user leaves for the level up (odzumiravanje.js); the country has no level
+// up, so it gets none.
+export const ZALIHA_ZUMA = 0.8;
+
+/**
+ * @typedef {object} Okvir Where the camera landed and how far it may go from there.
+ * @property {number} zum The framed view's zoom.
+ * @property {boolean} izlaz Whether zooming out below it leaves for the level up.
+ * @property {number} zapad Bounds for the centre (lng / lat).
+ * @property {number} istok
+ * @property {number} jug
+ * @property {number} sjever
+ */
+
+// Called once the camera has landed on an area (the whole country after the intro). The
+// area stays in focus without hard edges: Mapbox enforces maxBounds by zooming the map
+// back *in*, which fought every zoom out (the map jerked and stuck instead of zooming
+// out). So only the minimum zoom is set here, and a camera that wandered off is eased
+// back once it stops (pratiOkvir).
+/**
+ * @param {mapboxgl.Map} map
+ * @param {number} zaliha Zoom allowed below the framed view.
+ * @returns {Okvir}
+ */
+function lockToView(map, zaliha) {
+  map.setMaxBounds(null);
+  const zum = map.getZoom();
+  map.setMinZoom(zum - zaliha);
+  const pogled = map.getBounds();
+  const sredina = map.getCenter();
+  const dLng = (pogled.getEast() - pogled.getWest()) * PROSTOR;
+  const dLat = (pogled.getNorth() - pogled.getSouth()) * PROSTOR;
+  return {
+    zum,
+    izlaz: zaliha > 0,
+    zapad: sredina.lng - dLng,
+    istok: sredina.lng + dLng,
+    jug: sredina.lat - dLat,
+    sjever: sredina.lat + dLat,
+  };
 }
 
-export const lockToCroatia = lockToView;
-export const lockToArea = lockToView;
+/** @param {mapboxgl.Map} map */
+export const lockToCroatia = (map) => lockToView(map, 0);
+/** @param {mapboxgl.Map} map */
+export const lockToArea = (map) => lockToView(map, ZALIHA_ZUMA);
 
 // Lifts the lock, so the camera can fly to another area.
 /** @param {mapboxgl.Map} map */

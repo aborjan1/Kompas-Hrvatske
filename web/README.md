@@ -31,7 +31,7 @@ preglednika na 30 dana, pa se tijekom prezentacije ništa ne čeka s interneta.
 - `src/map/` – karta (Mapbox slojevi i kamera). Neovisno o frameworku: UI poziva samo `createMap(container)`. Opis: [docs/karta.md](../docs/karta.md).
   - `config.js` – podloga (Mapbox Outdoors), uvodni let, granice Hrvatske, raspon zuma
   - `createMap.js` – stvara kartu (globus, oznake na hrvatskom, ograničenje kamere)
-  - `odzumiravanje.js` – gumbi „+” i „−” te pinch i tipka „−”: odzumiravanje preko okvira područja vodi razinu više (grad → županija → Hrvatska), kao kotačić
+  - `odzumiravanje.js` – gumbi „+” i „−” s hrvatskim nazivima i izlazak razinu više: kad se županija ili grad odzumira ispod svog okvira (pinch, touchpad, kotačić, „−”), karta prijeđe na županiju ili Hrvatsku
   - `labels.js` – skriva nazive mjesta i zanimljivosti izvan Hrvatske
   - `warmUp.js` – zagrijavanje za prezentaciju (`?zagrij`)
   - `cityLayers.js` – gradski prikaz Zagreba i Rijeke: satelit i slojevi 4 filtra (ekonomska područja, poslovne zone, javna ulaganja, gradska imovina) iz `public/data/gradovi/`
