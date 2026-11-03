@@ -23,6 +23,8 @@
   $effect(() => ucitajProracune());
 
   const SIVA = '#8a8983';
+  // Shared colours (app.css), so axes read on light and dark panels.
+  const bojaTeksta = (ime) => getComputedStyle(document.documentElement).getPropertyValue(ime).trim();
   const smanjenoKretanje =
     typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -110,14 +112,14 @@
         },
       },
       scales: {
-        x: { grid: { display: false }, ticks: { font: { size: 10 }, color: '#6b6a65' } },
+        x: { grid: { display: false }, ticks: { font: { size: 10 }, color: bojaTeksta('--kh-tekst-blago') } },
         y: {
           beginAtZero: true,
-          grid: { color: '#ecebe6' },
+          grid: { color: bojaTeksta('--kh-rub') },
           border: { display: false },
           ticks: {
             font: { size: 10 },
-            color: '#6b6a65',
+            color: bojaTeksta('--kh-tekst-blago'),
             maxTicksLimit: 5,
             callback: (v) => trenutni.kratko(Number(v)),
           },
