@@ -1,0 +1,314 @@
+/* Panel layout experiments (#79), not just colours: ?dizajn=traka|pucina|prica|hud.
+   Only from 900 px wide; phones keep the current layout. Paneli.svelte has four
+   groups, which these rules move around:
+     .gore   breadcrumb + search     .lijevo  charts
+     .desno  info panel              .dolje   tema bar + data source
+   The legend is the map's bottom-left control. A docked column tells the map how
+   much it covers (--kh-karta-lijevo, read by MapView.svelte), so areas land in the
+   free part. */
+
+@media (min-width: 900px) {
+  /* ------------------------------------------------ traka (Felt, kepler.gl) */
+  /* One dark sidebar with everything; the map gets the rest of the screen. */
+  html[data-dizajn='traka'] {
+    --kh-karta-lijevo: 380px;
+    --kh-tekst: #e6e8ee;
+    --kh-tekst-blago: #8b93a7;
+    --kh-naglasak: #4fd1c5;
+    --kh-rub: #262b36;
+    --kh-pozadina-blaga: #1d212b;
+    color-scheme: dark;
+  }
+
+  /* traka and prica: the four groups stacked in one docked column. */
+  html[data-dizajn='traka'] .sloj,
+  html[data-dizajn='prica'] .sloj {
+    display: grid;
+    grid-template-columns: var(--kh-karta-lijevo) 1fr;
+    grid-template-rows: auto auto minmax(0, 1fr) minmax(0, 1fr);
+    gap: 4px 0;
+    padding: 12px 0;
+    box-sizing: border-box;
+  }
+
+  /* The column's background, behind the panels. */
+  html[data-dizajn='traka'] .sloj::before,
+  html[data-dizajn='prica'] .sloj::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--kh-karta-lijevo);
+    pointer-events: auto;
+  }
+
+  html[data-dizajn='traka'] .sloj::before {
+    background: #14161b;
+    border-right: 1px solid #262b36;
+  }
+
+  html[data-dizajn='traka'] .sloj > div,
+  html[data-dizajn='prica'] .sloj > div {
+    position: relative;
+    inset: auto;
+    transform: none;
+    grid-column: 1;
+    width: auto;
+    max-width: none;
+    max-height: none;
+    min-height: 0;
+    margin: 0 14px;
+    justify-items: stretch;
+  }
+
+  html[data-dizajn='traka'] .sloj .gore { grid-row: 1; }
+  html[data-dizajn='traka'] .sloj .dolje { grid-row: 2; }
+  html[data-dizajn='traka'] .sloj .desno { grid-row: 3; overflow-y: auto; }
+  html[data-dizajn='traka'] .sloj .lijevo { grid-row: 4; overflow-y: auto; }
+
+  /* Sections of one column, not separate cards. */
+  html[data-dizajn='traka'] .sloj .kh-panel,
+  html[data-dizajn='prica'] .sloj .kh-panel {
+    background: transparent;
+    box-shadow: none;
+    border: 0;
+    border-radius: 0;
+    width: auto;
+    max-width: none;
+  }
+
+  html[data-dizajn='traka'] .sloj .desno .kh-panel,
+  html[data-dizajn='traka'] .sloj .lijevo .kh-panel {
+    border-top: 1px solid var(--kh-rub);
+  }
+
+  html[data-dizajn='traka'] .mapboxgl-ctrl-bottom-left,
+  html[data-dizajn='prica'] .mapboxgl-ctrl-bottom-left {
+    left: var(--kh-karta-lijevo);
+  }
+
+  html[data-dizajn='traka'] .kh-legend,
+  html[data-dizajn='traka'] .kh-tooltip .mapboxgl-popup-content,
+  html[data-dizajn='traka'] .mapboxgl-ctrl-group:not(:empty) {
+    background: #14161b;
+    border: 1px solid #262b36;
+    color: var(--kh-tekst);
+  }
+
+  html[data-dizajn='traka'] .kh-legend__title,
+  html[data-dizajn='traka'] .kh-tooltip strong,
+  html[data-dizajn='traka'] .kh-tooltip__value {
+    color: var(--kh-tekst);
+  }
+
+  html[data-dizajn='traka'] .kh-tooltip .mapboxgl-popup-tip {
+    border-top-color: #14161b;
+    border-bottom-color: #14161b;
+  }
+
+  html[data-dizajn='traka'] .mapboxgl-ctrl-group button .mapboxgl-ctrl-icon {
+    filter: invert(1);
+  }
+
+  html[data-dizajn='traka'] .kh-panel input {
+    color: var(--kh-tekst);
+  }
+
+  /* ----------------------------------------- pucina (Tableau: empty space) */
+  /* Panels sit in the space around Croatia instead of over it: info where Bosnia
+     would be, charts and temas in the empty west. Dark glass. */
+  html[data-dizajn='pucina'] {
+    --kh-tekst: #e8edf5;
+    --kh-tekst-blago: #9aa7bd;
+    --kh-naglasak: #7cc4ff;
+    --kh-rub: rgba(255, 255, 255, 0.1);
+    --kh-pozadina-blaga: rgba(255, 255, 255, 0.06);
+    color-scheme: dark;
+  }
+
+  html[data-dizajn='pucina'] .sloj .gore {
+    left: 16px;
+    transform: none;
+    justify-items: start;
+  }
+
+  html[data-dizajn='pucina'] .sloj .lijevo {
+    top: 120px;
+    left: 16px;
+    width: 280px;
+    max-height: calc(100% - 330px);
+    overflow-y: auto;
+  }
+
+  html[data-dizajn='pucina'] .sloj .dolje {
+    left: 16px;
+    bottom: 16px;
+    transform: none;
+    width: 280px;
+    justify-items: stretch;
+  }
+
+  html[data-dizajn='pucina'] .sloj .desno {
+    top: auto;
+    right: 16px;
+    bottom: 16px;
+    width: 300px;
+    max-height: 58%;
+  }
+
+  /* Legend top right, under the zoom buttons, out of the panels' way. */
+  html[data-dizajn='pucina'] .mapboxgl-ctrl-bottom-left {
+    top: 90px;
+    right: 16px;
+    bottom: auto;
+    left: auto;
+  }
+
+  html[data-dizajn='pucina'] .kh-panel,
+  html[data-dizajn='pucina'] .kh-legend,
+  html[data-dizajn='pucina'] .kh-tooltip .mapboxgl-popup-content,
+  html[data-dizajn='pucina'] .mapboxgl-ctrl-group:not(:empty) {
+    background: rgba(11, 18, 34, 0.7);
+    backdrop-filter: blur(14px) saturate(1.2);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+    color: var(--kh-tekst);
+  }
+
+  html[data-dizajn='pucina'] .kh-legend__title,
+  html[data-dizajn='pucina'] .kh-tooltip strong,
+  html[data-dizajn='pucina'] .kh-tooltip__value {
+    color: var(--kh-tekst);
+  }
+
+  html[data-dizajn='pucina'] .kh-tooltip .mapboxgl-popup-tip {
+    border-top-color: rgba(11, 18, 34, 0.7);
+    border-bottom-color: rgba(11, 18, 34, 0.7);
+  }
+
+  html[data-dizajn='pucina'] .mapboxgl-ctrl-group button .mapboxgl-ctrl-icon {
+    filter: invert(1);
+  }
+
+  html[data-dizajn='pucina'] .kh-panel input {
+    color: var(--kh-tekst);
+  }
+
+  /* ------------------------------------------- prica (newspaper story) */
+  /* A light reading column with a serif headline, the map beside it, like an
+     interactive news story. */
+  html[data-dizajn='prica'] {
+    --kh-karta-lijevo: 440px;
+    --kh-tekst: #1b1a17;
+    --kh-tekst-blago: #6d675c;
+    --kh-naglasak: #a5332a;
+    --kh-rub: #e3ddd0;
+    --kh-pozadina-blaga: #efe9dc;
+  }
+
+  html[data-dizajn='prica'] .sloj::before {
+    background: #f7f4ec;
+    border-right: 1px solid #e3ddd0;
+  }
+
+  html[data-dizajn='prica'] .sloj .gore { grid-row: 1; }
+  html[data-dizajn='prica'] .sloj .desno { grid-row: 2 / 4; overflow-y: auto; }
+  html[data-dizajn='prica'] .sloj .dolje { grid-row: 4; align-self: end; }
+
+  /* Charts float on the map, bottom right, like a figure next to the text. */
+  html[data-dizajn='prica'] .sloj .lijevo {
+    grid-column: 2;
+    grid-row: 3 / 5;
+    align-self: end;
+    justify-self: end;
+    width: 300px;
+    margin: 0 16px 16px 0;
+    overflow-y: auto;
+  }
+
+  html[data-dizajn='prica'] .sloj .lijevo .kh-panel {
+    background: rgba(247, 244, 236, 0.94);
+    border: 1px solid #e3ddd0;
+    border-radius: 4px;
+  }
+
+  html[data-dizajn='prica'] .sloj .desno h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  html[data-dizajn='prica'] .sloj .desno dd:not(.godina) {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 26px;
+  }
+
+  html[data-dizajn='prica'] .sloj .recenica {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  html[data-dizajn='prica'] .kh-legend,
+  html[data-dizajn='prica'] .kh-tooltip .mapboxgl-popup-content {
+    background: #f7f4ec;
+    border: 1px solid #e3ddd0;
+    border-radius: 4px;
+    box-shadow: none;
+  }
+
+  /* --------------------------------------------- hud (ArcGIS: map first) */
+  /* One slim bar along the top with breadcrumb, search and temas; numbers and
+     charts as small cards in the bottom corners. Light glass. */
+  html[data-dizajn='hud'] .sloj .gore {
+    left: 12px;
+    transform: none;
+    display: flex;
+    align-items: center;
+    width: auto;
+  }
+
+  html[data-dizajn='hud'] .sloj .dolje {
+    top: 12px;
+    right: 60px;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    width: auto;
+    justify-items: end;
+  }
+
+  html[data-dizajn='hud'] .sloj .desno {
+    top: auto;
+    right: 16px;
+    bottom: 36px;
+    width: 280px;
+    max-height: 46%;
+  }
+
+  html[data-dizajn='hud'] .sloj .lijevo {
+    top: auto;
+    left: 16px;
+    bottom: 36px;
+    width: 280px;
+    max-height: 46%;
+    overflow-y: auto;
+  }
+
+  html[data-dizajn='hud'] .mapboxgl-ctrl-bottom-left {
+    left: 306px;
+    bottom: 26px;
+  }
+
+  html[data-dizajn='hud'] .kh-panel,
+  html[data-dizajn='hud'] .kh-legend,
+  html[data-dizajn='hud'] .kh-tooltip .mapboxgl-popup-content {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(16px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+    font-size: 13px;
+  }
+}

@@ -40,6 +40,19 @@
   // The intro flight from space can be skipped (button or Esc); under
   // prefers-reduced-motion it is a jump anyway, so the button never shows.
   let introRunning = false;
+
+  // A layout with a docked column (src/dizajn.css) covers part of the map; it says how
+  // much in --kh-karta-lijevo / --kh-karta-desno, so areas land in the free part.
+  function focusPadding() {
+    const style = getComputedStyle(document.documentElement);
+    const side = (name) => parseFloat(style.getPropertyValue(name)) || 0;
+    return {
+      top: FOCUS_PADDING,
+      bottom: FOCUS_PADDING,
+      left: FOCUS_PADDING + side('--kh-karta-lijevo'),
+      right: FOCUS_PADDING + side('--kh-karta-desno'),
+    };
+  }
   let skipIntro = () => {};
 
   // Legend rows carry short units ("563 mil. €", "3,3 %"); a long one such as
@@ -246,7 +259,7 @@
         map.on('moveend', arrived);
         // Not `essential`, so Mapbox jumps instead of flying under prefers-reduced-motion.
         map.fitBounds(bounds, {
-          padding: FOCUS_PADDING,
+          padding: focusPadding(),
           pitch: map.getPitch(),
           ...(intro && { duration: INTRO_DURATION }),
           ...(duration !== undefined && { duration }),
