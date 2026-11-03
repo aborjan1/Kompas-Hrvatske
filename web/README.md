@@ -28,7 +28,7 @@ preglednika na 30 dana, pa se tijekom prezentacije ništa ne čeka s interneta.
 
 ## Struktura
 
-- `src/map/` – karta (Mapbox slojevi i kamera). Neovisno o frameworku: UI poziva samo `createMap(container)`.
+- `src/map/` – karta (Mapbox slojevi i kamera). Neovisno o frameworku: UI poziva samo `createMap(container)`. Opis: [docs/karta.md](../docs/karta.md).
   - `config.js` – podloga (Mapbox Outdoors), uvodni let, granice Hrvatske, raspon zuma
   - `createMap.js` – stvara kartu (globus, oznake na hrvatskom, ograničenje kamere)
   - `labels.js` – skriva nazive mjesta i zanimljivosti izvan Hrvatske
