@@ -1,5 +1,7 @@
 <script>
   // Bottom bar: the four temas, the total / per-capita switch and the EU projects layer.
+  // On phones the three groups fold into a menu behind one pill showing the current
+  // choice, so they don't cover the map (styles in src/raspored.css).
   import { MJERE, TEME, setMjera, setTema, view } from '../state.js';
   import { euProjekti, prebaciEuProjekte } from '../data/euProjekti.js';
   import { podaci } from '../data/podaci.js';
@@ -10,16 +12,63 @@
 
   // The switch only means something when the mapped indicator has a per-capita value.
   const mjeraMoguca = $derived($indicator?.imaPoStanovniku ?? false);
+
+  const temaNaziv = $derived($podaci.meta?.teme[$view.tema] ?? $view.tema);
+  const sazetak = $derived(
+    [temaNaziv, MJERE_NAZIVI[mjeraMoguca ? $view.mjera : 'ukupno'], $euProjekti.prikazano && 'EU']
+      .filter(Boolean)
+      .join(' · '),
+  );
+
+  let otvoreno = $state(false);
+  /** @type {HTMLElement | undefined} */
+  let traka = $state();
+  /** @type {HTMLButtonElement | undefined} */
+  let pilula = $state();
+
+  /** A pick in the phone menu closes it; on wider screens the menu is always shown. */
+  function odaberi(radnja) {
+    radnja();
+    if (!otvoreno) return;
+    otvoreno = false;
+    pilula?.focus();
+  }
+
+  function onpointerdown(e) {
+    if (otvoreno && !traka?.contains(e.target)) otvoreno = false;
+  }
+
+  function onkeydown(e) {
+    if (otvoreno && e.key === 'Escape') {
+      otvoreno = false;
+      pilula?.focus();
+    }
+  }
 </script>
 
-<div class="kh-panel traka">
+<svelte:window {onpointerdown} {onkeydown} />
+
+<div class="kh-panel traka" bind:this={traka}>
+  <button
+    type="button"
+    class="pilula"
+    style:--boja-teme={TEME_POKAZATELJI[$view.tema].boje[3]}
+    aria-expanded={otvoreno}
+    aria-controls="tema-izbornik"
+    bind:this={pilula}
+    onclick={() => (otvoreno = !otvoreno)}
+  >
+    {sazetak} <span aria-hidden="true">▾</span>
+  </button>
+
+  <div id="tema-izbornik" class="izbornik" class:otvoreno>
   <div class="grupa" role="group" aria-label="Tema">
     {#each TEME as tema}
       <button
         type="button"
         style:--boja-teme={TEME_POKAZATELJI[tema].boje[3]}
         aria-pressed={$view.tema === tema}
-        onclick={() => setTema(tema)}
+        onclick={() => odaberi(() => setTema(tema))}
       >
         {$podaci.meta?.teme[tema] ?? tema}
       </button>
@@ -37,7 +86,7 @@
         type="button"
         aria-pressed={mjeraMoguca ? $view.mjera === mjera : mjera === 'ukupno'}
         disabled={!mjeraMoguca}
-        onclick={() => setMjera(mjera)}
+        onclick={() => odaberi(() => setMjera(mjera))}
       >
         {MJERE_NAZIVI[mjera]}
       </button>
@@ -51,10 +100,11 @@
       aria-pressed={$euProjekti.prikazano}
       aria-busy={$euProjekti.prikazano && !$euProjekti.poJls}
       title="Krugovi po gradu: koliko EU novca je dobio (2014.–2020.)"
-      onclick={prebaciEuProjekte}
+      onclick={() => odaberi(prebaciEuProjekte)}
     >
       EU projekti
     </button>
+  </div>
   </div>
 </div>
 
@@ -68,6 +118,15 @@
     gap: 8px 16px;
     max-width: 100%;
     padding: 8px;
+  }
+
+  /* The pill and the folding menu are for phones only (src/raspored.css). */
+  .pilula {
+    display: none;
+  }
+
+  .izbornik {
+    display: contents;
   }
 
   .grupa {

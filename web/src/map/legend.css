@@ -37,6 +37,11 @@
   border-radius: 4px;
 }
 
+/* The phone strip (legend.js); wider screens show the full legend only. */
+.kh-legend__traka {
+  display: none;
+}
+
 /* Phones: the bottom holds the tema bar, the source line and the info panel, so the
    legend moves to the top left, under the breadcrumb and search, and gets smaller.
    Fixed, because Mapbox's control corners have no top-left slot below the panels.
@@ -71,5 +76,56 @@
     width: 12px;
     height: 12px;
     border-radius: 3px;
+  }
+
+  /* Collapsed: only the strip, a tap opens the full legend under it. */
+  .kh-legend {
+    cursor: pointer;
+  }
+
+  .kh-legend:not(.kh-legend--otvorena) > :not(.kh-legend__traka) {
+    display: none;
+  }
+
+  .kh-legend:not(.kh-legend--otvorena) {
+    padding: 5px 8px;
+  }
+
+  .kh-legend--otvorena .kh-legend__traka {
+    margin-bottom: 6px;
+  }
+
+  .kh-legend__traka {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  .kh-legend__boje {
+    display: flex;
+  }
+
+  .kh-legend__boja {
+    width: 14px;
+    height: 8px;
+  }
+
+  .kh-legend__boje .kh-legend__boja:first-child {
+    border-radius: 2px 0 0 2px;
+  }
+
+  .kh-legend__boje .kh-legend__boja:last-child {
+    border-radius: 0 2px 2px 0;
+  }
+
+  .kh-legend__bez {
+    border-radius: 2px;
+  }
+
+  .kh-legend:focus-visible {
+    outline: 2px solid var(--kh-naglasak);
+    outline-offset: 2px;
   }
 }
