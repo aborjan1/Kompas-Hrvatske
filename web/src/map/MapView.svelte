@@ -89,6 +89,15 @@
     map.addControl(legend, 'bottom-left');
     const onLayout = () => refocus();
     addEventListener('kh:raspored', onLayout);
+    // The camera lock (minZoom, maxBounds) is sized for the screen it landed on, so a
+    // window resized afterwards (desktop → phone width) would keep the old zoom.
+    let resizeTimer = 0;
+    map.on('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (!introRunning) refocus();
+      }, 250);
+    });
 
     /** @type {import('../data/indicator.js').Indicator | null} */
     let shown = null;
