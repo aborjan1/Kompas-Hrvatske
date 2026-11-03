@@ -5,7 +5,8 @@ Koraci (issues: spajanje po šifri, izvedeni pokazatelji, izvoz + provjere):
   2. čitanje svakog izvora (citaci.py) i spajanje po šifri županije / grada
   3. izvedeni pokazatelji: po stanovniku, rang, slična područja (izvoz.py) i tipologija
      gradova i općina strojnim učenjem (tipologija.py)
-  4. izvoz: meta.json, drzava.json, zupanije.json, jls.json, tocke/eu-projekti.geojson
+  4. izvoz: meta.json, drzava.json, zupanije.json, jls.json, tocke/eu-projekti.geojson,
+     proracuni.json i nizovi.json (vremenski nizovi za grafove, nizovi.py)
   5. provjere: 21 županija, 556 JLS, zbroj županija = država
 
 Uredne tablice za ručnu provjeru (otvaraju se u Excelu) spremaju se u data/obrada/.
@@ -28,6 +29,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import citaci  # noqa: E402
 import gradovi  # noqa: E402
 import granice  # noqa: E402
+import nizovi  # noqa: E402
 import proracuni  # noqa: E402
 import sifrarnik  # noqa: E402
 import tipologija  # noqa: E402
@@ -66,6 +68,8 @@ PRORACUN_POKAZATELJI = [
     "lokalna_ulaganja",
     "saldo_lokalnog_proracuna",
     "udio_pomoci_u_prihodima",
+    "porez_na_promet_nekretnina",
+    "prihodi_od_imovine",
 ]
 
 # Granica Hrvatske (za odbacivanje očito pogrešnih koordinata)
@@ -479,6 +483,12 @@ def main() -> None:
 
     provjere(t, jls)
 
+    korak("2. Vremenski nizovi za grafove")
+    nz = nizovi.izracunaj(jls, pr)
+    nizovi.provjeri(nz, len(jls))
+    for s in nz["serije"].values():
+        print(f"  {s['naziv']}: {s['godine'][0]}.–{s['godine'][-1]}. ({', '.join(s['razine'])})")
+
     korak("2. Tipologija gradova i općina (k-means)")
     tip = tipologija.izracunaj(jls)
     tipologija.provjeri(tip, len(jls))
@@ -522,6 +532,7 @@ def main() -> None:
 
     spremi_json("tocke/eu-projekti.geojson", eu_tocke(eu_jls), uvlaka=None)
     spremi_json("proracuni.json", proracuni.json_nizovi(pr), uvlaka=None)
+    spremi_json("nizovi.json", {"generirano": sada, **nz}, uvlaka=None)
 
     pokazatelji = {p: {**d, "godina": godine.get(p)} for p, d in POKAZATELJI.items()}
     meta = {

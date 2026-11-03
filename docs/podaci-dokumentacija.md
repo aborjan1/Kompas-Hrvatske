@@ -17,12 +17,13 @@ dokumentiraju njihovi dijelovi; dogovoreni oblik datoteka između nas opisan je 
 | Korišteni skupovi podataka | **41** (35 s Portala otvorenih podataka, 6 dopunskih izvora tijela javne vlasti) |
 | Izdavatelji | 10 (DZS, DGU, Porezna uprava, HNB, HBOR, Ministarstvo financija, Ministarstvo regionalnoga razvoja i fondova EU, MPUDT, Grad Zagreb, Grad Rijeka) |
 | Pregledani skupovi ukupno | 71 (ostali su pregledani i opisani, ali se ne koriste ili su neispravni na izvoru) |
-| Pokazatelji na karti | **32** na razinama Država, Županija i Grad/općina, u 4 teme (Ljudi, Novac, Porezi, Imovina) |
+| Pokazatelji na karti | **34** na razinama Država, Županija i Grad/općina, u 4 teme (Ljudi, Novac, Porezi, Imovina) |
 | Područja | Hrvatska, 21 županija, **556 gradova i općina** (svi), 17 gradskih četvrti Zagreba |
 | Gradski prikaz | Zagreb: 13 pokazatelja po četvrtima, 8 slojeva na karti, 3D zgrade; Rijeka: proračun, 1.295 prostora u zakupu na karti |
 | Granice | službene granice Državne geodetske uprave (INSPIRE), pojednostavljene za web |
-| Kontrola kvalitete | automatske provjere u svakom pokretanju obrade, 48 testova, provjera na GitHubu kod svakog pull requesta |
+| Kontrola kvalitete | automatske provjere u svakom pokretanju obrade, 49 testova, provjera na GitHubu kod svakog pull requesta |
 | Strojno učenje | tipologija svih 556 gradova i općina (k-means, 5 tipova) i „najsličniji po profilu” |
+| Vremenski nizovi | 7 pokazatelja kroz godine za grafove (stanovništvo, nezaposlenost, dohodak, porez na dohodak, kupoprodaje, porez na promet nekretnina, prihodi od imovine) uz proračune 2019.–2025. |
 | Ponovljivost | cijela obrada iz praznog repozitorija s tri naredbe; provjereno na svježem klonu |
 
 Sve je napisano u Pythonu (3.12) isključivo s alatima otvorenog koda: pandas, geopandas,
@@ -72,9 +73,10 @@ flowchart LR
 | `pipeline/pokazatelji.py` | katalog svih pokazatelja (naziv, tema, jedinica, razine, izvor) |
 | `pipeline/izvoz.py` | zajednički oblik zapisa područja, rangovi, slična područja |
 | `pipeline/tipologija.py` | tipologija gradova i općina strojnim učenjem (k-means) |
+| `pipeline/nizovi.py` | vremenski nizovi za grafove (`nizovi.json`) |
 | `pipeline/build.py` | glavna skripta: redoslijed koraka i provjere |
 | `pipeline/popis_izvora.py` | generira `docs/izvori-podataka.md` iz `sources.csv` |
-| `tests/` | 48 testova (38 za kod, 10 za izlazne datoteke) |
+| `tests/` | 49 testova (38 za kod, 11 za izlazne datoteke) |
 
 ## 3. Izvori podataka i dozvole
 
@@ -207,6 +209,8 @@ korisnika je u `web/public/data/meta.json`.
 | Porez na potrošnju (`porez_na_potrosnju`) | Porezi | % | G | 2026. | `pu-porezne-stope-jls` |
 | Porez na nekretnine (`porez_na_nekretnine`) | Porezi | EUR/m² | G | 2026. | `pu-porezne-stope-jls` |
 | Kupoprodaje nekretnina (`kupoprodaje_nekretnina`) | Imovina | broj | D, Ž | 2025. | `pu-kupoprodaje` |
+| Porez na promet nekretnina (prihod proračuna) (`porez_na_promet_nekretnina`) | Imovina | EUR | D, Ž, G | 2025. | `mfin-lokalni-proracuni` |
+| Prihodi od nefinancijske imovine (`prihodi_od_imovine`) | Imovina | EUR | D, Ž, G | 2025. | `mfin-lokalni-proracuni` |
 | Aktivne pravne osobe (`pravne_osobe_aktivne`) | Imovina | broj | D | I. 2022. | `dzs-rps` |
 
 **Po stanovniku.** Svi iznosi po stanovniku dijele se sa stanovništvom iz Popisa 2021.,
@@ -219,6 +223,28 @@ općina (lokalna razina na tom području), odnosno svih lokalnih proračuna.
 Uz pokazatelje, svako područje ima **rang** (1 = najveća vrijednost među područjima iste
 razine) i popis **5 sličnih područja** (najbližih po broju stanovnika). `proracuni.json`
 sadrži vremenski niz proračuna 2019.–2025. i rashode po namjeni za svako područje.
+
+**Imovina po gradovima i općinama.** Kupoprodaje nekretnina Porezna uprava objavljuje samo
+po županijama, pa se imovina gradova i općina prikazuje kroz njihov proračun: porez na promet
+nekretnina (račun 6134, povremeni porezi na imovinu; plaća ga kupac, a prihod je grada ili
+općine u kojoj je nekretnina) i prihodi od nefinancijske imovine (skupina 642: zakup i najam,
+koncesije, naknade za korištenje). Zbrojevi po županijama i za državu provjeravaju se sa
+zbirnim listovima Ministarstva financija kao i ostale proračunske stavke.
+
+**Vremenski nizovi** (`nizovi.json`, `pipeline/nizovi.py`) za grafove u panelu:
+
+| Niz | Razdoblje | Razine | Izvor |
+| --- | --- | --- | --- |
+| Broj stanovnika (procjena) | 2021.–2025. | D, Ž | `dzs-procjena-stanovnistva` |
+| Stopa registrirane nezaposlenosti (godišnji prosjek) | 2020.–2025. | D, Ž | `dzs-place` (list 9.4.14.) |
+| Neto dohodak stanovništva | 2022.–2025. | D, Ž, G | `pu-porez-dohodak` (2022. iz kuna, tečaj 7,5345) |
+| Porez na dohodak | 2022.–2025. | D, Ž, G | `pu-porez-dohodak` |
+| Kupoprodaje nekretnina | 2016.–2025. | D, Ž | `pu-kupoprodaje` |
+| Porez na promet nekretnina | 2019.–2025. | D, Ž, G | `mfin-lokalni-proracuni` |
+| Prihodi od nefinancijske imovine | 2019.–2025. | D, Ž, G | `mfin-lokalni-proracuni` |
+
+Obrada staje ako neki niz nema sve godine za državu i svih 21 županiju ili ako niz za
+gradove i općine pokriva manje od 554 od 556 jedinica.
 
 ## 5. Gradski prikaz: Zagreb i Rijeka
 
@@ -296,11 +322,11 @@ redoslijedu skupina; ako pravila ne daju pet različitih tipova, obrada staje.
 
 | Tip | Broj | Tipično (medijan) |
 | --- | --- | --- |
-| Veći gradovi i središta | 61 | 17.700 st., dohodak 9.830 €, 18 % iz pomoći |
-| Financijski samostalne sredine | 110 | 2.500 st., dohodak 9.610 €, 11 % iz pomoći (95 % u obalnim županijama) |
-| Prosječni manji gradovi i općine | 149 | 3.400 st., dohodak 7.960 €, 36 % iz pomoći |
-| Sredine nižeg dohotka, ovisne o pomoćima | 187 | 2.000 st., dohodak 6.270 €, 60 % iz pomoći |
-| Male općine sa starijim stanovništvom | 49 | 940 st., prosječna dob 50,7, 51 % iz pomoći |
+| Veći gradovi i središta | 58 | 18.600 st., dohodak 9.820 €, 18 % iz pomoći |
+| Financijski samostalne sredine | 109 | 2.600 st., dohodak 9.590 €, 11 % iz pomoći (94 % u obalnim županijama) |
+| Prosječni manji gradovi i općine | 152 | 3.500 st., dohodak 7.970 €, 36 % iz pomoći |
+| Sredine nižeg dohotka, ovisne o pomoćima | 185 | 2.000 st., dohodak 6.270 €, 60 % iz pomoći |
+| Male općine sa starijim stanovništvom | 52 | 950 st., prosječna dob 50,7, 54 % iz pomoći |
 
 Uz tip se za svaku jedinicu računa **pet najsličnijih po cijelom profilu** (najbliži u istom
 standardiziranom prostoru), pa se npr. Brckovljani uspoređuju s Pregradom i Rugvicom, a ne
@@ -392,6 +418,7 @@ uređuju se ručno. Oblik je opisan u [format-podataka.md](format-podataka.md).
 | `zupanije.geojson`, `jls/01–21.geojson` | DGU granice |
 | `tocke/eu-projekti.geojson` | 8.355 EU projekata 2014.–2020. |
 | `proracuni.json` | proračuni 2019.–2025. i rashodi po namjeni za sva područja |
+| `nizovi.json` | 7 vremenskih nizova za grafove (stanovništvo, nezaposlenost, dohodak, porez, kupoprodaje, imovina) |
 | `gradovi/meta.json` | slojevi i pokazatelji gradskog prikaza |
 | `gradovi/zagreb/…` | četvrti, pokazatelji, 8 slojeva, 3D zgrade, proračun, EU projekti |
 | `gradovi/rijeka/…` | proračun, poslovni prostori (zbrojevi i točke), EU projekti |
@@ -410,7 +437,7 @@ pip install -r pipeline/requirements.txt
 
 python pipeline/download.py   # preuzimanje svih izvora u data/raw/ (oko 1 GB, 10–20 min)
 python pipeline/build.py      # obrada i provjere (1–2 min) → web/public/data/
-python -m pytest              # 48 testova
+python -m pytest              # 49 testova
 ```
 
 Korisne opcije: `download.py --samo <id>` (jedan skup), `--ponovno` (ponovno preuzimanje),
@@ -428,7 +455,7 @@ Korisne opcije: `download.py --samo <id>` (jedan skup), `--ponovno` (ponovno pre
 | #8 | Provjera stupaca, razine i godine | ✔ [provjera-skupova.md](provjera-skupova.md) |
 | #9 | Šifrarnik i usklađivanje naziva | ✔ |
 | #10 | Spajanje skupova po šifri | ✔ |
-| #11 | Izvedeni pokazatelji | ✔ 32 pokazatelja, rangovi, slična područja |
+| #11 | Izvedeni pokazatelji | ✔ 34 pokazatelja, rangovi, slična područja, vremenski nizovi |
 | #12 | Granice u WGS84 | ✔ službene DGU granice |
 | #13 | Izvoz i provjere 21/556 | ✔ |
 | #14 | Poslovne zone, EU točke, porezne stope | ✔ (poslovne zone samo za Zagreb: nacionalni izvor AIK-a je ugašen) |

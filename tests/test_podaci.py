@@ -73,6 +73,24 @@ def test_gradovi_i_opcine(meta):
     assert sum(v["pokazatelji"]["stanovnistvo"] for v in j.values()) == 3871833
 
 
+def test_nizovi(meta):
+    n = ucitaj("nizovi.json")
+    jls = ucitaj("jls.json")["podrucja"]
+    zupanije = [f"{i:02d}" for i in range(1, 22)]
+    for sid, s in n["serije"].items():
+        assert s["tema"] in meta["teme"], sid
+        assert s["izvor"] in meta["izvori"], f"{sid}: izvor {s['izvor']} nije u meta.izvori"
+        assert s["godine"] == sorted(s["godine"]) and len(s["godine"]) >= 3, sid
+        for sifra in ["HR", *zupanije]:
+            assert len(n["podrucja"][sifra][sid]) == len(s["godine"]), f"{sid} {sifra}"
+    for sifra, nizovi in n["podrucja"].items():
+        razina = "drzava" if sifra == "HR" else "zupanija" if len(sifra) == 2 else "jls"
+        assert razina != "jls" or sifra in jls, f"nepoznata šifra {sifra}"
+        for sid, vrijednosti in nizovi.items():
+            assert razina in n["serije"][sid]["razine"], f"{sid} ne postoji za {razina}"
+            assert len(vrijednosti) == len(n["serije"][sid]["godine"]), f"{sid} {sifra}"
+
+
 def test_tipologija(meta):
     j = ucitaj("jls.json")["podrucja"]
     tipovi = meta["tipologija"]["tipovi"]
