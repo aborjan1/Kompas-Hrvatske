@@ -9,6 +9,7 @@
   import {
     CITY_MAX_ZOOM,
     COUNTY_BOUNDARIES_URL,
+    SPACE_MASK_URL,
     CROATIA_BOUNDS,
     FOCUS_PADDING,
     INTRO_DURATION,
@@ -32,6 +33,7 @@
   import { hidePlacesOutside } from './labels.js';
   import { createJlsLayer, JLS_FILL_LAYER, JLS_SOURCE } from './jlsLayer.js';
   import { LegendControl } from './legend.js';
+  import { createSpaceMask } from './spaceMask.js';
   import { shouldWarmUp, warmUp } from './warmUp.js';
 
   let container;
@@ -104,6 +106,15 @@
       const outline = simplifiedOutline(geojson);
       hidePlacesOutside(map, outline);
       const jls = createJlsLayer(map);
+      // Everything outside Croatia turns to space once the intro lands (focusOn below).
+      const space = await fetch(SPACE_MASK_URL)
+        .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${SPACE_MASK_URL}: HTTP ${r.status}`))))
+        .then((mask) => createSpaceMask(map, mask))
+        .catch((error) => {
+          // Without the outline the map simply keeps its neighbours.
+          console.error(error);
+          return null;
+        });
       const eu = createEuLayer(map);
       unsubscribeEu = euProjekti.subscribe(({ prikazano, poJls }) => {
         if (prikazano && poJls) eu.show(Object.values(poJls));
@@ -224,6 +235,7 @@
           map.off('moveend', arrived);
           if (token !== focusToken) return;
           introRunning = false;
+          space?.show();
           map.setMaxZoom(maxZoom);
           if (croatia) lockToCroatia(map);
           else lockToArea(map, bounds);
