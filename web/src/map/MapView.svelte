@@ -42,14 +42,14 @@
   let introRunning = false;
 
   // The docked columns (src/raspored.css) cover part of the map; they say how
-  // much in --kh-karta-lijevo / --kh-karta-desno / --kh-karta-gore, so areas land in
+  // much in --kh-karta-lijevo / -desno / -gore / -dolje, so areas land in
   // the free part.
   function focusPadding() {
     const style = getComputedStyle(document.documentElement);
     const side = (name) => parseFloat(style.getPropertyValue(name)) || 0;
     return {
       top: FOCUS_PADDING + side('--kh-karta-gore'),
-      bottom: FOCUS_PADDING,
+      bottom: FOCUS_PADDING + side('--kh-karta-dolje'),
       left: FOCUS_PADDING + side('--kh-karta-lijevo'),
       right: FOCUS_PADDING + side('--kh-karta-desno'),
     };
