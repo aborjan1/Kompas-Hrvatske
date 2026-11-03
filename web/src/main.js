@@ -1,6 +1,11 @@
 import { mount } from 'svelte'
 import './app.css'
+import './dizajn.css'
 import App from './App.svelte'
+
+// Panel design experiment (#79): ?dizajn=staklo|minimal|kartice, see dizajn.css.
+const dizajn = new URLSearchParams(location.search).get('dizajn')
+if (dizajn) document.documentElement.dataset.dizajn = dizajn
 import { startUrlSync } from './url.js'
 
 // Before mounting, so the app starts on the view in the link.

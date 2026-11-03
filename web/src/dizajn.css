@@ -1,0 +1,148 @@
+/* Panel design experiments (#79), picked with ?dizajn= in the address (main.js):
+     ?dizajn=staklo   dark frosted glass, matching the space around Croatia
+     ?dizajn=minimal  light and flat, thin borders instead of shadows
+     ?dizajn=kartice  dark solid cards with the tema colour along the top
+   Without the parameter the current design stays. Variants only change the shared
+   colours (--kh-*) and the frames of panels, legend, tooltip and map buttons. */
+
+/* Panels slide in instead of popping, in every variant. */
+@keyframes kh-pojava {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+html[data-dizajn] .kh-panel,
+html[data-dizajn] .kh-legend {
+  animation: kh-pojava 280ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-dizajn] .kh-panel,
+  html[data-dizajn] .kh-legend {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ staklo */
+html[data-dizajn='staklo'] {
+  --kh-tekst: #e8edf5;
+  --kh-tekst-blago: #9aa7bd;
+  --kh-naglasak: #7cc4ff;
+  --kh-rub: rgba(255, 255, 255, 0.1);
+  --kh-pozadina-blaga: rgba(255, 255, 255, 0.06);
+  color-scheme: dark;
+}
+
+html[data-dizajn='staklo'] .kh-panel,
+html[data-dizajn='staklo'] .kh-legend,
+html[data-dizajn='staklo'] .kh-tooltip .mapboxgl-popup-content {
+  background: rgba(11, 18, 34, 0.72);
+  backdrop-filter: blur(14px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+  color: var(--kh-tekst);
+}
+
+html[data-dizajn='staklo'] .kh-legend__title,
+html[data-dizajn='staklo'] .kh-tooltip strong,
+html[data-dizajn='staklo'] .kh-tooltip__value {
+  color: var(--kh-tekst);
+}
+
+html[data-dizajn='staklo'] .kh-legend__opis {
+  color: var(--kh-tekst-blago);
+}
+
+html[data-dizajn='staklo'] .kh-tooltip .mapboxgl-popup-tip {
+  border-top-color: rgba(11, 18, 34, 0.72);
+  border-bottom-color: rgba(11, 18, 34, 0.72);
+}
+
+html[data-dizajn='staklo'] .mapboxgl-ctrl-group:not(:empty) {
+  background: rgba(11, 18, 34, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+html[data-dizajn='staklo'] .mapboxgl-ctrl-group button .mapboxgl-ctrl-icon {
+  filter: invert(1);
+}
+
+html[data-dizajn='staklo'] .kh-panel input {
+  color: var(--kh-tekst);
+}
+
+/* ----------------------------------------------------------------- minimal */
+html[data-dizajn='minimal'] {
+  --kh-tekst: #161616;
+  --kh-tekst-blago: #74746e;
+  --kh-naglasak: #161616;
+  --kh-rub: #e6e5e0;
+  --kh-pozadina-blaga: #f4f4f1;
+}
+
+html[data-dizajn='minimal'] .kh-panel,
+html[data-dizajn='minimal'] .kh-legend,
+html[data-dizajn='minimal'] .kh-tooltip .mapboxgl-popup-content {
+  background: #ffffff;
+  border: 1px solid var(--kh-rub);
+  border-radius: 14px;
+  box-shadow: none;
+}
+
+html[data-dizajn='minimal'] .mapboxgl-ctrl-group:not(:empty) {
+  background: #ffffff;
+  border: 1px solid var(--kh-rub);
+  box-shadow: none;
+}
+
+/* ----------------------------------------------------------------- kartice */
+html[data-dizajn='kartice'] {
+  --kh-tekst: #f1f4f9;
+  --kh-tekst-blago: #a3adbf;
+  --kh-naglasak: #8ab4ff;
+  --kh-rub: #26324a;
+  --kh-pozadina-blaga: #1a2540;
+  color-scheme: dark;
+}
+
+html[data-dizajn='kartice'] .kh-panel,
+html[data-dizajn='kartice'] .kh-legend,
+html[data-dizajn='kartice'] .kh-tooltip .mapboxgl-popup-content {
+  background: #111a2e;
+  border: 1px solid #1f2a42;
+  border-top: 3px solid var(--kh-naglasak);
+  border-radius: 14px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  color: var(--kh-tekst);
+}
+
+html[data-dizajn='kartice'] .kh-legend__title,
+html[data-dizajn='kartice'] .kh-tooltip strong,
+html[data-dizajn='kartice'] .kh-tooltip__value {
+  color: var(--kh-tekst);
+}
+
+html[data-dizajn='kartice'] .kh-legend__opis {
+  color: var(--kh-tekst-blago);
+}
+
+html[data-dizajn='kartice'] .kh-tooltip .mapboxgl-popup-tip {
+  border-top-color: #111a2e;
+  border-bottom-color: #111a2e;
+}
+
+html[data-dizajn='kartice'] .mapboxgl-ctrl-group:not(:empty) {
+  background: #111a2e;
+  border: 1px solid #1f2a42;
+}
+
+html[data-dizajn='kartice'] .mapboxgl-ctrl-group button .mapboxgl-ctrl-icon {
+  filter: invert(1);
+}
+
+html[data-dizajn='kartice'] .kh-panel input {
+  color: var(--kh-tekst);
+}
