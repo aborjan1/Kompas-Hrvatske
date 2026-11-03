@@ -64,8 +64,29 @@ export function createSpaceMask(map, mask) {
     show() {
       map.setPaintProperty(MASK_LAYER, 'fill-opacity', 1);
       map.setPaintProperty(GLOW_LAYER, 'line-opacity', 0.55);
+      hideNamesInSpace(map);
     },
   };
+}
+
+// Names that would float over the stars: other countries and their regions, seas and
+// continents. They stay during the intro, where they belong on the globe. Croatia's own
+// country and region names and inland waters (lakes) are kept.
+const IN_CROATIA = ['==', ['get', 'iso_3166_1'], 'HR'];
+const SEA = ['match', ['get', 'class'], ['sea', 'ocean', 'bay', 'disputed_sea', 'disputed_ocean', 'disputed_bay'], true, false];
+const NAME_OPACITY = {
+  'country-label': ['case', IN_CROATIA, 1, 0],
+  'state-label': ['case', IN_CROATIA, 0.5, 0],
+  'continent-label': 0,
+  'water-line-label': ['case', SEA, 0, 1],
+  'water-point-label': ['case', SEA, 0, 1],
+};
+
+/** @param {mapboxgl.Map} map */
+function hideNamesInSpace(map) {
+  for (const [id, opacity] of Object.entries(NAME_OPACITY)) {
+    if (map.getLayer(id)) map.setPaintProperty(id, 'text-opacity', opacity);
+  }
 }
 
 /**
