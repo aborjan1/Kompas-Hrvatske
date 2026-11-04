@@ -23,6 +23,7 @@ Sve datoteke nalaze se u `web/public/data/` i nastaju naredbom `python pipeline/
 | `nizovi.json` | Vremenski nizovi za grafove tema Ljudi, Porezi, Imovina i Nabava | Rafael |
 | `nabava.json` | Najveći dobavljači i graf veza u javnoj nabavi, po području | Rafael |
 | `eu-pozivi.json` | Planirani EU pozivi za 2026. s ulogom gradova, općina i županija | Rafael |
+| `uvidi.json` | „Što je neobično ovdje”: odstupanja svakog grada i općine od istog tipa | Rafael |
 | `en.json` | Engleski tekstovi za sučelje (prekidač HR / EN) | Rafael |
 | `gradovi/…` | Prikaz Zagreba (17 gradskih četvrti, slojevi točaka) i Rijeke (proračun, prostori) | Boro, Rafael |
 
@@ -355,6 +356,31 @@ Planirani EU pozivi za 2026. u kojima mogu sudjelovati gradovi, općine ili žup
 - `zupanije`: šifre županija na koje se poziv odnosi, `null` = cijela Hrvatska.
 - `pocetak` i `kraj` su datumi (`YYYY-MM-DD`) ili samo mjesec (`YYYY-MM`, `samo_mjesec`).
   Stanje (otvoren, uskoro, planiran) sučelje računa prema današnjem datumu.
+
+## `uvidi.json`
+
+„Što je neobično ovdje” (`pipeline/uvidi.py`): za svaki grad i općinu do tri pokazatelja po
+kojima najviše odstupa od gradova i općina istog tipa (`tip` u `jls.json`), najveće prvo:
+
+```json
+{
+  "prag": 2.0,
+  "tipovi": { "samostalni": 109 },
+  "podrucja": {
+    "06220": [
+      { "kljuc": "porez_na_promet_nekretnina", "po_stanovniku": true,
+        "vrijednost": 1325.6, "slicni": 162.84, "z": 3.06, "smjer": "vise" }
+    ],
+    "05371": []
+  }
+}
+```
+
+- `vrijednost` i `slicni` (medijan istog tipa) su po stanovniku kad je `po_stanovniku`
+  `true` (`EUR po stanovniku`), inače u jedinici pokazatelja iz `meta.json`.
+- `z` je robusni z unutar tipa (iznosi na logaritamskoj ljestvici); u datoteci su samo
+  odstupanja s |z| ≥ `prag`. Prazan popis znači da je područje blizu sličnih.
+- `tipovi`: koliko gradova i općina ima svaki tip, za rečenicu „u usporedbi s N …”.
 
 ## `en.json`
 

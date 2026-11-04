@@ -21,7 +21,7 @@ dokumentiraju njihovi dijelovi; dogovoreni oblik datoteka između nas opisan je 
 | Područja | Hrvatska, 21 županija, **556 gradova i općina** (svi), 17 gradskih četvrti Zagreba |
 | Gradski prikaz | Zagreb: 13 pokazatelja po četvrtima, 8 slojeva na karti, 3D zgrade; Rijeka: proračun, 1.295 prostora u zakupu na karti |
 | Granice | službene granice Državne geodetske uprave (INSPIRE), pojednostavljene za web |
-| Kontrola kvalitete | automatske provjere u svakom pokretanju obrade, 83 testa, provjera na GitHubu kod svakog pull requesta |
+| Kontrola kvalitete | automatske provjere u svakom pokretanju obrade, 88 testova, provjera na GitHubu kod svakog pull requesta |
 | Strojno učenje | tipologija svih 556 gradova i općina (k-means, 5 tipova) i „najsličniji po profilu” |
 | Javna nabava i EU pozivi | 25.840 ugovora gradova, općina i županija iz registra EOJN RH (2018.–2023.) s grafom veza prema dobavljačima; 15 planiranih EU poziva za 2026. otvorenih lokalnoj i regionalnoj samoupravi |
 | Vremenski nizovi | 8 pokazatelja kroz godine za grafove (stanovništvo, nezaposlenost, dohodak, porez na dohodak, kupoprodaje, porez na promet nekretnina, prihodi od imovine, javna nabava) uz proračune 2019.–2025. |
@@ -79,7 +79,7 @@ flowchart LR
 | `pipeline/eu_pozivi.py` | planirani EU pozivi za 2026. i prihvatljivost lokalne i regionalne samouprave |
 | `pipeline/build.py` | glavna skripta: redoslijed koraka i provjere |
 | `pipeline/popis_izvora.py` | generira `docs/izvori-podataka.md` iz `sources.csv` |
-| `tests/` | 83 testa (70 za kod, 13 za izlazne datoteke) |
+| `tests/` | 88 testova (74 za kod, 14 za izlazne datoteke) |
 
 ## 3. Izvori podataka i dozvole
 
@@ -382,6 +382,27 @@ samo s općinama slične veličine. EU sredstva i ulaganja namjerno ne ulaze u g
 veliki projekt preokrene sliku jedne godine. Silhouette je 0,22, što je uobičajeno za
 društveno-gospodarske podatke (granice između tipova nisu oštre), pa je tip opis, a ne ocjena.
 
+### 6.4. Što je neobično ovdje (odstupanja od sličnih)
+
+Za svaki grad i općinu tražimo pokazatelje po kojima najviše odstupa od gradova i općina
+**istog tipa** iz tipologije (`pipeline/uvidi.py`, `uvidi.json`). Mala općina tako se
+uspoređuje s malim općinama, a veliki grad s velikim gradovima.
+
+- **Pokazatelji (12):** dohodak, prosječna dob, prihodi, ulaganja, udio pomoći, porez na
+  dohodak, porez na promet nekretnina, prihodi od imovine, EU sredstva 2021.–2027., javna
+  nabava, udio najvećeg dobavljača i ugovori bez objave. Iznosi su po stanovniku.
+- **Mjera odstupanja:** robusni z unutar tipa, (x − medijan) / (1,4826 · MAD), za iznose na
+  logaritamskoj ljestvici jer su iznosi po stanovniku jako nakošeni. Medijan i MAD ne
+  pomiče nekoliko krajnjih vrijednosti, za razliku od prosjeka i standardne devijacije.
+- **Prag:** |z| ≥ 2, a za postotke i dob i razlika od barem 1 postotnog boda ili godine.
+  Najviše tri uvida po području, najveće odstupanje prvo. Nula na logaritamskoj ljestvici
+  (npr. nema ugovora javne nabave) se preskače, kao i tip s manje od 20 članova.
+- **Rezultat:** 236 od 556 gradova i općina ima barem jedan uvid (142 jedan, 66 dva, 28
+  tri). Ostali su po ovim pokazateljima blizu sličnih, što sučelje i kaže.
+- Uvid nije ocjena: veća ulaganja ili veći udio jednog dobavljača mogu biti i dobri i loši.
+  Sučelje pokazuje vrijednost, medijan istog tipa i koliko puta (ili postotnih bodova) se
+  razlikuju, a klik otvara temu tog pokazatelja.
+
 ## 7. Kontrola kvalitete
 
 ### 7.1. Provjere u svakom pokretanju
@@ -417,14 +438,16 @@ novog preuzimanja.
 
 ### 7.3. Testovi i automatska provjera
 
-- **70 testova koda**: čitanje brojeva („0.216” nije 216), usklađivanje naziva, adrese,
+- **74 testa koda**: čitanje brojeva („0.216” nije 216), usklađivanje naziva, adrese,
   preračun kuna, udjeli lokacija, tipologija (pet poznatih profila dobiva pet pravih naziva),
   naručitelji javne nabave, prihvatljivost EU poziva, engleski prijevodi (svaki pokazatelj
-  ima engleski naziv i objašnjenje, razdoblja „2019.–2023.” → „2019–2023”).
-- **13 testova izlaznih datoteka**: nema probnih podataka, sve šifre i pokazatelji postoje
+  ima engleski naziv i objašnjenje, razdoblja „2019.–2023.” → „2019–2023”), uvidi
+  „Što je neobično ovdje” (smjer, prag, najviše tri, preskakanje nula i malih tipova).
+- **14 testova izlaznih datoteka**: nema probnih podataka, sve šifre i pokazatelji postoje
   za sva područja, granice i brojke imaju iste šifre, koordinate su u Hrvatskoj, svi izvori
   postoje u `sources.csv`, svaki grad i općina ima tip i pet sličnih, `en.json` prati
-  `meta.json`.
+  `meta.json`, ulaganja su prosjek zadnje tri godine iz `proracuni.json`, svaki grad i
+  općina ima zapis u `uvidi.json`.
 - **GitHub Actions** pokreće ruff i sve testove kod svakog pull requesta, pa promjena koja
   pokvari podatke dobiva crveni ✗ prije spajanja.
 
@@ -476,6 +499,7 @@ uređuju se ručno. Oblik je opisan u [format-podataka.md](format-podataka.md).
 | `nizovi.json` | 8 vremenskih nizova za grafove (stanovništvo, nezaposlenost, dohodak, porez, kupoprodaje, imovina, nabava) |
 | `nabava.json` | najveći dobavljači i veze prema drugim gradovima i općinama, po području |
 | `eu-pozivi.json` | planirani EU pozivi za 2026. s ulogom gradova, općina i županija |
+| `uvidi.json` | „Što je neobično ovdje”: do tri najveća odstupanja svakog grada i općine od istog tipa |
 | `en.json` | engleski tekstovi za sučelje: nazivi i objašnjenja pokazatelja, teme, tipologija, nizovi, funkcije proračuna, županije, napomene |
 | `gradovi/meta.json` | slojevi i pokazatelji gradskog prikaza |
 | `gradovi/zagreb/…` | četvrti, pokazatelji, 8 slojeva, 3D zgrade, proračun, EU projekti |
@@ -495,7 +519,7 @@ pip install -r pipeline/requirements.txt
 
 python pipeline/download.py   # preuzimanje svih izvora u data/raw/ (oko 1 GB, 10–20 min)
 python pipeline/build.py      # obrada i provjere (1–2 min) → web/public/data/
-python -m pytest              # 83 testa
+python -m pytest              # 88 testova
 ```
 
 Korisne opcije: `download.py --samo <id>` (jedan skup), `--ponovno` (ponovno preuzimanje),

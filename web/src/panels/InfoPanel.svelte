@@ -16,6 +16,7 @@
   import KamoIdeNovac from './KamoIdeNovac.svelte';
   import ProracunKrozGodine from './ProracunKrozGodine.svelte';
   import TipOpcine from './TipOpcine.svelte';
+  import Neobicno from './Neobicno.svelte';
   import { siroko } from './ekran.js';
   import PopisPrica from './PopisPrica.svelte';
   import UsporedbaSlicnih from './UsporedbaSlicnih.svelte';
@@ -168,6 +169,7 @@
       {/if}
 
       {#if recenica}<p class="recenica">{recenica}</p>{/if}
+      {#if $view.razina === 'jls'}<Neobicno />{/if}
 
       <!-- Wide screens show these in the chart panel in the left column (GrafoviPanel). -->
       {#if $view.razina !== 'drzava' && !$siroko}

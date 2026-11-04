@@ -7,7 +7,8 @@ Koraci (issues: spajanje po šifri, izvedeni pokazatelji, izvoz + provjere):
      gradova i općina strojnim učenjem (tipologija.py)
   4. izvoz: meta.json, drzava.json, zupanije.json, jls.json, tocke/eu-projekti.geojson,
      proracuni.json, nizovi.json (vremenski nizovi, nizovi.py), nabava.json (dobavljači),
-     eu-pozivi.json i en.json (engleski tekstovi, prijevodi.py)
+     eu-pozivi.json, uvidi.json („Što je neobično ovdje”, uvidi.py) i en.json (engleski
+     tekstovi, prijevodi.py)
   5. provjere: 21 županija, 556 JLS, zbroj županija = država
 
 Uredne tablice za ručnu provjeru (otvaraju se u Excelu) spremaju se u data/obrada/.
@@ -37,6 +38,7 @@ import prijevodi  # noqa: E402
 import proracuni  # noqa: E402
 import sifrarnik  # noqa: E402
 import tipologija  # noqa: E402
+import uvidi  # noqa: E402
 from izvoz import IZLAZ, dodaj_rang, dodaj_slicne, spremi_json, zapis_podrucja  # noqa: E402
 from nazivi import kljuc, uskladi  # noqa: E402
 from pokazatelji import POKAZATELJI, TEME  # noqa: E402
@@ -566,6 +568,13 @@ def main() -> None:
     dodaj_rang(pj)
     dodaj_slicne(pj)
     spremi_json("jls.json", {"generirano": sada, "podrucja": pj}, uvlaka=None)
+
+    # „Što je neobično ovdje”: odstupanja od gradova i općina istog tipa
+    uv = uvidi.izracunaj(pj)
+    uvidi.provjeri(uv, len(pj))
+    imaju = sum(1 for u in uv["podrucja"].values() if u)
+    print(f"  Uvidi „Što je neobično ovdje”: {imaju} od {len(pj)} gradova i općina")
+    spremi_json("uvidi.json", {"generirano": sada, **uv}, uvlaka=None)
 
     spremi_json("tocke/eu-projekti.geojson", eu_tocke(eu_jls), uvlaka=None)
     pr_json = proracuni.json_nizovi(pr)
