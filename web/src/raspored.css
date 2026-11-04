@@ -491,9 +491,10 @@
     padding-bottom: calc(14px + env(safe-area-inset-bottom));
   }
 
+  /* Full height starts just under the search box, so it does not cover the sheet's top. */
   html:root .sloj .desno .info.puna {
-    max-height: calc(100vh - 60px);
-    max-height: calc(100dvh - 60px);
+    max-height: calc(100vh - 100px);
+    max-height: calc(100dvh - 100px);
   }
 
   /* Grab handle on top of the sheet. */
