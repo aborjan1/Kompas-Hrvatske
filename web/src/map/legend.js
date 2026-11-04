@@ -11,8 +11,11 @@ export class LegendControl {
     this.container = document.createElement('div');
     this.container.className = 'mapboxgl-ctrl kh-legend';
     this.container.hidden = true;
-    // Phones show a thin strip of the colours (legend.css); a tap opens the full legend.
-    const telefon = matchMedia('(max-width: 640px)');
+    // Phones and low landscape screens show a thin strip of the colours (legend.css); a
+    // tap opens the full legend.
+    const telefon = matchMedia(
+      '(max-width: 899px) and (orientation: portrait), (max-width: 559px), (orientation: landscape) and (max-height: 500px)',
+    );
     const prebaci = () => {
       if (!telefon.matches) return;
       const otvorena = this.container.classList.toggle('kh-legend--otvorena');

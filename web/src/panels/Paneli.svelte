@@ -168,7 +168,7 @@
 
   /* Phones: everything stacks at the bottom, above the map's logo and attribution
      (the legend moves to the top left, see src/map/legend.css). */
-  @media (max-width: 640px) {
+  @media (max-width: 899px) and (orientation: portrait), (max-width: 559px) {
     /* Full width up to the zoom buttons in the top-right corner. */
     .gore {
       left: 12px;

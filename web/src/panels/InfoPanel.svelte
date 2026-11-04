@@ -366,7 +366,7 @@
 
   /* Phones: an arrow drops the panel down to its title and brings it back. The title
      row stays at the top while the details scroll under it. */
-  @media (max-width: 640px) {
+  @media (max-width: 899px) and (orientation: portrait), (max-width: 559px) {
     .zaglavlje {
       position: sticky;
       top: 0;
@@ -436,7 +436,8 @@
     }
   }
 
-  @media (max-width: 640px) and (prefers-reduced-motion: reduce) {
+  @media (max-width: 899px) and (orientation: portrait) and (prefers-reduced-motion: reduce),
+  (max-width: 559px) and (prefers-reduced-motion: reduce) {
     .ladica svg {
       transition: none;
     }

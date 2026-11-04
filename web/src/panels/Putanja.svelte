@@ -91,7 +91,7 @@
 
   /* Phones: one line, so the search box and the legend below stay put. A long county
      name gives way first ("Dubrovačko-neretv…"); "Hrvatska" never shrinks. */
-  @media (max-width: 640px) {
+  @media (max-width: 899px) and (orientation: portrait), (max-width: 559px) {
     ol {
       flex-wrap: nowrap;
     }
