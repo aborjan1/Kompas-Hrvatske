@@ -64,6 +64,15 @@
       boja: TEME_POKAZATELJI[$view.tema].boje[3],
     };
   });
+
+  // The list can run to 15 calls, so it starts short. Remembered per area: the next
+  // area starts short again.
+  const PRVIH = 3;
+  /** @type {string | null} */
+  let sveZa = $state(null);
+  const vidljivi = $derived(
+    !prikaz ? [] : sveZa === podrucje?.sifra ? prikaz.pozivi : prikaz.pozivi.slice(0, PRVIH),
+  );
 </script>
 
 {#if prikaz}
@@ -97,7 +106,7 @@
         {/if}
       </p>
       <ul class="popis">
-        {#each prikaz.pozivi as p (p.id)}
+        {#each vidljivi as p (p.id)}
           <li style:--boja={prikaz.boja}>
             <p class="naziv"><span class="program" title={p.program_naziv}>{p.program}</span> {p.naziv}</p>
             <p class="detalji">
@@ -114,6 +123,11 @@
           </li>
         {/each}
       </ul>
+      {#if vidljivi.length < prikaz.pozivi.length}
+        <button type="button" class="sve" onclick={() => (sveZa = podrucje.sifra)}>
+          {t(`Prikaži sve (${prikaz.pozivi.length})`, `Show all (${prikaz.pozivi.length})`)}
+        </button>
+      {/if}
     {:else}
       <p class="podnaslov">
         {prikaz.jls
@@ -133,6 +147,22 @@
     margin-top: 12px;
     padding-top: 10px;
     border-top: 1px solid var(--kh-rub);
+  }
+
+  .sve {
+    padding: 2px 0;
+    border: 0;
+    background: none;
+    color: var(--kh-naglasak);
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .sve:focus-visible {
+    outline: 2px solid var(--kh-naglasak);
+    outline-offset: 2px;
+    border-radius: 3px;
   }
 
   h3 {

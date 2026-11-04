@@ -1,22 +1,21 @@
 <script>
-  // Info panel: the selected area, up to four numbers for the current tema and one
-  // sentence about them (templates in src/data/recenice.js).
+  // Info panel: the selected area in tabs, so only one kind of content shows at a time.
+  // Overview holds up to four numbers for the current tema and one sentence about them
+  // (templates in src/data/recenice.js); only the open tab is rendered, so charts are
+  // drawn once they are visible.
   import { view } from '../state.js';
   import { nadjiPodrucje, ocitaj, podaci } from '../data/podaci.js';
   import { formatVrijednost } from '../data/format.js';
   import { t } from '../jezik.js';
+  import { imaGrafove, nizovi, SERIJE_TEME, ucitajNizove } from '../data/nizovi.js';
   import { napraviRecenicu } from '../data/recenice.js';
   import { TEME_POKAZATELJI, jednostavniNaziv } from '../data/teme.js';
   import EuProjektiPopis from './EuProjektiPopis.svelte';
   import GradskiFiltri from './GradskiFiltri.svelte';
+  import GrafoviPanel from './GrafoviPanel.svelte';
   import GrafUsporedbe from './GrafUsporedbe.svelte';
-  import EuPozivi from './EuPozivi.svelte';
-  import GrafoviTeme from './GrafoviTeme.svelte';
-  import GrafVeza from './GrafVeza.svelte';
-  import KamoIdeNovac from './KamoIdeNovac.svelte';
-  import ProracunKrozGodine from './ProracunKrozGodine.svelte';
+  import Kartice from './Kartice.svelte';
   import TipOpcine from './TipOpcine.svelte';
-  import { siroko } from './ekran.js';
   import PopisPrica from './PopisPrica.svelte';
   import UsporedbaSlicnih from './UsporedbaSlicnih.svelte';
 
@@ -66,6 +65,29 @@
 
   const temaNaziv = $derived($podaci.meta?.teme[$view.tema] ?? $view.tema);
 
+  // Whether a tema has charts depends on the area, so the series load with the area.
+  $effect(() => {
+    if ($view.razina !== 'drzava' && SERIJE_TEME[$view.tema]) ucitajNizove();
+  });
+
+  const kartice = $derived.by(() => {
+    const pregled = { id: 'pregled', naziv: t('Pregled', 'Overview') };
+    if ($view.razina === 'drzava') return [pregled, { id: 'price', naziv: t('Priče', 'Stories') }];
+    const kartaZupanija = $podaci.meta?.pokazatelji[TEME_POKAZATELJI[$view.tema].karta.zupanija];
+    const usporedba = $view.razina === 'jls' || kartaZupanija?.razine.includes('zupanija');
+    return [
+      pregled,
+      ...(usporedba ? [{ id: 'usporedba', naziv: t('Usporedba', 'Comparison') }] : []),
+      ...(imaGrafove($nizovi.podaci, $view.tema, podrucje?.sifra)
+        ? [{ id: 'grafovi', naziv: t('Grafovi', 'Charts') }]
+        : []),
+    ];
+  });
+
+  // The chosen tab stays while browsing; an area without it shows the overview.
+  let kartica = $state('pregled');
+  const aktivna = $derived(kartice.some((k) => k.id === kartica) ? kartica : 'pregled');
+
   // Which number's explanation is open. One at a time, so the panel stays short.
   /** @type {string | null} */
   let otvoreno = $state(null);
@@ -99,18 +121,23 @@
   }
 </script>
 
-<aside class="kh-panel info" class:sklopljeno class:puna={visina === 'puna'} aria-live="polite">
+<aside class="kh-panel info" class:sklopljeno class:puna={visina === 'puna'}>
   {#if $podaci.greska}
-    <p class="poruka">{$podaci.greska}</p>
+    <p class="poruka" role="status">{$podaci.greska}</p>
   {:else if !podrucje}
-    <p class="poruka">{t('Učitavanje…', 'Loading…')}</p>
+    <p class="poruka" role="status">{t('Učitavanje…', 'Loading…')}</p>
   {:else}
     <!-- The swipe only adds to the arrow button, which keyboards and screen readers use. -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div class="zaglavlje" {onpointerdown} {onpointerup} onpointercancel={() => (pocetakY = null)}>
-      <div class="naslov">
+      <!-- Announces the area, not a whole tab of charts on every tab change. -->
+      <div class="naslov" aria-live="polite">
         <p class="tema" style:color={TEME_POKAZATELJI[$view.tema].boje[3]}>{temaNaziv}</p>
         <h2>{podrucje.naziv}</h2>
+        <!-- Phones: the lowest sheet height shows only this under the name. -->
+        {#if brojevi[0]}
+          <p class="prvi"><span>{brojevi[0].naziv}</span> <strong>{brojevi[0].vrijednost}</strong></p>
+        {/if}
       </div>
       <button
         type="button"
@@ -125,67 +152,74 @@
           <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </button>
+      <Kartice {kartice} {aktivna} onodaberi={(id) => (kartica = id)} />
     </div>
 
     <div id="info-detalji" class="detalji">
-      {#if podnaslov}<p class="podnaslov">{podnaslov}</p>{/if}
-      {#if $view.razina === 'jls'}<TipOpcine />{/if}
+      {#key aktivna}
+        <div
+          class="ploca"
+          role="tabpanel"
+          id="ploca-{aktivna}"
+          aria-labelledby="kartica-{aktivna}"
+          aria-live={aktivna === 'pregled' ? 'polite' : undefined}
+        >
+          {#if aktivna === 'pregled'}
+            {#if podnaslov}<p class="podnaslov">{podnaslov}</p>{/if}
+            {#if recenica}<p class="recenica">{recenica}</p>{/if}
 
-      {#if brojevi.length}
-        <dl>
-          {#each brojevi as b (b.kljuc)}
-            <div class="broj">
-              <dt>
-                <button
-                  type="button"
-                  class="pitanje"
-                  aria-expanded={otvoreno === b.kljuc}
-                  aria-controls="objasnjenje-{b.kljuc}"
-                  title={otvoreno === b.kljuc ? t('Sakrij objašnjenje', 'Hide explanation') : t('Što znači ovaj broj?', 'What does this number mean?')}
-                  onclick={() => (otvoreno = otvoreno === b.kljuc ? null : b.kljuc)}
-                >
-                  {b.naziv}
-                  <span class="ikona" aria-hidden="true">i</span>
-                </button>
-              </dt>
-              <dd class:nedostaje={b.nedostaje}>{b.vrijednost}</dd>
-              <dd class="godina">{b.godina}</dd>
-              <dd class="objasnjenje" id="objasnjenje-{b.kljuc}" hidden={otvoreno !== b.kljuc}>
-                {#if b.objasnjenje}<p>{b.objasnjenje}</p>{/if}
-                {#if b.poStanovniku}
-                  <p class="kako">{t('Po stanovniku: ukupni iznos podijeljen brojem stanovnika iz Popisa 2021.', 'Per resident: the total divided by the population from the 2021 Census.')}</p>
-                {/if}
-                {#if b.napomena}
-                  <p class="kako"><strong>{t('Kako je izračunato:', 'How it is calculated:')}</strong> {b.napomena}</p>
-                {/if}
-                <p class="kako"><strong>{t('Službeni naziv:', 'Official name:')}</strong> {b.sluzbeniNaziv}</p>
-              </dd>
-            </div>
-          {/each}
-        </dl>
-      {:else}
-        <p class="poruka">{t('Za ovu temu nema podataka na ovoj razini.', 'There is no data for this theme at this level.')}</p>
-      {/if}
+            {#if brojevi.length}
+              <dl>
+                {#each brojevi as b (b.kljuc)}
+                  <div class="broj">
+                    <dt>
+                      <button
+                        type="button"
+                        class="pitanje"
+                        aria-expanded={otvoreno === b.kljuc}
+                        aria-controls="objasnjenje-{b.kljuc}"
+                        title={otvoreno === b.kljuc ? t('Sakrij objašnjenje', 'Hide explanation') : t('Što znači ovaj broj?', 'What does this number mean?')}
+                        onclick={() => (otvoreno = otvoreno === b.kljuc ? null : b.kljuc)}
+                      >
+                        {b.naziv}
+                        <span class="ikona" aria-hidden="true">i</span>
+                      </button>
+                    </dt>
+                    <dd class:nedostaje={b.nedostaje}>{b.vrijednost}</dd>
+                    <dd class="godina">{b.godina}</dd>
+                    <dd class="objasnjenje" id="objasnjenje-{b.kljuc}" hidden={otvoreno !== b.kljuc}>
+                      {#if b.objasnjenje}<p>{b.objasnjenje}</p>{/if}
+                      {#if b.poStanovniku}
+                        <p class="kako">{t('Po stanovniku: ukupni iznos podijeljen brojem stanovnika iz Popisa 2021.', 'Per resident: the total divided by the population from the 2021 Census.')}</p>
+                      {/if}
+                      {#if b.napomena}
+                        <p class="kako"><strong>{t('Kako je izračunato:', 'How it is calculated:')}</strong> {b.napomena}</p>
+                      {/if}
+                      <p class="kako"><strong>{t('Službeni naziv:', 'Official name:')}</strong> {b.sluzbeniNaziv}</p>
+                    </dd>
+                  </div>
+                {/each}
+              </dl>
+            {:else}
+              <p class="poruka">{t('Za ovu temu nema podataka na ovoj razini.', 'There is no data for this theme at this level.')}</p>
+            {/if}
 
-      {#if recenica}<p class="recenica">{recenica}</p>{/if}
-
-      <!-- Wide screens show these in the chart panel in the left column (GrafoviPanel). -->
-      {#if $view.razina !== 'drzava' && !$siroko}
-        {#if $view.tema === 'novac'}
-          <EuPozivi />
-          <KamoIdeNovac />
-          <ProracunKrozGodine />
-        {:else if $view.tema === 'nabava'}
-          <GrafVeza />
-          <GrafoviTeme />
-        {:else}
-          <GrafoviTeme />
-        {/if}
-      {/if}
-
-      {#if $view.razina === 'drzava'}<PopisPrica />{/if}
-      {#if $view.razina === 'zupanija'}<GrafUsporedbe />{/if}
-      {#if $view.razina === 'jls'}<GradskiFiltri /><EuProjektiPopis /><UsporedbaSlicnih />{/if}
+            {#if $view.razina === 'jls'}<GradskiFiltri />{/if}
+          {:else if aktivna === 'price'}
+            <PopisPrica />
+          {:else if aktivna === 'usporedba'}
+            {#if $view.razina === 'zupanija'}
+              <GrafUsporedbe />
+            {:else}
+              <TipOpcine />
+              <UsporedbaSlicnih />
+            {/if}
+          {:else}
+            {#if $view.razina === 'jls'}<EuProjektiPopis />{/if}
+            <GrafoviPanel />
+          {/if}
+        </div>
+      {/key}
     </div>
   {/if}
 </aside>
@@ -197,13 +231,18 @@
 
   .zaglavlje {
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-start;
-    gap: 8px;
+    gap: 0 8px;
   }
 
   .naslov {
     flex: 1;
     min-width: 0;
+  }
+
+  .prvi {
+    display: none;
   }
 
   .ladica {
@@ -220,20 +259,32 @@
   }
 
   h2 {
-    margin: 2px 0 4px;
+    margin: 2px 0 0;
     font-size: 18px;
     line-height: 1.25;
     color: var(--kh-tekst);
   }
 
-  /* Spacing between the title and the details lives here, not in a negative margin:
+  /* Spacing between the tabs and the details lives here, not in a negative margin:
      on phones the title row is sticky and would cover anything pulled up under it. */
   .detalji {
-    padding-top: 8px;
+    padding-top: 12px;
+  }
+
+  /* Each section brings its own top rule and spacing, which the first one under the
+     tabs doesn't need. :global, because sections are other components. */
+  .ploca > :global(:first-child) {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .ploca {
+    animation: kh-pojava 160ms ease-out both;
   }
 
   .podnaslov {
-    margin: -4px 0 12px;
+    margin: 0 0 10px;
     font-size: 12px;
     color: var(--kh-tekst-blago);
   }
@@ -351,11 +402,15 @@
   }
 
   .recenica {
-    margin: 12px 0 0;
-    padding-top: 10px;
-    border-top: 1px solid var(--kh-rub);
-    font-size: 13px;
-    line-height: 1.4;
+    margin: 0 0 14px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ploca {
+      animation: none;
+    }
   }
 
   .poruka {
@@ -423,16 +478,23 @@
       font-size: 16px;
     }
 
-    /* The lowest height still shows the first number under the name. */
-    /* :global, because charts and lists are other components with their own scope. */
-    .sklopljeno .detalji > :global(:not(dl)),
-    .sklopljeno dl > :not(:first-child),
-    .sklopljeno dd.godina {
+    /* The lowest height shows the name and the first number, nothing else. */
+    .sklopljeno .detalji,
+    .sklopljeno :global(.kartice) {
       display: none;
     }
 
-    .sklopljeno dl {
-      margin-top: 6px;
+    .sklopljeno .prvi {
+      display: grid;
+      margin: 6px 0 0;
+      font-size: 13px;
+      color: var(--kh-tekst-blago);
+    }
+
+    .sklopljeno .prvi strong {
+      font-size: 20px;
+      font-variant-numeric: tabular-nums;
+      color: var(--kh-tekst);
     }
   }
 

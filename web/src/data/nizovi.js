@@ -35,6 +35,18 @@ export const SERIJE_TEME = {
   nabava: ['javna_nabava'],
 };
 
+/**
+ * Whether an area has any chart for a tema. Novac (budget) and Nabava (graph of links)
+ * have charts of their own, and until the series load the answer is yes.
+ * @param {Nizovi | null} n
+ * @param {string} tema
+ * @param {string | undefined} sifra
+ */
+export function imaGrafove(n, tema, sifra) {
+  if (tema === 'novac' || tema === 'nabava' || !n) return true;
+  return SERIJE_TEME[tema].some((sid) => n.podrucja[sifra]?.[sid]?.some((v) => v !== null));
+}
+
 /** @type {import('svelte/store').Writable<{ podaci: Nizovi | null, greska: boolean }>} */
 const store = writable({ podaci: null, greska: false });
 
