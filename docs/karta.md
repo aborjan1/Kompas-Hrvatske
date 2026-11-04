@@ -52,6 +52,7 @@ Redom odozdo prema gore:
 | Satelit (`grad-satelit`) i zone, četvrti | Mapbox satelit, `gradovi/` | u gradskom prikazu Zagreba i Rijeke |
 | Nazivi iz podloge | Mapbox | izvan Hrvatske skriveni (`labels.js`, osim imena država) |
 | Svemir (`svemir-maska`) i sjaj (`svemir-sjaj`) | `svemir.geojson` | nakon uvodnog leta; sve izvan hrvatskog kopna postaje zvjezdano nebo |
+| Obrub grada (`grad-obrub-rub`, `grad-obrub`) | `jls/<šifra>.geojson` | u gradskom prikazu, iznad satelita i cesta |
 | Točkice gradskog prikaza | `gradovi/` | iznad svega, da ih ceste i nazivi ne skrivaju |
 
 Naši slojevi područja umeću se ispred prvog sloja natpisa iz stila (`beforeId`). U stilu

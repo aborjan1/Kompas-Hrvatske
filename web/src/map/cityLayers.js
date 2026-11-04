@@ -6,12 +6,18 @@
 import { FILTRI } from '../data/gradskiPrikaz.js';
 import { MAPBOX_TOKEN } from './config.js';
 import { colorExpression, NO_DATA_COLOR, quantileClasses } from './countyLayer.js';
+import { JLS_SOURCE } from './jlsLayer.js';
 
 const BASE_URL = `${import.meta.env.BASE_URL}data/gradovi/`;
 const SATELLITE = 'grad-satelit';
 // The satellite blends in and out instead of popping; instant under reduced motion.
 const FADE_MS = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 800;
 const EMPTY = { type: 'FeatureCollection', features: [] };
+// City boundary on the photo: a white line over a dark edge reads on forest, roofs and sea.
+const OUTLINE = [
+  ['grad-obrub-rub', 'rgba(0, 0, 0, 0.55)', ['interpolate', ['linear'], ['zoom'], 8, 5, 13, 7]],
+  ['grad-obrub', '#ffffff', ['interpolate', ['linear'], ['zoom'], 8, 2.5, 13, 3.5]],
+];
 
 // Amber ramp for the districts, light → dark.
 const DISTRICT_COLORS = ['#fef3c7', '#fcd34d', '#f59e0b', '#b45309', '#78350f'];
@@ -116,6 +122,22 @@ export function createCityLayers(map) {
   );
   let hideSatellite = 0;
 
+  // The city's boundary: the JLS layers lie under the photo, so it gets its own lines
+  // above it. Filtered by code, not the `selected` feature-state, so the opacity can
+  // fade with the photo (Mapbox doesn't blend feature-state values). Added before the
+  // dots, which stay on top.
+  const fadeIn = { duration: FADE_MS, delay: 0 };
+  for (const [id, color, width] of OUTLINE) {
+    map.addLayer({
+      id,
+      type: 'line',
+      source: JLS_SOURCE,
+      filter: ['==', ['get', 'sifra'], ''],
+      layout: { visibility: 'none', 'line-join': 'round' },
+      paint: { 'line-color': color, 'line-width': width, 'line-opacity': 0, 'line-opacity-transition': fadeIn },
+    });
+  }
+
   for (const group of Object.values(GROUPS)) {
     for (const id of Object.keys(group.sources)) {
       map.addSource(id, {
@@ -174,8 +196,9 @@ export function createCityLayers(map) {
      * Shows a city's view with the given filters, or hides it (city null).
      * @param {string | null} city Folder name in gradovi/ ("zagreb", "rijeka").
      * @param {string[]} filters The switched-on filters this city has.
+     * @param {string | null} code The city's JLS code, for its boundary.
      */
-    show(city, filters) {
+    show(city, filters, code) {
       if (city !== shownCity) {
         // Another city's data must not show under this one.
         for (const group of Object.values(GROUPS)) {
@@ -186,9 +209,18 @@ export function createCityLayers(map) {
       }
       // Fade, then hide once faded out: a hidden layer stops loading satellite tiles.
       clearTimeout(hideSatellite);
-      if (city) map.setLayoutProperty(SATELLITE, 'visibility', 'visible');
-      else hideSatellite = setTimeout(() => map.setLayoutProperty(SATELLITE, 'visibility', 'none'), FADE_MS);
+      const outlines = OUTLINE.map(([id]) => id);
+      const setVisible = (visibility) => {
+        for (const id of [SATELLITE, ...outlines]) map.setLayoutProperty(id, 'visibility', visibility);
+      };
+      if (city) setVisible('visible');
+      else hideSatellite = setTimeout(() => setVisible('none'), FADE_MS);
       map.setPaintProperty(SATELLITE, 'raster-opacity', city ? 1 : 0);
+      for (const id of outlines) {
+        // Without a city the old filter stays, so the line can fade out.
+        if (city) map.setFilter(id, ['==', ['get', 'sifra'], code]);
+        map.setPaintProperty(id, 'line-opacity', city ? 1 : 0);
+      }
       for (const [filter, group] of Object.entries(GROUPS)) {
         const on = Boolean(city) && filters.includes(filter);
         if (on) load(city, filter);

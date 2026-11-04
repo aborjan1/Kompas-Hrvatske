@@ -196,7 +196,7 @@
         const grad = razina === 'jls' ? GRADOVI[podrucje] : undefined;
         maxZoom = grad ? CITY_MAX_ZOOM : MAX_ZOOM;
         if (grad) map.setMaxZoom(CITY_MAX_ZOOM);
-        city.show(grad?.mapa ?? null, grad ? grad.filtri.filter((f) => get(ukljuceniFiltri).has(f)) : []);
+        city.show(grad?.mapa ?? null, grad ? grad.filtri.filter((f) => get(ukljuceniFiltri).has(f)) : [], podrucje);
       };
       const unsubscribeCityView = view.subscribe(showCity);
       const unsubscribeFilters = ukljuceniFiltri.subscribe(showCity);
