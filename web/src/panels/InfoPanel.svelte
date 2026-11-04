@@ -7,14 +7,15 @@
   import { nadjiPodrucje, ocitaj, podaci } from '../data/podaci.js';
   import { formatVrijednost } from '../data/format.js';
   import { t } from '../jezik.js';
-  import { imaGrafove, nizovi, SERIJE_TEME, ucitajNizove } from '../data/nizovi.js';
+  import { karticeGrafova, ucitajGrafove } from '../data/grafovi.js';
   import { napraviRecenicu } from '../data/recenice.js';
   import { TEME_POKAZATELJI, jednostavniNaziv } from '../data/teme.js';
   import EuProjektiPopis from './EuProjektiPopis.svelte';
   import GradskiFiltri from './GradskiFiltri.svelte';
-  import GrafoviPanel from './GrafoviPanel.svelte';
+  import GrafoviKartice from './GrafoviKartice.svelte';
   import GrafUsporedbe from './GrafUsporedbe.svelte';
   import Kartice from './Kartice.svelte';
+  import { siroko } from './ekran.js';
   import TipOpcine from './TipOpcine.svelte';
   import PopisPrica from './PopisPrica.svelte';
   import UsporedbaSlicnih from './UsporedbaSlicnih.svelte';
@@ -65,9 +66,9 @@
 
   const temaNaziv = $derived($podaci.meta?.teme[$view.tema] ?? $view.tema);
 
-  // Whether a tema has charts depends on the area, so the series load with the area.
+  // Whether a tema has charts depends on the area, so their data loads with the area.
   $effect(() => {
-    if ($view.razina !== 'drzava' && SERIJE_TEME[$view.tema]) ucitajNizove();
+    if ($view.razina !== 'drzava') ucitajGrafove($view.tema);
   });
 
   const kartice = $derived.by(() => {
@@ -78,9 +79,8 @@
     return [
       pregled,
       ...(usporedba ? [{ id: 'usporedba', naziv: t('Usporedba', 'Comparison') }] : []),
-      ...(imaGrafove($nizovi.podaci, $view.tema, podrucje?.sifra)
-        ? [{ id: 'grafovi', naziv: t('Grafovi', 'Charts') }]
-        : []),
+      // Wide screens have the charts in their own column (GrafoviPanel).
+      ...(!$siroko && $karticeGrafova.length ? [{ id: 'grafovi', naziv: t('Grafovi', 'Charts') }] : []),
     ];
   });
 
@@ -152,7 +152,7 @@
           <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </button>
-      <Kartice {kartice} {aktivna} onodaberi={(id) => (kartica = id)} />
+      <Kartice {kartice} {aktivna} oznaka={t('Podaci o području', 'Area data')} onodaberi={(id) => (kartica = id)} />
     </div>
 
     <div id="info-detalji" class="detalji">
@@ -204,7 +204,7 @@
               <p class="poruka">{t('Za ovu temu nema podataka na ovoj razini.', 'There is no data for this theme at this level.')}</p>
             {/if}
 
-            {#if $view.razina === 'jls'}<GradskiFiltri />{/if}
+            {#if $view.razina === 'jls'}<GradskiFiltri /><EuProjektiPopis />{/if}
           {:else if aktivna === 'price'}
             <PopisPrica />
           {:else if aktivna === 'usporedba'}
@@ -215,8 +215,7 @@
               <UsporedbaSlicnih />
             {/if}
           {:else}
-            {#if $view.razina === 'jls'}<EuProjektiPopis />{/if}
-            <GrafoviPanel />
+            <GrafoviKartice />
           {/if}
         </div>
       {/key}

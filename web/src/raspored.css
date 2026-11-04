@@ -1,9 +1,12 @@
-/* Main layout on wide and landscape screens (#79): one dark column beside the map.
-     column  tema bar, data source, and the area in tabs (InfoPanel.svelte)
-     map     the rest, with breadcrumb and search over its top
-   The column closes with its tab (Paneli.svelte). It tells the map how much it covers
-   (--kh-karta-lijevo / -gore, read by MapView.svelte), so areas land in the free
-   part. Upright screens up to 899 px get the bottom sheet (phones,
+/* Main layout on wide and landscape screens (#79): dark columns beside the map.
+     left   tema bar, data source, and the area in tabs (InfoPanel.svelte)
+     right  charts for the area in tabs (GrafoviPanel.svelte), only from 1100 px wide and
+            501 px high (ekran.js) and when the area has any; below that they are a tab
+            of the left column
+     centre the map, with breadcrumb and search over its top
+   Each column closes with its tab (Paneli.svelte). The columns tell the map how much they
+   cover (--kh-karta-lijevo / -desno / -gore, read by MapView.svelte), so areas land in the
+   free part. Upright screens up to 899 px get the bottom sheet (phones,
    below) instead, so every size has one of the two. Landscape needs at least 560 px: an
    open phone keyboard shortens the screen and must not flip the layout.
    Selectors start with html:root to outrank the panels' own scoped styles and the
@@ -81,7 +84,7 @@
     margin: 0;
   }
 
-  /* The column: temas on top, then the area in tabs. */
+  /* Left column: temas on top, then the area in tabs. */
   html:root .sloj .dolje {
     grid-column: 1;
     grid-row: 1;
@@ -161,7 +164,7 @@
     font-size: 16px;
     cursor: pointer;
     pointer-events: auto;
-    transition: left 260ms ease, color 150ms ease;
+    transition: left 260ms ease, right 260ms ease, color 150ms ease;
   }
 
   html:root .sloj .kh-sklopi:hover {
@@ -177,6 +180,11 @@
     left: var(--kh-karta-lijevo);
     border-left: 0;
     border-radius: 0 8px 8px 0;
+  }
+
+  /* No charts column for this area, tema or screen, so no tab either. */
+  html:root:not(:has(.sloj .lijevo .kh-panel)) .sloj .kh-sklopi-desno {
+    display: none;
   }
 
   /* Map controls move with the column. */
@@ -217,6 +225,92 @@
     html:root .sloj::before,
     html:root .sloj .kh-sklopi,
     html:root .mapboxgl-ctrl-bottom-left {
+      transition: none;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------- charts column */
+/* Same query as ekran.js, which decides whether GrafoviPanel renders at all. */
+@media (min-width: 1100px) and (min-height: 501px) {
+  html:root {
+    --kh-karta-desno: 0px;
+  }
+
+  html:root:has(.sloj .lijevo .kh-panel) {
+    --kh-karta-desno: 360px;
+  }
+
+  /* As specific as the rule above that opens it, so closing wins. */
+  html:root[data-traka-desno='zatvorena']:has(.sloj .lijevo .kh-panel) {
+    --kh-karta-desno: 0px;
+  }
+
+  html:root .sloj {
+    grid-template-columns: var(--kh-karta-lijevo) minmax(0, 1fr) var(--kh-karta-desno);
+  }
+
+  html:root .sloj::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: var(--kh-karta-desno);
+    background: #14161b;
+    border-left: 1px solid #262b36;
+    pointer-events: auto;
+    transition: width 260ms ease;
+    /* Under the panels: ::after comes after them and would cover the charts. */
+    z-index: -1;
+  }
+
+  html:root .sloj .lijevo {
+    grid-column: 3;
+    grid-row: 1 / 3;
+    margin: 12px 14px;
+    overflow-y: auto;
+  }
+
+  /* Title and tabs stay in place while a long tab scrolls, as in the left column. */
+  html:root .sloj .lijevo .glava {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #14161b;
+  }
+
+  html:root[data-traka-desno='zatvorena'] .sloj .lijevo {
+    visibility: hidden;
+  }
+
+  html:root .sloj .lijevo .kh-panel {
+    background: transparent;
+    box-shadow: none;
+    border: 0;
+    border-radius: 0;
+    width: auto;
+    max-width: none;
+  }
+
+  html:root .sloj .kh-sklopi-desno {
+    right: var(--kh-karta-desno);
+    border-right: 0;
+    border-radius: 8px 0 0 8px;
+  }
+
+  html:root .mapboxgl-ctrl-top-right,
+  html:root .mapboxgl-ctrl-bottom-right {
+    right: var(--kh-karta-desno);
+  }
+
+  html:root .mapboxgl-ctrl-bottom-right {
+    transition: right 260ms ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html:root .sloj::after,
+    html:root .mapboxgl-ctrl-bottom-right {
       transition: none;
     }
   }
@@ -542,6 +636,7 @@
    set the same variables, some with :has(), which outranks any plain selector here. */
 html:root[data-kino] {
   --kh-karta-lijevo: 0px !important;
+  --kh-karta-desno: 0px !important;
   --kh-karta-gore: 30px !important;
   --kh-karta-dolje: 190px !important;
 }
@@ -560,9 +655,9 @@ html:root[data-kino] .sloj > * {
   transition: opacity 180ms ease;
 }
 
-/* The story moves the camera, so no zoom buttons. */
+/* The story moves the camera, so no zoom buttons. They also follow the charts column. */
 html:root .mapboxgl-ctrl-top-right {
-  transition: opacity 250ms ease, visibility 250ms;
+  transition: opacity 250ms ease, visibility 250ms, right 260ms ease;
 }
 
 html:root[data-kino] .mapboxgl-ctrl-top-right {

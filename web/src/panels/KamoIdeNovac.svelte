@@ -4,7 +4,7 @@
   // the map shows per-capita values). Novac tema only; data from proracuni.json.
   import { view } from '../state.js';
   import { nadjiPodrucje, podaci } from '../data/podaci.js';
-  import { proracuni, ucitajProracune } from '../data/proracuni.js';
+  import { proracuni, ucitajProracune, zbrojFunkcija } from '../data/proracuni.js';
   import { formatVrijednost, postotak } from '../data/format.js';
   import { TEME_POKAZATELJI } from '../data/teme.js';
   import { god, t } from '../jezik.js';
@@ -34,8 +34,7 @@
     const p = $proracuni.podaci;
     if (!p || !podrucje) return null;
     const z = p.podrucja[$view.razina === 'drzava' ? 'HR' : podrucje.sifra];
-    if (!z) return null;
-    const ukupno = Object.values(z.funkcije).reduce((a, b) => a + b, 0);
+    const ukupno = zbrojFunkcija(z);
     if (ukupno <= 0) return null;
 
     const stanovnika = podrucje.pokazatelji.stanovnistvo;

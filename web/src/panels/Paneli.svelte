@@ -2,28 +2,50 @@
   // Floating panels over the map. The layer itself lets pointer events through so the
   // map stays draggable between panels; only the panels catch clicks. During a story
   // the whole layer steps aside for the map (html[data-kino], src/raspored.css).
+  import GrafoviPanel from './GrafoviPanel.svelte';
   import InfoPanel from './InfoPanel.svelte';
   import IzvorPodatka from './IzvorPodatka.svelte';
   import JezikGumb from './JezikGumb.svelte';
   import Pretraga from './Pretraga.svelte';
   import Putanja from './Putanja.svelte';
   import TemeBar from './TemeBar.svelte';
+  import { onMount } from 'svelte';
   import { t } from '../jezik.js';
 
-  // Docked column on wide screens (src/raspored.css), closed with its tab. The map frames
-  // areas in the free part beside the column, so it is told ('kh:raspored') once the
-  // column has finished moving.
-  // Read back from the page, so the column stays closed when the panels are rebuilt in
+  // Docked columns on wide screens (src/raspored.css): either column can be closed with
+  // its tab. The map frames areas in the free part between the columns, so it is told
+  // ('kh:raspored') whenever that part changes, once the columns have finished moving.
+  // Read back from the page, so a column stays closed when the panels are rebuilt in
   // another language.
   const html = document.documentElement;
-  let zatvoreno = $state(html.dataset.trakaLijevo === 'zatvorena');
+  const zatvoreno = $state({
+    lijevo: html.dataset.trakaLijevo === 'zatvorena',
+    desno: html.dataset.trakaDesno === 'zatvorena',
+  });
+  const javiRaspored = () => setTimeout(() => dispatchEvent(new Event('kh:raspored')), 280);
 
-  function prebaci() {
-    zatvoreno = !zatvoreno;
-    if (zatvoreno) html.dataset.trakaLijevo = 'zatvorena';
-    else delete html.dataset.trakaLijevo;
-    setTimeout(() => dispatchEvent(new Event('kh:raspored')), 280);
+  /** @param {'lijevo' | 'desno'} strana */
+  function prebaci(strana) {
+    zatvoreno[strana] = !zatvoreno[strana];
+    const kljuc = strana === 'lijevo' ? 'trakaLijevo' : 'trakaDesno';
+    if (zatvoreno[strana]) html.dataset[kljuc] = 'zatvorena';
+    else delete html.dataset[kljuc];
+    javiRaspored();
   }
+
+  // The charts column comes and goes with the tema and area (GrafoviPanel), which
+  // changes the free part too.
+  let grafovi;
+  onMount(() => {
+    let ima = Boolean(grafovi.querySelector('.kh-panel'));
+    const promatrac = new MutationObserver(() => {
+      const sada = Boolean(grafovi.querySelector('.kh-panel'));
+      if (sada !== ima) javiRaspored();
+      ima = sada;
+    });
+    promatrac.observe(grafovi, { childList: true, subtree: true });
+    return () => promatrac.disconnect();
+  });
 </script>
 
 <div class="sloj">
@@ -34,20 +56,29 @@
       <JezikGumb />
     </div>
   </div>
+  <div class="lijevo" bind:this={grafovi}><GrafoviPanel /></div>
   <div class="desno"><InfoPanel /></div>
   <div class="dolje">
     <TemeBar />
     <IzvorPodatka />
   </div>
-  <!-- Column tab, shown on wide screens only (raspored.css). -->
+  <!-- Column tabs, shown on wide screens only (raspored.css). -->
   <button
     type="button"
     class="kh-sklopi kh-sklopi-lijevo"
-    aria-expanded={!zatvoreno}
-    aria-label={zatvoreno ? t('Otvori podatke', 'Open data') : t('Zatvori podatke', 'Close data')}
-    title={zatvoreno ? t('Otvori podatke', 'Open data') : t('Zatvori podatke', 'Close data')}
-    onclick={prebaci}
-  >{zatvoreno ? '›' : '‹'}</button>
+    aria-expanded={!zatvoreno.lijevo}
+    aria-label={zatvoreno.lijevo ? t('Otvori podatke', 'Open data') : t('Zatvori podatke', 'Close data')}
+    title={zatvoreno.lijevo ? t('Otvori podatke', 'Open data') : t('Zatvori podatke', 'Close data')}
+    onclick={() => prebaci('lijevo')}
+  >{zatvoreno.lijevo ? '›' : '‹'}</button>
+  <button
+    type="button"
+    class="kh-sklopi kh-sklopi-desno"
+    aria-expanded={!zatvoreno.desno}
+    aria-label={zatvoreno.desno ? t('Otvori grafove', 'Open charts') : t('Zatvori grafove', 'Close charts')}
+    title={zatvoreno.desno ? t('Otvori grafove', 'Open charts') : t('Zatvori grafove', 'Close charts')}
+    onclick={() => prebaci('desno')}
+  >{zatvoreno.desno ? '‹' : '›'}</button>
 </div>
 
 <style>

@@ -19,7 +19,8 @@ Demo: <https://aborjan1.github.io/Kompas-Hrvatske/> · Pokretanje: [pokretanje.m
 | **HR / EN** | pokraj pretrage | Jezik sučelja: hrvatski ili engleski (vidi [Engleska verzija](#engleska-verzija)). |
 | **Karta** | cijeli zaslon | Područja obojana prema odabranom pokazatelju. Prelazak mišem pokazuje ime i vrijednost, klik odabire područje. |
 | **Legenda** | dolje lijevo | Pet razreda boje s rasponom vrijednosti. |
-| **Info panel** | stupac lijevo, ispod tema | Odabrano područje u karticama: Pregled (rečenica i do četiri broja), Usporedba i Grafovi, a na razini Hrvatske Pregled i Priče. Stupac se zatvara jezičcem na rubu. |
+| **Info panel** | stupac lijevo, ispod tema | Odabrano područje u karticama: Pregled (rečenica i do četiri broja) i Usporedba, a na razini Hrvatske Pregled i Priče. Stupac se zatvara jezičcem na rubu. |
+| **Grafovi** | stupac desno | Grafovi teme za odabranu županiju, grad ili općinu. Novac: EU pozivi · Kamo ide novac · Kroz godine. Nabava: Veze · Kroz godine. Ljudi, Porezi i Imovina nemaju kartice jer je sadržaj jedan. Kartica bez podataka se ne prikazuje, a stupca nema ako područje nema grafova. Zatvara se jezičcem na rubu. Na ekranu užem od 1100 px ili nižem od 501 px grafovi su kartica info panela, s istim unutarnjim karticama. |
 | **Teme i mjera** | na vrhu lijevog stupca | Teme Ljudi · Novac · Porezi · Imovina, prekidač „Ukupno / Po stanovniku” i sloj „EU projekti”. |
 | **Izvor** | ispod tema | Izdavatelj, skup podataka i godina pokazatelja kojim je karta obojana, s poveznicom. |
 
@@ -129,10 +130,10 @@ hrvatskom.
 
 - Info panel je ladica odozdo s tri visine: naziv i prvi broj, pola ekrana i gotovo cijeli
   ekran. Mijenja se strelicom ili povlačenjem prstom po naslovu. Kreće spuštena, da se odmah
-  vidi karta, a kartice ostaju uz naslov dok se sadržaj lista.
+  vidi karta, a kartice ostaju uz naslov dok se sadržaj lista. Grafovi su kartica ladice.
 - Teme, mjera i izvor su u izborniku iza gumba s trenutnim odabirom (npr. „Porezi · Ukupno”).
 - Legenda je tanka traka ispod tog gumba, a dodir je otvara. Putanja je uvijek u jednom retku.
-- Mobitel položen na bok koristi lijevi stupac kao na računalu, samo uži.
+- Mobitel položen na bok koristi lijevi stupac kao na računalu, samo uži, s grafovima u kartici.
 - Za vrijeme priče panel se skloni, a kartica priče objašnjava što se vidi.
 - Stranica se nikad ne skrola; skrolaju se samo paneli.
 

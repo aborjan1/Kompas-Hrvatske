@@ -36,15 +36,14 @@ export const SERIJE_TEME = {
 };
 
 /**
- * Whether an area has any chart for a tema. Novac (budget) and Nabava (graph of links)
- * have charts of their own, and until the series load the answer is yes.
- * @param {Nizovi | null} n
+ * Whether an area has data in any series of a tema, i.e. GrafoviTeme draws something.
+ * Novac has no series; its budget charts are decided in grafovi.js.
+ * @param {Nizovi} n
  * @param {string} tema
- * @param {string | undefined} sifra
+ * @param {string} sifra
  */
 export function imaGrafove(n, tema, sifra) {
-  if (tema === 'novac' || tema === 'nabava' || !n) return true;
-  return SERIJE_TEME[tema].some((sid) => n.podrucja[sifra]?.[sid]?.some((v) => v !== null));
+  return (SERIJE_TEME[tema] ?? []).some((sid) => n.podrucja[sifra]?.[sid]?.some((v) => v !== null));
 }
 
 /** @type {import('svelte/store').Writable<{ podaci: Nizovi | null, greska: boolean }>} */

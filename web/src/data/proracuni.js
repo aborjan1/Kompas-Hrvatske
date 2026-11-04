@@ -31,6 +31,12 @@ export const proracuni = sPrijevodom(store, (p, en) => ({
   funkcije: { ...p.funkcije, ...en.funkcije },
 }));
 
+/**
+ * Expenditure across all functions in the last year; 0 for an area without any.
+ * @param {ProracunPodrucja | undefined} z
+ */
+export const zbrojFunkcija = (z) => Object.values(z?.funkcije ?? {}).reduce((a, b) => a + b, 0);
+
 let zatrazeno = false;
 
 export function ucitajProracune() {

@@ -1,18 +1,19 @@
 <script>
-  // Tabs of the info panel. Arrow keys, Home and End move between them and open the tab
-  // right away; only the open tab is in the Tab order, as the ARIA tabs pattern asks.
-  import { t } from '../jezik.js';
+  // A row of tabs, in the info panel and among the charts. Arrow keys, Home and End move
+  // between them and open the tab right away; only the open tab is in the Tab order, as
+  // the ARIA tabs pattern asks. Two rows can be on the page, so `prefiks` keeps ids apart:
+  // the owner's panel is `ploca-{prefiks}{id}`.
 
-  /** @type {{ kartice: { id: string, naziv: string }[], aktivna: string,
-   *   onodaberi: (id: string) => void }} */
-  let { kartice, aktivna, onodaberi } = $props();
+  /** @type {{ kartice: { id: string, naziv: string }[], aktivna: string, oznaka: string,
+   *   prefiks?: string, onodaberi: (id: string) => void }} */
+  let { kartice, aktivna, oznaka, prefiks = '', onodaberi } = $props();
 
   /** @type {HTMLElement | undefined} */
   let popis = $state();
 
   function odaberi(id) {
     onodaberi(id);
-    popis?.querySelector(`#kartica-${id}`)?.focus();
+    popis?.querySelector(`#kartica-${prefiks}${id}`)?.focus();
   }
 
   function onkeydown(e) {
@@ -30,14 +31,14 @@
   }
 </script>
 
-<div class="kartice" role="tablist" aria-label={t('Podaci o području', 'Area data')} bind:this={popis}>
+<div class="kartice" role="tablist" aria-label={oznaka} bind:this={popis}>
   {#each kartice as k (k.id)}
     <button
       type="button"
       role="tab"
-      id="kartica-{k.id}"
+      id="kartica-{prefiks}{k.id}"
       aria-selected={k.id === aktivna}
-      aria-controls={k.id === aktivna ? `ploca-${k.id}` : undefined}
+      aria-controls={k.id === aktivna ? `ploca-${prefiks}${k.id}` : undefined}
       tabindex={k.id === aktivna ? 0 : -1}
       onclick={() => onodaberi(k.id)}
       {onkeydown}
@@ -57,11 +58,12 @@
   }
 
   button {
-    flex: 1 1 0;
+    /* By text, not equal shares: "Kamo ide novac" needs more than "Veze". */
+    flex: 1 1 auto;
     min-width: 0;
     min-height: 36px;
     margin-bottom: -1px;
-    padding: 6px 4px;
+    padding: 6px 2px;
     border: 0;
     border-bottom: 2px solid transparent;
     background: none;
