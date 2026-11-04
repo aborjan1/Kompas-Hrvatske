@@ -11,7 +11,16 @@ const store = writable(/** @type {string | null} */ (null));
 
 export const sletjelo = { subscribe: store.subscribe };
 
+// The map is ready for a story once its first flight (the intro from space) has landed:
+// before that it isn't following stories yet (MapView.svelte).
+const spremna = writable(false);
+
+export const kartaSpremna = { subscribe: spremna.subscribe };
+
 export const javiPolijetanje = () => store.set(null);
 
 /** @param {{ razina: string, podrucje?: string | null }} view The view the camera landed on. */
-export const javiSletanje = (view) => store.set(kljucPogleda(view));
+export const javiSletanje = (view) => {
+  spremna.set(true);
+  store.set(kljucPogleda(view));
+};

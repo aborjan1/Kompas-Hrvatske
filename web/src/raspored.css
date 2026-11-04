@@ -39,6 +39,8 @@
     --kh-naglasak: #4fd1c5;
     --kh-rub: #262b36;
     --kh-pozadina-blaga: #1d212b;
+    /* Cards over the map (search results), as on phones. */
+    --kh-ploca: #14161b;
     color-scheme: dark;
   }
 

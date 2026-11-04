@@ -98,8 +98,12 @@
 </div>
 
 <style>
+  /* Above the panels after it, so its results drop over them (on phones the tema pill
+     and the bottom sheet, z-index 2). The z-index has to sit here: the panels' slide-in
+     animation leaves a transform on each card, which makes each its own layer. */
   .pretraga {
     position: relative;
+    z-index: 3;
     width: 340px;
     max-width: 100%;
   }
@@ -121,7 +125,9 @@
     outline-offset: 0;
   }
 
-  /* Drops over the map instead of pushing the panels around. */
+  /* Drops over the map instead of pushing the panels around. The card follows the look:
+     white, or dark where raspored.css sets --kh-ploca, since the text colours follow
+     it too. */
   ul {
     position: absolute;
     top: calc(100% + 4px);
@@ -132,7 +138,8 @@
     padding: 4px;
     overflow-y: auto;
     list-style: none;
-    background: #fff;
+    background: var(--kh-ploca, #fff);
+    border: 1px solid var(--kh-rub);
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
   }

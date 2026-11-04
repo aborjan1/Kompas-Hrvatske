@@ -272,7 +272,10 @@
       // off. The whole country can't be zoomed out past (lockToCroatia).
       // During a story the flight is filmed (config.js): tilted, slower, in a higher arc,
       // and the camera is the story's: no user input, and it drifts in once there.
-      function focusOn(bounds, { croatia = false, intro = false, duration = undefined } = {}) {
+      // `cilj` is the area being framed, reported on landing (slijetanje.js): the view may
+      // already have moved on to an area whose flight hasn't started yet (a city waits
+      // for its county's boundaries), so not the view at landing time.
+      function focusOn(bounds, { cilj, croatia = false, intro = false, duration = undefined }) {
         const token = ++focusToken;
         const story = Boolean(get(reprodukcija));
         javiPolijetanje();
@@ -281,8 +284,8 @@
         map.stop();
         introRunning = intro;
         // „Preskoči”: the same landing as the intro's, without the flight.
-        skipIntro = () => focusOn(bounds, { croatia, duration: 0 });
-        refocus = () => focusOn(bounds, { croatia });
+        skipIntro = () => focusOn(bounds, { cilj, croatia, duration: 0 });
+        refocus = () => focusOn(bounds, { cilj, croatia });
         unlockCamera(map);
         okvir = null;
         // A scroll or drag mid-flight would cancel it before the lock applies and leave
@@ -300,7 +303,7 @@
           setUserInput(map, !story);
           // Flat again after a story (createMap: maxPitch 0), now that the camera is.
           if (!story) map.setMaxPitch(0);
-          javiSletanje(get(view));
+          javiSletanje(cilj);
           if (story && !smanjenoKretanje) drift();
         };
         // Listen first: under prefers-reduced-motion the move is a jump, whose moveend
@@ -371,10 +374,12 @@
         const intro = focused === null;
         focused = key;
         const countyBounds = razina === 'zupanija' && counties.bounds(podrucje);
-        if (countyBounds) focusOn(countyBounds, { intro });
+        if (countyBounds) focusOn(countyBounds, { cilj: { razina, podrucje }, intro });
         // A city or municipality is framed below, once its county is known; the intro
         // then lands on the whole country first.
-        else if (razina === 'drzava' || intro) focusOn(CROATIA_BOUNDS, { croatia: true, intro });
+        else if (razina === 'drzava' || intro) {
+          focusOn(CROATIA_BOUNDS, { cilj: { razina: 'drzava', podrucje: null }, croatia: true, intro });
+        }
       });
 
       // The open county's cities and municipalities, and the selected one framed.
@@ -399,7 +404,7 @@
         if (key !== shownArea) return;
         jls.select(selected);
         const bounds = selected && jls.bounds(selected);
-        if (bounds) focusOn(bounds);
+        if (bounds) focusOn(bounds, { cilj: { razina: 'jls', podrucje: selected } });
       });
 
       addHoverTooltip(map, {
@@ -407,7 +412,9 @@
         source: SOURCE,
         yieldTo: [...CITY_POINT_LAYERS, ...CITY_AREA_LAYERS, EU_LAYER, JLS_FILL_LAYER],
         describe: (f) => ({
-          title: f.properties.naziv,
+          // The data's name, which is in English when the interface is (prijevod.js); the
+          // boundaries file has only the Croatian one.
+          title: get(podaci).zupanije?.[f.properties.sifra]?.naziv ?? f.properties.naziv,
           detail: Number.isFinite(f.state.value)
             ? formatVrijednost(f.state.value, shown.unit, shown.decimale)
             : t('nema podatka', 'no data'),

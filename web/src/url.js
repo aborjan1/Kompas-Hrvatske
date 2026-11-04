@@ -27,12 +27,23 @@ export function parseHash(hash, fallback) {
   const tema = params.get('tema');
   const mjera = params.get('mjera');
   const podrucjeJe = (razina === 'zupanija' || razina === 'jls') && Boolean(podrucje);
+  const sifra = podrucjeJe ? dekodiraj(podrucje) : null;
   return {
-    razina: podrucjeJe ? razina : 'drzava',
-    podrucje: podrucjeJe ? decodeURIComponent(podrucje) : null,
+    razina: sifra ? razina : 'drzava',
+    podrucje: sifra,
     tema: TEME.includes(tema) ? tema : fallback.tema,
     mjera: MJERE.includes(mjera) ? mjera : fallback.mjera,
   };
+}
+
+// A broken escape (a link cut mid-character, "#/jls/%C4") is no area: the country, like
+// any unknown code, instead of an error that would stop the app before it starts.
+function dekodiraj(tekst) {
+  try {
+    return decodeURIComponent(tekst);
+  } catch {
+    return null;
+  }
 }
 
 /**

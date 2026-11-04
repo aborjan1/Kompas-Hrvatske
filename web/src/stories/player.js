@@ -13,7 +13,7 @@ import { get, writable } from 'svelte/store';
 import { setView, view } from '../state.js';
 import { podaci, ucitajJls } from '../data/podaci.js';
 import { euProjekti, prikaziEuProjekte } from '../data/euProjekti.js';
-import { kljucPogleda, sletjelo } from '../map/slijetanje.js';
+import { kartaSpremna, kljucPogleda, sletjelo } from '../map/slijetanje.js';
 import { bezNovogZapisa } from '../url.js';
 import { engleski, jezik, t } from '../jezik.js';
 import { imaPodatke, rijesiScenu } from './scene.js';
@@ -74,6 +74,9 @@ export async function pokreni(id) {
   if (!get(store)) prije = { view: get(view), eu: get(euProjekti).prikazano };
   if (prica.scene.some((s) => s.razina === 'jls')) ucitajJls();
   const moj = ++tok;
+  // Chosen during the intro from space: it starts once the map has landed.
+  await dok(kartaSpremna, Boolean);
+  if (moj !== tok) return;
   // Before the store, so the map reads the full-screen frame when it reacts.
   document.documentElement.dataset.kino = '';
   store.set({ prica, indeks: 0, faza: 'uvod', tekst: null });
