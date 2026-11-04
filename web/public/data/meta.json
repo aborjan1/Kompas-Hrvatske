@@ -1,6 +1,6 @@
 {
   "verzija_formata": 1,
-  "generirano": "2026-11-03T19:44:49+00:00",
+  "generirano": "2026-11-04T17:57:16+00:00",
   "probni_podaci": false,
   "probne_granice": false,
   "napomene": [
@@ -367,7 +367,7 @@
       "godina": "2025"
     },
     "lokalna_ulaganja": {
-      "naziv": "Ulaganja lokalnog proračuna",
+      "naziv": "Ulaganja lokalnog proračuna (godišnji prosjek)",
       "tema": "novac",
       "jedinica": "EUR",
       "decimale": 0,
@@ -381,9 +381,9 @@
         "jls"
       ],
       "izvor": "mfin-lokalni-proracuni",
-      "napomena": "Rashodi za nabavu nefinancijske imovine (ceste, zgrade, oprema).",
-      "objasnjenje": "Dio rashoda koji je otišao u trajnu imovinu: ceste, zgrade, vrtiće, opremu. Pokazuje koliko se gradi, a ne samo troši.",
-      "godina": "2025"
+      "napomena": "Rashodi za nabavu nefinancijske imovine (ceste, zgrade, oprema), godišnji prosjek zadnje tri godine ostvarenja proračuna. Za županiju: županija i svi njezini gradovi i općine.",
+      "objasnjenje": "Dio rashoda koji je otišao u trajnu imovinu: ceste, zgrade, vrtiće, opremu. Pokazuje koliko se gradi, a ne samo troši. Uzimamo prosjek zadnje tri godine, jer jedan veliki projekt može jednu godinu višestruko povećati.",
+      "godina": "2023.–2025."
     },
     "saldo_lokalnog_proracuna": {
       "naziv": "Višak ili manjak lokalnog proračuna",

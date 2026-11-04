@@ -161,6 +161,11 @@ def test_proracuni():
     for sifra, v in p["podrucja"].items():
         assert len(v["prihodi"]) == len(v["rashodi"]) == len(v["ulaganja"]) == n, sifra
         assert set(v["funkcije"]) == set(p["funkcije"]), sifra
+    # Ulaganja na karti = godišnji prosjek zadnje tri godine iz istih proračuna.
+    sve = jls | ucitaj("zupanije.json")["podrucja"] | {"HR": ucitaj("drzava.json")}
+    for sifra, podrucje in sve.items():
+        prosjek = sum(p["podrucja"][sifra]["ulaganja"][-3:]) / 3
+        assert abs(podrucje["pokazatelji"]["lokalna_ulaganja"] - prosjek) <= 2, sifra
 
 
 def test_gradovi_meta_i_datoteke():

@@ -291,16 +291,19 @@ POKAZATELJI: dict[str, dict] = {
         "usluge, pomoći građanima i ulaganja.",
     },
     "lokalna_ulaganja": {
-        "naziv": "Ulaganja lokalnog proračuna",
+        "naziv": "Ulaganja lokalnog proračuna (godišnji prosjek)",
         "tema": "novac",
         "jedinica": "EUR",
         "decimale": 0,
         "po_stanovniku": _PO_ST_EUR,
         "razine": ["drzava", "zupanija", "jls"],
         "izvor": "mfin-lokalni-proracuni",
-        "napomena": "Rashodi za nabavu nefinancijske imovine (ceste, zgrade, oprema).",
+        "napomena": "Rashodi za nabavu nefinancijske imovine (ceste, zgrade, oprema), godišnji "
+        "prosjek zadnje tri godine ostvarenja proračuna. Za županiju: županija i svi njezini "
+        "gradovi i općine.",
         "objasnjenje": "Dio rashoda koji je otišao u trajnu imovinu: ceste, zgrade, vrtiće, "
-        "opremu. Pokazuje koliko se gradi, a ne samo troši.",
+        "opremu. Pokazuje koliko se gradi, a ne samo troši. Uzimamo prosjek zadnje tri godine, "
+        "jer jedan veliki projekt može jednu godinu višestruko povećati.",
     },
     "saldo_lokalnog_proracuna": {
         "naziv": "Višak ili manjak lokalnog proračuna",
