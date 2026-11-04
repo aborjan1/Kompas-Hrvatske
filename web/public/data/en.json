@@ -1,5 +1,5 @@
 {
-  "generirano": "2026-11-04T18:11:59+00:00",
+  "generirano": "2026-11-04T18:30:24+00:00",
   "verzija_formata": 1,
   "teme": {
     "ljudi": "People",
@@ -119,12 +119,14 @@
       "naziv": "Local budget revenue",
       "objasnjenje": "All the money the city or municipality received in the year: taxes, fees, grants from the state and the EU, and sales of assets. For a county we add up all its cities and municipalities too.",
       "napomena": "Budget outturn (not plan), latest year. For a county: the county budget and the budgets of all its cities and municipalities; for the country: the sum of all local budgets.",
+      "objasnjenje_zupanija": "All the money local government in the area (the county, its cities and municipalities) received in the year: taxes, fees, grants from the state and the EU, and sales of assets.",
       "godina": "2025"
     },
     "lokalni_rashodi": {
       "naziv": "Local budget expenditure",
       "objasnjenje": "All the money the city or municipality spent in the year: salaries, materials, services, support to residents and investment.",
       "napomena": "Budget outturn (not plan), latest year. For a county: the county budget and the budgets of all its cities and municipalities; for the country: the sum of all local budgets.",
+      "objasnjenje_zupanija": "All the money local government in the area (the county, its cities and municipalities) spent in the year: salaries, materials, services, support to residents and investment.",
       "godina": "2025"
     },
     "lokalna_ulaganja": {
@@ -143,6 +145,7 @@
       "naziv": "Share of grants in budget revenue",
       "objasnjenje": "Out of every €100 of revenue, how much the city or municipality received from the state, the EU or other budgets instead of collecting it itself. A high share means more dependence on others' money, but it also includes EU money for projects.",
       "napomena": "Grants from the state budget, the EU and other budgets (group 63) in total revenue (groups 6 and 7).",
+      "objasnjenje_zupanija": "Out of every €100 of revenue of local government in the area (the county, its cities and municipalities), how much came from the state, the EU or other budgets. A high share means more dependence on others' money, but it also includes EU money for projects.",
       "godina": "2025"
     },
     "porez_na_dohodak": {
@@ -190,12 +193,14 @@
       "naziv": "Real estate transfer tax (budget revenue)",
       "objasnjenje": "How much the city or municipality received from the tax the buyer of a property in its area pays. The more properties are sold and the dearer they are, the higher the amount.",
       "napomena": "Budget outturn, account 6134 (occasional property taxes), which for cities and municipalities is the real estate transfer tax. For a county: the county and all its cities and municipalities.",
+      "objasnjenje_zupanija": "How much local government in the area (the county, its cities and municipalities) received from the tax the buyer of a property pays. The more properties are sold and the dearer they are, the higher the amount.",
       "godina": "2025"
     },
     "prihodi_od_imovine": {
       "naziv": "Revenue from non-financial assets",
       "objasnjenje": "How much the city or municipality earns from its property: renting out premises and land, concessions and fees for use.",
       "napomena": "Budget outturn, group 642: concession fees, lease and rent of property, fees for the use of property and other. For a county: the county and all its cities and municipalities.",
+      "objasnjenje_zupanija": "How much local government in the area (the county, its cities and municipalities) earns from its property: renting out premises and land, concessions and fees for use.",
       "godina": "2025"
     },
     "pravne_osobe_aktivne": {
@@ -207,6 +212,7 @@
       "naziv": "Public procurement contracts (5 years)",
       "objasnjenje": "How much the city or municipality contracted through public procurement in five years: works, goods and services such as roads, buildings, energy and maintenance.",
       "napomena": "Total value of contracts signed in five years by the administration of the city, municipality or county (EOJN RH contract register), without its institutions and companies; kuna converted at 7.5345. For a county: the county administration and all its cities and municipalities.",
+      "objasnjenje_zupanija": "How much the administrations of the county, its cities and municipalities contracted through public procurement in five years: works, goods and services such as roads, buildings, energy and maintenance.",
       "godina": "2019–2023"
     },
     "nabava_najveci_dobavljac": {

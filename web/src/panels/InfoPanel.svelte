@@ -6,7 +6,7 @@
   import { formatVrijednost } from '../data/format.js';
   import { t } from '../jezik.js';
   import { napraviRecenicu } from '../data/recenice.js';
-  import { TEME_POKAZATELJI, jednostavniNaziv } from '../data/teme.js';
+  import { TEME_POKAZATELJI, jednostavniNaziv, objasnjenjeZa } from '../data/teme.js';
   import EuProjektiPopis from './EuProjektiPopis.svelte';
   import GradskiFiltri from './GradskiFiltri.svelte';
   import GrafUsporedbe from './GrafUsporedbe.svelte';
@@ -17,6 +17,7 @@
   import ProracunKrozGodine from './ProracunKrozGodine.svelte';
   import TipOpcine from './TipOpcine.svelte';
   import Neobicno from './Neobicno.svelte';
+  import PreuzmiPodatke from './PreuzmiPodatke.svelte';
   import { siroko } from './ekran.js';
   import PopisPrica from './PopisPrica.svelte';
   import UsporedbaSlicnih from './UsporedbaSlicnih.svelte';
@@ -42,7 +43,7 @@
           godina: pokazatelj.godina,
           // Shown when the name is tapped: what the number means in plain words, then
           // the official name and how it is calculated, for the exact definition.
-          objasnjenje: pokazatelj.objasnjenje,
+          objasnjenje: objasnjenjeZa(pokazatelj, $view.razina),
           sluzbeniNaziv: pokazatelj.naziv,
           napomena: pokazatelj.napomena,
           poStanovniku: o.poStanovniku,
@@ -188,6 +189,7 @@
       {#if $view.razina === 'drzava'}<PopisPrica />{/if}
       {#if $view.razina === 'zupanija'}<GrafUsporedbe />{/if}
       {#if $view.razina === 'jls'}<GradskiFiltri /><EuProjektiPopis /><UsporedbaSlicnih />{/if}
+      <PreuzmiPodatke />
     </div>
   {/if}
 </aside>

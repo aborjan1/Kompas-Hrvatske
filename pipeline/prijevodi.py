@@ -151,6 +151,9 @@ POKAZATELJI: dict[str, dict[str, str]] = {
         "napomena": "Budget outturn (not plan), latest year. For a county: the county budget and "
         "the budgets of all its cities and municipalities; for the country: the sum of all local "
         "budgets.",
+        "objasnjenje_zupanija": "All the money local government in the area (the county, its "
+        "cities and municipalities) received in the year: taxes, fees, grants from the state and "
+        "the EU, and sales of assets.",
     },
     "lokalni_rashodi": {
         "naziv": "Local budget expenditure",
@@ -159,6 +162,9 @@ POKAZATELJI: dict[str, dict[str, str]] = {
         "napomena": "Budget outturn (not plan), latest year. For a county: the county budget and "
         "the budgets of all its cities and municipalities; for the country: the sum of all local "
         "budgets.",
+        "objasnjenje_zupanija": "All the money local government in the area (the county, its "
+        "cities and municipalities) spent in the year: salaries, materials, services, support to "
+        "residents and investment.",
     },
     "lokalna_ulaganja": {
         "naziv": "Local budget investment (annual average)",
@@ -183,6 +189,10 @@ POKAZATELJI: dict[str, dict[str, str]] = {
         "means more dependence on others' money, but it also includes EU money for projects.",
         "napomena": "Grants from the state budget, the EU and other budgets (group 63) in total "
         "revenue (groups 6 and 7).",
+        "objasnjenje_zupanija": "Out of every €100 of revenue of local government in the area "
+        "(the county, its cities and municipalities), how much came from the state, the EU or "
+        "other budgets. A high share means more dependence on others' money, but it also includes "
+        "EU money for projects.",
     },
     "porez_na_dohodak": {
         "naziv": "Income tax paid",
@@ -236,6 +246,9 @@ POKAZATELJI: dict[str, dict[str, str]] = {
         "napomena": "Budget outturn, account 6134 (occasional property taxes), which for cities "
         "and municipalities is the real estate transfer tax. For a county: the county and all its "
         "cities and municipalities.",
+        "objasnjenje_zupanija": "How much local government in the area (the county, its cities "
+        "and municipalities) received from the tax the buyer of a property pays. The more "
+        "properties are sold and the dearer they are, the higher the amount.",
     },
     "prihodi_od_imovine": {
         "naziv": "Revenue from non-financial assets",
@@ -244,6 +257,9 @@ POKAZATELJI: dict[str, dict[str, str]] = {
         "napomena": "Budget outturn, group 642: concession fees, lease and rent of property, fees "
         "for the use of property and other. For a county: the county and all its cities and "
         "municipalities.",
+        "objasnjenje_zupanija": "How much local government in the area (the county, its cities "
+        "and municipalities) earns from its property: renting out premises and land, concessions "
+        "and fees for use.",
     },
     "pravne_osobe_aktivne": {
         "naziv": "Active legal entities",
@@ -259,6 +275,9 @@ POKAZATELJI: dict[str, dict[str, str]] = {
         "city, municipality or county (EOJN RH contract register), without its institutions and "
         "companies; kuna converted at 7.5345. For a county: the county administration and all "
         "its cities and municipalities.",
+        "objasnjenje_zupanija": "How much the administrations of the county, its cities and "
+        "municipalities contracted through public procurement in five years: works, goods and "
+        "services such as roads, buildings, energy and maintenance.",
     },
     "nabava_najveci_dobavljac": {
         "naziv": "Share of the largest supplier in public procurement",
@@ -559,6 +578,8 @@ def izracunaj(meta: dict, nizovi: dict, proracuni: dict, pozivi: dict, nabava: d
             continue
         if p.get("napomena") and "napomena" not in en:
             nedostaje.append(f"napomena pokazatelja {k}")
+        if p.get("objasnjenje_zupanija") and "objasnjenje_zupanija" not in en:
+            nedostaje.append(f"objašnjenje za županiju, pokazatelj {k}")
         pokazatelji[k] = {**en, "godina": godina_en(p.get("godina"))}
 
     for k in meta["teme"]:

@@ -88,6 +88,10 @@ može dugo čuvati, a brojke se mijenjaju pri svakom pokretanju obrade.
 - `objasnjenje` je obavezna rečenica ili dvije o tome **što broj znači**, jednostavnim
   riječima (npr. „Od svakih 100 € prihoda, koliko je grad ili općina dobila od države…”).
   Prikazuje se uz broj u panelu i ispod naslova legende.
+- `objasnjenje_zupanija` (neobavezno) je isto objašnjenje za županiju i državu, kad se
+  `objasnjenje` odnosi samo na grad ili općinu (npr. „Koliko su uprave županije, gradova i
+  općina na tom području…”). Sučelje ga koristi u panelu županije i države i u legendi kad
+  karta boji županije.
 - `napomena` je neobavezna rečenica o tome **kako je broj izračunat** (točna definicija,
   obuhvat). U panelu se prikazuje ispod objašnjenja kao „Kako je izračunato”.
 - `po_stanovniku` je `null` ako se pokazatelj ne preračunava po stanovniku (npr. stope u %).
