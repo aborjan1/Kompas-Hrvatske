@@ -89,9 +89,9 @@
     color: var(--kh-tekst-blago);
   }
 
-  /* Phones: one line, so the search box and the legend below stay put. A long county
+  /* Phones and low landscape: one line, so the search box and the legend below stay put. A long county
      name gives way first ("Dubrovačko-neretv…"); "Hrvatska" never shrinks. */
-  @media (max-width: 899px) and (orientation: portrait), (max-width: 559px) {
+  @media (max-width: 899px) and (orientation: portrait), (max-width: 559px), (orientation: landscape) and (max-height: 500px) {
     ol {
       flex-wrap: nowrap;
     }
