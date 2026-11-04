@@ -13,10 +13,12 @@ const SATELLITE = 'grad-satelit';
 // The satellite blends in and out instead of popping; instant under reduced motion.
 const FADE_MS = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 800;
 const EMPTY = { type: 'FeatureCollection', features: [] };
-// City boundary on the photo: a white line over a dark edge reads on forest, roofs and sea.
+// City boundary on the photo: cyan with a soft glow, like the coast around Croatia
+// (spaceMask.js), because white and orange are what the roads are.
+const OUTLINE_COLOR = '#4fc3ff';
 const OUTLINE = [
-  ['grad-obrub-rub', 'rgba(0, 0, 0, 0.55)', ['interpolate', ['linear'], ['zoom'], 8, 5, 13, 7]],
-  ['grad-obrub', '#ffffff', ['interpolate', ['linear'], ['zoom'], 8, 2.5, 13, 3.5]],
+  { id: 'grad-obrub-rub', width: ['interpolate', ['linear'], ['zoom'], 8, 8, 13, 12], blur: 6, opacity: 0.4 },
+  { id: 'grad-obrub', width: ['interpolate', ['linear'], ['zoom'], 8, 3, 13, 4], blur: 0, opacity: 1 },
 ];
 
 // Amber ramp for the districts, light → dark.
@@ -127,14 +129,20 @@ export function createCityLayers(map) {
   // fade with the photo (Mapbox doesn't blend feature-state values). Added before the
   // dots, which stay on top.
   const fadeIn = { duration: FADE_MS, delay: 0 };
-  for (const [id, color, width] of OUTLINE) {
+  for (const { id, width, blur } of OUTLINE) {
     map.addLayer({
       id,
       type: 'line',
       source: JLS_SOURCE,
       filter: ['==', ['get', 'sifra'], ''],
       layout: { visibility: 'none', 'line-join': 'round' },
-      paint: { 'line-color': color, 'line-width': width, 'line-opacity': 0, 'line-opacity-transition': fadeIn },
+      paint: {
+        'line-color': OUTLINE_COLOR,
+        'line-width': width,
+        'line-blur': blur,
+        'line-opacity': 0,
+        'line-opacity-transition': fadeIn,
+      },
     });
   }
 
@@ -209,17 +217,16 @@ export function createCityLayers(map) {
       }
       // Fade, then hide once faded out: a hidden layer stops loading satellite tiles.
       clearTimeout(hideSatellite);
-      const outlines = OUTLINE.map(([id]) => id);
       const setVisible = (visibility) => {
-        for (const id of [SATELLITE, ...outlines]) map.setLayoutProperty(id, 'visibility', visibility);
+        for (const id of [SATELLITE, ...OUTLINE.map((o) => o.id)]) map.setLayoutProperty(id, 'visibility', visibility);
       };
       if (city) setVisible('visible');
       else hideSatellite = setTimeout(() => setVisible('none'), FADE_MS);
       map.setPaintProperty(SATELLITE, 'raster-opacity', city ? 1 : 0);
-      for (const id of outlines) {
+      for (const { id, opacity } of OUTLINE) {
         // Without a city the old filter stays, so the line can fade out.
         if (city) map.setFilter(id, ['==', ['get', 'sifra'], code]);
-        map.setPaintProperty(id, 'line-opacity', city ? 1 : 0);
+        map.setPaintProperty(id, 'line-opacity', city ? opacity : 0);
       }
       for (const [filter, group] of Object.entries(GROUPS)) {
         const on = Boolean(city) && filters.includes(filter);
