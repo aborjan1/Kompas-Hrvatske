@@ -240,7 +240,7 @@
     margin: 8px 0 0 26px;
   }
 
-  /* A long path keeps its end: the area you are in. */
+  /* A long county name gives way ("…"), as on phones; "Hrvatska" stays. */
   html:root .sloj .gore .putanja {
     flex: 0 1 auto;
     min-width: 0;
@@ -252,7 +252,6 @@
 
   html:root .sloj .gore .putanja ol {
     flex-wrap: nowrap;
-    justify-content: flex-end;
   }
 
   html:root .sloj .gore .pretraga {
