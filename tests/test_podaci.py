@@ -122,6 +122,19 @@ def test_engleski_tekstovi(meta):
     assert set(en["eu_pozivi"]["pozivi"]) == {p["id"] for p in ucitaj("eu-pozivi.json")["pozivi"]}
 
 
+def test_uvidi(meta):
+    jls = ucitaj("jls.json")["podrucja"]
+    u = ucitaj("uvidi.json")
+    assert set(u["podrucja"]) == set(jls), "uvidi.json mora imati sve gradove i općine"
+    for sifra, uvidi in u["podrucja"].items():
+        assert len(uvidi) <= 3, sifra
+        for x in uvidi:
+            assert x["kljuc"] in meta["pokazatelji"], sifra
+            assert "jls" in meta["pokazatelji"][x["kljuc"]]["razine"], sifra
+            assert abs(x["z"]) >= u["prag"] and x["smjer"] in ("vise", "manje"), sifra
+            assert (x["vrijednost"] > x["slicni"]) == (x["smjer"] == "vise"), sifra
+
+
 def test_tipologija(meta):
     j = ucitaj("jls.json")["podrucja"]
     tipovi = meta["tipologija"]["tipovi"]
