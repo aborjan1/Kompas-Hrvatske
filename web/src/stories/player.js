@@ -14,6 +14,7 @@ import { setView, view } from '../state.js';
 import { podaci, ucitajJls } from '../data/podaci.js';
 import { euProjekti, prikaziEuProjekte } from '../data/euProjekti.js';
 import { kartaSpremna, kljucPogleda, sletjelo } from '../map/slijetanje.js';
+import { postaviKartuPrice } from '../data/kartaPrice.js';
 import { bezNovogZapisa } from '../url.js';
 import { engleski, jezik, t } from '../jezik.js';
 import { imaPodatke, rijesiScenu } from './scene.js';
@@ -105,6 +106,7 @@ export function zavrsi() {
   tok++;
   if (!get(store)) return;
   delete document.documentElement.dataset.kino;
+  postaviKartuPrice(null);
   store.set(null);
   if (prije) {
     const { view: v, eu } = prije;
@@ -131,6 +133,8 @@ async function prikazi(prica, indeks) {
   if (moj !== tok) return;
   const rijeseno = rijesiScenu(p, scena);
   const tekst = rijeseno?.tekst ?? bezPodataka();
+  // The map shows what the sentence talks about (scene.js `karta`, else `pokazatelj`).
+  postaviKartuPrice(scena.karta ?? scena.pokazatelj ?? null);
   if (rijeseno) bezNovogZapisa(() => setView(rijeseno.view));
   store.set({ prica, indeks, faza: 'let', tekst });
 

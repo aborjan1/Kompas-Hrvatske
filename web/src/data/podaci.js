@@ -36,6 +36,8 @@ const BASE_URL = `${import.meta.env.BASE_URL}data/`;
  * @property {string} godina Free text, e.g. "2025" or "stanje 31.05.2023".
  * @property {string} [napomena] How the number is calculated (exact definition).
  * @property {string} objasnjenje What the number means, in plain words.
+ * @property {string} [objasnjenje_zupanija] The same for a county or the country, where
+ *   `objasnjenje` talks about a single city or municipality.
  */
 
 /**

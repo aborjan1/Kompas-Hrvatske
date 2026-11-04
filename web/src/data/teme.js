@@ -71,6 +71,17 @@ export const JEDNOSTAVNI_NAZIVI_EN = {
 };
 
 /**
+ * What the number means, in plain words, for the level it is about: counties and the
+ * country use `objasnjenje_zupanija` where the indicator has one (its `objasnjenje`
+ * talks about a single city or municipality).
+ * @param {{ objasnjenje?: string, objasnjenje_zupanija?: string }} pokazatelj
+ * @param {import('../state.js').Razina} razina
+ */
+export function objasnjenjeZa(pokazatelj, razina) {
+  return (razina !== 'jls' && pokazatelj.objasnjenje_zupanija) || pokazatelj.objasnjenje || '';
+}
+
+/**
  * Everyday name of an indicator in the current language, else its official name
  * (already English in English, src/data/prijevod.js).
  * @param {string} kljuc
