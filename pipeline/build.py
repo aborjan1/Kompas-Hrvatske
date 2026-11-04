@@ -481,7 +481,12 @@ def main() -> None:
         t[p] = pr["zupanije"][p]
         t.loc["HR", p] = pr["drzava"][p]
         godine[p] = pr["godina"]
-    print(f"  {pr['broj_jls']} gradova i općina, 21 županija ({pr['godina']})")
+    od, do = pr["ulaganja_godine"]
+    godine["lokalna_ulaganja"] = f"{od}.–{do}."
+    print(
+        f"  {pr['broj_jls']} gradova i općina, 21 županija ({pr['godina']}; ulaganja: "
+        f"prosjek {od}.–{do}.)"
+    )
     upozorenja = proracuni.provjeri(pr)
     krivi = [u for u in upozorenja if u.split()[1] in ("6", "7", "3", "4")]
     if krivi:

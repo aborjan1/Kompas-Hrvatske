@@ -126,7 +126,7 @@ može dugo čuvati, a brojke se mijenjaju pri svakom pokretanju obrade.
 | `hbor_krediti` | novac | EUR | EUR po st. | država, županija | 2018.–2023. |
 | `lokalni_prihodi` | novac | EUR | EUR po st. | država***, županija***, JLS | 2025. |
 | `lokalni_rashodi` | novac | EUR | EUR po st. | država***, županija***, JLS | 2025. |
-| `lokalna_ulaganja` | novac | EUR | EUR po st. | država***, županija***, JLS | 2025. |
+| `lokalna_ulaganja` | novac | EUR | EUR po st. | država***, županija***, JLS | 2023.–2025. (godišnji prosjek) |
 | `saldo_lokalnog_proracuna` | novac | EUR | EUR po st. | država***, županija***, JLS | 2025. |
 | `udio_pomoci_u_prihodima` | novac | % | — | država***, županija***, JLS | 2025. |
 | `inflacija` | novac | % | — | država | IX. 2026. |

@@ -161,10 +161,13 @@ POKAZATELJI: dict[str, dict[str, str]] = {
         "budgets.",
     },
     "lokalna_ulaganja": {
-        "naziv": "Local budget investment",
+        "naziv": "Local budget investment (annual average)",
         "objasnjenje": "The part of expenditure that went into lasting assets: roads, buildings, "
-        "kindergartens, equipment. It shows how much is being built, not just spent.",
-        "napomena": "Expenditure on non-financial assets (roads, buildings, equipment).",
+        "kindergartens, equipment. It shows how much is being built, not just spent. We take the "
+        "average of the last three years, because one large project can multiply a single year.",
+        "napomena": "Expenditure on non-financial assets (roads, buildings, equipment), annual "
+        "average of the last three years of budget outturn. For a county: the county and all its "
+        "cities and municipalities.",
     },
     "saldo_lokalnog_proracuna": {
         "naziv": "Local budget surplus or deficit",

@@ -206,7 +206,7 @@ korisnika je u `web/public/data/meta.json`.
 | Dug opće države (`javni_dug`) | Novac | EUR | D | VI. 2026. | `hnb-opca-drzava` |
 | Prihodi lokalnog proračuna (`lokalni_prihodi`) | Novac | EUR | D, Ž, G | 2025. | `mfin-lokalni-proracuni` |
 | Rashodi lokalnog proračuna (`lokalni_rashodi`) | Novac | EUR | D, Ž, G | 2025. | `mfin-lokalni-proracuni` |
-| Ulaganja lokalnog proračuna (`lokalna_ulaganja`) | Novac | EUR | D, Ž, G | 2025. | `mfin-lokalni-proracuni` |
+| Ulaganja lokalnog proračuna, godišnji prosjek (`lokalna_ulaganja`) | Novac | EUR | D, Ž, G | 2023.–2025. | `mfin-lokalni-proracuni` |
 | Višak ili manjak lokalnog proračuna (`saldo_lokalnog_proracuna`) | Novac | EUR | D, Ž, G | 2025. | `mfin-lokalni-proracuni` |
 | Udio pomoći u prihodima proračuna (`udio_pomoci_u_prihodima`) | Novac | % | D, Ž, G | 2025. | `mfin-lokalni-proracuni` |
 | Uplaćeni porez na dohodak (`porez_na_dohodak`) | Porezi | EUR | D, Ž, G | 2025. | `pu-porez-dohodak` |
@@ -450,6 +450,10 @@ nastale su samo zato što su izdavatelji u međuvremenu objavili novije podatke.
 - **Proračuni**: rashodi po funkcijama ne uključuju prijenose drugim proračunima, pa je
   njihov zbroj oko 9 % manji od ukupnih rashoda. Ervenik ima neuobičajeno visoke prihode
   (15.959 EUR po stanovniku), pa karta treba koristiti kvantile.
+- **Ulaganja** su godišnji prosjek zadnje tri godine (2023.–2025.), a ne samo zadnja godina.
+  Jedan veliki projekt ili isplata EU novca može ulaganja jedne općine u jednoj godini
+  višestruko povećati ili smanjiti, pa bi poredak i priče ovisili o slučajnoj godini. Ostali
+  proračunski pokazatelji su za zadnju godinu, a grafovi po godinama pokazuju sve godine.
 - **Procjena stanovništva** postoji samo za državu i županije.
 - **Zagreb kao grad i županija**: isti brojevi na obje razine, s napomenom uz usporedbe.
 - **Granice** su pojednostavljene za web (županije ~400 m, općine ~80 m), bez rupa i
