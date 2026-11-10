@@ -5,10 +5,15 @@
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './controls.css';
-import { BASEMAP_STYLE, INTRO_START, LABEL_LANGUAGE, MAPBOX_TOKEN, MAX_ZOOM } from './config.js';
+import { BASEMAP_STYLE, INTRO_START, LABEL_LANGUAGE, mapboxToken, MAX_ZOOM, useBackupToken } from './config.js';
 import { engleski } from '../jezik.js';
 
-mapboxgl.accessToken = MAPBOX_TOKEN;
+mapboxgl.accessToken = mapboxToken();
+
+const MAPBOX_API = 'https://api.mapbox.com/';
+// How Mapbox refuses a token: invalid or revoked, account without billing, suspended
+// account or token restricted to other URLs, rate limit or quota.
+const REFUSED = new Set([401, 402, 403, 429]);
 
 /**
  * @param {HTMLElement} container
@@ -38,7 +43,50 @@ export function createMap(container) {
   setDataAttribution(map, '');
   map.on('style.load', () => useLocalLabels(map));
 
+  let styleLoaded = false;
+  map.once('style.load', () => (styleLoaded = true));
+  // A listener on 'error' silences Mapbox's own console.error, so every error that
+  // doesn't switch the token is logged here.
+  map.on('error', (e) => {
+    const { status, url } = e.error ?? {};
+    if (REFUSED.has(status) && url?.startsWith(MAPBOX_API) && useBackupToken()) {
+      console.warn('Mapbox refused the access token, switching to the backup token.');
+      switchToken(map, styleLoaded);
+    } else {
+      console.error(e.error);
+    }
+  });
+
   return map;
+}
+
+// Continues on the backup token (useBackupToken() in config.js). Vector tiles, the
+// TileJSON and glyphs take mapboxgl.accessToken at request time; only sources with the
+// token written into their tiles URL (the satellite, cityLayers.js) need new URLs.
+/**
+ * @param {mapboxgl.Map} map
+ * @param {boolean} styleLoaded
+ */
+function switchToken(map, styleLoaded) {
+  mapboxgl.accessToken = mapboxToken();
+  // The style request itself was refused: load it again. Nothing is on the map yet, and
+  // MapView adds its layers on the first 'load', which only comes now.
+  if (!styleLoaded) {
+    map.setStyle(BASEMAP_STYLE, { diff: false });
+    return;
+  }
+  // Mid-visit (quota used up): refetch every Mapbox source, since its failed tiles stay
+  // failed until reloaded. The basemap redraws once; our own layers stay as they are.
+  /** @type {[string, any][]} */
+  const sources = Object.entries(map.getStyle().sources);
+  for (const [id, spec] of sources) {
+    const source = /** @type {any} */ (map.getSource(id));
+    if (spec.url?.startsWith('mapbox://')) {
+      source.reload();
+    } else if (spec.tiles?.some((/** @type {string} */ t) => t.startsWith(MAPBOX_API))) {
+      source.setTiles(spec.tiles.map((t) => t.replace(/access_token=[^&]*/, `access_token=${mapboxToken()}`)));
+    }
+  }
 }
 
 /** @type {WeakMap<mapboxgl.Map, mapboxgl.AttributionControl>} */

@@ -36,6 +36,8 @@ jobs:
         env:
           # Production token, allowed only on aborjan1.github.io.
           VITE_MAPBOX_TOKEN: ${{ secrets.VITE_MAPBOX_TOKEN }}
+          # Optional backup from a second Mapbox account, used once the first is refused.
+          VITE_MAPBOX_TOKEN_2: ${{ secrets.VITE_MAPBOX_TOKEN_2 }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: web/dist
