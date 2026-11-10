@@ -375,7 +375,7 @@
     }
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 899px) and (orientation: portrait), (max-width: 559px) {
     .dno {
       bottom: calc(30px + env(safe-area-inset-bottom, 0px));
     }

@@ -42,16 +42,22 @@
   display: none;
 }
 
-/* Phones: the bottom holds the tema bar, the source line and the info panel, so the
-   legend moves to the top left, under the breadcrumb and search, and gets smaller.
-   Fixed, because Mapbox's control corners have no top-left slot below the panels.
-   Same breakpoint as src/panels/Paneli.svelte. */
-@media (max-width: 640px) {
+/* Phones: the bottom holds the bottom sheet, so the legend moves to the top left, under
+   the breadcrumb and search. Fixed, because Mapbox's control corners have no top-left
+   slot below the panels. Same breakpoint as src/panels/Paneli.svelte. */
+@media (max-width: 899px) and (orientation: portrait), (max-width: 559px) {
   .kh-legend {
     position: fixed;
     top: 112px;
     left: 10px;
     max-width: 52vw;
+  }
+}
+
+/* Phones and low landscape screens: small, so it doesn't cover the map. Same query as
+   `telefon` in legend.js. */
+@media (max-width: 899px) and (orientation: portrait), (max-width: 559px), (orientation: landscape) and (max-height: 500px) {
+  .kh-legend {
     margin: 0;
     padding: 6px 8px;
     font-size: 11px;

@@ -1,38 +1,25 @@
 <script>
-  // Charts panel in the left column, for a selected county, city or municipality on
-  // wide screens. Narrower screens show the same charts in the info panel (InfoPanel),
-  // so this panel and that spot never render at the same time.
+  // Charts column for a selected county, city or municipality on wide screens, shown only
+  // when the area has charts. Narrower screens have the same charts in a tab of the info
+  // panel (InfoPanel), so the two never render at the same time.
   import { view } from '../state.js';
+  import { karticeGrafova } from '../data/grafovi.js';
   import { nadjiPodrucje, podaci } from '../data/podaci.js';
   import { TEME_POKAZATELJI } from '../data/teme.js';
   import { siroko } from './ekran.js';
   import { t } from '../jezik.js';
-  import EuPozivi from './EuPozivi.svelte';
-  import GrafoviTeme from './GrafoviTeme.svelte';
-  import GrafVeza from './GrafVeza.svelte';
-  import KamoIdeNovac from './KamoIdeNovac.svelte';
-  import ProracunKrozGodine from './ProracunKrozGodine.svelte';
+  import GrafoviKartice from './GrafoviKartice.svelte';
 
   const podrucje = $derived(nadjiPodrucje($podaci, $view.razina, $view.podrucje));
-  // Every tema has charts for counties, cities and municipalities: Novac its budget,
-  // the others their series over the years (GrafoviTeme).
-  const vidljivo = $derived($siroko && $view.razina !== 'drzava' && Boolean(podrucje));
+  const vidljivo = $derived($siroko && Boolean(podrucje) && $karticeGrafova.length > 0);
 </script>
 
 {#if vidljivo}
   <aside class="kh-panel grafovi" aria-label="{t('Grafovi', 'Charts')}: {podrucje.naziv}">
-    <p class="oznaka" style:color={TEME_POKAZATELJI[$view.tema].boje[3]}>{t('Grafovi', 'Charts')}</p>
-    <h2>{podrucje.naziv}</h2>
-    {#if $view.tema === 'novac'}
-      <EuPozivi />
-      <KamoIdeNovac />
-      <ProracunKrozGodine />
-    {:else if $view.tema === 'nabava'}
-      <GrafVeza />
-      <GrafoviTeme />
-    {:else}
-      <GrafoviTeme />
-    {/if}
+    <GrafoviKartice>
+      <p class="oznaka" style:color={TEME_POKAZATELJI[$view.tema].boje[3]}>{t('Grafovi', 'Charts')}</p>
+      <h2>{podrucje.naziv}</h2>
+    </GrafoviKartice>
   </aside>
 {/if}
 

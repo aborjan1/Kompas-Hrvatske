@@ -50,9 +50,9 @@
   // prefers-reduced-motion it is a jump anyway, so the button never shows.
   let introRunning = false;
 
-  // The docked columns (src/raspored.css) cover part of the map; they say how
-  // much in --kh-karta-lijevo / -desno / -gore / -dolje, so areas land in
-  // the free part.
+  // The docked columns and the phone's header and sheet (src/raspored.css) cover part of
+  // the map; they say how much in --kh-karta-lijevo / -desno / -gore / -dolje, so areas
+  // land in the free part.
   function focusPadding() {
     const style = getComputedStyle(document.documentElement);
     const side = (name) => parseFloat(style.getPropertyValue(name)) || 0;

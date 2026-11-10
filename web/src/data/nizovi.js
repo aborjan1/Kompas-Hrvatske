@@ -35,6 +35,17 @@ export const SERIJE_TEME = {
   nabava: ['javna_nabava'],
 };
 
+/**
+ * Whether an area has data in any series of a tema, i.e. GrafoviTeme draws something.
+ * Novac has no series; its budget charts are decided in grafovi.js.
+ * @param {Nizovi} n
+ * @param {string} tema
+ * @param {string} sifra
+ */
+export function imaGrafove(n, tema, sifra) {
+  return (SERIJE_TEME[tema] ?? []).some((sid) => n.podrucja[sifra]?.[sid]?.some((v) => v !== null));
+}
+
 /** @type {import('svelte/store').Writable<{ podaci: Nizovi | null, greska: boolean }>} */
 const store = writable({ podaci: null, greska: false });
 

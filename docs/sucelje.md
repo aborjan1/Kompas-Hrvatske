@@ -19,8 +19,9 @@ Demo: <https://aborjan1.github.io/Kompas-Hrvatske/> · Pokretanje: [pokretanje.m
 | **HR / EN** | pokraj pretrage | Jezik sučelja: hrvatski ili engleski (vidi [Engleska verzija](#engleska-verzija)). |
 | **Karta** | cijeli zaslon | Područja obojana prema odabranom pokazatelju. Prelazak mišem pokazuje ime i vrijednost, klik odabire područje. |
 | **Legenda** | dolje lijevo | Pet razreda boje s rasponom vrijednosti. |
-| **Info panel** | desno | Odabrano područje: do četiri broja, rečenica koja ih objašnjava, usporedba i priče. |
-| **Teme i mjera** | dolje u sredini | Teme Ljudi · Novac · Porezi · Imovina, prekidač „Ukupno / Po stanovniku” i sloj „EU projekti”. |
+| **Info panel** | stupac lijevo, ispod tema | Odabrano područje u karticama: Pregled (rečenica i do četiri broja) i Usporedba, a na razini Hrvatske Pregled i Priče. Stupac se zatvara jezičcem na rubu. |
+| **Grafovi** | stupac desno | Grafovi teme za odabranu županiju, grad ili općinu. Novac: EU pozivi · Kamo ide novac · Kroz godine. Nabava: Veze · Kroz godine. Ljudi, Porezi i Imovina nemaju kartice jer je sadržaj jedan. Kartica bez podataka se ne prikazuje, a stupca nema ako područje nema grafova. Zatvara se jezičcem na rubu. Na ekranu užem od 1100 px ili nižem od 501 px grafovi su kartica info panela, s istim unutarnjim karticama. |
+| **Teme i mjera** | na vrhu lijevog stupca | Teme Ljudi · Novac · Porezi · Imovina, prekidač „Ukupno / Po stanovniku” i sloj „EU projekti”. |
 | **Izvor** | ispod tema | Izdavatelj, skup podataka i godina pokazatelja kojim je karta obojana, s poveznicom. |
 
 ## Tri razine
@@ -29,18 +30,19 @@ Aplikacija se otvara uvodnim letom s globusa na Hrvatsku. Let se može preskoči
 „Preskoči uvod” ili tipkom Esc.
 
 **Hrvatska.** Županije su obojane prema pokazatelju teme. Info panel pokazuje brojke za
-cijelu državu i nudi [priče](#priče).
+cijelu državu, a [priče](#priče) su u kartici Priče.
 
 **Županija.** Klik na županiju (ili odabir u pretrazi) približi kartu. Njezini gradovi i
-općine obojani su prema pokazatelju teme, a ostale županije su obična karta. Panel pokazuje
-brojke županije i graf njezinog položaja među svih 21 županija. Klik na stupac u grafu
-odabire tu županiju.
+općine obojani su prema pokazatelju teme, a ostale županije su obična karta. Pregled pokazuje
+brojke županije, a kartica Usporedba graf njezinog položaja među svih 21 županija. Klik na
+stupac u grafu odabire tu županiju.
 
 ![Varaždinska županija s grafom usporedbe županija](snimke/2-zupanija.jpg)
 
-**Grad ili općina.** Klik na grad unutar županije. Panel pokazuje vrstu (grad ili općina),
-županiju i broj stanovnika, brojke teme i usporedbu s pet gradova i općina najsličnijih po
-broju stanovnika iz cijele Hrvatske. Klik na sličan grad odabire ga.
+**Grad ili općina.** Klik na grad unutar županije. Pregled pokazuje vrstu (grad ili općina),
+županiju, broj stanovnika i brojke teme, a kartica Usporedba tip općine i usporedbu s pet
+gradova i općina najsličnijih po broju stanovnika iz cijele Hrvatske. Klik na sličan grad
+odabire ga.
 
 ![Varaždin i usporedba sa sličnima po broju stanovnika](snimke/3-grad.jpg)
 
@@ -126,9 +128,12 @@ hrvatskom.
 
 ![Mobitel: Splitsko-dalmatinska županija](snimke/6-mobitel.jpg)
 
-- Info panel je ladica odozdo: strelica ili povlačenje prstom po naslovu spušta je do naslova
-  i vraća. Na razini Hrvatske kreće spuštena, da se odmah vidi karta.
-- Legenda je gore lijevo, ispod pretrage, a putanja je uvijek u jednom retku.
+- Info panel je ladica odozdo s tri visine: naziv i prvi broj, pola ekrana i gotovo cijeli
+  ekran. Mijenja se strelicom ili povlačenjem prstom po naslovu. Kreće spuštena, da se odmah
+  vidi karta, a kartice ostaju uz naslov dok se sadržaj lista. Grafovi su kartica ladice.
+- Teme, mjera i izvor su u izborniku iza gumba s trenutnim odabirom (npr. „Porezi · Ukupno”).
+- Legenda je tanka traka ispod tog gumba, a dodir je otvara. Putanja je uvijek u jednom retku.
+- Mobitel položen na bok koristi lijevi stupac kao na računalu, samo uži, s grafovima u kartici.
 - Za vrijeme priče panel se skloni, a kartica priče objašnjava što se vidi.
 - Stranica se nikad ne skrola; skrolaju se samo paneli.
 

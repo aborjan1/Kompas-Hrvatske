@@ -12,10 +12,9 @@
   import { onMount } from 'svelte';
   import { t } from '../jezik.js';
 
-  // Docked columns on wide screens (src/raspored.css): either column can
-  // be closed with its tab. The map frames areas in the free part between the columns,
-  // so it is told ('kh:raspored') whenever that part changes, once the columns have
-  // finished moving.
+  // Docked columns on wide screens (src/raspored.css): either column can be closed with
+  // its tab. The map frames areas in the free part between the columns, so it is told
+  // ('kh:raspored') whenever that part changes, once the columns have finished moving.
   // Read back from the page, so a column stays closed when the panels are rebuilt in
   // another language.
   const html = document.documentElement;
@@ -29,8 +28,8 @@
   function prebaci(strana) {
     zatvoreno[strana] = !zatvoreno[strana];
     const kljuc = strana === 'lijevo' ? 'trakaLijevo' : 'trakaDesno';
-    if (zatvoreno[strana]) document.documentElement.dataset[kljuc] = 'zatvorena';
-    else delete document.documentElement.dataset[kljuc];
+    if (zatvoreno[strana]) html.dataset[kljuc] = 'zatvorena';
+    else delete html.dataset[kljuc];
     javiRaspored();
   }
 
@@ -129,18 +128,6 @@
     min-width: 0;
   }
 
-  /* Charts for the selected area (wide screens only, see ekran.js). Stops above the
-     legend in the bottom-left corner. */
-  .lijevo {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    width: 290px;
-    max-height: calc(100% - 300px);
-    overflow-y: auto;
-    border-radius: 8px;
-  }
-
   /* Leaves room for the map's zoom controls in the top-right corner. */
   .desno {
     position: absolute;
@@ -168,7 +155,7 @@
 
   /* Phones: everything stacks at the bottom, above the map's logo and attribution
      (the legend moves to the top left, see src/map/legend.css). */
-  @media (max-width: 640px) {
+  @media (max-width: 899px) and (orientation: portrait), (max-width: 559px) {
     /* Full width up to the zoom buttons in the top-right corner. */
     .gore {
       left: 12px;

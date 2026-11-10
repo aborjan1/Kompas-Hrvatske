@@ -52,7 +52,9 @@ preglednika na 30 dana, pa se tijekom prezentacije ništa ne čeka s interneta.
   - `gradskiPrikaz.js` – koji grad ima koje filtre i koji su uključeni; gradski prikaz se otvara sam kad se odabere Zagreb ili Rijeka
   - `recenice.js` – rečenica info panela za svaku temu i razinu, od stvarnih brojeva; dio bez podatka se izostavlja (posebni predlošci za engleski)
   - `prijevod.js` – engleski tekstovi podataka iz `en.json` (nazivi i objašnjenja pokazatelja, županije, nizovi, funkcije proračuna, EU pozivi); učitavaju se tek kad se odabere EN i stavljaju se preko hrvatskih u storeovima `podaci`, `nizovi`, `proracuni`, `nabava` i `euPozivi`
-- `src/panels/` – paneli: putanja, info panel, teme i prekidač ukupno / po stanovniku; na širokom ekranu u dvije bočne trake koje se zatvaraju (`src/raspored.css`)
+  - `grafovi.js` – koje kartice s grafovima područje ima za temu; po tome se prikazuju desni stupac i kartica Grafovi
+- `src/panels/` – paneli: putanja, info panel u karticama, teme i prekidač ukupno / po stanovniku; na širokom i položenom ekranu u stupcima koji se zatvaraju, a inače ladica odozdo (`src/raspored.css`, `ekran.js`)
+  - `Kartice.svelte` – red kartica s tipkovnicom: u info panelu (Pregled, Usporedba, Grafovi, Priče) i među grafovima
   - `GrafUsporedbe.svelte` – u profilu županije: položaj među svih 21 županija (Chart.js), klik na stupac odabire županiju
   - `UsporedbaSlicnih.svelte` – u profilu grada ili općine: usporedba s 5 najsličnijih po broju stanovnika (`slicni` iz `jls.json`), klik odabire taj grad
   - `GrafStupci.svelte` – zajednički vodoravni stupčasti graf (Chart.js) za obje usporedbe
@@ -64,7 +66,8 @@ preglednika na 30 dana, pa se tijekom prezentacije ništa ne čeka s interneta.
   - `GradskiFiltri.svelte` – gumbi za 4 filtra gradskog prikaza u profilu Zagreba ili Rijeke
   - `GrafVeza.svelte` – tema Nabava: graf veza (dobavljači i drugi gradovi i općine s istim dobavljačem) i popis dobavljača iz `nabava.json` (`src/data/nabava.js`)
   - `EuPozivi.svelte` – tema Novac: planirani i otvoreni EU pozivi za grad, općinu ili županiju i usporedba EU novca sa sličnima (`eu-pozivi.json`, `src/data/euPozivi.js`)
-  - `GrafoviPanel.svelte` – lijeva bočna traka s grafovima za županiju, grad ili općinu (tema Novac); na užem ekranu isti grafovi su u info panelu (`ekran.js`)
+  - `GrafoviPanel.svelte` – desni stupac s grafovima za županiju, grad ili općinu, od 1100 px širine i 501 px visine
+  - `GrafoviKartice.svelte` – grafovi teme u karticama (EU pozivi, Kamo ide novac, Kroz godine; Veze, Kroz godine), isti u desnom stupcu i u kartici Grafovi info panela
   - `TipOpcine.svelte` – u profilu grada ili općine: tip iz tipologije (strojno učenje, `pipeline/tipologija.py`) s objašnjenjem i 5 najsličnijih po profilu
   - `KamoIdeNovac.svelte` i `ProracunKrozGodine.svelte` – rashodi po namjeni (COFOG) i prihodi, rashodi i ulaganja 2019.–2025. iz `proracuni.json` (`src/data/proracuni.js`)
 - `src/stories/` – priče (vidi dolje): `price.json` (scene), `scene.js` (scena → pogled i tekst), `player.js` (reprodukcija)
