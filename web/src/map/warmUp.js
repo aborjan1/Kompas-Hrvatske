@@ -4,7 +4,7 @@
 // own laptop; visitors never trigger it. Needs the production build, where the
 // service worker runs.
 
-import { CROATIA_BOUNDS, MAPBOX_TOKEN, MAX_ZOOM } from './config.js';
+import { CROATIA_BOUNDS, mapboxToken, MAX_ZOOM } from './config.js';
 
 const PARALLEL = 6;
 
@@ -27,21 +27,20 @@ export async function warmUp(map) {
   }
 
   // Same URL Mapbox GL requests, minus its per-load `sku`, which the service worker
-  // drops from its cache keys too.
+  // drops from its cache keys too. The token is read per tile, in case it switches.
   const tileset = /** @type {{ url: string }} */ (map.getStyle().sources.composite).url.replace('mapbox://', '');
-  const urls = tilesOver(CROATIA_BOUNDS, Math.floor(MAX_ZOOM)).map(
-    ([z, x, y]) => `https://api.mapbox.com/v4/${tileset}/${z}/${x}/${y}.vector.pbf?access_token=${MAPBOX_TOKEN}`,
-  );
+  const tiles = tilesOver(CROATIA_BOUNDS, Math.floor(MAX_ZOOM));
 
   let done = 0;
   let failed = 0;
-  const next = urls.values();
+  const next = tiles.values();
   async function worker() {
-    for (const url of next) {
+    for (const [z, x, y] of next) {
+      const url = `https://api.mapbox.com/v4/${tileset}/${z}/${x}/${y}.vector.pbf?access_token=${mapboxToken()}`;
       const ok = await fetch(url).then((r) => r.ok, () => false);
       done++;
       if (!ok) failed++;
-      status.show(`Pripremam kartu: ${done} / ${urls.length}`);
+      status.show(`Pripremam kartu: ${done} / ${tiles.length}`);
     }
   }
   await Promise.all(Array.from({ length: PARALLEL }, worker));

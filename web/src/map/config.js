@@ -4,8 +4,21 @@
 // map loads a month with Mapbox GL JS, tiles included; Mapbox logo required.
 // The token comes from web/.env.local and ends up in the page anyway, so restrict it
 // to our URLs in the Mapbox account.
-export const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
-if (!MAPBOX_TOKEN) console.error('VITE_MAPBOX_TOKEN is missing, see web/README.md');
+// An optional second token (another Mapbox account) takes over once Mapbox refuses the
+// first one (createMap.js); read mapboxToken() at request time, never keep a copy.
+const BACKUP_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN_2;
+let token = import.meta.env.VITE_MAPBOX_TOKEN;
+let switched = false;
+if (!token) console.error('VITE_MAPBOX_TOKEN is missing, see web/README.md');
+export const mapboxToken = () => token;
+// Switches to the backup token, once per page. False when there is none or it is
+// already in use.
+export function useBackupToken() {
+  if (!BACKUP_TOKEN || switched) return false;
+  token = BACKUP_TOKEN;
+  switched = true;
+  return true;
+}
 export const BASEMAP_STYLE = 'mapbox://styles/mapbox/outdoors-v12';
 
 // The map opens on the globe seen from space, then flies to the current area.

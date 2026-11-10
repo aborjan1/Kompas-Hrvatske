@@ -4,7 +4,7 @@
 // files load the first time it is switched on.
 
 import { FILTRI } from '../data/gradskiPrikaz.js';
-import { MAPBOX_TOKEN } from './config.js';
+import { mapboxToken } from './config.js';
 import { colorExpression, NO_DATA_COLOR, quantileClasses } from './countyLayer.js';
 import { JLS_SOURCE } from './jlsLayer.js';
 
@@ -105,10 +105,11 @@ export function createCityLayers(map) {
   // Above the area fills and EU circles (they would only cover the photo), below labels.
   const beforeId = map.getStyle().layers.find((l) => l.type === 'symbol')?.id;
   // Static Tiles API: the raster tiles behind mapbox://mapbox.satellite answer 429 on
-  // our plan, while the same imagery through the satellite style's tiles works.
+  // our plan, while the same imagery through the satellite style's tiles works. A token
+  // switch mid-visit rewrites the token in this URL (switchToken in createMap.js).
   map.addSource(SATELLITE, {
     type: 'raster',
-    tiles: [`https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/512/{z}/{x}/{y}?access_token=${MAPBOX_TOKEN}`],
+    tiles: [`https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/512/{z}/{x}/{y}?access_token=${mapboxToken()}`],
     tileSize: 512,
     attribution: '© Mapbox © Maxar',
   });
