@@ -23,6 +23,7 @@ Sve datoteke nalaze se u `web/public/data/` i nastaju naredbom `python pipeline/
 | `nizovi.json` | Vremenski nizovi za grafove tema Ljudi, Porezi, Imovina i Nabava | Rafael |
 | `nabava.json` | Najveći dobavljači i graf veza u javnoj nabavi, po području | Rafael |
 | `eu-pozivi.json` | Planirani EU pozivi za 2026. s ulogom gradova, općina i županija | Rafael |
+| `uvidi.json` | „Što je neobično ovdje”: odstupanja svakog grada i općine od istog tipa | Rafael |
 | `en.json` | Engleski tekstovi za sučelje (prekidač HR / EN) | Rafael |
 | `gradovi/…` | Prikaz Zagreba (17 gradskih četvrti, slojevi točaka) i Rijeke (proračun, prostori) | Boro, Rafael |
 
@@ -87,6 +88,10 @@ može dugo čuvati, a brojke se mijenjaju pri svakom pokretanju obrade.
 - `objasnjenje` je obavezna rečenica ili dvije o tome **što broj znači**, jednostavnim
   riječima (npr. „Od svakih 100 € prihoda, koliko je grad ili općina dobila od države…”).
   Prikazuje se uz broj u panelu i ispod naslova legende.
+- `objasnjenje_zupanija` (neobavezno) je isto objašnjenje za županiju i državu, kad se
+  `objasnjenje` odnosi samo na grad ili općinu (npr. „Koliko su uprave županije, gradova i
+  općina na tom području…”). Sučelje ga koristi u panelu županije i države i u legendi kad
+  karta boji županije.
 - `napomena` je neobavezna rečenica o tome **kako je broj izračunat** (točna definicija,
   obuhvat). U panelu se prikazuje ispod objašnjenja kao „Kako je izračunato”.
 - `po_stanovniku` je `null` ako se pokazatelj ne preračunava po stanovniku (npr. stope u %).
@@ -126,7 +131,7 @@ može dugo čuvati, a brojke se mijenjaju pri svakom pokretanju obrade.
 | `hbor_krediti` | novac | EUR | EUR po st. | država, županija | 2018.–2023. |
 | `lokalni_prihodi` | novac | EUR | EUR po st. | država***, županija***, JLS | 2025. |
 | `lokalni_rashodi` | novac | EUR | EUR po st. | država***, županija***, JLS | 2025. |
-| `lokalna_ulaganja` | novac | EUR | EUR po st. | država***, županija***, JLS | 2025. |
+| `lokalna_ulaganja` | novac | EUR | EUR po st. | država***, županija***, JLS | 2023.–2025. (godišnji prosjek) |
 | `saldo_lokalnog_proracuna` | novac | EUR | EUR po st. | država***, županija***, JLS | 2025. |
 | `udio_pomoci_u_prihodima` | novac | % | — | država***, županija***, JLS | 2025. |
 | `inflacija` | novac | % | — | država | IX. 2026. |
@@ -355,6 +360,31 @@ Planirani EU pozivi za 2026. u kojima mogu sudjelovati gradovi, općine ili žup
 - `zupanije`: šifre županija na koje se poziv odnosi, `null` = cijela Hrvatska.
 - `pocetak` i `kraj` su datumi (`YYYY-MM-DD`) ili samo mjesec (`YYYY-MM`, `samo_mjesec`).
   Stanje (otvoren, uskoro, planiran) sučelje računa prema današnjem datumu.
+
+## `uvidi.json`
+
+„Što je neobično ovdje” (`pipeline/uvidi.py`): za svaki grad i općinu do tri pokazatelja po
+kojima najviše odstupa od gradova i općina istog tipa (`tip` u `jls.json`), najveće prvo:
+
+```json
+{
+  "prag": 2.0,
+  "tipovi": { "samostalni": 109 },
+  "podrucja": {
+    "06220": [
+      { "kljuc": "porez_na_promet_nekretnina", "po_stanovniku": true,
+        "vrijednost": 1325.6, "slicni": 162.84, "z": 3.06, "smjer": "vise" }
+    ],
+    "05371": []
+  }
+}
+```
+
+- `vrijednost` i `slicni` (medijan istog tipa) su po stanovniku kad je `po_stanovniku`
+  `true` (`EUR po stanovniku`), inače u jedinici pokazatelja iz `meta.json`.
+- `z` je robusni z unutar tipa (iznosi na logaritamskoj ljestvici); u datoteci su samo
+  odstupanja s |z| ≥ `prag`. Prazan popis znači da je područje blizu sličnih.
+- `tipovi`: koliko gradova i općina ima svaki tip, za rečenicu „u usporedbi s N …”.
 
 ## `en.json`
 

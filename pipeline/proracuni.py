@@ -1,7 +1,9 @@
 """Proračuni gradova, općina i županija (Ministarstvo financija, PR-RAS i RAS-funkcijski).
 
-Pokazatelji za kartu računaju se za zadnju godinu, a vremenski niz 2019.–zadnja i
-rashodi po funkcijama idu u web/public/data/proracuni.json za grafove u panelu.
+Pokazatelji za kartu računaju se za zadnju godinu, osim ulaganja: ona su godišnji prosjek
+zadnje tri godine (ULAGANJA_GODINA), jer jedan veliki projekt ili EU novac može jednu godinu
+višestruko povećati. Vremenski niz 2019.–zadnja i rashodi po funkcijama idu u
+web/public/data/proracuni.json za grafove u panelu.
 
 Županija na karti = zbroj proračuna županije i svih njezinih gradova i općina (lokalna
 razina na tom području); država = zbroj svih. Zbrojeve računamo sami iz pojedinačnih
@@ -16,6 +18,7 @@ from nazivi import uskladi
 from zupanije import ZUPANIJE
 
 FUNKCIJE = [f"{i:02d}" for i in range(1, 11)]
+ULAGANJA_GODINA = 3  # ulaganja = godišnji prosjek zadnjih toliko godina
 
 
 def _pokazatelji(p: pd.DataFrame) -> pd.DataFrame:
@@ -65,11 +68,31 @@ def ucitaj(jls: pd.DataFrame) -> dict:
     po_zup = siroko.groupby(["zupanija", "godina"]).sum()
     drzava = siroko.groupby("godina").sum()
 
+    godine = sorted(drzava.index)
+    prosjek_od = godine[-ULAGANJA_GODINA:]
+    nedostaje = jl["4"].unstack("godina")[prosjek_od].isna().sum(axis=1)
+    if nedostaje.any():
+        bez = sorted(nedostaje[nedostaje > 0].index)
+        raise ValueError(f"Proračuni: bez svih godina {prosjek_od} za ulaganja: {bez}")
+
+    def s_prosjekom(pok: pd.DataFrame, t: pd.DataFrame, razina: str) -> pd.DataFrame:
+        """Ulaganja zadnje godine → godišnji prosjek zadnjih ULAGANJA_GODINA godina."""
+        g = t.index.get_level_values("godina")
+        u = t.loc[g.isin(prosjek_od), "4"]
+        pok["lokalna_ulaganja"] = u.groupby(level=razina).sum() / len(prosjek_od)
+        return pok
+
+    drz = _pokazatelji(drzava.loc[[zadnja]]).iloc[0].copy()
+    drz["lokalna_ulaganja"] = drzava.loc[prosjek_od, "4"].sum() / len(prosjek_od)
+
     return {
         "godina": zadnja,
-        "jls": _pokazatelji(jl.xs(zadnja, level="godina")),
-        "zupanije": _pokazatelji(po_zup.xs(zadnja, level="godina")),
-        "drzava": _pokazatelji(drzava.loc[[zadnja]]).iloc[0],
+        "ulaganja_godine": (int(prosjek_od[0]), int(prosjek_od[-1])),
+        "jls": s_prosjekom(_pokazatelji(jl.xs(zadnja, level="godina")), jl, "sifra"),
+        "zupanije": s_prosjekom(
+            _pokazatelji(po_zup.xs(zadnja, level="godina")), po_zup, "zupanija"
+        ),
+        "drzava": drz,
         "nizovi": {"jls": jl, "zupanije": po_zup, "drzava": drzava},
         "zbirni": d[d["razina"].isin(["zupanija_ukupno", "drzava"])],
         "broj_jls": jl.index.get_level_values("sifra").nunique(),

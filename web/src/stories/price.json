@@ -10,6 +10,7 @@
         "razina": "drzava",
         "tema": "novac",
         "mjera": "po-stanovniku",
+        "karta": "lokalna_ulaganja",
         "tekst": "Gradovi i općine iz svojih proračuna grade ceste, škole i vrtiće. Gledamo iznos po stanovniku, da se mali i veliki mogu usporediti.",
         "tekst_en": "Cities and municipalities build roads, schools and kindergartens from their budgets. We look at the amount per resident, so small and large places can be compared."
       },
@@ -53,6 +54,7 @@
         "razina": "drzava",
         "tema": "novac",
         "mjera": "ukupno",
+        "karta": "eu_ugovoreno",
         "eu": true,
         "tekst": "Krugovi pokazuju koliko je EU novca 2014.–2020. stiglo u pojedini grad ili općinu: što veći krug, to više novca.",
         "tekst_en": "The circles show how much EU money from 2014–2020 reached each city or municipality: the bigger the circle, the more money."

@@ -24,7 +24,7 @@ export const JEDNOSTAVNI_NAZIVI = {
   hbor_krediti: 'Krediti iz EU fondova (HBOR)',
   inflacija: 'Rast cijena (inflacija)',
   lokalni_prihodi: 'Prihodi grada ili općine',
-  lokalna_ulaganja: 'Ulaganja grada ili općine',
+  lokalna_ulaganja: 'Ulaganja grada ili općine (godišnje)',
   udio_pomoci_u_prihodima: 'Dio proračuna koji dolazi iz pomoći',
   porez_na_dohodak: 'Plaćeni porez na plaće',
   stopa_poreza_dohodak_niza: 'Porez na plaću (niža stopa)',
@@ -54,7 +54,7 @@ export const JEDNOSTAVNI_NAZIVI_EN = {
   hbor_krediti: 'Loans from EU funds (HBOR)',
   inflacija: 'Price growth (inflation)',
   lokalni_prihodi: 'City or municipality revenue',
-  lokalna_ulaganja: 'City or municipality investment',
+  lokalna_ulaganja: 'City or municipality investment (per year)',
   udio_pomoci_u_prihodima: 'Share of the budget from grants',
   porez_na_dohodak: 'Income tax paid',
   stopa_poreza_dohodak_niza: 'Income tax (lower rate)',
@@ -69,6 +69,17 @@ export const JEDNOSTAVNI_NAZIVI_EN = {
   nabava_bez_objave: 'Contracts without a public call',
   pravne_osobe_aktivne: 'Active companies and associations',
 };
+
+/**
+ * What the number means, in plain words, for the level it is about: counties and the
+ * country use `objasnjenje_zupanija` where the indicator has one (its `objasnjenje`
+ * talks about a single city or municipality).
+ * @param {{ objasnjenje?: string, objasnjenje_zupanija?: string }} pokazatelj
+ * @param {import('../state.js').Razina} razina
+ */
+export function objasnjenjeZa(pokazatelj, razina) {
+  return (razina !== 'jls' && pokazatelj.objasnjenje_zupanija) || pokazatelj.objasnjenje || '';
+}
 
 /**
  * Everyday name of an indicator in the current language, else its official name

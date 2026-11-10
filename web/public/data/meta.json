@@ -1,6 +1,6 @@
 {
   "verzija_formata": 1,
-  "generirano": "2026-11-03T19:44:49+00:00",
+  "generirano": "2026-11-04T18:30:24+00:00",
   "probni_podaci": false,
   "probne_granice": false,
   "napomene": [
@@ -345,6 +345,7 @@
       "izvor": "mfin-lokalni-proracuni",
       "napomena": "Ostvarenje proračuna (ne plan), zadnja godina. Za županiju: proračun županije i svih njezinih gradova i općina; za državu: zbroj svih lokalnih proračuna.",
       "objasnjenje": "Sav novac koji je grad ili općina primila u godini: porezi, naknade, pomoći države i EU te prodaja imovine. Za županiju zbrajamo i sve njezine gradove i općine.",
+      "objasnjenje_zupanija": "Sav novac koji je lokalna samouprava na tom području (županija, gradovi i općine) primila u godini: porezi, naknade, pomoći države i EU te prodaja imovine.",
       "godina": "2025"
     },
     "lokalni_rashodi": {
@@ -364,10 +365,11 @@
       "izvor": "mfin-lokalni-proracuni",
       "napomena": "Ostvarenje proračuna (ne plan), zadnja godina. Za županiju: proračun županije i svih njezinih gradova i općina; za državu: zbroj svih lokalnih proračuna.",
       "objasnjenje": "Sav novac koji je grad ili općina potrošila u godini: plaće, materijal, usluge, pomoći građanima i ulaganja.",
+      "objasnjenje_zupanija": "Sav novac koji je lokalna samouprava na tom području (županija, gradovi i općine) potrošila u godini: plaće, materijal, usluge, pomoći građanima i ulaganja.",
       "godina": "2025"
     },
     "lokalna_ulaganja": {
-      "naziv": "Ulaganja lokalnog proračuna",
+      "naziv": "Ulaganja lokalnog proračuna (godišnji prosjek)",
       "tema": "novac",
       "jedinica": "EUR",
       "decimale": 0,
@@ -381,9 +383,9 @@
         "jls"
       ],
       "izvor": "mfin-lokalni-proracuni",
-      "napomena": "Rashodi za nabavu nefinancijske imovine (ceste, zgrade, oprema).",
-      "objasnjenje": "Dio rashoda koji je otišao u trajnu imovinu: ceste, zgrade, vrtiće, opremu. Pokazuje koliko se gradi, a ne samo troši.",
-      "godina": "2025"
+      "napomena": "Rashodi za nabavu nefinancijske imovine (ceste, zgrade, oprema), godišnji prosjek zadnje tri godine ostvarenja proračuna. Za županiju: županija i svi njezini gradovi i općine.",
+      "objasnjenje": "Dio rashoda koji je otišao u trajnu imovinu: ceste, zgrade, vrtiće, opremu. Pokazuje koliko se gradi, a ne samo troši. Uzimamo prosjek zadnje tri godine, jer jedan veliki projekt može jednu godinu višestruko povećati.",
+      "godina": "2023.–2025."
     },
     "saldo_lokalnog_proracuna": {
       "naziv": "Višak ili manjak lokalnog proračuna",
@@ -418,6 +420,7 @@
       "izvor": "mfin-lokalni-proracuni",
       "napomena": "Pomoći iz državnog proračuna, EU i drugih proračuna (skupina 63) u ukupnim prihodima (skupine 6 i 7).",
       "objasnjenje": "Od svakih 100 € prihoda, koliko je grad ili općina dobila od države, EU ili drugih proračuna, a nije prikupila sama. Visok udio znači veću ovisnost o tuđem novcu, ali uključuje i EU novac za projekte.",
+      "objasnjenje_zupanija": "Od svakih 100 € prihoda lokalne samouprave na tom području (županija, gradovi i općine), koliko je došlo od države, EU ili drugih proračuna. Visok udio znači veću ovisnost o tuđem novcu, ali uključuje i EU novac za projekte.",
       "godina": "2025"
     },
     "porez_na_dohodak": {
@@ -547,6 +550,7 @@
       "izvor": "mfin-lokalni-proracuni",
       "napomena": "Ostvarenje proračuna, račun 6134 (povremeni porezi na imovinu), koji kod gradova i općina čini porez na promet nekretnina. Za županiju: županija i svi njezini gradovi i općine.",
       "objasnjenje": "Koliko je grad ili općina dobila od poreza koji plaća kupac nekretnine na njezinu području. Što se više nekretnina proda i što su skuplje, to je iznos veći.",
+      "objasnjenje_zupanija": "Koliko je lokalna samouprava na tom području (županija, gradovi i općine) dobila od poreza koji plaća kupac nekretnine. Što se više nekretnina proda i što su skuplje, to je iznos veći.",
       "godina": "2025"
     },
     "prihodi_od_imovine": {
@@ -566,6 +570,7 @@
       "izvor": "mfin-lokalni-proracuni",
       "napomena": "Ostvarenje proračuna, skupina 642: naknade za koncesije, zakup i najam imovine, naknade za korištenje imovine i ostalo. Za županiju: županija i svi njezini gradovi i općine.",
       "objasnjenje": "Koliko grad ili općina zaradi od svoje imovine: zakupa i najma prostora i zemljišta, koncesija i naknada za korištenje.",
+      "objasnjenje_zupanija": "Koliko lokalna samouprava na tom području (županija, gradovi i općine) zaradi od svoje imovine: zakupa i najma prostora i zemljišta, koncesija i naknada za korištenje.",
       "godina": "2025"
     },
     "pravne_osobe_aktivne": {
@@ -601,6 +606,7 @@
       "izvor": "eojn-ugovori",
       "napomena": "Zbroj vrijednosti ugovora koje je uprava grada, općine ili županije sklopila u pet godina (registar ugovora EOJN RH), bez njezinih ustanova i trgovačkih društava; kune preračunate tečajem 7,5345. Za županiju: uprava županije i svi njezini gradovi i općine.",
       "objasnjenje": "Koliko je grad ili općina u pet godina ugovorila kroz javnu nabavu: radove, robu i usluge, npr. ceste, zgrade, energiju i održavanje.",
+      "objasnjenje_zupanija": "Koliko su uprave županije, gradova i općina na tom području u pet godina ugovorile kroz javnu nabavu: radove, robu i usluge, npr. ceste, zgrade, energiju i održavanje.",
       "godina": "2019.–2023."
     },
     "nabava_najveci_dobavljac": {

@@ -43,3 +43,5 @@ def test_svaki_pokazatelj_ima_prijevod():
         assert EN[pid]["naziv"] and EN[pid]["objasnjenje"], pid
         if p.get("napomena"):
             assert EN[pid].get("napomena"), f"{pid}: nema engleske napomene"
+        if p.get("objasnjenje_zupanija"):
+            assert EN[pid].get("objasnjenje_zupanija"), f"{pid}: nema objašnjenja za županiju"

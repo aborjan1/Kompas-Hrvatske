@@ -9,12 +9,14 @@
   import { t } from '../jezik.js';
   import { karticeGrafova, ucitajGrafove } from '../data/grafovi.js';
   import { napraviRecenicu } from '../data/recenice.js';
-  import { TEME_POKAZATELJI, jednostavniNaziv } from '../data/teme.js';
+  import { TEME_POKAZATELJI, jednostavniNaziv, objasnjenjeZa } from '../data/teme.js';
   import EuProjektiPopis from './EuProjektiPopis.svelte';
   import GradskiFiltri from './GradskiFiltri.svelte';
   import GrafoviKartice from './GrafoviKartice.svelte';
   import GrafUsporedbe from './GrafUsporedbe.svelte';
   import Kartice from './Kartice.svelte';
+  import Neobicno from './Neobicno.svelte';
+  import PreuzmiPodatke from './PreuzmiPodatke.svelte';
   import { siroko } from './ekran.js';
   import TipOpcine from './TipOpcine.svelte';
   import PopisPrica from './PopisPrica.svelte';
@@ -41,7 +43,7 @@
           godina: pokazatelj.godina,
           // Shown when the name is tapped: what the number means in plain words, then
           // the official name and how it is calculated, for the exact definition.
-          objasnjenje: pokazatelj.objasnjenje,
+          objasnjenje: objasnjenjeZa(pokazatelj, $view.razina),
           sluzbeniNaziv: pokazatelj.naziv,
           napomena: pokazatelj.napomena,
           poStanovniku: o.poStanovniku,
@@ -205,6 +207,7 @@
             {/if}
 
             {#if $view.razina === 'jls'}<GradskiFiltri /><EuProjektiPopis />{/if}
+            <PreuzmiPodatke />
           {:else if aktivna === 'price'}
             <PopisPrica />
           {:else if aktivna === 'usporedba'}
@@ -212,6 +215,8 @@
               <GrafUsporedbe />
             {:else}
               <TipOpcine />
+              <!-- How this place differs from similar ones: a comparison, so it lives here. -->
+              <Neobicno />
               <UsporedbaSlicnih />
             {/if}
           {:else}

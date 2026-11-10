@@ -6,11 +6,15 @@
 // municipality in it, they are per JLS of that county, so the map ranks its cities and
 // municipalities against each other. A county whose tema has nothing for its cities
 // (Imovina) falls back to county values. `razina` says which.
+//
+// During a story a scene can colour the map by its own indicator (kartaPrice.js); it
+// takes the tema's place at whichever level the indicator has.
 
 import { derived } from 'svelte/store';
 import { view } from '../state.js';
 import { ocitaj, podaci } from './podaci.js';
-import { TEME_POKAZATELJI, jednostavniNaziv } from './teme.js';
+import { kartaPrice } from './kartaPrice.js';
+import { TEME_POKAZATELJI, jednostavniNaziv, objasnjenjeZa } from './teme.js';
 import { engleski, t } from '../jezik.js';
 
 /**
@@ -39,15 +43,16 @@ import { engleski, t } from '../jezik.js';
  * (e.g. Imovina for cities and municipalities).
  * @type {import('svelte/store').Readable<Indicator | null>}
  */
-export const indicator = derived([view, podaci], ([v, p]) => {
+export const indicator = derived([view, podaci, kartaPrice], ([v, p, zaPricu]) => {
   if (!p.meta) return null;
 
-  const kljucJls = TEME_POKAZATELJI[v.tema].karta.jls;
+  const zamjena = zaPricu && p.meta.pokazatelji[zaPricu] ? zaPricu : null;
+  const kljucJls = zamjena ?? TEME_POKAZATELJI[v.tema].karta.jls;
   const jlsMoguce = Boolean(kljucJls && p.meta.pokazatelji[kljucJls]?.razine.includes('jls'));
   if (v.razina === 'jls' && !jlsMoguce) return null;
   // Until jls.json has loaded, a county shows its own value rather than nothing.
   const razina = v.razina !== 'drzava' && jlsMoguce && p.jls ? 'jls' : 'zupanija';
-  const kljuc = TEME_POKAZATELJI[v.tema].karta[razina];
+  const kljuc = zamjena ?? TEME_POKAZATELJI[v.tema].karta[razina];
   const pokazatelj = kljuc ? p.meta.pokazatelji[kljuc] : null;
   if (!pokazatelj?.razine.includes(razina)) return null;
 
@@ -77,7 +82,8 @@ export const indicator = derived([view, podaci], ([v, p]) => {
     kljuc,
     razina,
     title: jednostavniNaziv(kljuc, pokazatelj),
-    objasnjenje: pokazatelj.objasnjenje ?? '',
+    // The map's legend describes the level it colours: counties for the country.
+    objasnjenje: objasnjenjeZa(pokazatelj, razina),
     unit: jedinica,
     decimale,
     godina: pokazatelj.godina,

@@ -15,6 +15,8 @@ Polja:
   izvor          id skupa iz data/sources.csv (ili zbirni id, vidi build.ZBIRNI_IZVORI)
   napomena       kako je broj izračunat, za one koji žele točnu definiciju (neobavezno)
   objasnjenje    što broj znači, jednostavnim riječima, za panel i legendu (obavezno)
+  objasnjenje_zupanija  isto za županiju i državu, kad se objasnjenje odnosi samo na grad
+                 ili općinu (neobavezno; sučelje inače koristi objasnjenje)
 
 Godinu svakog pokazatelja upisuje build.py iz samog izvora (polje `godina` u meta.json).
 """
@@ -276,6 +278,9 @@ POKAZATELJI: dict[str, dict] = {
         "objasnjenje": "Sav novac koji je grad ili općina primila u godini: porezi, naknade, "
         "pomoći države i EU te prodaja imovine. Za županiju zbrajamo i sve "
         "njezine gradove i općine.",
+        "objasnjenje_zupanija": "Sav novac koji je lokalna samouprava na tom području "
+        "(županija, gradovi i općine) primila u godini: porezi, naknade, pomoći države i EU te "
+        "prodaja imovine.",
     },
     "lokalni_rashodi": {
         "naziv": "Rashodi lokalnog proračuna",
@@ -289,18 +294,24 @@ POKAZATELJI: dict[str, dict] = {
         "županije i svih njezinih gradova i općina; za državu: zbroj svih lokalnih proračuna.",
         "objasnjenje": "Sav novac koji je grad ili općina potrošila u godini: plaće, materijal, "
         "usluge, pomoći građanima i ulaganja.",
+        "objasnjenje_zupanija": "Sav novac koji je lokalna samouprava na tom području "
+        "(županija, gradovi i općine) potrošila u godini: plaće, materijal, usluge, pomoći "
+        "građanima i ulaganja.",
     },
     "lokalna_ulaganja": {
-        "naziv": "Ulaganja lokalnog proračuna",
+        "naziv": "Ulaganja lokalnog proračuna (godišnji prosjek)",
         "tema": "novac",
         "jedinica": "EUR",
         "decimale": 0,
         "po_stanovniku": _PO_ST_EUR,
         "razine": ["drzava", "zupanija", "jls"],
         "izvor": "mfin-lokalni-proracuni",
-        "napomena": "Rashodi za nabavu nefinancijske imovine (ceste, zgrade, oprema).",
+        "napomena": "Rashodi za nabavu nefinancijske imovine (ceste, zgrade, oprema), godišnji "
+        "prosjek zadnje tri godine ostvarenja proračuna. Za županiju: županija i svi njezini "
+        "gradovi i općine.",
         "objasnjenje": "Dio rashoda koji je otišao u trajnu imovinu: ceste, zgrade, vrtiće, "
-        "opremu. Pokazuje koliko se gradi, a ne samo troši.",
+        "opremu. Pokazuje koliko se gradi, a ne samo troši. Uzimamo prosjek zadnje tri godine, "
+        "jer jedan veliki projekt može jednu godinu višestruko povećati.",
     },
     "saldo_lokalnog_proracuna": {
         "naziv": "Višak ili manjak lokalnog proračuna",
@@ -328,6 +339,9 @@ POKAZATELJI: dict[str, dict] = {
         "objasnjenje": "Od svakih 100 € prihoda, koliko je grad ili općina dobila od države, EU "
         "ili drugih proračuna, a nije prikupila sama. Visok udio znači veću "
         "ovisnost o tuđem novcu, ali uključuje i EU novac za projekte.",
+        "objasnjenje_zupanija": "Od svakih 100 € prihoda lokalne samouprave na tom području "
+        "(županija, gradovi i općine), koliko je došlo od države, EU ili drugih proračuna. Visok "
+        "udio znači veću ovisnost o tuđem novcu, ali uključuje i EU novac za projekte.",
     },
     # --- Porezi ---
     "porez_na_dohodak": {
@@ -431,6 +445,9 @@ POKAZATELJI: dict[str, dict] = {
         "gradovi i općine.",
         "objasnjenje": "Koliko je grad ili općina dobila od poreza koji plaća kupac nekretnine "
         "na njezinu području. Što se više nekretnina proda i što su skuplje, to je iznos veći.",
+        "objasnjenje_zupanija": "Koliko je lokalna samouprava na tom području (županija, "
+        "gradovi i općine) dobila od poreza koji plaća kupac nekretnine. Što se više nekretnina "
+        "proda i što su skuplje, to je iznos veći.",
     },
     "prihodi_od_imovine": {
         "naziv": "Prihodi od nefinancijske imovine",
@@ -445,6 +462,9 @@ POKAZATELJI: dict[str, dict] = {
         "gradovi i općine.",
         "objasnjenje": "Koliko grad ili općina zaradi od svoje imovine: zakupa i najma prostora i "
         "zemljišta, koncesija i naknada za korištenje.",
+        "objasnjenje_zupanija": "Koliko lokalna samouprava na tom području (županija, gradovi i "
+        "općine) zaradi od svoje imovine: zakupa i najma prostora i zemljišta, koncesija i "
+        "naknada za korištenje.",
     },
     "pravne_osobe_aktivne": {
         "naziv": "Aktivne pravne osobe",
@@ -472,6 +492,9 @@ POKAZATELJI: dict[str, dict] = {
         "gradovi i općine.",
         "objasnjenje": "Koliko je grad ili općina u pet godina ugovorila kroz javnu nabavu: "
         "radove, robu i usluge, npr. ceste, zgrade, energiju i održavanje.",
+        "objasnjenje_zupanija": "Koliko su uprave županije, gradova i općina na tom području u "
+        "pet godina ugovorile kroz javnu nabavu: radove, robu i usluge, npr. ceste, zgrade, "
+        "energiju i održavanje.",
     },
     "nabava_najveci_dobavljac": {
         "naziv": "Udio najvećeg dobavljača u javnoj nabavi",

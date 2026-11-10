@@ -13,7 +13,10 @@ import { formatVrijednost } from '../data/format.js';
  * @property {import('../state.js').Razina} razina
  * @property {'najveci' | 'najmanji'} [odabir] How to pick the area (not for drzava).
  * @property {string} [sifra] A fixed area instead of `odabir`.
- * @property {string} [pokazatelj] Indicator key for `odabir` and {vrijednost}.
+ * @property {string} [pokazatelj] Indicator key for `odabir` and {vrijednost}; the map is
+ *   coloured by it too, at whichever level it has (src/data/kartaPrice.js).
+ * @property {string} [karta] Indicator the map is coloured by, for a scene without
+ *   `pokazatelj` or when the map should show something else.
  * @property {import('../state.js').Tema} tema
  * @property {import('../state.js').Mjera} mjera
  * @property {boolean} [eu] Show the EU projects layer.

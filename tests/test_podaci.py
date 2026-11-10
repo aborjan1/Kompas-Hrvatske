@@ -122,6 +122,19 @@ def test_engleski_tekstovi(meta):
     assert set(en["eu_pozivi"]["pozivi"]) == {p["id"] for p in ucitaj("eu-pozivi.json")["pozivi"]}
 
 
+def test_uvidi(meta):
+    jls = ucitaj("jls.json")["podrucja"]
+    u = ucitaj("uvidi.json")
+    assert set(u["podrucja"]) == set(jls), "uvidi.json mora imati sve gradove i općine"
+    for sifra, uvidi in u["podrucja"].items():
+        assert len(uvidi) <= 3, sifra
+        for x in uvidi:
+            assert x["kljuc"] in meta["pokazatelji"], sifra
+            assert "jls" in meta["pokazatelji"][x["kljuc"]]["razine"], sifra
+            assert abs(x["z"]) >= u["prag"] and x["smjer"] in ("vise", "manje"), sifra
+            assert (x["vrijednost"] > x["slicni"]) == (x["smjer"] == "vise"), sifra
+
+
 def test_tipologija(meta):
     j = ucitaj("jls.json")["podrucja"]
     tipovi = meta["tipologija"]["tipovi"]
@@ -161,6 +174,11 @@ def test_proracuni():
     for sifra, v in p["podrucja"].items():
         assert len(v["prihodi"]) == len(v["rashodi"]) == len(v["ulaganja"]) == n, sifra
         assert set(v["funkcije"]) == set(p["funkcije"]), sifra
+    # Ulaganja na karti = godišnji prosjek zadnje tri godine iz istih proračuna.
+    sve = jls | ucitaj("zupanije.json")["podrucja"] | {"HR": ucitaj("drzava.json")}
+    for sifra, podrucje in sve.items():
+        prosjek = sum(p["podrucja"][sifra]["ulaganja"][-3:]) / 3
+        assert abs(podrucje["pokazatelji"]["lokalna_ulaganja"] - prosjek) <= 2, sifra
 
 
 def test_gradovi_meta_i_datoteke():

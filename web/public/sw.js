@@ -19,10 +19,12 @@ self.addEventListener('fetch', (event) => {
 });
 
 // Mapbox adds a per-map-load `sku` to every tile URL; without dropping it a tile
-// stored on one visit would never match on the next.
+// stored on one visit would never match on the next. The access token goes too: a tile
+// stored with the first token serves the backup one (src/map/config.js) just as well.
 function cacheKey(url) {
   const u = new URL(url);
   u.searchParams.delete('sku');
+  u.searchParams.delete('access_token');
   return u.href;
 }
 
